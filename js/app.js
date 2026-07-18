@@ -211,6 +211,7 @@
     const copy = ui();
     const projects = getProjects();
     const project = projects.find((item) => item.id === state.pid) || projects[0];
+    const projectIndex = projects.findIndex((item) => item.id === project.id);
     const hud = copy.hud[project.id].map((value, index) => `<li><span>${copy.hudLabels[index]}</span>${Array.isArray(value) ? bulletList(value) : `<strong>${value}</strong>`}</li>`).join('');
     const links = project.links.map((link) => `<a class="link-btn" href="${link.url}" target="_blank" rel="noopener">${link.icon} ${link.label} ↗</a>`).join('');
     const summaryItems = Array.isArray(project.productSummary)
@@ -281,7 +282,7 @@
           </section>
           ${sourceNotice}
       </div>
-      <nav class="detail-nav" aria-label="${tr.sideQuestTitle}"><button class="btn-pager" type="button" data-pager="prev">◀ ${tr.prev}</button><button class="btn-pager" type="button" data-pager="next">${tr.next} ▶</button></nav>
+      <nav class="detail-nav" aria-label="${tr.sideQuestTitle}">${projectIndex > 0 ? `<button class="btn-pager" type="button" data-pager="prev">◀ ${tr.prev}</button>` : ''}${projectIndex < projects.length - 1 ? `<button class="btn-pager" type="button" data-pager="next">${tr.next} ▶</button>` : ''}</nav>
     </article>`;
   }
 
