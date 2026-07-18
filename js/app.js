@@ -99,6 +99,11 @@
     return `<span class="stack-icon stack-icon-fallback">${rule?.label || skill.slice(0, 2).toUpperCase()}</span>`;
   }
 
+  function bulletList(value) {
+    if (!Array.isArray(value)) return value;
+    return `<ul class="bullet-list">${value.map((item) => `<li>${item}</li>`).join('')}</ul>`;
+  }
+
   function renderNav() {
     const copy = ui();
     document.querySelector('.skip-link').textContent = copy.skip;
@@ -167,8 +172,8 @@
             <h3 class="mission-name">${project.name}</h3>
             <p class="mission-summary">${project.desc}</p>
             <dl class="mission-facts">
-              <div><dt>${copy.projectContribution}</dt><dd>${listCopy.contribution}</dd></div>
-              <div><dt>${copy.projectImplementation}</dt><dd>${listCopy.implementation}</dd></div>
+              <div><dt>${copy.projectContribution}</dt><dd>${bulletList(listCopy.contribution)}</dd></div>
+              <div><dt>${copy.projectImplementation}</dt><dd>${bulletList(listCopy.implementation)}</dd></div>
             </dl>
           </div>
           <div class="mission-side">
@@ -206,7 +211,7 @@
     const copy = ui();
     const projects = getProjects();
     const project = projects.find((item) => item.id === state.pid) || projects[0];
-    const hud = copy.hud[project.id].map((value, index) => `<li><span>${copy.hudLabels[index]}</span><strong>${value}</strong></li>`).join('');
+    const hud = copy.hud[project.id].map((value, index) => `<li><span>${copy.hudLabels[index]}</span>${Array.isArray(value) ? bulletList(value) : `<strong>${value}</strong>`}</li>`).join('');
     const links = project.links.map((link) => `<a class="link-btn" href="${link.url}" target="_blank" rel="noopener">${link.icon} ${link.label} ↗</a>`).join('');
     const summaryItems = Array.isArray(project.productSummary)
       ? project.productSummary
@@ -228,7 +233,7 @@
     const shotLabels = copy.shotLabels[project.id] || [imageLabel, imageLabel];
     const sourceNotice = project.verified ? '' : `<aside class="panel panel-todo">${tr.dTodo}</aside>`;
     const windowBar = (id, title, meta) => `<header class="window-bar"><h2 id="${id}">${title}</h2>${meta ? `<span class="window-meta">${meta}</span>` : '<span class="window-deco" aria-hidden="true">▚▚▚</span>'}</header>`;
-    const roleRows = (project.rolePhases || [{ period: project.period, role: project.role, team: project.team }]).map((item) => `<tr><th scope="row" class="${item.phase ? '' : 'period-only'}" data-label="${copy.statusLabels.period}">${item.phase ? `<strong>${item.phase}</strong>` : ''}<span>${item.period || project.period}</span></th><td data-label="${copy.statusLabels.team}">${item.team}</td><td data-label="${copy.roleLabel}">${item.role}</td></tr>`).join('');
+    const roleRows = (project.rolePhases || [{ period: project.period, role: project.role, team: project.team }]).map((item) => `<tr><th scope="row" class="${item.phase ? '' : 'period-only'}" data-label="${copy.statusLabels.period}">${item.phase ? `<strong>${item.phase}</strong>` : ''}<span>${item.period || project.period}</span></th><td data-label="${copy.statusLabels.team}">${item.team}</td><td data-label="${copy.roleLabel}">${bulletList(item.role)}</td></tr>`).join('');
 
     document.title = `${project.name} | JOOWON.EXE`;
     app.innerHTML = `<article class="detail">

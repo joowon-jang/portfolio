@@ -91,15 +91,14 @@ const I18N = {
     dTodo: '※ 스크린샷은 실제 서비스 화면 자료로 교체 예정입니다.',
     projects: [
       { id: 'p1', name: '페이스리뷰', badge: '🏆', desc: '웹캠 표정을 다섯 감정으로 분석해 시청 반응과 영상 추천으로 연결한 서비스', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: '최초 개발 4인 · 리팩터링 2인', verified: true,
-        role: '2023 프론트엔드 개발 및 5종 감정 분류 모델 직접 학습 · 2026 프론트엔드 리팩터링 전담',
         rolePhases: [
-          { phase: '최초 개발', period: '2023.10 ~ 2023.12', role: '프론트엔드 개발 · 5종 감정 분류 모델 학습', team: '프론트엔드 2명 · 백엔드 1명 · AI·백엔드 1명' },
-          { phase: '1차 리팩터링', period: '2026.01 ~ 2026.04', role: '프론트엔드 전담 · 리팩터링 기획 및 기반 전환', team: '프론트엔드 1명 · 백엔드 1명' },
-          { phase: '2차 리팩터링', period: '2026.07', role: '프론트엔드 전담 · UI·기능 구현 및 배포', team: '프론트엔드 1명 · 백엔드 1명' }
+          { phase: '최초 개발', period: '2023.10 ~ 2023.12', role: ['프론트엔드 개발', '5종 감정 분류 모델 학습'], team: '프론트엔드 2명 · 백엔드 1명 · AI·백엔드 1명' },
+          { phase: '1차 리팩터링', period: '2026.01 ~ 2026.04', role: ['프론트엔드 전담', '리팩터링 기획·기반 전환'], team: '프론트엔드 1명 · 백엔드 1명' },
+          { phase: '2차 리팩터링', period: '2026.07', role: ['프론트엔드 전담', 'UI·기능 구현·배포'], team: '프론트엔드 1명 · 백엔드 1명' }
         ],
         list: {
-          contribution: '2023 프론트엔드 개발·5종 감정 분류 모델 직접 학습 · 2026 프론트엔드 리팩터링 전담',
-          implementation: '감정 타임라인·영상 컨트롤 · 검색/즐겨찾기 · 반응형/접근성/SSG'
+          contribution: ['2023: 프론트엔드 개발·감정 분석 모델 직접 학습', '2026: 프론트엔드 리팩터링 전담'],
+          implementation: ['감정 타임라인·영상 컨트롤', '검색·즐겨찾기', '반응형·접근성·SSG']
         },
         productSummary: [
           '시청 중 웹캠 프레임을 Socket.IO로 전송 — AI Hub 데이터셋으로 직접 학습한 TensorFlow 모델이 행복·놀람·분노·슬픔·무표정 5감정으로 분류',
@@ -154,9 +153,9 @@ const I18N = {
           '배포 인프라를 AWS → 온프레미스(Docker·nginx·GitHub Actions) → Vercel로 직접 이전'
         ] },
       { id: 'p2', name: '토도동', badge: '🏀', desc: 'NBA 경기의 실시간 문자 중계와 경기별 채팅을 함께 제공하는 플랫폼', period: '2025.02 ~ 2025.05', team: '팀 프로젝트 (4인)',
-        role: '프론트엔드 — 아키텍처·SSR 전략 설계 · 실시간 중계/채팅 UI',
-        list: { contribution: '프론트엔드 아키텍처·SSR 전략 설계 · 실시간 중계/채팅 UI', implementation: 'Clean Architecture 계층 분리 · 페이지별 SSR 메타데이터' },
-        bullets: ['NBA 경기를 실시간 문자 중계로 보여주고, 같은 경기를 보는 팬들과 채팅할 수 있는 플랫폼입니다.', '경기 일정·팀 순위·선수 기록까지 한곳에서 확인할 수 있어 하이라이트가 아닌 "진행 중인 경기"를 함께 즐기는 경험에 집중했습니다.', '검색 노출과 SNS 공유가 필요한 페이지는 SSR로 처리해 페이지별 메타데이터를 제공했습니다.', 'UI와 DB가 바뀌어도 비즈니스 로직이 보호되도록 Clean Architecture 기반으로 계층을 분리했습니다.'],
+        role: ['실시간 중계/채팅 UI', 'SSR 전략 설계', '백엔드 Clean Architecture 계층 분리'],
+        list: { contribution: ['실시간 중계/채팅 UI', 'SSR 전략 설계', '백엔드 Clean Architecture 계층 분리'], implementation: ['페이지별 SSR 메타데이터', '백엔드 계층 분리(entities/use-cases/adapters)'] },
+        bullets: ['NBA 경기를 실시간 문자 중계로 보여주고, 같은 경기를 보는 팬들과 채팅할 수 있는 플랫폼입니다.', '경기 일정·팀 순위·선수 기록까지 한곳에서 확인할 수 있어 하이라이트가 아닌 "진행 중인 경기"를 함께 즐기는 경험에 집중했습니다.', '검색 노출과 SNS 공유가 필요한 페이지는 SSR로 처리해 페이지별 메타데이터를 제공했습니다.', '백엔드는 UI와 DB가 바뀌어도 비즈니스 로직이 보호되도록 Clean Architecture 기반으로 계층을 분리했습니다.'],
         flow: ['NBA 경기 데이터 수신', '실시간 문자 중계', '경기별 채팅', '일정·순위·기록 제공'],
         features: [
           { name: '실시간 문자 중계', desc: '경기 이벤트(득점·파울·교체)를 실시간으로 수신해 타임라인 형태로 표시' },
@@ -164,16 +163,16 @@ const I18N = {
           { name: '일정 · 순위 · 기록', desc: '경기 일정과 팀 순위, 선수 스탯을 종합 제공' },
           { name: 'SSR 메타데이터', desc: '경기·팀 페이지를 SSR로 렌더링해 검색 노출과 SNS 공유 미리보기 최적화' }
         ],
-        roles: ['프론트엔드 아키텍처 설계 — Clean Architecture 기반 계층 분리(entities/use-cases/adapters)로 UI·DB 변경에서 비즈니스 로직 보호', 'SSR 렌더링 전략 수립 — 페이지 특성에 따라 SSR/CSR을 구분 적용하고 페이지별 메타데이터 생성', '실시간 채팅 UI 및 중계 타임라인 구현'],
+        roles: ['백엔드 아키텍처 설계 — Clean Architecture 기반 계층 분리(entities/use-cases/adapters)로 UI·DB 변경에서 비즈니스 로직 보호', 'SSR 렌더링 전략 수립 — 페이지 특성에 따라 SSR/CSR을 구분 적용하고 페이지별 메타데이터 생성', '실시간 채팅 UI 및 중계 타임라인 구현'],
         troubles: [
           { problem: '실시간 중계 데이터와 채팅 메시지가 동시에 쏟아질 때 리렌더링이 폭증하는 문제', solution: '상태를 중계/채팅 스토어로 분리하고 메시지 배치 업데이트를 적용해 렌더링 횟수를 크게 줄였습니다.' },
           { problem: '아키텍처 계층을 나누자 초기 개발 속도가 느려지고 팀원들의 진입 장벽이 생긴 문제', solution: '계층별 책임과 의존 방향을 문서화하고 보일러플레이트 템플릿을 만들어, 구조의 이점은 유지하면서 개발 속도를 회복했습니다.' }
         ],
         stack: ['Next.js', 'TypeScript', 'SCSS', 'Prisma', 'Socket.IO', 'Clean Architecture'],
-        outcome: '프론트엔드 아키텍처와 SSR 렌더링 전략을 설계하고, 실시간 문자 중계·경기별 채팅 UI를 구현했습니다.' },
+        outcome: ['백엔드 Clean Architecture 계층 분리·SSR 렌더링 전략 설계', '실시간 문자 중계·경기별 채팅 UI 구현'] },
       { id: 'p3', name: '해마디', badge: '📔', desc: '하루의 감정을 기록하고 그 흐름을 시각화해 돌아보는 일기 서비스', period: '2024.08 ~ 2024.11', team: '팀 프로젝트 (3인)',
-        role: '프론트엔드·스크럼 마스터 — 일기 작성 흐름·감정 시각화 UI · 상태/모션 시스템',
-        list: { contribution: '일기 작성 흐름·감정 시각화 UI · Zustand 상태 구조 설계', implementation: '반응형 분기 일원화 · 공통 Framer Motion variants' },
+        role: ['일기 작성 흐름·감정 시각화 UI', '상태/모션 시스템 설계', '스크럼 마스터'],
+        list: { contribution: ['일기 작성 흐름·감정 시각화 UI', 'Zustand 상태 구조 설계'], implementation: ['반응형 분기 일원화', '공통 Framer Motion variants'] },
         bullets: ['하루의 감정을 기록하고 돌아볼 수 있는 감정 관리 일기 서비스입니다.', '일기를 쓰면 감정이 바다의 "마디"로 시각화되어, 시간이 지날수록 나만의 감정 지도가 만들어집니다.', 'Zustand와 CSS 미디어 쿼리를 활용해 유지보수 가능한 반응형 UI를 구현했습니다.', 'Framer Motion으로 사용자 상호작용 모션을 구현해 기록하는 경험 자체가 즐겁도록 만들었습니다.'],
         flow: ['감정 태그 선택', '하루 기록 작성', '색·형태로 감정 시각화', '월간 감정 흐름 회고'],
         features: [
@@ -188,7 +187,7 @@ const I18N = {
           { problem: '페이지 전환 모션이 컴포넌트 언마운트와 충돌해 뚝 끊기는 문제', solution: 'AnimatePresence로 exit 모션을 보장하고 공통 variants를 정의해 전환이 자연스럽게 이어지도록 했습니다.' }
         ],
         stack: ['React', 'TanStack Query', 'Zustand', 'Framer Motion', 'Google Gemini', 'PocketBase'],
-        outcome: '일기 작성 흐름과 감정 시각화 UI를 구현하고, 반응형 상태 구조와 공통 모션 시스템을 정리했습니다.' }
+        outcome: ['일기 작성 흐름·감정 시각화 UI 구현', '반응형 상태 구조·공통 모션 시스템 정리'] }
     ]
   },
   en: {
@@ -246,15 +245,14 @@ const I18N = {
     dTodo: '※ Screenshots will be replaced with actual product screens.',
     projects: [
       { id: 'p1', name: 'Face Review', badge: '🏆', desc: 'A service that turns five emotions inferred from webcam expressions into viewing reactions and video recommendations', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: 'Original team of 4 · Refactoring team of 2', verified: true,
-        role: '2023 frontend development and hands-on training of the five-emotion classifier · sole frontend owner of the 2026 refactoring',
         rolePhases: [
-          { phase: 'Original build', period: '2023.10 – 2023.12', role: 'Frontend development · five-emotion classifier training', team: 'Frontend 2 · Backend 1 · AI & Backend 1' },
-          { phase: '1st refactoring', period: '2026.01 – 2026.04', role: 'Sole frontend owner · planning and foundation migration', team: 'Frontend 1 · Backend 1' },
-          { phase: '2nd refactoring', period: '2026.07', role: 'Sole frontend owner · UI, feature delivery and deployment', team: 'Frontend 1 · Backend 1' }
+          { phase: 'Original build', period: '2023.10 – 2023.12', role: ['Frontend development', 'Five-emotion classifier training'], team: 'Frontend 2 · Backend 1 · AI & Backend 1' },
+          { phase: '1st refactoring', period: '2026.01 – 2026.04', role: ['Sole frontend owner', 'Planning · foundation migration'], team: 'Frontend 1 · Backend 1' },
+          { phase: '2nd refactoring', period: '2026.07', role: ['Sole frontend owner', 'UI & feature delivery · deployment'], team: 'Frontend 1 · Backend 1' }
         ],
         list: {
-          contribution: '2023 frontend development and hands-on training of the five-emotion classifier · sole frontend owner of the 2026 refactoring',
-          implementation: 'Emotion timeline and video controls · search/bookmarks · responsive UI, accessibility, and SSG'
+          contribution: ['2023: frontend development · trained the emotion classifier', '2026: sole frontend owner of the refactoring'],
+          implementation: ['Emotion timeline · video controls', 'Search · bookmarks', 'Responsive · accessibility · SSG']
         },
         productSummary: [
           'Webcam frames stream over Socket.IO while watching — a TensorFlow model trained directly on the AI Hub dataset classifies five emotions: happy, surprise, angry, sad, neutral',
@@ -309,9 +307,9 @@ const I18N = {
           'Migrated deployment hands-on: AWS → on-premises (Docker, nginx, GitHub Actions) → Vercel'
         ] },
       { id: 'p2', name: 'Tododong', badge: '🏀', desc: 'A platform combining live NBA text play-by-play with per-game chat', period: '2025.02 ~ 2025.05', team: 'Team of 4',
-        role: 'Frontend — architecture & SSR strategy · live play-by-play and chat UI',
-        list: { contribution: 'Frontend architecture and SSR strategy · live feed and chat UI', implementation: 'Clean Architecture layers · per-page SSR metadata' },
-        bullets: ['A platform for following NBA games through live text play-by-play and chatting with fans watching the same game.', 'Schedules, standings, and player stats in one place — focused on enjoying games as they happen, not just highlights.', 'Pages needing search visibility and SNS sharing are server-rendered with per-page metadata.', 'Clean Architecture layering protects business logic from UI and DB changes.'],
+        role: ['Live play-by-play & chat UI', 'SSR strategy', 'Backend Clean Architecture layering'],
+        list: { contribution: ['Live play-by-play & chat UI', 'SSR strategy', 'Backend Clean Architecture layering'], implementation: ['Per-page SSR metadata', 'Backend layers (entities/use-cases/adapters)'] },
+        bullets: ['A platform for following NBA games through live text play-by-play and chatting with fans watching the same game.', 'Schedules, standings, and player stats in one place — focused on enjoying games as they happen, not just highlights.', 'Pages needing search visibility and SNS sharing are server-rendered with per-page metadata.', 'The backend is layered with Clean Architecture so business logic survives UI and DB changes.'],
         flow: ['Receive NBA game data', 'Live play-by-play', 'Per-game chat', 'Schedules, standings, and stats'],
         features: [
           { name: 'Live play-by-play', desc: 'Receives game events (scores, fouls, substitutions) in real time and renders them as a timeline' },
@@ -319,16 +317,16 @@ const I18N = {
           { name: 'Schedule · standings · stats', desc: 'Game schedules, team standings, and player stats in one view' },
           { name: 'SSR metadata', desc: 'Server-rendered game/team pages optimized for SEO and SNS link previews' }
         ],
-        roles: ['Designed the frontend architecture — Clean Architecture layering (entities/use-cases/adapters) shielding business logic from UI/DB changes', 'Defined the rendering strategy — SSR/CSR split by page type with per-page metadata generation', 'Built the live chat UI and play-by-play timeline'],
+        roles: ['Designed the backend architecture — Clean Architecture layering (entities/use-cases/adapters) shielding business logic from UI/DB changes', 'Defined the rendering strategy — SSR/CSR split by page type with per-page metadata generation', 'Built the live chat UI and play-by-play timeline'],
         troubles: [
           { problem: 'Simultaneous bursts of play-by-play data and chat messages caused re-render storms', solution: 'Split state into separate broadcast/chat stores and batched message updates, sharply reducing render counts.' },
           { problem: 'Architecture layering slowed initial development and raised the entry barrier for teammates', solution: 'Documented layer responsibilities and dependency direction, and provided boilerplate templates — keeping the structural benefits while recovering velocity.' }
         ],
         stack: ['Next.js', 'TypeScript', 'SCSS', 'Prisma', 'Socket.IO', 'Clean Architecture'],
-        outcome: 'Designed the frontend architecture and SSR strategy, then implemented live play-by-play and per-game chat interfaces.' },
+        outcome: ['Designed the backend Clean Architecture layering and SSR strategy', 'Implemented live play-by-play and per-game chat interfaces'] },
       { id: 'p3', name: 'Haemadi', badge: '📔', desc: 'A journal for recording daily emotions and reflecting on their visualized flow', period: '2024.08 ~ 2024.11', team: 'Team of 3',
-        role: 'Frontend · scrum master — journaling flow & emotion visualization UI · state and motion systems',
-        list: { contribution: 'Journaling flow and emotion-visualization UI · Zustand state structure', implementation: 'Centralized responsive branching · shared Framer Motion variants' },
+        role: ['Journaling flow & emotion visualization UI', 'State & motion systems', 'Scrum master'],
+        list: { contribution: ['Journaling flow & emotion-visualization UI', 'Zustand state structure'], implementation: ['Centralized responsive branching', 'Shared Framer Motion variants'] },
         bullets: ['A diary service for recording and reflecting on daily emotions.', 'Each entry becomes a visual "node" in your sea of emotions, building a personal emotional map over time.', 'Maintainable responsive UI built with Zustand and CSS media queries.', 'Framer Motion effects make the act of journaling itself enjoyable.'],
         flow: ['Choose an emotion tag', 'Write the day', 'Visualize emotion in color and form', 'Review the monthly emotional flow'],
         features: [
@@ -343,7 +341,7 @@ const I18N = {
           { problem: 'Page transition motion clashed with component unmounting, cutting transitions off abruptly', solution: 'Guaranteed exit motion with AnimatePresence and defined shared variants for seamless transitions.' }
         ],
         stack: ['React', 'TanStack Query', 'Zustand', 'Framer Motion', 'Google Gemini', 'PocketBase'],
-        outcome: 'Implemented the journaling flow and emotion-visualization UI, then organized responsive state and a shared motion system.' }
+        outcome: ['Implemented the journaling flow and emotion-visualization UI', 'Organized responsive state and a shared motion system'] }
     ]
   },
   ja: {
@@ -401,15 +399,14 @@ const I18N = {
     dTodo: '※ スクリーンショットは実際のサービス画面に差し替え予定です。',
     projects: [
       { id: 'p1', name: 'フェイスレビュー', badge: '🏆', desc: 'Webカメラの表情を5感情に分類し、視聴反応と動画推薦につなげるサービス', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: '初期開発4人 · リファクタリング2人', verified: true,
-        role: '2023年フロントエンド開発・5感情分類モデルを直接学習 · 2026年フロントエンドリファクタリング専任',
         rolePhases: [
-          { phase: '初期開発', period: '2023.10 ~ 2023.12', role: 'フロントエンド開発 · 5感情分類モデル学習', team: 'フロントエンド2人 · バックエンド1人 · AI・バックエンド1人' },
-          { phase: '1次リファクタリング', period: '2026.01 ~ 2026.04', role: 'フロントエンド専任 · 企画と基盤移行', team: 'フロントエンド1人 · バックエンド1人' },
-          { phase: '2次リファクタリング', period: '2026.07', role: 'フロントエンド専任 · UI・機能実装とデプロイ', team: 'フロントエンド1人 · バックエンド1人' }
+          { phase: '初期開発', period: '2023.10 ~ 2023.12', role: ['フロントエンド開発', '5感情分類モデル学習'], team: 'フロントエンド2人 · バックエンド1人 · AI・バックエンド1人' },
+          { phase: '1次リファクタリング', period: '2026.01 ~ 2026.04', role: ['フロントエンド専任', 'リファクタリング企画・基盤移行'], team: 'フロントエンド1人 · バックエンド1人' },
+          { phase: '2次リファクタリング', period: '2026.07', role: ['フロントエンド専任', 'UI・機能実装・デプロイ'], team: 'フロントエンド1人 · バックエンド1人' }
         ],
         list: {
-          contribution: '2023年フロントエンド開発・5感情分類モデルを直接学習 · 2026年フロントエンドリファクタリング専任',
-          implementation: '感情タイムライン・動画操作 · 検索/お気に入り · レスポンシブ/アクセシビリティ/SSG'
+          contribution: ['2023: フロントエンド開発・感情分析モデルを直接学習', '2026: フロントエンドリファクタリング専任'],
+          implementation: ['感情タイムライン・動画操作', '検索・お気に入り', 'レスポンシブ・アクセシビリティ・SSG']
         },
         productSummary: [
           '視聴中のWebカメラフレームをSocket.IOで送信 — AI Hubデータセットで直接学習したTensorFlowモデルが「喜び・驚き・怒り・悲しみ・無表情」の5感情に分類',
@@ -464,9 +461,9 @@ const I18N = {
           'デプロイインフラをAWS → オンプレミス（Docker・nginx・GitHub Actions）→ Vercelへ自ら移行'
         ] },
       { id: 'p2', name: 'トドドン', badge: '🏀', desc: 'NBAのリアルタイム文字中継と試合別チャットを一緒に提供するプラットフォーム', period: '2025.02 ~ 2025.05', team: 'チーム (4人)',
-        role: 'フロントエンド — 設計・SSR戦略 · リアルタイム中継/チャットUI',
-        list: { contribution: 'フロントエンド設計・SSR戦略 · リアルタイム中継/チャットUI', implementation: 'Clean Architectureの層分離 · ページ別SSRメタデータ' },
-        bullets: ['NBAの試合をリアルタイムのテキスト中継で追いながら、同じ試合を見るファンとチャットできるプラットフォームです。', '日程・順位・選手成績を一箇所で確認でき、ハイライトではなく「進行中の試合」を一緒に楽しむ体験に注力しました。', '検索露出とSNS共有が必要なページはSSRで処理し、ページ別メタデータを提供しました。', 'UIとDBが変わってもビジネスロジックが守られるよう、Clean Architectureベースで層を分離しました。'],
+        role: ['リアルタイム中継/チャットUI', 'SSR戦略の設計', 'バックエンドClean Architecture層分離'],
+        list: { contribution: ['リアルタイム中継/チャットUI', 'SSR戦略の設計', 'バックエンドClean Architecture層分離'], implementation: ['ページ別SSRメタデータ', 'バックエンド層分離(entities/use-cases/adapters)'] },
+        bullets: ['NBAの試合をリアルタイムのテキスト中継で追いながら、同じ試合を見るファンとチャットできるプラットフォームです。', '日程・順位・選手成績を一箇所で確認でき、ハイライトではなく「進行中の試合」を一緒に楽しむ体験に注力しました。', '検索露出とSNS共有が必要なページはSSRで処理し、ページ別メタデータを提供しました。', 'バックエンドはUIとDBが変わってもビジネスロジックが守られるよう、Clean Architectureベースで層を分離しました。'],
         flow: ['NBA試合データを受信', 'リアルタイム文字中継', '試合別チャット', '日程・順位・成績を提供'],
         features: [
           { name: 'リアルタイムテキスト中継', desc: '試合イベント（得点・ファウル・交代）をリアルタイムに受信しタイムライン形式で表示' },
@@ -474,16 +471,16 @@ const I18N = {
           { name: '日程 · 順位 · 成績', desc: '試合日程、チーム順位、選手スタッツを総合提供' },
           { name: 'SSRメタデータ', desc: '試合・チームページをSSRでレンダリングし、検索露出とSNSプレビューを最適化' }
         ],
-        roles: ['フロントエンドアーキテクチャ設計 — Clean Architectureの層分離（entities/use-cases/adapters）でビジネスロジックを保護', 'レンダリング戦略の策定 — ページ特性に応じたSSR/CSRの使い分けとページ別メタデータ生成', 'ライブチャットUIと中継タイムラインの実装'],
+        roles: ['バックエンドアーキテクチャ設計 — Clean Architectureの層分離（entities/use-cases/adapters）でビジネスロジックを保護', 'レンダリング戦略の策定 — ページ特性に応じたSSR/CSRの使い分けとページ別メタデータ生成', 'ライブチャットUIと中継タイムラインの実装'],
         troubles: [
           { problem: '中継データとチャットメッセージが同時に殺到すると再レンダリングが激増する問題', solution: '状態を中継/チャットのストアに分離し、メッセージのバッチ更新を適用してレンダリング回数を大幅に削減しました。' },
           { problem: '層の分離により初期開発速度が落ち、チームメンバーの参入障壁が生じた問題', solution: '層ごとの責務と依存方向をドキュメント化し、ボイラープレートを用意して、構造の利点を保ちつつ開発速度を回復しました。' }
         ],
         stack: ['Next.js', 'TypeScript', 'SCSS', 'Prisma', 'Socket.IO', 'Clean Architecture'],
-        outcome: 'フロントエンド設計とSSR戦略を構成し、リアルタイム文字中継・試合別チャットUIを実装しました。' },
+        outcome: ['バックエンドClean Architecture層分離・SSR戦略を設計', 'リアルタイム文字中継・試合別チャットUIを実装'] },
       { id: 'p3', name: 'ヘマディ', badge: '📔', desc: '一日の感情を記録し、その流れを可視化して振り返る日記サービス', period: '2024.08 ~ 2024.11', team: 'チーム (3人)',
-        role: 'フロントエンド·スクラムマスター — 日記作成フロー・感情可視化UI · 状態/モーション設計',
-        list: { contribution: '日記作成フロー・感情可視化UI · Zustand状態設計', implementation: 'レスポンシブ分岐の一元化 · 共通Framer Motion variants' },
+        role: ['日記作成フロー・感情可視化UI', '状態/モーション設計', 'スクラムマスター'],
+        list: { contribution: ['日記作成フロー・感情可視化UI', 'Zustand状態設計'], implementation: ['レスポンシブ分岐の一元化', '共通Framer Motion variants'] },
         bullets: ['一日の感情を記録し、振り返ることができる感情管理日記サービスです。', '日記を書くと感情が海の「節目」として可視化され、時間とともに自分だけの感情マップが作られます。', 'ZustandとCSSメディアクエリで保守可能なレスポンシブUIを実装しました。', 'Framer Motionでユーザー操作に応じたモーションを実装し、記録する体験自体が楽しくなるようにしました。'],
         flow: ['感情タグを選択', '一日を記録', '色と形で感情を可視化', '月間の感情推移を振り返る'],
         features: [
@@ -498,7 +495,7 @@ const I18N = {
           { problem: 'ページ遷移モーションがアンマウントと衝突し途切れる問題', solution: 'AnimatePresenceでexitモーションを保証し、共通variantsを定義して遷移が自然に繋がるようにしました。' }
         ],
         stack: ['React', 'TanStack Query', 'Zustand', 'Framer Motion', 'Google Gemini', 'PocketBase'],
-        outcome: '日記作成フローと感情可視化UIを実装し、レスポンシブ状態構造と共通モーションシステムを整理しました。' }
+        outcome: ['日記作成フロー・感情可視化UIを実装', 'レスポンシブ状態構造・共通モーションシステムを整理'] }
     ]
   }
 };
@@ -531,9 +528,9 @@ const UI_COPY = {
       p1: ['영상 위 감정 타임라인 그래프와 커스텀 재생 컨트롤이 표시된 페이스리뷰 시청 화면', '감정 분포 도넛 차트와 최근 시청 영상별 그래프가 표시된 페이스리뷰 마이페이지']
     },
     hud: {
-      p1: ['클릭·시청 기록만으로는 영상 구간별 감정 반응을 알기 어려움', '2023 프론트엔드 개발·5종 감정 분류 모델 직접 학습 · 2026 프론트엔드 리팩터링 전담', '창의설계경진대회 대상 · facereview.net 배포'],
-      p2: ['중계·채팅의 동시 업데이트', '프론트엔드 아키텍처·SSR·실시간 UI', '실시간 문자 중계·경기별 채팅·SSR 페이지 구현'],
-      p3: ['흩어진 반응형·모션 로직', '일기 작성 흐름·상태·모션 시스템', '감정 일기·시각화·반응형 UI 구현']
+      p1: ['클릭·시청 기록만으로는 영상 구간별 감정 반응을 알기 어려움', ['2023: 프론트엔드 개발·감정 분석 모델 직접 학습', '2026: 프론트엔드 리팩터링 전담'], ['창의설계경진대회 대상', 'facereview.net 배포']],
+      p2: ['중계·채팅의 동시 업데이트', ['백엔드 Clean Architecture 계층 분리', 'SSR 전략·실시간 UI'], ['실시간 문자 중계·경기별 채팅 구현', 'SSR 페이지 구현']],
+      p3: ['흩어진 반응형·모션 로직', ['일기 작성 흐름·감정 시각화 UI', '상태·모션 시스템 설계'], ['감정 일기·시각화 구현', '반응형 UI 구현']]
     },
     outcomeStatus: 'VERIFIED OUTCOME', screenshotsPending: '실제 화면 자료 준비 중', screenshotsReady: '실제 서비스 화면 · 2026.07'
   },
@@ -558,9 +555,9 @@ const UI_COPY = {
       p1: ['Face Review watch screen with an emotion timeline over the video and custom playback controls', 'Face Review profile screen with an emotion-distribution donut and graphs for recently watched videos']
     },
     hud: {
-      p1: ['Click and watch history alone cannot show emotional reactions by video segment', '2023 frontend development and hands-on training of the five-emotion classifier · sole frontend owner of the 2026 refactoring', 'Creative Design grand prize · facereview.net deployed'],
-      p2: ['Concurrent live feed and chat updates', 'Frontend architecture, SSR and real-time UI', 'Live play-by-play, per-game chat, and SSR pages implemented'],
-      p3: ['Scattered responsive and motion logic', 'Journaling flow, state and motion system', 'Emotion journal, visualization, and responsive UI implemented']
+      p1: ['Click and watch history alone cannot show emotional reactions by video segment', ['2023: frontend development · trained the emotion classifier', '2026: sole frontend owner of the refactoring'], ['Creative Design grand prize', 'facereview.net deployed']],
+      p2: ['Concurrent live feed and chat updates', ['Backend Clean Architecture layering', 'SSR strategy · real-time UI'], ['Live play-by-play & per-game chat', 'SSR pages']],
+      p3: ['Scattered responsive and motion logic', ['Journaling flow · emotion visualization UI', 'State & motion systems'], ['Emotion journal & visualization', 'Responsive UI']]
     },
     outcomeStatus: 'VERIFIED OUTCOME', screenshotsPending: 'Actual screen material coming soon', screenshotsReady: 'Live product screens · 2026.07'
   },
@@ -585,9 +582,9 @@ const UI_COPY = {
       p1: ['動画上の感情タイムラインとカスタム再生コントロールを表示するフェイスレビューの視聴画面', '感情分布ドーナツと最近見た動画別グラフを表示するフェイスレビューのマイページ']
     },
     hud: {
-      p1: ['クリック・視聴履歴だけでは動画区間ごとの感情反応が分からない', '2023年フロントエンド開発・5感情分類モデルを直接学習 · 2026年フロントエンドリファクタリング専任', '創意設計コンテスト大賞 · facereview.net公開'],
-      p2: ['実況とチャットの同時更新', 'FE設計・SSR・リアルタイムUI', '文字中継・試合別チャット・SSRページを実装'],
-      p3: ['分散したレスポンシブ・モーション処理', '日記作成フロー・状態・モーション設計', '感情日記・可視化・レスポンシブUIを実装']
+      p1: ['クリック・視聴履歴だけでは動画区間ごとの感情反応が分からない', ['2023: フロントエンド開発・感情分析モデルを直接学習', '2026: フロントエンドリファクタリング専任'], ['創意設計コンテスト大賞', 'facereview.net公開']],
+      p2: ['実況とチャットの同時更新', ['バックエンドClean Architecture層分離', 'SSR戦略・リアルタイムUI'], ['文字中継・試合別チャットを実装', 'SSRページを実装']],
+      p3: ['分散したレスポンシブ・モーション処理', ['日記作成フロー・感情可視化UI', '状態・モーション設計'], ['感情日記・可視化を実装', 'レスポンシブUIを実装']]
     },
     outcomeStatus: 'VERIFIED OUTCOME', screenshotsPending: '実際の画面資料を準備中', screenshotsReady: '実サービス画面 · 2026.07'
   }
