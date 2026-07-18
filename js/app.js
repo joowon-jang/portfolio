@@ -157,10 +157,7 @@
       </article>`;
     }).join('');
     const projectFiles = projects.map((project) => {
-      const listCopy = project.list || {
-        contribution: copy.hud[project.id][1],
-        implementation: copy.hud[project.id][2]
-      };
+      const listCopy = project.list;
       const stackPreview = project.stack.slice(0, 3).map((skill) => `<li>${skill}</li>`).join('');
       return `<li class="mission-item">
         <a class="mission-row" href="#${project.id}">
@@ -198,7 +195,7 @@
       <section class="section section-major" id="sec-projects" aria-labelledby="projects-title"><div class="project-section-head"><h2 class="section-title" id="projects-title">${tr.sideQuestTitle}</h2><p>${copy.projectGuide}</p></div><ul class="mission-list" role="list">${projectFiles}</ul></section>
       <section class="section section-minor" aria-labelledby="cert-title"><h2 class="section-title" id="cert-title">${tr.achieveTitle}</h2><ul class="cert-grid">${certs}</ul></section>
       <section class="section section-standard" id="sec-blog" aria-labelledby="blog-title"><div class="blog-head"><h2 class="section-title" id="blog-title">${tr.blogTitle}</h2></div><div class="blog-empty"><span class="empty-icon" aria-hidden="true">□</span><div><strong>${copy.blogEmptyTitle}</strong><p>${copy.blogEmptyDesc}</p></div><a class="empty-action" href="${CONTACT.blog.url}" target="_blank" rel="noopener">${copy.visitBlog} ↗</a></div></section>
-      <section class="section section-major contact" id="sec-contact" aria-labelledby="contact-title"><h2 class="section-title" id="contact-title">${tr.contactTitle}</h2><div class="contact-box"><div><span class="contact-label">EMAIL</span><a href="mailto:${CONTACT.email}">${CONTACT.email}</a></div><div><span class="contact-label">GITHUB</span><a href="${CONTACT.github.url}" target="_blank" rel="noopener">${CONTACT.github.label}</a></div><div><span class="contact-label">BLOG</span><a href="${CONTACT.blog.url}" target="_blank" rel="noopener">${CONTACT.blog.label}</a></div></div><footer class="footer"><span class="marker" aria-hidden="true">▶</span> ${tr.footer}</footer></section>
+      <section class="section section-major contact" id="sec-contact" aria-labelledby="contact-title"><h2 class="section-title" id="contact-title">${tr.contactTitle}</h2><div class="contact-box"><div><span class="contact-label">EMAIL</span><a href="mailto:${CONTACT.email}">${CONTACT.email}</a></div><div><span class="contact-label">GITHUB</span><a href="${CONTACT.github.url}" target="_blank" rel="noopener">${CONTACT.github.label}</a></div><div><span class="contact-label">BLOG</span><a href="${CONTACT.blog.url}" target="_blank" rel="noopener">${CONTACT.blog.label}</a></div><div><span class="contact-label">HUGGING FACE</span><a href="${CONTACT.huggingface.url}" target="_blank" rel="noopener">${CONTACT.huggingface.label}</a></div></div><footer class="footer"><span class="marker" aria-hidden="true">▶</span> ${tr.footer}</footer></section>
     </div>`;
     startTyping();
     observeSections();
@@ -211,49 +208,74 @@
     const project = projects.find((item) => item.id === state.pid) || projects[0];
     const hud = copy.hud[project.id].map((value, index) => `<li><span>${copy.hudLabels[index]}</span><strong>${value}</strong></li>`).join('');
     const links = project.links.map((link) => `<a class="link-btn" href="${link.url}" target="_blank" rel="noopener">${link.icon} ${link.label} ↗</a>`).join('');
-    const productCopy = project.productSummary
-      ? `<ul class="text-list"><li>${project.productSummary}</li></ul>`
-      : `<ul class="text-list">${project.bullets.map((bullet) => `<li>${bullet}</li>`).join('')}</ul>`;
+    const summaryItems = Array.isArray(project.productSummary)
+      ? project.productSummary
+      : (project.productSummary ? [project.productSummary] : project.bullets);
+    const productCopy = `<ul class="text-list">${summaryItems.map((item) => `<li>${item}</li>`).join('')}</ul>`;
     const features = project.features.map((feature) => `<li class="feature"><strong class="feature-name">${feature.name}</strong><p class="feature-desc">${feature.desc}</p></li>`).join('');
-    const roles = project.roles.map((role) => typeof role === 'string'
-      ? `<li>${role}</li>`
-      : `<li><strong>${role.title}</strong><p>${role.desc}</p></li>`).join('');
+    const roles = project.roles.map((role) => {
+      if (typeof role === 'string') return `<li><p class="timeline-desc">${role}</p></li>`;
+      const body = role.points
+        ? `<ul class="timeline-points">${role.points.map((point) => `<li>${point}</li>`).join('')}</ul>`
+        : `<p class="timeline-desc">${role.desc}</p>`;
+      return `<li><strong class="timeline-title">${role.title}</strong>${body}</li>`;
+    }).join('');
     const troubles = project.troubles.map((item) => `<li class="trouble"><strong class="trouble-problem"><span aria-hidden="true">⚠</span> ${item.problem}</strong><p class="trouble-solution"><span aria-hidden="true">→</span> ${item.solution}</p></li>`).join('');
     const stack = project.stack.map((skill) => `<li class="stack-chip"><span class="stack-icons" aria-hidden="true">${techIcons(skill)}</span><span>${skill}</span></li>`).join('');
-    const groupedStack = project.stackGroups?.map((group) => `<div class="stack-group"><h3 class="case-subtitle">${group.name}</h3><ul class="stack-chips" role="list">${group.items.map((skill) => `<li class="stack-chip"><span class="stack-icons" aria-hidden="true">${techIcons(skill)}</span><span>${skill}</span></li>`).join('')}</ul></div>`).join('');
+    const groupedStack = project.stackGroups?.map((group) => `<section class="stack-group"><h3 class="stack-group-title">${group.name}</h3><ul class="stack-chips" role="list">${group.items.map((skill) => `<li class="stack-chip"><span class="stack-icons" aria-hidden="true">${techIcons(skill)}</span><span>${skill}</span></li>`).join('')}</ul></section>`).join('');
     const flow = (project.flow || []).map((step) => `<li><span>${step}</span></li>`).join('');
     const imageLabel = copy.imageLabels[project.id];
     const shotLabels = copy.shotLabels[project.id] || [imageLabel, imageLabel];
     const sourceNotice = project.verified ? '' : `<aside class="panel panel-todo">${tr.dTodo}</aside>`;
+    const windowBar = (id, title, meta) => `<header class="window-bar"><h2 id="${id}">${title}</h2>${meta ? `<span class="window-meta">${meta}</span>` : '<span class="window-deco" aria-hidden="true">▚▚▚</span>'}</header>`;
+    const roleRows = (project.rolePhases || [{ period: project.period, role: project.role, team: project.team }]).map((item) => `<tr><th scope="row" class="${item.phase ? '' : 'period-only'}" data-label="${copy.statusLabels.period}">${item.phase ? `<strong>${item.phase}</strong>` : ''}<span>${item.period || project.period}</span></th><td data-label="${copy.statusLabels.team}">${item.team}</td><td data-label="${copy.roleLabel}">${item.role}</td></tr>`).join('');
 
     document.title = `${project.name} | JOOWON.EXE`;
     app.innerHTML = `<article class="detail">
       <a class="btn-back" href="#">◀ ${tr.back}</a>
-      <header class="detail-hero"><div class="detail-label">▶ ${tr.sideQuestLabel}</div><h1 class="detail-title">${project.name} ${project.badge}</h1><p class="detail-dek">${project.desc}</p><div class="detail-meta"><span>📅 ${project.period}</span><span>👥 ${project.team}</span></div><div class="detail-links">${links}</div></header>
-      <section class="brief-hud" aria-labelledby="brief-title"><h2 id="brief-title">${copy.hudTitle}</h2><ul>${hud}</ul></section>
-      <div class="case-log">
-        <section class="case-section case-service" aria-labelledby="overview-title">
-          <header class="case-section-head"><span class="case-step">01</span><h2 id="overview-title">${tr.dOverview}</h2></header>
-          <div class="case-section-body">${productCopy}${flow ? `<h3 class="case-subtitle">${copy.flowTitle}</h3><ol class="service-flow">${flow}</ol>` : ''}<div class="case-subheading"><h3 class="case-subtitle">${tr.dShots}</h3><span>${project.verified ? copy.screenshotsReady : copy.screenshotsPending}</span></div><div class="shot-grid"><figure class="shot">${imageSlot(`shot-${project.id}-1`, shotLabels[0], project.id, 1)}<figcaption>${shotLabels[0]}</figcaption></figure><figure class="shot">${imageSlot(`shot-${project.id}-2`, shotLabels[1], project.id, 2)}<figcaption>${shotLabels[1]}</figcaption></figure></div><h3 class="case-subtitle">${tr.dFeatures}</h3><ul class="feature-grid">${features}</ul></div>
-        </section>
-        <section class="case-section" aria-labelledby="role-title">
-          <header class="case-section-head"><span class="case-step">02</span><h2 id="role-title">${tr.dRole}</h2></header>
-          <div class="case-section-body"><ul class="text-list contribution-list-detail">${roles}</ul></div>
-        </section>
-        <section class="case-section" aria-labelledby="trouble-title">
-          <header class="case-section-head"><span class="case-step">03</span><h2 id="trouble-title">${tr.dTrouble}</h2></header>
-          <div class="case-section-body"><ul class="troubles">${troubles}</ul></div>
-        </section>
-        <section class="case-section case-result" aria-labelledby="outcome-title">
-          <header class="case-section-head"><span class="case-step">04</span><h2 id="outcome-title">${tr.dOutcome}</h2></header>
-          <div class="case-section-body"><div class="outcome-callout"><span class="outcome-status">${copy.outcomeStatus}</span><p class="outcome-text">${project.outcome}</p></div></div>
-        </section>
-        <section class="case-section case-loadout${groupedStack ? ' has-stack-groups' : ''}" aria-labelledby="stack-title">
-          <header class="case-section-head"><span class="case-step">05</span><h2 id="stack-title">${tr.dStack}</h2></header>
-          <div class="case-section-body">${groupedStack || `<ul class="stack-chips" role="list">${stack}</ul>`}</div>
-        </section>
+      <header class="detail-hero"><div class="detail-label">▶ ${tr.sideQuestLabel}</div><h1 class="detail-title">${project.name} ${project.badge}</h1><p class="detail-dek">${project.desc}</p></header>
+      <section class="window project-info" aria-labelledby="info-title">
+        ${windowBar('info-title', copy.statusTitle)}
+        <div class="project-info-body">
+          <div class="project-info-table-wrap"><table class="project-info-table"><thead><tr><th scope="col">${copy.statusLabels.period}</th><th scope="col">${copy.statusLabels.team}</th><th scope="col">${copy.roleLabel}</th></tr></thead><tbody>${roleRows}</tbody></table></div>
+          <div class="info-links-row"><span class="info-label">${copy.statusLabels.links}</span><div class="info-links">${links}</div></div>
+        </div>
+      </section>
+      <section class="window window-brief" aria-labelledby="brief-title">
+        ${windowBar('brief-title', copy.hudTitle)}
+        <ul class="brief-grid">${hud}</ul>
+      </section>
+      <div class="detail-main">
+          <section class="window window-outcome" aria-labelledby="outcome-title">
+            ${windowBar('outcome-title', tr.dOutcome)}
+            <div class="window-body"><span class="outcome-status">${copy.outcomeStatus}</span>${Array.isArray(project.outcome) ? `<ul class="text-list outcome-list">${project.outcome.map((item) => `<li>${item}</li>`).join('')}</ul>` : `<p class="outcome-text">${project.outcome}</p>`}</div>
+          </section>
+          <section class="window" aria-labelledby="overview-title">
+            ${windowBar('overview-title', tr.dOverview)}
+            <div class="window-body">${productCopy}${flow ? `<h3 class="window-subtitle">${copy.flowTitle}</h3><ol class="service-flow">${flow}</ol>` : ''}</div>
+          </section>
+          <section class="window" aria-labelledby="shots-title">
+            ${windowBar('shots-title', tr.dShots, project.verified ? copy.screenshotsReady : copy.screenshotsPending)}
+            <div class="window-body"><div class="shot-grid"><figure class="shot">${imageSlot(`shot-${project.id}-1`, shotLabels[0], project.id, 1)}<figcaption>${shotLabels[0]}</figcaption></figure><figure class="shot">${imageSlot(`shot-${project.id}-2`, shotLabels[1], project.id, 2)}<figcaption>${shotLabels[1]}</figcaption></figure></div></div>
+          </section>
+          <section class="window" aria-labelledby="features-title">
+            ${windowBar('features-title', tr.dFeatures)}
+            <div class="window-body"><ul class="feature-grid">${features}</ul></div>
+          </section>
+          <section class="window" aria-labelledby="role-title">
+            ${windowBar('role-title', tr.dRole)}
+            <div class="window-body"><ol class="timeline">${roles}</ol></div>
+          </section>
+          <section class="window" aria-labelledby="trouble-title">
+            ${windowBar('trouble-title', tr.dTrouble)}
+            <div class="window-body"><ul class="troubles">${troubles}</ul></div>
+          </section>
+          <section class="window" aria-labelledby="stack-title">
+            ${windowBar('stack-title', tr.dStack)}
+            <div class="window-body">${groupedStack || `<ul class="stack-chips" role="list">${stack}</ul>`}</div>
+          </section>
+          ${sourceNotice}
       </div>
-      ${sourceNotice}
       <nav class="detail-nav" aria-label="${tr.sideQuestTitle}"><button class="btn-pager" type="button" data-pager="prev">◀ ${tr.prev}</button><button class="btn-pager" type="button" data-pager="next">${tr.next} ▶</button></nav>
     </article>`;
   }
