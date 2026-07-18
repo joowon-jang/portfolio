@@ -32,7 +32,7 @@ const LINKS = {
 const LINK_LABELS = {
   ko: { live: '배포 사이트', repo: '프론트엔드 저장소', backend: '백엔드 저장소', code: '프로젝트 저장소' },
   en: { live: 'Live Site', repo: 'Frontend Repo', backend: 'Backend Repo', code: 'Project Repo' },
-  ja: { live: '公開サイト', repo: 'フロントエンド', backend: 'バックエンド', code: 'リポジトリ' }
+  ja: { live: '公開サイト', repo: 'フロントエンドリポジトリ', backend: 'バックエンドリポジトリ', code: 'プロジェクトリポジトリ' }
 };
 
 const I18N = {
@@ -212,7 +212,7 @@ const I18N = {
             desc: 'B2B industrial safety & health management solution',
             contributions: [
               { date: '2026.04', title: 'Improved WebView auth flow', desc: 'Moved JWT to HttpOnly cookie sessions, centralized auth on the server' },
-              { date: '2025.11', title: 'In-house Excel library in Rust (WASM)', desc: 'Enabled key features for sales demos and client acquisition' },
+              { date: '2025.11', title: 'In-house Excel library in Rust (WASM)', desc: 'Contributed to sales demos and client acquisition' },
               { date: '2025.10', title: 'HTTP/2 + nginx optimization', desc: '~20% faster average server response time' },
               { date: '2025.06', title: 'External SDK modularization', desc: 'Wrapper components that keep editor state across re-renders' },
               { date: '2025.05', title: 'SSO authentication', desc: 'OAuth2.0-based cross-service auth architecture' }
@@ -269,7 +269,7 @@ const I18N = {
         roles: [
           { title: '2023 · Original build (team of 4)', points: [
             'One of two frontend developers building the React service screens',
-            'Personally trained the five-emotion classifier used by the service'
+            'Personally trained the five-emotion classifier (happy, surprise, angry, sad, neutral) used by the service'
           ] },
           { title: '2026.01–04 · First refactoring (team of 2)', points: [
             'Sole frontend owner — planned improvements, new features, and design direction',
