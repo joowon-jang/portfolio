@@ -154,7 +154,7 @@ const I18N = {
         ] },
       { id: 'p2', name: '토도동', badge: '🏀', desc: 'NBA 경기의 실시간 문자 중계와 경기별 채팅을 함께 제공하는 플랫폼', period: '2025.02 ~ 2025.05', team: '팀 프로젝트 (4인)',
         role: ['실시간 중계/채팅 UI', 'SSR 전략 설계', '백엔드 Clean Architecture 계층 분리'],
-        list: { contribution: ['실시간 중계/채팅 UI', 'SSR 전략 설계', '백엔드 Clean Architecture 계층 분리'], implementation: ['페이지별 SSR 메타데이터', '백엔드 계층 분리(entities/use-cases/adapters)'] },
+        list: { contribution: ['실시간 중계/채팅 UI', 'SSR 전략 설계', '백엔드 Clean Architecture 계층 분리'], implementation: ['페이지별 SSR 메타데이터', '백엔드 계층 분리'] },
         bullets: ['NBA 경기를 실시간 문자 중계로 보여주고, 같은 경기를 보는 팬들과 채팅할 수 있는 플랫폼입니다.', '경기 일정·팀 순위·선수 기록까지 한곳에서 확인할 수 있어 하이라이트가 아닌 "진행 중인 경기"를 함께 즐기는 경험에 집중했습니다.', '검색 노출과 SNS 공유가 필요한 페이지는 SSR로 처리해 페이지별 메타데이터를 제공했습니다.', '백엔드는 UI와 DB가 바뀌어도 비즈니스 로직이 보호되도록 Clean Architecture 기반으로 계층을 분리했습니다.'],
         flow: ['NBA 경기 데이터 수신', '실시간 문자 중계', '경기별 채팅', '일정·순위·기록 제공'],
         features: [
@@ -172,7 +172,7 @@ const I18N = {
         outcome: ['백엔드 Clean Architecture 계층 분리·SSR 렌더링 전략 설계', '실시간 문자 중계·경기별 채팅 UI 구현'] },
       { id: 'p3', name: '해마디', badge: '📔', desc: '하루의 감정을 기록하고 그 흐름을 시각화해 돌아보는 일기 서비스', period: '2024.08 ~ 2024.11', team: '팀 프로젝트 (3인)',
         role: ['일기 작성 흐름·감정 시각화 UI', '상태/모션 시스템 설계', '스크럼 마스터'],
-        list: { contribution: ['일기 작성 흐름·감정 시각화 UI', 'Zustand 상태 구조 설계'], implementation: ['반응형 분기 일원화', '공통 Framer Motion variants'] },
+        list: { contribution: ['일기 작성 흐름·감정 시각화 UI', 'Zustand 상태 구조 설계'], implementation: ['반응형 분기 일원화', '공통 모션 variants'] },
         bullets: ['하루의 감정을 기록하고 돌아볼 수 있는 감정 관리 일기 서비스입니다.', '일기를 쓰면 감정이 바다의 "마디"로 시각화되어, 시간이 지날수록 나만의 감정 지도가 만들어집니다.', 'Zustand와 CSS 미디어 쿼리를 활용해 유지보수 가능한 반응형 UI를 구현했습니다.', 'Framer Motion으로 사용자 상호작용 모션을 구현해 기록하는 경험 자체가 즐겁도록 만들었습니다.'],
         flow: ['감정 태그 선택', '하루 기록 작성', '색·형태로 감정 시각화', '월간 감정 흐름 회고'],
         features: [
@@ -308,7 +308,7 @@ const I18N = {
         ] },
       { id: 'p2', name: 'Tododong', badge: '🏀', desc: 'A platform combining live NBA text play-by-play with per-game chat', period: '2025.02 ~ 2025.05', team: 'Team of 4',
         role: ['Live play-by-play & chat UI', 'SSR strategy', 'Backend Clean Architecture layering'],
-        list: { contribution: ['Live play-by-play & chat UI', 'SSR strategy', 'Backend Clean Architecture layering'], implementation: ['Per-page SSR metadata', 'Backend layers (entities/use-cases/adapters)'] },
+        list: { contribution: ['Live play-by-play & chat UI', 'SSR strategy', 'Backend Clean Architecture layering'], implementation: ['Per-page SSR metadata', 'Backend layer separation'] },
         bullets: ['A platform for following NBA games through live text play-by-play and chatting with fans watching the same game.', 'Schedules, standings, and player stats in one place — focused on enjoying games as they happen, not just highlights.', 'Pages needing search visibility and SNS sharing are server-rendered with per-page metadata.', 'The backend is layered with Clean Architecture so business logic survives UI and DB changes.'],
         flow: ['Receive NBA game data', 'Live play-by-play', 'Per-game chat', 'Schedules, standings, and stats'],
         features: [
@@ -326,7 +326,7 @@ const I18N = {
         outcome: ['Designed the backend Clean Architecture layering and SSR strategy', 'Implemented live play-by-play and per-game chat interfaces'] },
       { id: 'p3', name: 'Haemadi', badge: '📔', desc: 'A journal for recording daily emotions and reflecting on their visualized flow', period: '2024.08 ~ 2024.11', team: 'Team of 3',
         role: ['Journaling flow & emotion visualization UI', 'State & motion systems', 'Scrum master'],
-        list: { contribution: ['Journaling flow & emotion-visualization UI', 'Zustand state structure'], implementation: ['Centralized responsive branching', 'Shared Framer Motion variants'] },
+        list: { contribution: ['Journaling flow & emotion-visualization UI', 'Zustand state structure'], implementation: ['Centralized responsive branching', 'Shared motion variants'] },
         bullets: ['A diary service for recording and reflecting on daily emotions.', 'Each entry becomes a visual "node" in your sea of emotions, building a personal emotional map over time.', 'Maintainable responsive UI built with Zustand and CSS media queries.', 'Framer Motion effects make the act of journaling itself enjoyable.'],
         flow: ['Choose an emotion tag', 'Write the day', 'Visualize emotion in color and form', 'Review the monthly emotional flow'],
         features: [
@@ -462,7 +462,7 @@ const I18N = {
         ] },
       { id: 'p2', name: 'トドドン', badge: '🏀', desc: 'NBAのリアルタイム文字中継と試合別チャットを一緒に提供するプラットフォーム', period: '2025.02 ~ 2025.05', team: 'チーム (4人)',
         role: ['リアルタイム中継/チャットUI', 'SSR戦略の設計', 'バックエンドClean Architecture層分離'],
-        list: { contribution: ['リアルタイム中継/チャットUI', 'SSR戦略の設計', 'バックエンドClean Architecture層分離'], implementation: ['ページ別SSRメタデータ', 'バックエンド層分離(entities/use-cases/adapters)'] },
+        list: { contribution: ['リアルタイム中継/チャットUI', 'SSR戦略の設計', 'バックエンドClean Architecture層分離'], implementation: ['ページ別SSRメタデータ', 'バックエンド層分離'] },
         bullets: ['NBAの試合をリアルタイムのテキスト中継で追いながら、同じ試合を見るファンとチャットできるプラットフォームです。', '日程・順位・選手成績を一箇所で確認でき、ハイライトではなく「進行中の試合」を一緒に楽しむ体験に注力しました。', '検索露出とSNS共有が必要なページはSSRで処理し、ページ別メタデータを提供しました。', 'バックエンドはUIとDBが変わってもビジネスロジックが守られるよう、Clean Architectureベースで層を分離しました。'],
         flow: ['NBA試合データを受信', 'リアルタイム文字中継', '試合別チャット', '日程・順位・成績を提供'],
         features: [
@@ -480,7 +480,7 @@ const I18N = {
         outcome: ['バックエンドClean Architecture層分離・SSR戦略を設計', 'リアルタイム文字中継・試合別チャットUIを実装'] },
       { id: 'p3', name: 'ヘマディ', badge: '📔', desc: '一日の感情を記録し、その流れを可視化して振り返る日記サービス', period: '2024.08 ~ 2024.11', team: 'チーム (3人)',
         role: ['日記作成フロー・感情可視化UI', '状態/モーション設計', 'スクラムマスター'],
-        list: { contribution: ['日記作成フロー・感情可視化UI', 'Zustand状態設計'], implementation: ['レスポンシブ分岐の一元化', '共通Framer Motion variants'] },
+        list: { contribution: ['日記作成フロー・感情可視化UI', 'Zustand状態設計'], implementation: ['レスポンシブ分岐の一元化', '共通モーションvariants'] },
         bullets: ['一日の感情を記録し、振り返ることができる感情管理日記サービスです。', '日記を書くと感情が海の「節目」として可視化され、時間とともに自分だけの感情マップが作られます。', 'ZustandとCSSメディアクエリで保守可能なレスポンシブUIを実装しました。', 'Framer Motionでユーザー操作に応じたモーションを実装し、記録する体験自体が楽しくなるようにしました。'],
         flow: ['感情タグを選択', '一日を記録', '色と形で感情を可視化', '月間の感情推移を振り返る'],
         features: [
