@@ -424,6 +424,8 @@ body {
   word-break: keep-all;
 }
 
+:lang(ja) { word-break: normal; }
+
 button,
 .nav,
 .hero-tag,
