@@ -761,9 +761,11 @@ p, figure { margin: 0; }
 .project-info-table tbody td { color: var(--body-text); font-size: .875rem; line-height: 1.6; }
 .project-info-table tbody td:last-child { color: var(--fg); }
 .info-links-row { display: flex; align-items: center; gap: 20px; padding: 11px 14px; background: var(--bg-deep); }
+.info-links-row + .info-links-row { border-top: 1px solid var(--line-soft); }
 .info-label { flex: none; color: var(--yellow); font-family: var(--font-pixel); font-size: .6875rem; }
 .info-links { display: flex; flex-wrap: wrap; gap: 8px; }
 .info-links .link-btn { min-height: 40px; padding: 0 12px; font-size: .6875rem; box-shadow: 3px 3px 0 var(--bg-deep); }
+.info-test-account { padding: 4px 8px; border: 1px solid var(--dim); background: var(--bg); color: var(--green); font-family: var(--font-pixel); font-size: .75rem; }
 
 .window-brief { margin-top: 16px; }
 .brief-grid { display: grid; grid-template-columns: 1fr 1.3fr .9fr; }

@@ -90,7 +90,7 @@ const I18N = {
     dOutcome: '검증된 결과',
     dTodo: '※ 스크린샷은 실제 서비스 화면 자료로 교체 예정입니다.',
     projects: [
-      { id: 'p1', name: '페이스리뷰', badge: '🏆', desc: '웹캠 표정을 다섯 감정으로 분석해 시청 반응과 영상 추천으로 연결한 서비스', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: '최초 개발 4인 · 리팩터링 2인', verified: true,
+      { id: 'p1', name: '페이스리뷰', badge: '🏆', desc: '웹캠 표정을 다섯 감정으로 분석해 시청 반응과 영상 추천으로 연결한 서비스', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: '최초 개발 4인 · 리팩터링 2인', verified: true, testAccount: 'test4@facereview.net / qwer1234',
         rolePhases: [
           { phase: '최초 개발', period: '2023.10 ~ 2023.12', role: ['프론트엔드 개발', '5종 감정 분류 모델 학습'], team: '프론트엔드 2명 · 백엔드 1명 · AI·백엔드 1명' },
           { phase: '1차 리팩터링', period: '2026.01 ~ 2026.04', role: ['프론트엔드 전담', '리팩터링 기획·기반 전환'], team: '프론트엔드 1명 · 백엔드 1명' },
@@ -244,7 +244,7 @@ const I18N = {
     dOutcome: 'VERIFIED RESULTS',
     dTodo: '※ Screenshots will be replaced with actual product screens.',
     projects: [
-      { id: 'p1', name: 'Face Review', badge: '🏆', desc: 'A service that turns five emotions inferred from webcam expressions into viewing reactions and video recommendations', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: 'Original team of 4 · Refactoring team of 2', verified: true,
+      { id: 'p1', name: 'Face Review', badge: '🏆', desc: 'A service that turns five emotions inferred from webcam expressions into viewing reactions and video recommendations', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: 'Original team of 4 · Refactoring team of 2', verified: true, testAccount: 'test4@facereview.net / qwer1234',
         rolePhases: [
           { phase: 'Original build', period: '2023.10 – 2023.12', role: ['Frontend development', 'Five-emotion classifier training'], team: 'Frontend 2 · Backend 1 · AI & Backend 1' },
           { phase: '1st refactoring', period: '2026.01 – 2026.04', role: ['Sole frontend owner', 'Planning · foundation migration'], team: 'Frontend 1 · Backend 1' },
@@ -398,7 +398,7 @@ const I18N = {
     dOutcome: '確認済みの成果',
     dTodo: '※ スクリーンショットは実際のサービス画面に差し替え予定です。',
     projects: [
-      { id: 'p1', name: 'フェイスレビュー', badge: '🏆', desc: 'Webカメラの表情を5感情に分類し、視聴反応と動画推薦につなげるサービス', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: '初期開発4人 · リファクタリング2人', verified: true,
+      { id: 'p1', name: 'フェイスレビュー', badge: '🏆', desc: 'Webカメラの表情を5感情に分類し、視聴反応と動画推薦につなげるサービス', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: '初期開発4人 · リファクタリング2人', verified: true, testAccount: 'test4@facereview.net / qwer1234',
         rolePhases: [
           { phase: '初期開発', period: '2023.10 ~ 2023.12', role: ['フロントエンド開発', '5感情分類モデル学習'], team: 'フロントエンド2人 · バックエンド1人 · AI・バックエンド1人' },
           { phase: '1次リファクタリング', period: '2026.01 ~ 2026.04', role: ['フロントエンド専任', 'リファクタリング企画・基盤移行'], team: 'フロントエンド1人 · バックエンド1人' },
@@ -516,7 +516,7 @@ const UI_COPY = {
     blogEmptyDesc: '준비되지 않은 제목 대신, 작성한 글이 생기면 이곳에 추가합니다.',
     visitBlog: 'Velog에서 글 확인하기',
     hudTitle: '미션 브리핑', hudLabels: ['문제', '기여', '성과'],
-    statusTitle: '기본 정보', statusLabels: { period: '기간', team: '팀 구성', links: '링크' },
+    statusTitle: '기본 정보', statusLabels: { period: '기간', team: '팀 구성', links: '링크', testAccount: '테스트 계정' },
     roleLabel: '역할',
     imageLabels: {
       photo: '장주원 프로필을 표현한 픽셀 아바타',
@@ -543,7 +543,7 @@ const UI_COPY = {
     blogEmptyDesc: 'New writing will appear here when it is ready to share.',
     visitBlog: 'Visit Velog',
     hudTitle: 'MISSION BRIEF', hudLabels: ['Problem', 'Contribution', 'Outcome'],
-    statusTitle: 'PROJECT INFO', statusLabels: { period: 'PERIOD', team: 'TEAM', links: 'LINKS' },
+    statusTitle: 'PROJECT INFO', statusLabels: { period: 'PERIOD', team: 'TEAM', links: 'LINKS', testAccount: 'TEST ACCOUNT' },
     roleLabel: 'ROLE',
     imageLabels: {
       photo: 'Pixel avatar representing Jang Joowon',
@@ -570,7 +570,7 @@ const UI_COPY = {
     blogEmptyDesc: '公開できる記事ができ次第、ここに追加します。',
     visitBlog: 'Velogで記事を見る',
     hudTitle: 'ミッションブリーフィング', hudLabels: ['課題', '貢献', '成果'],
-    statusTitle: '基本情報', statusLabels: { period: '期間', team: 'チーム構成', links: 'リンク' },
+    statusTitle: '基本情報', statusLabels: { period: '期間', team: 'チーム構成', links: 'リンク', testAccount: 'テストアカウント' },
     roleLabel: '担当',
     imageLabels: {
       photo: 'チャン・ジュウォンを表すピクセルアバター',

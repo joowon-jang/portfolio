@@ -245,6 +245,7 @@
         <div class="project-info-body">
           <div class="project-info-table-wrap"><table class="project-info-table"><thead><tr><th scope="col">${copy.statusLabels.period}</th><th scope="col">${copy.statusLabels.team}</th><th scope="col">${copy.roleLabel}</th></tr></thead><tbody>${roleRows}</tbody></table></div>
           <div class="info-links-row"><span class="info-label">${copy.statusLabels.links}</span><div class="info-links">${links}</div></div>
+          ${project.testAccount ? `<div class="info-links-row"><span class="info-label">${copy.statusLabels.testAccount}</span><code class="info-test-account">${project.testAccount}</code></div>` : ''}
         </div>
       </section>
       <section class="window window-brief" aria-labelledby="brief-title">
