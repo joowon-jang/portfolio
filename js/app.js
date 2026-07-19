@@ -186,6 +186,19 @@
     }).join('');
     const certs = tr.certs.map((cert) => `
       <li class="cert-card"><span class="cert-icon" aria-hidden="true">🎖</span><strong class="cert-name">${cert.name}</strong><span class="cert-meta">${cert.meta}</span></li>`).join('');
+    const blogPosts = tr.blogPosts.map((post) => {
+      const meta = BLOG_POSTS.find((b) => b.id === post.id);
+      const tags = post.tags.map((tag) => `<li>${tag}</li>`).join('');
+      return `<li>
+        <a class="blog-card" href="${meta.url}" target="_blank" rel="noopener">
+          <div class="blog-card-kicker"><span>${copy.blogLogLabel}</span><span>${meta.date}</span></div>
+          <h3 class="blog-card-title">${post.title}</h3>
+          <p class="blog-card-desc">${post.desc}</p>
+          <ul class="blog-card-tags" role="list">${tags}</ul>
+          <span class="blog-card-enter">${copy.blogOpen} ▶</span>
+        </a>
+      </li>`;
+    }).join('');
 
     app.innerHTML = `<div class="home">
       <header class="hero" id="sec-about">
@@ -199,7 +212,7 @@
       <section class="section section-standard" id="sec-career" aria-labelledby="career-title"><h2 class="section-title" id="career-title">${tr.careerTitle}</h2><div class="careers">${careers}</div></section>
       <section class="section section-major" id="sec-projects" aria-labelledby="projects-title"><div class="project-section-head"><h2 class="section-title" id="projects-title">${tr.sideQuestTitle}</h2><p>${copy.projectGuide}</p></div><ul class="mission-list" role="list">${projectFiles}</ul></section>
       <section class="section section-minor" aria-labelledby="cert-title"><h2 class="section-title" id="cert-title">${tr.achieveTitle}</h2><ul class="cert-grid">${certs}</ul></section>
-      <section class="section section-standard" id="sec-blog" aria-labelledby="blog-title"><div class="blog-head"><h2 class="section-title" id="blog-title">${tr.blogTitle}</h2></div><div class="blog-empty"><span class="empty-icon" aria-hidden="true">□</span><div><strong>${copy.blogEmptyTitle}</strong><p>${copy.blogEmptyDesc}</p></div><a class="empty-action" href="${CONTACT.blog.url}" target="_blank" rel="noopener">${copy.visitBlog} ↗</a></div></section>
+      <section class="section section-standard" id="sec-blog" aria-labelledby="blog-title"><div class="blog-head"><h2 class="section-title" id="blog-title">${tr.blogTitle}</h2><a href="${CONTACT.blog.url}" target="_blank" rel="noopener">${copy.visitBlog} ↗</a></div><ul class="blog-grid" role="list">${blogPosts}</ul></section>
       <section class="section section-major contact" id="sec-contact" aria-labelledby="contact-title"><h2 class="section-title" id="contact-title">${tr.contactTitle}</h2><div class="contact-box"><div><span class="contact-label">EMAIL</span><a href="mailto:${CONTACT.email}">${CONTACT.email}</a></div><div><span class="contact-label">GITHUB</span><a href="${CONTACT.github.url}" target="_blank" rel="noopener">${CONTACT.github.label}</a></div><div><span class="contact-label">BLOG</span><a href="${CONTACT.blog.url}" target="_blank" rel="noopener">${CONTACT.blog.label}</a></div><div><span class="contact-label">HUGGING FACE</span><a href="${CONTACT.huggingface.url}" target="_blank" rel="noopener">${CONTACT.huggingface.label}</a></div></div><footer class="footer"><span class="marker" aria-hidden="true">▶</span> ${tr.footer}</footer></section>
     </div>`;
     startTyping();
@@ -229,7 +242,13 @@
     const troubles = project.troubles.map((item) => `<li class="trouble"><strong class="trouble-problem"><span aria-hidden="true">⚠</span> ${item.problem}</strong><p class="trouble-solution"><span aria-hidden="true">→</span> ${item.solution}</p></li>`).join('');
     const stack = project.stack.map((skill) => `<li class="stack-chip"><span class="stack-icons" aria-hidden="true">${techIcons(skill)}</span><span>${skill}</span></li>`).join('');
     const groupedStack = project.stackGroups?.map((group) => `<section class="stack-group"><h3 class="stack-group-title">${group.name}</h3><ul class="stack-chips" role="list">${group.items.map((skill) => `<li class="stack-chip"><span class="stack-icons" aria-hidden="true">${techIcons(skill)}</span><span>${skill}</span></li>`).join('')}</ul></section>`).join('');
-    const flow = (project.flow || []).map((step) => `<li><span>${step}</span></li>`).join('');
+    const flowTracks = (project.flow || []).length
+      ? (typeof project.flow[0] === 'string' ? [{ steps: project.flow }] : project.flow)
+      : [];
+    const flowStep = (step) => typeof step === 'string'
+      ? `<li><span>${step}</span></li>`
+      : `<li class="flow-fork"><ul class="flow-fork-options" role="list">${step.branch.map((option) => `<li><span>${option}</span></li>`).join(`<li class="flow-or">${copy.flowOr}</li>`)}</ul></li>`;
+    const flow = flowTracks.map((track) => `<div class="flow-track">${track.name ? `<h4 class="flow-track-name">${track.name}</h4>` : ''}<ol class="service-flow">${track.steps.map(flowStep).join('')}</ol></div>`).join('');
     const imageLabel = copy.imageLabels[project.id];
     const shotLabels = copy.shotLabels[project.id] || [imageLabel, imageLabel];
     const sourceNotice = project.verified ? '' : `<aside class="panel panel-todo">${tr.dTodo}</aside>`;
@@ -259,7 +278,7 @@
           </section>
           <section class="window" aria-labelledby="overview-title">
             ${windowBar('overview-title', tr.dOverview)}
-            <div class="window-body">${productCopy}${flow ? `<h3 class="window-subtitle">${copy.flowTitle}</h3><ol class="service-flow">${flow}</ol>` : ''}</div>
+            <div class="window-body">${productCopy}${flow ? `<h3 class="window-subtitle">${copy.flowTitle}</h3><div class="flow-tracks">${flow}</div>` : ''}</div>
           </section>
           <section class="window" aria-labelledby="shots-title">
             ${windowBar('shots-title', tr.dShots, project.verified ? copy.screenshotsReady : copy.screenshotsPending)}

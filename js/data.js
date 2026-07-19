@@ -21,7 +21,8 @@ const LINKS = {
     { icon: '🗄', key: 'backend', url: 'https://github.com/joowon-jang/facereview-refactor-back' }
   ],
   p2: [
-    { icon: '🐙', key: 'code', url: 'https://github.com/FRONT-END-BOOTCAMP-PLUS-3/tododong' }
+    { icon: '🐙', key: 'repo', url: 'https://github.com/FRONT-END-BOOTCAMP-PLUS-3/tododong' },
+    { icon: '🗄', key: 'backend', url: 'https://github.com/FRONT-END-BOOTCAMP-PLUS-3/tododong-background' }
   ],
   p3: [
     { icon: '🌐', key: 'live', url: 'https://haemadi.netlify.app' },
@@ -34,6 +35,12 @@ const LINK_LABELS = {
   en: { live: 'Live Site', repo: 'Frontend Repo', backend: 'Backend Repo', code: 'Project Repo' },
   ja: { live: '公開サイト', repo: 'フロントエンドリポジトリ', backend: 'バックエンドリポジトリ', code: 'プロジェクトリポジトリ' }
 };
+
+const BLOG_POSTS = [
+  { id: 'b1', date: '2025.10.27', url: 'https://velog.io/@juwon98/HTTP1.1-to-HTTP2' },
+  { id: 'b2', date: '2025.09.21', url: 'https://velog.io/@juwon98/createPortal사용과-FocusTrap으로-모달창-개선' },
+  { id: 'b3', date: '2024.11.07', url: 'https://velog.io/@juwon98/React-createPortal-SplashScreen' }
+];
 
 const I18N = {
   ko: {
@@ -76,6 +83,11 @@ const I18N = {
       { name: 'JLPT N2 (일본어)', meta: '2026.01 · 국제교류기금' }
     ],
     blogTitle: '■ 기술 블로그',
+    blogPosts: [
+      { id: 'b1', title: 'HTTP2로 성능향상 (1.1 -> 2)', desc: 'HTTP/1.1 → HTTP/2 전환으로 응답 속도를 개선한 실무 경험', tags: ['HTTP', 'Nginx'] },
+      { id: 'b2', title: '[React] FocusTrap으로 모달창 개선하기', desc: '키보드 포커스를 모달 안에 가두는 Focus Trap 구현기', tags: ['React', '접근성'] },
+      { id: 'b3', title: '[React] [웹 접근성] createPortal을 사용한 SplashScreen', desc: 'createPortal로 스플래시 스크린을 구현하며 접근성까지 고려', tags: ['React', '웹 접근성'] }
+    ],
     contactTitle: '■ 채널 — 이메일 · 저장소 · 블로그 · Hugging Face',
     footer: '© 2026 장주원 · JOOWON.EXE',
     back: '돌아가기',
@@ -84,7 +96,7 @@ const I18N = {
     dOverview: '서비스가 하는 일',
     dFeatures: '핵심 사용자 경험',
     dRole: '개발 단계와 기여',
-    dTrouble: '프론트엔드 핵심 해결',
+    dTrouble: '핵심 문제 해결',
     dStack: '기술 구성',
     dShots: '실제 서비스 화면',
     dOutcome: '검증된 결과',
@@ -105,7 +117,10 @@ const I18N = {
           '구간·영상 단위로 누적한 감정 데이터로 현재 구간의 시청자 반응, 감정 타임라인, 개인 통계를 제공',
           '비슷한 감정 분포를 가진 영상을 추천'
         ],
-        flow: ['재생 중 0.5초마다 프레임 전송', 'OpenCV 얼굴 영역 추출', 'TensorFlow 모델로 5감정 분류', '100개 진행 구간·영상 단위 집계', '타임라인·통계·추천에 활용'],
+        flow: [
+          { name: '시청 중 · 실시간 분석 파이프라인', steps: ['재생 중 0.5초마다 프레임 전송', 'OpenCV 얼굴 영역 추출', 'TensorFlow 모델로 5감정 분류', '100개 진행 구간·영상 단위 집계'] },
+          { name: '집계 데이터 활용', steps: ['현재 구간 반응·감정 타임라인 표시', '개인 통계 시각화', '감정 유사도 기반 추천'] }
+        ],
         features: [
           { name: '현재 구간의 감정 비교', desc: '나의 분석 결과와 현재 재생 구간에 누적된 시청자 감정 분포를 함께 표시' },
           { name: '감정 타임라인과 시킹', desc: '과거 시청 반응을 100개 진행 구간으로 시각화하고 그래프를 드래그해 해당 시점으로 이동' },
@@ -152,42 +167,98 @@ const I18N = {
           '2026 리팩터링 프론트엔드를 facereview.net(Vercel)에 배포 · 백엔드는 온프레미스 Docker 운영',
           '배포 인프라를 AWS → 온프레미스(Docker·nginx·GitHub Actions) → Vercel로 직접 이전'
         ] },
-      { id: 'p2', name: '토도동', badge: '🏀', desc: 'NBA 경기의 실시간 문자 중계와 경기별 채팅을 함께 제공하는 플랫폼', period: '2025.02 ~ 2025.05', team: '팀 프로젝트 (4인)',
-        role: ['실시간 중계/채팅 UI', 'SSR 전략 설계', '백엔드 Clean Architecture 계층 분리'],
-        list: { contribution: ['실시간 중계/채팅 UI', 'SSR 전략 설계', '백엔드 Clean Architecture 계층 분리'], implementation: ['페이지별 SSR 메타데이터', '백엔드 계층 분리'] },
-        bullets: ['NBA 경기를 실시간 문자 중계로 보여주고, 같은 경기를 보는 팬들과 채팅할 수 있는 플랫폼입니다.', '경기 일정·팀 순위·선수 기록까지 한곳에서 확인할 수 있어 하이라이트가 아닌 "진행 중인 경기"를 함께 즐기는 경험에 집중했습니다.', '검색 노출과 SNS 공유가 필요한 페이지는 SSR로 처리해 페이지별 메타데이터를 제공했습니다.', '백엔드는 UI와 DB가 바뀌어도 비즈니스 로직이 보호되도록 Clean Architecture 기반으로 계층을 분리했습니다.'],
-        flow: ['NBA 경기 데이터 수신', '실시간 문자 중계', '경기별 채팅', '일정·순위·기록 제공'],
+      { id: 'p2', name: '토도동', badge: '🏀', desc: 'NBA 경기의 실시간 문자 중계와 경기별 채팅을 함께 제공하는 플랫폼', period: '2025.02 ~ 2025.05', team: '팀 프로젝트 4인 · 전원 풀스택',
+        role: ['기술 선정 · SSR/CSR 구조 설계', '인증·채팅 서버·DB 동기화 구현'],
+        list: { contribution: ['기술 선정 · SSR/CSR 구조 설계', '코드 리뷰로 접근성·SEO·렌더링 개선'], implementation: ['Socket.IO 채팅 서버 호스팅', 'NBA API 동기화 cron(Express.js)'] },
+        productSummary: [
+          'NBA 경기 일정을 캘린더로 조회하고, 경기별 영상·선수 기록·실시간 문자 중계·채팅을 제공합니다.',
+          '실시간 문자 중계는 일정 시간 간격으로 쿼터별 진행 상황을 갱신하고, 별도로 호스팅한 Socket.IO 서버가 경기별 채팅방과 최근 50개 메시지 조회를 담당합니다.',
+          '경기 데이터는 NBA 공식 API를 사용하는 cron 작업(Express.js)이 로컬 DB에 주기적으로 동기화하고, 회원 기능은 JWT·쿠키 기반 인증과 이메일 인증코드로 제공합니다.'
+        ],
+        flow: [
+          { name: '사용자 흐름', steps: ['캘린더에서 경기 일정 확인', '경기 상세로 이동 — 영상·선수 기록 조회', '실시간 문자 중계·채팅 참여'] },
+          { name: '실시간 채팅 · 별도 Socket.IO 서버', steps: ['경기방 입장 시 최근 50개 메시지 조회', '메시지를 같은 경기방에 실시간 브로드캐스트'] },
+          { name: '백그라운드 · cron(Express.js)', steps: ['NBA 공식 API 주기 호출', '로컬 DB 동기화', '일정·기록·중계 데이터 최신화'] }
+        ],
         features: [
-          { name: '실시간 문자 중계', desc: '경기 이벤트(득점·파울·교체)를 실시간으로 수신해 타임라인 형태로 표시' },
-          { name: '경기별 실시간 채팅', desc: 'Socket.IO 기반 경기방 채팅 — 같은 경기를 보는 팬들과 실시간 소통' },
-          { name: '일정 · 순위 · 기록', desc: '경기 일정과 팀 순위, 선수 스탯을 종합 제공' },
-          { name: 'SSR 메타데이터', desc: '경기·팀 페이지를 SSR로 렌더링해 검색 노출과 SNS 공유 미리보기 최적화' }
+          { name: '경기 일정 캘린더', desc: 'react-calendar·Swiper로 날짜를 선택하고, 날짜별 경기 수를 캘린더에 표시' },
+          { name: '경기 정보 조회', desc: 'YouTube Data API로 경기 영상을, NBA 공식 데이터로 선수 기록을 컬럼별 정렬해 제공' },
+          { name: '실시간 문자 중계', desc: '일정 시간 간격으로 쿼터별 진행 상황을 타임라인으로 표시' },
+          { name: '경기별 실시간 채팅', desc: '별도로 호스팅한 Socket.IO 서버로 경기방 채팅을 지원하고 최근 50개 메시지를 DB에서 조회' }
         ],
-        roles: ['백엔드 아키텍처 설계 — Clean Architecture 기반 계층 분리(entities/use-cases/adapters)로 UI·DB 변경에서 비즈니스 로직 보호', 'SSR 렌더링 전략 수립 — 페이지 특성에 따라 SSR/CSR을 구분 적용하고 페이지별 메타데이터 생성', '실시간 채팅 UI 및 중계 타임라인 구현'],
+        roles: [
+          { title: '기술 고문 역할', points: [
+            '성능·개발 편의성·npm 패키지 최신 현황을 고려한 기술 선택 결정 및 피드백',
+            'SSR/CSR로 처리할 영역을 분리해 앱 전체 구조 설계',
+            '코드 리뷰로 웹 접근성·SEO·렌더링 속도·가독성 등 UX/DX 개선'
+          ] },
+          { title: '프론트엔드 구현', points: [
+            'JWT·쿠키 기반 로그인/회원가입 UI 및 인증 관리, nodemailer 이메일 인증',
+            'focus trapping·외부 스크롤 방지 등 접근성 가이드를 준수한 모달 구현',
+            'mixin·색상 변수 등 Sass 유틸로 스타일 구조화'
+          ] },
+          { title: '백엔드 구현', points: [
+            'Socket.IO 채팅 서버를 별도로 호스팅·운영',
+            'NBA 공식 API로 로컬 DB를 동기화하는 cron 작업 구축(Express.js)',
+            'DB 구조 설계 참여'
+          ] }
+        ],
         troubles: [
-          { problem: '실시간 중계 데이터와 채팅 메시지가 동시에 쏟아질 때 리렌더링이 폭증하는 문제', solution: '상태를 중계/채팅 스토어로 분리하고 메시지 배치 업데이트를 적용해 렌더링 횟수를 크게 줄였습니다.' },
-          { problem: '아키텍처 계층을 나누자 초기 개발 속도가 느려지고 팀원들의 진입 장벽이 생긴 문제', solution: '계층별 책임과 의존 방향을 문서화하고 보일러플레이트 템플릿을 만들어, 구조의 이점은 유지하면서 개발 속도를 회복했습니다.' }
+          { problem: '팀 프로젝트에서 여러 페이지에 모달을 사용해야 했는데, 키보드 포커스가 배경 요소로 빠져나가 접근성 가이드를 위반하는 문제', solution: 'focus trapping과 외부 스크롤 방지를 구현해 모달이 열려 있는 동안 포커스와 스크롤을 모달 내부로 제한했습니다.' },
+          { problem: '여러 인원이 함께 스타일을 작성하면서 색상·간격 값이 중복되고 유지보수가 어려워지는 문제', solution: 'Sass의 mixin과 색상 변수 등 utils를 구조화해 재사용 가능한 스타일 체계를 구축했습니다.' }
         ],
-        stack: ['Next.js', 'TypeScript', 'SCSS', 'Prisma', 'Socket.IO', 'Clean Architecture'],
-        outcome: ['백엔드 Clean Architecture 계층 분리·SSR 렌더링 전략 설계', '실시간 문자 중계·경기별 채팅 UI 구현'] },
-      { id: 'p3', name: '해마디', badge: '📔', desc: '하루의 감정을 기록하고 그 흐름을 시각화해 돌아보는 일기 서비스', period: '2024.08 ~ 2024.11', team: '팀 프로젝트 (3인)',
-        role: ['일기 작성 흐름·감정 시각화 UI', '상태/모션 시스템 설계', '스크럼 마스터'],
-        list: { contribution: ['일기 작성 흐름·감정 시각화 UI', 'Zustand 상태 구조 설계'], implementation: ['반응형 분기 일원화', '공통 모션 variants'] },
-        bullets: ['하루의 감정을 기록하고 돌아볼 수 있는 감정 관리 일기 서비스입니다.', '일기를 쓰면 감정이 바다의 "마디"로 시각화되어, 시간이 지날수록 나만의 감정 지도가 만들어집니다.', 'Zustand와 CSS 미디어 쿼리를 활용해 유지보수 가능한 반응형 UI를 구현했습니다.', 'Framer Motion으로 사용자 상호작용 모션을 구현해 기록하는 경험 자체가 즐겁도록 만들었습니다.'],
-        flow: ['감정 태그 선택', '하루 기록 작성', '색·형태로 감정 시각화', '월간 감정 흐름 회고'],
+        stack: ['Next.js', 'TypeScript', 'CSS Modules', 'Sass', 'Swiper', 'Day.js', 'React Calendar', 'Prisma', 'Socket.IO'],
+        stackGroups: [
+          { name: 'Frontend', items: ['Next.js', 'TypeScript', 'CSS Modules', 'Sass', 'Swiper', 'Day.js', 'React Calendar'] },
+          { name: 'Backend', items: ['Prisma', 'Socket.IO', 'Express.js'] },
+          { name: 'Development', items: ['pnpm', 'Figma', 'Notion', 'GitHub', 'Discord'] }
+        ],
+        outcome: [
+          '경기 일정·실시간 중계·채팅·인증을 갖춘 서비스를 기획부터 배포까지 완료',
+          'Socket.IO 채팅 서버와 NBA 데이터 동기화 cron을 별도 저장소로 분리해 직접 호스팅·운영'
+        ] },
+      { id: 'p3', name: '해마디', badge: '📔', desc: '하루의 감정을 기록하고 그 흐름을 시각화해 돌아보는 일기 서비스', period: '2024.08 ~ 2024.11', team: '팀 프로젝트 3인 · 개발 2인 + 디자인·개발 보조 1인', testAccount: 'joowon11 / joowon11!',
+        role: ['DB·컴포넌트 구조 설계', '코드 리뷰 · 개발 일정 관리'],
+        list: { contribution: ['PocketBase DB·컴포넌트 구조 설계', '코드 리뷰로 접근성·성능 개선'], implementation: ['Lighthouse 성능 대폭 개선', 'SVGIcon sprite 컴포넌트'] },
+        productSummary: [
+          '오늘의 감정을 선택해 일기를 쓰면, AI(Google Gemini) 또는 다른 사용자 중 원하는 방식으로 답장을 받을 수 있습니다.',
+          'AI 답장을 선택하면 노래·영화·책 등 콘텐츠를 함께 추천받고, 마디 유리병 편지함에서 답장을 확인합니다.',
+          '나의 기록 캘린더에서 과거 일기와 답장을 다시 보고, 나의 섬에서는 월간 통계로 감정 흐름을 종합 분석합니다.'
+        ],
+        flow: ['오늘의 감정 선택 후 일기 작성', '답장 방식 선택', { branch: ['AI — Gemini 답장·콘텐츠 추천', '익명 — 다른 사용자의 답장'] }, '유리병 편지함에서 답장 확인', '기록이 쌓이면 캘린더·월간 통계로 회고'],
         features: [
-          { name: '감정 일기 작성', desc: '감정 태그와 함께 하루를 기록 — 작성 과정에 맞춘 단계별 모션' },
-          { name: '감정 시각화', desc: '기록된 감정을 색과 형태로 시각화해 한 달의 감정 흐름을 한눈에' },
-          { name: 'AI 감정 답장', desc: '작성한 일기에 Google Gemini 기반 AI가 답장을 보내고, 사용자 간 답장도 주고받는 구조' },
-          { name: '인터랙션 모션', desc: 'Framer Motion 기반 페이지 전환·제스처 반응 모션' }
+          { name: '감정 일기 작성', desc: '오늘의 감정을 선택하고 일기를 작성 — 저장 시 답장 방식(AI/익명)을 선택' },
+          { name: 'AI·유저 답장', desc: 'Google Gemini로 답장과 노래·영화·책 추천을 받거나, 다른 사용자로부터 익명 답장을 받음' },
+          { name: '유리병 편지함', desc: '5개의 편지 중 하나를 골라 확인하고 답장을 보낼 수 있는 마디 유리병 편지함' },
+          { name: '나의 기록 · 나의 섬', desc: '캘린더로 과거 일기·답장을 다시 보고, 월간 통계로 감정 흐름을 종합 분석' }
         ],
-        roles: ['프론트엔드 구현 — 일기 작성 흐름, 감정 시각화 UI', 'Zustand 상태 설계 — 화면 크기별 분기 로직을 스토어로 통합해 유지보수성 확보', 'Framer Motion 모션 시스템 구축 — 공통 트랜지션 변형(variants) 정의로 일관된 모션 언어 적용'],
+        roles: [
+          { title: '기술 고문 역할', points: [
+            '코드 리뷰로 팀원들에게 접근성·SEO·렌더링 속도·가독성 등 UX/DX 향상 피드백',
+            '개발 일정 관리'
+          ] },
+          { title: '주요 구현', points: [
+            'PocketBase 데이터베이스·컴포넌트 구조 설계',
+            '<symbol>/<use>를 활용한 SVGIcon 스프라이트 컴포넌트 구현',
+            'TanStack Query 상태 관리, Framer Motion 애니메이션 구현',
+            'Zustand로 로그인 상태(authStore) 및 뷰포트·시간대별 배경 상태(mediaStore, sunStore) 관리',
+            'Router 구성 — lazy + Suspense 지연 로딩, 전역 상태 기반 redirect 처리'
+          ] }
+        ],
         troubles: [
-          { problem: '화면 크기별 분기가 컴포넌트마다 흩어져 반응형 코드가 유지보수하기 어려워진 문제', solution: '미디어 쿼리 기준을 토큰화하고 Zustand 스토어에서 뷰포트 상태를 일원 관리해, 분기 로직 중복을 제거했습니다.' },
-          { problem: '페이지 전환 모션이 컴포넌트 언마운트와 충돌해 뚝 끊기는 문제', solution: 'AnimatePresence로 exit 모션을 보장하고 공통 variants를 정의해 전환이 자연스럽게 이어지도록 했습니다.' }
+          { problem: 'Lighthouse로 측정한 성능 점수가 기대보다 낮아 모바일 대응에 불리했던 문제 — 이미지 로딩 시간과 PocketBase DB 응답 대기가 주요 원인으로 확인됨', solution: '모든 이미지를 webp로 변환하고, 서버 응답이 성공했을 때만 컴포넌트를 렌더링하도록 상태 처리를 개선(조건부 렌더링으로 로딩·에러 상태 분리)했습니다. 그 결과 모바일 50~60점대 → 80~90점대, 데스크톱 70~80점대 → 90점대 후반으로 성능 점수가 상승했습니다.' },
+          { problem: 'SVG sprite로 아이콘을 구현했는데 일부 아이콘 크기가 작아지고, iOS에서는 SVG filter를 사용한 아이콘이 아예 표시되지 않는 문제', solution: 'Figma 디자인에 적용된 shadow 효과를 CSS로 옮겨 이미지 자체에서 제거하고, iOS에서 filter가 깨지는 아이콘은 디자인을 일부 수정하거나 PNG로 대체했습니다.' }
         ],
-        stack: ['React', 'TanStack Query', 'Zustand', 'Framer Motion', 'Google Gemini', 'PocketBase'],
-        outcome: ['일기 작성 흐름·감정 시각화 UI 구현', '반응형 상태 구조·공통 모션 시스템 정리'] }
+        stack: ['React', 'React Router', 'Swiper', 'Framer Motion', 'Zustand', 'TanStack Query', 'Google Gemini', 'PocketBase'],
+        stackGroups: [
+          { name: 'Frontend', items: ['HTML5', 'CSS3', 'JavaScript', 'React', 'React Router', 'Swiper', 'Framer Motion'] },
+          { name: '상태관리 · API', items: ['Zustand', 'TanStack Query', 'Google Gemini', 'PocketBase'] },
+          { name: 'Development', items: ['Vite', 'pnpm', 'ESLint', 'Prettier', 'Netlify', 'Figma', 'Notion', 'Discord', 'GitHub'] }
+        ],
+        outcome: [
+          'Lighthouse 성능 점수 개선 — 모바일 50~60점대 → 80~90점대, 데스크톱 70~80점대 → 90점대 후반',
+          'AI 답장·콘텐츠 추천을 포함한 일기 서비스를 기획부터 배포(haemadi.netlify.app)까지 완료'
+        ] }
     ]
   },
   en: {
@@ -230,6 +301,11 @@ const I18N = {
       { name: 'JLPT N2 (Japanese)', meta: '2026.01 · Japan Foundation' }
     ],
     blogTitle: '■ TECH BLOG',
+    blogPosts: [
+      { id: 'b1', title: 'Improving Performance with HTTP/2 (1.1 → 2)', desc: 'Upgrading a production service from HTTP/1.1 to HTTP/2 for faster responses', tags: ['HTTP', 'Nginx'] },
+      { id: 'b2', title: '[React] Improving Modals with Focus Trap', desc: 'Trapping keyboard focus inside a modal for better accessibility', tags: ['React', 'Accessibility'] },
+      { id: 'b3', title: '[React] Accessible Splash Screen with createPortal', desc: 'Building a splash screen with createPortal, accessibility included', tags: ['React', 'Accessibility'] }
+    ],
     contactTitle: '■ CHANNELS — EMAIL · REPOS · BLOG · HUGGING FACE',
     footer: '© 2026 Jang Joowon · JOOWON.EXE',
     back: 'BACK',
@@ -238,7 +314,7 @@ const I18N = {
     dOverview: 'HOW THE SERVICE WORKS',
     dFeatures: 'CORE EXPERIENCE',
     dRole: 'PHASES & CONTRIBUTIONS',
-    dTrouble: 'FRONTEND DECISIONS',
+    dTrouble: 'KEY PROBLEM SOLVING',
     dStack: 'TECHNICAL MAKEUP',
     dShots: 'LIVE PRODUCT SCREENS',
     dOutcome: 'VERIFIED RESULTS',
@@ -259,7 +335,10 @@ const I18N = {
           'Emotion data accumulated per segment and video powers the current audience reaction, the emotion timeline, and personal statistics',
           'Videos with similar emotion distributions are recommended'
         ],
-        flow: ['Frame every 0.5 seconds during playback', 'OpenCV face extraction', 'Five-emotion classification with TensorFlow', 'Aggregate into 100 progress bins and per-video data', 'Use in timelines, statistics, and recommendations'],
+        flow: [
+          { name: 'While watching · real-time analysis pipeline', steps: ['Frame every 0.5 seconds during playback', 'OpenCV face extraction', 'Five-emotion classification with TensorFlow', 'Aggregate into 100 progress bins and per-video data'] },
+          { name: 'Aggregated data in use', steps: ['Current-segment reactions & emotion timeline', 'Personal stats visualization', 'Recommendations by emotion similarity'] }
+        ],
         features: [
           { name: 'Emotion at the current segment', desc: "Shows the viewer's analysis alongside the accumulated audience distribution for the current progress bin" },
           { name: 'Emotion timeline and seeking', desc: 'Visualizes past reactions across 100 progress bins and lets viewers drag the graph to seek' },
@@ -306,42 +385,98 @@ const I18N = {
           '2026 refactored frontend live at facereview.net on Vercel · backend on an on-premises Docker server',
           'Migrated deployment hands-on: AWS → on-premises (Docker, nginx, GitHub Actions) → Vercel'
         ] },
-      { id: 'p2', name: 'Tododong', badge: '🏀', desc: 'A platform combining live NBA text play-by-play with per-game chat', period: '2025.02 ~ 2025.05', team: 'Team of 4',
-        role: ['Live play-by-play & chat UI', 'SSR strategy', 'Backend Clean Architecture layering'],
-        list: { contribution: ['Live play-by-play & chat UI', 'SSR strategy', 'Backend Clean Architecture layering'], implementation: ['Per-page SSR metadata', 'Backend layer separation'] },
-        bullets: ['A platform for following NBA games through live text play-by-play and chatting with fans watching the same game.', 'Schedules, standings, and player stats in one place — focused on enjoying games as they happen, not just highlights.', 'Pages needing search visibility and SNS sharing are server-rendered with per-page metadata.', 'The backend is layered with Clean Architecture so business logic survives UI and DB changes.'],
-        flow: ['Receive NBA game data', 'Live play-by-play', 'Per-game chat', 'Schedules, standings, and stats'],
+      { id: 'p2', name: 'Tododong', badge: '🏀', desc: 'A platform combining live NBA text play-by-play with per-game chat', period: '2025.02 ~ 2025.05', team: 'Team of 4 · all full-stack',
+        role: ['Tech choices · SSR/CSR structure design', 'Auth, chat server & DB sync implementation'],
+        list: { contribution: ['Tech choices · SSR/CSR structure design', 'A11y, SEO & rendering via code review'], implementation: ['Hosted the Socket.IO chat server', 'NBA API sync cron (Express.js)'] },
+        productSummary: [
+          "Browse the NBA schedule on a calendar, with each game offering video, player stats, live text play-by-play, and chat.",
+          'Live play-by-play refreshes quarter-by-quarter on an interval, while a separately hosted Socket.IO server handles per-game chat rooms and loads the most recent 50 messages.',
+          'A cron job (Express.js) keeps the local DB in sync with the official NBA API, and member features run on JWT + cookie auth with email verification.'
+        ],
+        flow: [
+          { name: 'User flow', steps: ['Check the schedule on the calendar', 'Open a game — video and player stats', 'Follow the live play-by-play and chat'] },
+          { name: 'Live chat · separate Socket.IO server', steps: ['Load the 50 most recent messages on entering a game room', 'Broadcast messages to the room in real time'] },
+          { name: 'Background · cron (Express.js)', steps: ['Poll the official NBA API on a schedule', 'Sync the local DB', 'Keep schedules, stats, and play-by-play fresh'] }
+        ],
         features: [
-          { name: 'Live play-by-play', desc: 'Receives game events (scores, fouls, substitutions) in real time and renders them as a timeline' },
-          { name: 'Per-game live chat', desc: 'Socket.IO game rooms — chat with fans watching the same game' },
-          { name: 'Schedule · standings · stats', desc: 'Game schedules, team standings, and player stats in one view' },
-          { name: 'SSR metadata', desc: 'Server-rendered game/team pages optimized for SEO and SNS link previews' }
+          { name: 'Schedule calendar', desc: 'Pick a date with react-calendar and Swiper; the calendar shows how many games are on each day' },
+          { name: 'Game info', desc: 'Game video via the YouTube Data API and player stats from official NBA data, sortable by column' },
+          { name: 'Live play-by-play', desc: 'Quarter-by-quarter updates rendered as a timeline on a set interval' },
+          { name: 'Per-game live chat', desc: 'A separately hosted Socket.IO server powers game-room chat and loads the most recent 50 messages from the DB' }
         ],
-        roles: ['Designed the backend architecture — Clean Architecture layering (entities/use-cases/adapters) shielding business logic from UI/DB changes', 'Defined the rendering strategy — SSR/CSR split by page type with per-page metadata generation', 'Built the live chat UI and play-by-play timeline'],
+        roles: [
+          { title: 'Tech advisor role', points: [
+            'Decided on and gave feedback on tech choices, weighing performance, DX, and how current each npm package was',
+            'Designed the overall app structure by splitting what should be SSR vs. CSR',
+            'Improved UX/DX through code review — accessibility, SEO, render speed, readability'
+          ] },
+          { title: 'Frontend work', points: [
+            'JWT + cookie-based login/sign-up UI and auth, with nodemailer email verification',
+            'Built modals that follow accessibility guidelines — focus trapping, blocking background scroll',
+            'Structured Sass with mixins and color variables'
+          ] },
+          { title: 'Backend work', points: [
+            'Hosted and ran the Socket.IO chat server separately',
+            'Built the cron job that syncs the local DB from the official NBA API (Express.js)',
+            'Helped design the DB schema'
+          ] }
+        ],
         troubles: [
-          { problem: 'Simultaneous bursts of play-by-play data and chat messages caused re-render storms', solution: 'Split state into separate broadcast/chat stores and batched message updates, sharply reducing render counts.' },
-          { problem: 'Architecture layering slowed initial development and raised the entry barrier for teammates', solution: 'Documented layer responsibilities and dependency direction, and provided boilerplate templates — keeping the structural benefits while recovering velocity.' }
+          { problem: 'The project needed modals on several pages, and keyboard focus kept leaking out to elements behind them, violating accessibility guidelines', solution: 'Implemented focus trapping and blocked background scroll so focus and scrolling stayed inside the modal while it was open.' },
+          { problem: 'With several people writing styles together, colors and spacing values kept duplicating and became hard to maintain', solution: 'Structured Sass mixins and color variables into a reusable set of utils.' }
         ],
-        stack: ['Next.js', 'TypeScript', 'SCSS', 'Prisma', 'Socket.IO', 'Clean Architecture'],
-        outcome: ['Designed the backend Clean Architecture layering and SSR strategy', 'Implemented live play-by-play and per-game chat interfaces'] },
-      { id: 'p3', name: 'Haemadi', badge: '📔', desc: 'A journal for recording daily emotions and reflecting on their visualized flow', period: '2024.08 ~ 2024.11', team: 'Team of 3',
-        role: ['Journaling flow & emotion visualization UI', 'State & motion systems', 'Scrum master'],
-        list: { contribution: ['Journaling flow & emotion-visualization UI', 'Zustand state structure'], implementation: ['Centralized responsive branching', 'Shared motion variants'] },
-        bullets: ['A diary service for recording and reflecting on daily emotions.', 'Each entry becomes a visual "node" in your sea of emotions, building a personal emotional map over time.', 'Maintainable responsive UI built with Zustand and CSS media queries.', 'Framer Motion effects make the act of journaling itself enjoyable.'],
-        flow: ['Choose an emotion tag', 'Write the day', 'Visualize emotion in color and form', 'Review the monthly emotional flow'],
+        stack: ['Next.js', 'TypeScript', 'CSS Modules', 'Sass', 'Swiper', 'Day.js', 'React Calendar', 'Prisma', 'Socket.IO'],
+        stackGroups: [
+          { name: 'Frontend', items: ['Next.js', 'TypeScript', 'CSS Modules', 'Sass', 'Swiper', 'Day.js', 'React Calendar'] },
+          { name: 'Backend', items: ['Prisma', 'Socket.IO', 'Express.js'] },
+          { name: 'Development', items: ['pnpm', 'Figma', 'Notion', 'GitHub', 'Discord'] }
+        ],
+        outcome: [
+          'Took a service with schedules, live play-by-play, chat, and auth from planning to deployment',
+          'Hosted and ran the Socket.IO chat server and the NBA data sync cron in a separate repo'
+        ] },
+      { id: 'p3', name: 'Haemadi', badge: '📔', desc: 'A journal for recording daily emotions and reflecting on their visualized flow', period: '2024.08 ~ 2024.11', team: 'Team of 3 · 2 devs + 1 design/dev support', testAccount: 'joowon11 / joowon11!',
+        role: ['DB & component structure design', 'Code review · schedule management'],
+        list: { contribution: ['PocketBase DB & component structure', 'A11y & performance via code review'], implementation: ['Major Lighthouse performance gains', 'SVGIcon sprite component'] },
+        productSummary: [
+          'Pick an emotion for the day and write a diary entry, then choose to get a reply from AI (Google Gemini) or from another user.',
+          'Choosing an AI reply also recommends a song, movie, or book, and you check the reply in the Madi message-bottle inbox.',
+          'The My Records calendar brings back past entries and replies, and My Island gives a monthly stats view of your emotional flow.'
+        ],
+        flow: ["Pick today's emotion and write the entry", 'Choose a reply mode', { branch: ['AI — Gemini reply + content picks', 'Anonymous — reply from another user'] }, 'Check the reply in the message-bottle inbox', 'As records build up, look back via calendar and monthly stats'],
         features: [
-          { name: 'Emotion journaling', desc: 'Record your day with emotion tags — step-by-step motion guides the journaling flow' },
-          { name: 'Emotion visualization', desc: 'Entries visualized by color and shape — a month of feelings at a glance' },
-          { name: 'AI emotion replies', desc: 'Google Gemini writes AI replies to diary entries, alongside user-to-user replies' },
-          { name: 'Interaction motion', desc: 'Framer Motion page transitions and gesture-reactive motion' }
+          { name: 'Emotion diary', desc: "Pick today's emotion and write an entry — choose a reply mode (AI/anonymous) on save" },
+          { name: 'AI & user replies', desc: 'Get a Google Gemini reply plus a song/movie/book recommendation, or an anonymous reply from another user' },
+          { name: 'Message-bottle inbox', desc: 'Pick one of five bottles to open and reply to' },
+          { name: 'My Records · My Island', desc: 'Revisit past entries and replies on a calendar, and review monthly stats of your emotional flow' }
         ],
-        roles: ['Built the frontend — journaling flow and emotion visualization UI', 'Designed Zustand state — centralized viewport logic in the store for maintainability', 'Built the motion system — shared Framer Motion variants for a consistent motion language'],
+        roles: [
+          { title: 'Tech advisor role', points: [
+            'Gave feedback through code review on accessibility, SEO, render speed, and readability',
+            'Managed the development schedule'
+          ] },
+          { title: 'Key implementation', points: [
+            'Designed the PocketBase database and component structure',
+            'Built an SVGIcon sprite component using <symbol>/<use>',
+            'Managed state with TanStack Query and built animations with Framer Motion',
+            'Used Zustand for login state (authStore) and for viewport/time-of-day background state (mediaStore, sunStore)',
+            'Set up routing — lazy + Suspense for code splitting, redirects driven by global state'
+          ] }
+        ],
         troubles: [
-          { problem: 'Viewport branching scattered across components made responsive code hard to maintain', solution: 'Tokenized media query breakpoints and centralized viewport state in Zustand, removing duplicated branching.' },
-          { problem: 'Page transition motion clashed with component unmounting, cutting transitions off abruptly', solution: 'Guaranteed exit motion with AnimatePresence and defined shared variants for seamless transitions.' }
+          { problem: 'Lighthouse scores came in lower than expected, which mattered since the app needed to work well on mobile — image load time and waiting on PocketBase responses turned out to be the main causes', solution: 'Converted every image to webp and reworked state so components only render after a successful server response (conditional rendering to separate loading/error states). Scores rose from the 50s–60s to the 80s–90s on mobile, and from the 70s–80s to the high 90s on desktop.' },
+          { problem: 'Icons built as an SVG sprite sometimes rendered too small, and icons using an SVG filter did not show up at all on iOS', solution: 'Removed a shadow effect baked into the Figma source images by moving it to CSS instead, and fixed the iOS filter issue by tweaking a few icon designs or swapping them for PNGs.' }
         ],
-        stack: ['React', 'TanStack Query', 'Zustand', 'Framer Motion', 'Google Gemini', 'PocketBase'],
-        outcome: ['Implemented the journaling flow and emotion-visualization UI', 'Organized responsive state and a shared motion system'] }
+        stack: ['React', 'React Router', 'Swiper', 'Framer Motion', 'Zustand', 'TanStack Query', 'Google Gemini', 'PocketBase'],
+        stackGroups: [
+          { name: 'Frontend', items: ['HTML5', 'CSS3', 'JavaScript', 'React', 'React Router', 'Swiper', 'Framer Motion'] },
+          { name: 'State · APIs', items: ['Zustand', 'TanStack Query', 'Google Gemini', 'PocketBase'] },
+          { name: 'Development', items: ['Vite', 'pnpm', 'ESLint', 'Prettier', 'Netlify', 'Figma', 'Notion', 'Discord', 'GitHub'] }
+        ],
+        outcome: [
+          'Lighthouse score gains — mobile 50s–60s → 80s–90s, desktop 70s–80s → high 90s',
+          'Took a diary service with AI replies and content recommendations from planning to deployment (haemadi.netlify.app)'
+        ] }
     ]
   },
   ja: {
@@ -384,6 +519,11 @@ const I18N = {
       { name: 'JLPT N2 (日本語)', meta: '2026.01 · 国際交流基金' }
     ],
     blogTitle: '■ 技術ブログ',
+    blogPosts: [
+      { id: 'b1', title: 'HTTP2でパフォーマンス向上（1.1→2）', desc: 'HTTP/1.1からHTTP/2へ移行し応答速度を改善した実務記録', tags: ['HTTP', 'Nginx'] },
+      { id: 'b2', title: '[React] FocusTrapでモーダルを改善', desc: 'モーダル内にキーボードフォーカスを閉じ込める実装記録', tags: ['React', 'アクセシビリティ'] },
+      { id: 'b3', title: '[React][アクセシビリティ] createPortalで作るSplashScreen', desc: 'createPortalでスプラッシュスクリーンを実装しアクセシビリティも考慮', tags: ['React', 'アクセシビリティ'] }
+    ],
     contactTitle: '■ チャンネル — メール · リポジトリ · ブログ · Hugging Face',
     footer: '© 2026 チャン・ジュウォン · JOOWON.EXE',
     back: '戻る',
@@ -392,7 +532,7 @@ const I18N = {
     dOverview: 'サービスの仕組み',
     dFeatures: '主要な体験',
     dRole: '開発段階と貢献',
-    dTrouble: 'フロントエンドの主要な解決',
+    dTrouble: '主要な問題解決',
     dStack: '技術構成',
     dShots: '実サービス画面',
     dOutcome: '確認済みの成果',
@@ -413,7 +553,10 @@ const I18N = {
           '区間・動画単位で蓄積した感情データで、現在区間の視聴者反応・感情タイムライン・個人統計を提供',
           '似た感情分布を持つ動画を推薦'
         ],
-        flow: ['再生中0.5秒ごとにフレーム送信', 'OpenCVで顔領域を抽出', 'TensorFlowモデルで5感情を分類', '100進行区間・動画単位で集計', 'タイムライン・統計・推薦に利用'],
+        flow: [
+          { name: '視聴中 · リアルタイム分析パイプライン', steps: ['再生中0.5秒ごとにフレーム送信', 'OpenCVで顔領域を抽出', 'TensorFlowモデルで5感情を分類', '100進行区間・動画単位で集計'] },
+          { name: '集計データの活用', steps: ['現在区間の反応・感情タイムライン表示', '個人統計の可視化', '感情類似度ベースの推薦'] }
+        ],
         features: [
           { name: '現在区間の感情比較', desc: '自分の分析結果と、現在の再生区間に蓄積された視聴者の感情分布を同時に表示' },
           { name: '感情タイムラインとシーク', desc: '過去の視聴反応を100進行区間で可視化し、グラフをドラッグして該当時点へ移動' },
@@ -460,42 +603,98 @@ const I18N = {
           '2026年リファクタリングのフロントエンドをfacereview.net（Vercel）で公開 · バックエンドはオンプレミスDockerで運用',
           'デプロイインフラをAWS → オンプレミス（Docker・nginx・GitHub Actions）→ Vercelへ自ら移行'
         ] },
-      { id: 'p2', name: 'トドドン', badge: '🏀', desc: 'NBAのリアルタイム文字中継と試合別チャットを一緒に提供するプラットフォーム', period: '2025.02 ~ 2025.05', team: 'チーム (4人)',
-        role: ['リアルタイム中継/チャットUI', 'SSR戦略の設計', 'バックエンドClean Architecture層分離'],
-        list: { contribution: ['リアルタイム中継/チャットUI', 'SSR戦略の設計', 'バックエンドClean Architecture層分離'], implementation: ['ページ別SSRメタデータ', 'バックエンド層分離'] },
-        bullets: ['NBAの試合をリアルタイムのテキスト中継で追いながら、同じ試合を見るファンとチャットできるプラットフォームです。', '日程・順位・選手成績を一箇所で確認でき、ハイライトではなく「進行中の試合」を一緒に楽しむ体験に注力しました。', '検索露出とSNS共有が必要なページはSSRで処理し、ページ別メタデータを提供しました。', 'バックエンドはUIとDBが変わってもビジネスロジックが守られるよう、Clean Architectureベースで層を分離しました。'],
-        flow: ['NBA試合データを受信', 'リアルタイム文字中継', '試合別チャット', '日程・順位・成績を提供'],
+      { id: 'p2', name: 'トドドン', badge: '🏀', desc: 'NBAのリアルタイム文字中継と試合別チャットを一緒に提供するプラットフォーム', period: '2025.02 ~ 2025.05', team: 'チーム4人 · 全員フルスタック',
+        role: ['技術選定 · SSR/CSR構成設計', '認証・チャットサーバー・DB同期の実装'],
+        list: { contribution: ['技術選定 · SSR/CSR構成設計', 'コードレビューでアクセシビリティ・SEO改善'], implementation: ['Socket.IOチャットサーバーのホスティング', 'NBA API同期cron(Express.js)'] },
+        productSummary: [
+          'NBAの試合日程をカレンダーで確認でき、試合ごとに動画・選手記録・リアルタイム文字中継・チャットを提供します。',
+          'リアルタイム文字中継は一定間隔でクォーターごとの進行状況を更新し、別途ホスティングしたSocket.IOサーバーが試合別チャットルームと直近50件のメッセージ取得を担当します。',
+          '試合データはNBA公式APIを使うcron作業（Express.js）がローカルDBへ定期的に同期し、会員機能はJWT・Cookieベースの認証とメール認証コードで提供します。'
+        ],
+        flow: [
+          { name: 'ユーザーフロー', steps: ['カレンダーで試合日程を確認', '試合詳細へ移動 — 動画・選手記録を確認', 'リアルタイム文字中継・チャットに参加'] },
+          { name: 'リアルタイムチャット · 別途Socket.IOサーバー', steps: ['試合ルーム入場時に直近50件のメッセージを取得', 'メッセージを同じルームへリアルタイム配信'] },
+          { name: 'バックグラウンド · cron（Express.js）', steps: ['NBA公式APIを定期呼び出し', 'ローカルDBを同期', '日程・記録・中継データを最新化'] }
+        ],
         features: [
-          { name: 'リアルタイムテキスト中継', desc: '試合イベント（得点・ファウル・交代）をリアルタイムに受信しタイムライン形式で表示' },
-          { name: '試合別ライブチャット', desc: 'Socket.IOベースの試合ルーム — 同じ試合を見るファンとリアルタイム交流' },
-          { name: '日程 · 順位 · 成績', desc: '試合日程、チーム順位、選手スタッツを総合提供' },
-          { name: 'SSRメタデータ', desc: '試合・チームページをSSRでレンダリングし、検索露出とSNSプレビューを最適化' }
+          { name: '試合日程カレンダー', desc: 'react-calendar・Swiperで日付を選択し、日付別の試合数をカレンダーに表示' },
+          { name: '試合情報の確認', desc: 'YouTube Data APIで試合動画を、NBA公式データで選手記録をカラム別に並べ替えて提供' },
+          { name: 'リアルタイム文字中継', desc: '一定間隔でクォーターごとの進行状況をタイムライン形式で表示' },
+          { name: '試合別ライブチャット', desc: '別途ホスティングしたSocket.IOサーバーで試合ルームのチャットを支え、直近50件のメッセージをDBから取得' }
         ],
-        roles: ['バックエンドアーキテクチャ設計 — Clean Architectureの層分離（entities/use-cases/adapters）でビジネスロジックを保護', 'レンダリング戦略の策定 — ページ特性に応じたSSR/CSRの使い分けとページ別メタデータ生成', 'ライブチャットUIと中継タイムラインの実装'],
+        roles: [
+          { title: '技術顧問の役割', points: [
+            '性能・開発の利便性・npmパッケージの更新状況などを考慮した技術選定の決定とフィードバック',
+            'SSR/CSRで処理する範囲を分離し、アプリ全体の構造を設計',
+            'コードレビューでウェブアクセシビリティ・SEO・描画速度・可読性などUX/DXを改善'
+          ] },
+          { title: 'フロントエンド実装', points: [
+            'JWT・Cookieベースのログイン/会員登録UIと認証管理、nodemailerによるメール認証',
+            'focus trapping・背景スクロール防止などアクセシビリティガイドラインに沿ったモーダル実装',
+            'mixin・カラー変数などSassのutilsでスタイルを構造化'
+          ] },
+          { title: 'バックエンド実装', points: [
+            'Socket.IOチャットサーバーを別途ホスティング・運用',
+            'NBA公式APIでローカルDBを同期するcron作業を構築（Express.js）',
+            'DB構造設計への参加'
+          ] }
+        ],
         troubles: [
-          { problem: '中継データとチャットメッセージが同時に殺到すると再レンダリングが激増する問題', solution: '状態を中継/チャットのストアに分離し、メッセージのバッチ更新を適用してレンダリング回数を大幅に削減しました。' },
-          { problem: '層の分離により初期開発速度が落ち、チームメンバーの参入障壁が生じた問題', solution: '層ごとの責務と依存方向をドキュメント化し、ボイラープレートを用意して、構造の利点を保ちつつ開発速度を回復しました。' }
+          { problem: 'チームプロジェクトで複数ページにモーダルを使う必要があったが、キーボードフォーカスが背景要素に抜けてアクセシビリティガイドラインに違反する問題', solution: 'focus trappingと背景スクロール防止を実装し、モーダルが開いている間はフォーカスとスクロールをモーダル内部に制限しました。' },
+          { problem: '複数人で同時にスタイルを書く中で色・余白の値が重複し、保守が難しくなる問題', solution: 'Sassのmixinとカラー変数などutilsを構造化し、再利用可能なスタイル体系を構築しました。' }
         ],
-        stack: ['Next.js', 'TypeScript', 'SCSS', 'Prisma', 'Socket.IO', 'Clean Architecture'],
-        outcome: ['バックエンドClean Architecture層分離・SSR戦略を設計', 'リアルタイム文字中継・試合別チャットUIを実装'] },
-      { id: 'p3', name: 'ヘマディ', badge: '📔', desc: '一日の感情を記録し、その流れを可視化して振り返る日記サービス', period: '2024.08 ~ 2024.11', team: 'チーム (3人)',
-        role: ['日記作成フロー・感情可視化UI', '状態/モーション設計', 'スクラムマスター'],
-        list: { contribution: ['日記作成フロー・感情可視化UI', 'Zustand状態設計'], implementation: ['レスポンシブ分岐の一元化', '共通モーションvariants'] },
-        bullets: ['一日の感情を記録し、振り返ることができる感情管理日記サービスです。', '日記を書くと感情が海の「節目」として可視化され、時間とともに自分だけの感情マップが作られます。', 'ZustandとCSSメディアクエリで保守可能なレスポンシブUIを実装しました。', 'Framer Motionでユーザー操作に応じたモーションを実装し、記録する体験自体が楽しくなるようにしました。'],
-        flow: ['感情タグを選択', '一日を記録', '色と形で感情を可視化', '月間の感情推移を振り返る'],
+        stack: ['Next.js', 'TypeScript', 'CSS Modules', 'Sass', 'Swiper', 'Day.js', 'React Calendar', 'Prisma', 'Socket.IO'],
+        stackGroups: [
+          { name: 'フロントエンド', items: ['Next.js', 'TypeScript', 'CSS Modules', 'Sass', 'Swiper', 'Day.js', 'React Calendar'] },
+          { name: 'バックエンド', items: ['Prisma', 'Socket.IO', 'Express.js'] },
+          { name: '開発環境', items: ['pnpm', 'Figma', 'Notion', 'GitHub', 'Discord'] }
+        ],
+        outcome: [
+          '試合日程・リアルタイム中継・チャット・認証を備えたサービスを企画からデプロイまで完了',
+          'Socket.IOチャットサーバーとNBAデータ同期cronを別リポジトリに分離し自らホスティング・運用'
+        ] },
+      { id: 'p3', name: 'ヘマディ', badge: '📔', desc: '一日の感情を記録し、その流れを可視化して振り返る日記サービス', period: '2024.08 ~ 2024.11', team: 'チーム3人 · 開発2人 + デザイン・開発補助1人', testAccount: 'joowon11 / joowon11!',
+        role: ['DB・コンポーネント構造設計', 'コードレビュー · 開発スケジュール管理'],
+        list: { contribution: ['PocketBase DB・コンポーネント構造設計', 'コードレビューでアクセシビリティ・性能改善'], implementation: ['Lighthouseパフォーマンスの大幅改善', 'SVGIconスプライトコンポーネント'] },
+        productSummary: [
+          '今日の感情を選んで日記を書くと、AI（Google Gemini）か他のユーザーか、好きな方法で返信を受け取れます。',
+          'AI返信を選ぶと歌・映画・本などのコンテンツもあわせて推薦され、マディのガラス瓶の郵便受けで返信を確認します。',
+          'マイ記録カレンダーで過去の日記と返信を見返し、マイアイランドでは月間統計で感情の流れを総合的に分析します。'
+        ],
+        flow: ['今日の感情を選んで日記を書く', '返信方法を選択', { branch: ['AI — Gemini返信・コンテンツ推薦', '匿名 — 他のユーザーの返信'] }, 'ガラス瓶の郵便受けで返信を確認', '記録が溜まったらカレンダー・月間統計で振り返る'],
         features: [
-          { name: '感情日記の作成', desc: '感情タグと共に一日を記録 — 日記作成フローに合わせた段階別モーション' },
-          { name: '感情の可視化', desc: '記録された感情を色と形で可視化し、一ヶ月の感情の流れを一目で確認' },
-          { name: 'AI感情返信', desc: '書いた日記にGoogle GeminiベースのAIが返信し、ユーザー同士の返信もやり取りできる構造' },
-          { name: 'インタラクションモーション', desc: 'Framer Motionによるページ遷移・ジェスチャー反応モーション' }
+          { name: '感情日記の作成', desc: '今日の感情を選んで日記を作成 — 保存時に返信方法（AI/匿名）を選択' },
+          { name: 'AI・ユーザー返信', desc: 'Google Geminiによる返信と歌・映画・本のおすすめを受け取るか、他のユーザーから匿名の返信を受け取る' },
+          { name: 'ガラス瓶の郵便受け', desc: '5通の手紙から1つを選んで確認し、返信できるマディのガラス瓶郵便受け' },
+          { name: 'マイ記録・マイアイランド', desc: 'カレンダーで過去の日記・返信を見返し、月間統計で感情の流れを総合的に分析' }
         ],
-        roles: ['フロントエンド実装 — 日記作成フロー、感情可視化UI', 'Zustand状態設計 — ビューポート分岐ロジックをストアに一元化し保守性を確保', 'モーションシステム構築 — 共通variantsの定義で一貫したモーション言語を適用'],
+        roles: [
+          { title: '技術顧問の役割', points: [
+            'コードレビューでチームメンバーにアクセシビリティ・SEO・描画速度・可読性などUX/DX向上のフィードバック',
+            '開発スケジュール管理'
+          ] },
+          { title: '主な実装', points: [
+            'PocketBaseのデータベース・コンポーネント構造設計',
+            '<symbol>/<use>を活用したSVGIconスプライトコンポーネントの実装',
+            'TanStack Queryによる状態管理、Framer Motionによるアニメーション実装',
+            'Zustandでログイン状態（authStore）およびビューポート・時間帯別の背景状態（mediaStore、sunStore）を管理',
+            'Router構成 — lazy + Suspenseによる遅延読み込み、グローバル状態に基づくredirect処理'
+          ] }
+        ],
         troubles: [
-          { problem: '画面サイズの分岐が各コンポーネントに散在し、レスポンシブコードの保守が困難になった問題', solution: 'メディアクエリの基準をトークン化し、Zustandストアでビューポート状態を一元管理して分岐の重複を排除しました。' },
-          { problem: 'ページ遷移モーションがアンマウントと衝突し途切れる問題', solution: 'AnimatePresenceでexitモーションを保証し、共通variantsを定義して遷移が自然に繋がるようにしました。' }
+          { problem: 'Lighthouseで測定した性能スコアが期待より低く、モバイル対応に不利だった問題 — 画像の読み込み時間とPocketBaseのDB応答待ちが主な原因と判明', solution: '全ての画像をwebp形式に変換し、サーバー応答が成功した場合のみコンポーネントを描画するよう状態処理を改善（条件付きレンダリングでローディング・エラー状態を分離）。その結果、モバイルは50〜60点台→80〜90点台、デスクトップは70〜80点台→90点台後半までスコアが上昇しました。' },
+          { problem: 'SVGスプライトでアイコンを実装したところ、一部アイコンのサイズが小さくなり、iOSではSVG filterを使ったアイコンが全く表示されない問題', solution: 'Figmaデザインに適用されていたshadow効果をCSS側に移して画像自体から取り除き、iOSでfilterが崩れるアイコンはデザインを一部修正するかPNGに置き換えました。' }
         ],
-        stack: ['React', 'TanStack Query', 'Zustand', 'Framer Motion', 'Google Gemini', 'PocketBase'],
-        outcome: ['日記作成フロー・感情可視化UIを実装', 'レスポンシブ状態構造・共通モーションシステムを整理'] }
+        stack: ['React', 'React Router', 'Swiper', 'Framer Motion', 'Zustand', 'TanStack Query', 'Google Gemini', 'PocketBase'],
+        stackGroups: [
+          { name: 'フロントエンド', items: ['HTML5', 'CSS3', 'JavaScript', 'React', 'React Router', 'Swiper', 'Framer Motion'] },
+          { name: '状態管理 · API', items: ['Zustand', 'TanStack Query', 'Google Gemini', 'PocketBase'] },
+          { name: '開発環境', items: ['Vite', 'pnpm', 'ESLint', 'Prettier', 'Netlify', 'Figma', 'Notion', 'Discord', 'GitHub'] }
+        ],
+        outcome: [
+          'Lighthouseスコア改善 — モバイル50〜60点台→80〜90点台、デスクトップ70〜80点台→90点台後半',
+          'AI返信・コンテンツ推薦を含む日記サービスを企画からデプロイ（haemadi.netlify.app）まで完了'
+        ] }
     ]
   }
 };
@@ -511,10 +710,9 @@ const UI_COPY = {
     skip: '본문으로 건너뛰기', menu: '메뉴', navLabel: '주요 메뉴', langLabel: '언어 선택',
     careerChapter: 'CHAPTER · 회사', careerMission: 'MISSION · 프로젝트', careerLog: 'LOG · 기여 기록',
     missionFile: 'MISSION FILE', projectContribution: '핵심 기여', projectImplementation: '대표 구현', projectLoadout: '핵심 기술', openLog: 'LOG 열기',
-    projectGuide: '최근 작업일 순 · 핵심 기여와 대표 구현 기준', flowTitle: '서비스 작동 흐름',
-    blogEmptyTitle: '아직 공개한 글을 연결하지 않았습니다.',
-    blogEmptyDesc: '준비되지 않은 제목 대신, 작성한 글이 생기면 이곳에 추가합니다.',
-    visitBlog: 'Velog에서 글 확인하기',
+    projectGuide: '최근 작업일 순 · 핵심 기여와 대표 구현 기준', flowTitle: '서비스 작동 흐름', flowOr: '또는',
+    visitBlog: 'Velog에서 전체 글 보기',
+    blogLogLabel: 'DEV LOG', blogOpen: '읽기',
     hudTitle: '미션 브리핑', hudLabels: ['문제', '기여', '성과'],
     statusTitle: '기본 정보', statusLabels: { period: '기간', team: '팀 구성', links: '링크', testAccount: '테스트 계정' },
     roleLabel: '역할',
@@ -529,8 +727,8 @@ const UI_COPY = {
     },
     hud: {
       p1: ['클릭·시청 기록만으로는 영상 구간별 감정 반응을 알기 어려움', ['2023: 프론트엔드 개발·감정 분석 모델 직접 학습', '2026: 프론트엔드 리팩터링 전담'], ['창의설계경진대회 대상', 'facereview.net 배포']],
-      p2: ['중계·채팅의 동시 업데이트', ['백엔드 Clean Architecture 계층 분리', 'SSR 전략·실시간 UI'], ['실시간 문자 중계·경기별 채팅 구현', 'SSR 페이지 구현']],
-      p3: ['흩어진 반응형·모션 로직', ['일기 작성 흐름·감정 시각화 UI', '상태·모션 시스템 설계'], ['감정 일기·시각화 구현', '반응형 UI 구현']]
+      p2: ['NBA 경기를 보며 팬들과 실시간으로 소통할 공간이 없는 문제', ['기술 선정·SSR/CSR 구조 설계', '인증·채팅 서버·DB 동기화 구현'], ['실시간 중계·경기별 채팅 배포', 'NBA 데이터 자동 동기화 구축']],
+      p3: ['감정 기록이 쌓여도 흐름을 돌아보기 어려운 문제', ['PocketBase DB·컴포넌트 구조 설계', '코드 리뷰·성능 개선'], ['Lighthouse 모바일 50~60 → 80~90점대', 'AI 답장 일기 서비스 배포']]
     },
     outcomeStatus: 'VERIFIED OUTCOME', screenshotsPending: '실제 화면 자료 준비 중', screenshotsReady: '실제 서비스 화면 · 2026.07'
   },
@@ -538,10 +736,9 @@ const UI_COPY = {
     skip: 'Skip to main content', menu: 'Menu', navLabel: 'Primary', langLabel: 'Language',
     careerChapter: 'CHAPTER · COMPANY', careerMission: 'MISSION · PROJECT', careerLog: 'LOG · CONTRIBUTIONS',
     missionFile: 'MISSION FILE', projectContribution: 'CORE CONTRIBUTION', projectImplementation: 'KEY IMPLEMENTATION', projectLoadout: 'CORE STACK', openLog: 'OPEN LOG',
-    projectGuide: 'Latest work first · compared by contribution and implementation', flowTitle: 'SERVICE FLOW',
-    blogEmptyTitle: 'No published posts are linked yet.',
-    blogEmptyDesc: 'New writing will appear here when it is ready to share.',
-    visitBlog: 'Visit Velog',
+    projectGuide: 'Latest work first · compared by contribution and implementation', flowTitle: 'SERVICE FLOW', flowOr: 'OR',
+    visitBlog: 'See all posts on Velog',
+    blogLogLabel: 'DEV LOG', blogOpen: 'Read',
     hudTitle: 'MISSION BRIEF', hudLabels: ['Problem', 'Contribution', 'Outcome'],
     statusTitle: 'PROJECT INFO', statusLabels: { period: 'PERIOD', team: 'TEAM', links: 'LINKS', testAccount: 'TEST ACCOUNT' },
     roleLabel: 'ROLE',
@@ -556,8 +753,8 @@ const UI_COPY = {
     },
     hud: {
       p1: ['Click and watch history alone cannot show emotional reactions by video segment', ['2023: frontend development · trained the emotion classifier', '2026: sole frontend owner of the refactoring'], ['Creative Design grand prize', 'facereview.net deployed']],
-      p2: ['Concurrent live feed and chat updates', ['Backend Clean Architecture layering', 'SSR strategy · real-time UI'], ['Live play-by-play & per-game chat', 'SSR pages']],
-      p3: ['Scattered responsive and motion logic', ['Journaling flow · emotion visualization UI', 'State & motion systems'], ['Emotion journal & visualization', 'Responsive UI']]
+      p2: ['No place to follow an NBA game live while talking with fellow fans', ['Tech choices · SSR/CSR structure design', 'Auth, chat server & DB sync'], ['Shipped live play-by-play & per-game chat', 'Automated NBA data sync']],
+      p3: ['Hard to look back on emotional flow as diary entries pile up', ['PocketBase DB & component structure', 'Code review · performance work'], ['Lighthouse mobile 50s–60s → 80s–90s', 'Shipped the AI-reply diary service']]
     },
     outcomeStatus: 'VERIFIED OUTCOME', screenshotsPending: 'Actual screen material coming soon', screenshotsReady: 'Live product screens · 2026.07'
   },
@@ -565,10 +762,9 @@ const UI_COPY = {
     skip: '本文へスキップ', menu: 'メニュー', navLabel: 'メインメニュー', langLabel: '言語選択',
     careerChapter: 'CHAPTER · 会社', careerMission: 'MISSION · プロジェクト', careerLog: 'LOG · 貢献記録',
     missionFile: 'MISSION FILE', projectContribution: '主要な貢献', projectImplementation: '代表実装', projectLoadout: '主要技術', openLog: 'LOGを開く',
-    projectGuide: '最近の作業順 · 貢献と代表実装で比較', flowTitle: 'サービスの動作フロー',
-    blogEmptyTitle: '公開記事はまだ連携していません。',
-    blogEmptyDesc: '公開できる記事ができ次第、ここに追加します。',
-    visitBlog: 'Velogで記事を見る',
+    projectGuide: '最近の作業順 · 貢献と代表実装で比較', flowTitle: 'サービスの動作フロー', flowOr: 'または',
+    visitBlog: 'Velogで全ての記事を見る',
+    blogLogLabel: 'DEV LOG', blogOpen: '読む',
     hudTitle: 'ミッションブリーフィング', hudLabels: ['課題', '貢献', '成果'],
     statusTitle: '基本情報', statusLabels: { period: '期間', team: 'チーム構成', links: 'リンク', testAccount: 'テストアカウント' },
     roleLabel: '担当',
@@ -583,8 +779,8 @@ const UI_COPY = {
     },
     hud: {
       p1: ['クリック・視聴履歴だけでは動画区間ごとの感情反応が分からない', ['2023: フロントエンド開発・感情分析モデルを直接学習', '2026: フロントエンドリファクタリング専任'], ['創意設計コンテスト大賞', 'facereview.net公開']],
-      p2: ['実況とチャットの同時更新', ['バックエンドClean Architecture層分離', 'SSR戦略・リアルタイムUI'], ['文字中継・試合別チャットを実装', 'SSRページを実装']],
-      p3: ['分散したレスポンシブ・モーション処理', ['日記作成フロー・感情可視化UI', '状態・モーション設計'], ['感情日記・可視化を実装', 'レスポンシブUIを実装']]
+      p2: ['NBAの試合を見ながらファン同士でリアルタイムに交流できる場がない課題', ['技術選定 · SSR/CSR構成設計', '認証・チャットサーバー・DB同期を実装'], ['リアルタイム中継・試合別チャットを公開', 'NBAデータの自動同期を構築']],
+      p3: ['感情の記録が溜まっても流れを振り返りにくい課題', ['PocketBase DB・コンポーネント構造設計', 'コードレビュー・性能改善'], ['Lighthouseモバイル50〜60→80〜90点台', 'AI返信付き日記サービスを公開']]
     },
     outcomeStatus: 'VERIFIED OUTCOME', screenshotsPending: '実際の画面資料を準備中', screenshotsReady: '実サービス画面 · 2026.07'
   }
