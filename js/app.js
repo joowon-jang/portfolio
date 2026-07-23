@@ -86,7 +86,16 @@
     const dimensions = IMAGE_DIMENSIONS[key];
     const sizeAttributes = dimensions ? `width="${dimensions[0]}" height="${dimensions[1]}"` : '';
     const imageClass = key === 'thumb-p1' ? ' img-logo-cover' : '';
-    if (src) return `<img class="img-fill${imageClass}" src="${src}" alt="${label}" ${sizeAttributes} ${key === 'photo' ? 'fetchpriority="high"' : 'loading="lazy"'}>`;
+    const isVideo = /\.(?:mov|mp4|webm)$/i.test(src || '');
+    const mediaClass = key.startsWith('shot-') && (isVideo || /\.gif$/i.test(src || '')) ? ' media-contain' : '';
+    if (isVideo) {
+      const poster = VIDEO_POSTERS[key] ? `poster="${VIDEO_POSTERS[key]}"` : '';
+      const autoplay = reduceMotion.matches ? '' : 'autoplay';
+      return `<video class="img-fill${mediaClass}" ${poster} ${autoplay} loop muted playsinline controls preload="metadata" aria-label="${label}">
+        <source src="${src}">
+      </video>`;
+    }
+    if (src) return `<img class="img-fill${imageClass}${mediaClass}" src="${src}" alt="${label}" ${sizeAttributes} ${key === 'photo' ? 'fetchpriority="high"' : 'loading="lazy"'}>`;
     if (projectId) return projectScene(projectId, label, shotIndex);
     return `<div class="pixel-avatar" role="img" aria-label="${label}"><div aria-hidden="true"><i></i><b></b><span></span></div><small>PLAYER 01</small></div>`;
   }

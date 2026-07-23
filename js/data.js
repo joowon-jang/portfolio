@@ -5,13 +5,28 @@
 const IMAGES = {
   'thumb-p1': 'assets/projects/facereview/logo.svg',
   'shot-p1-1': 'assets/projects/facereview/watch.png',
-  'shot-p1-2': 'assets/projects/facereview/my.png'
+  'shot-p1-2': 'assets/projects/facereview/my.png',
+  'thumb-p2': 'assets/projects/tododong/schedule-poster.png',
+  'shot-p2-1': 'assets/projects/tododong/schedule.gif',
+  'shot-p2-2': 'assets/projects/tododong/chat.gif',
+  'thumb-p3': 'assets/projects/haemadi/reply-method-poster.png',
+  'shot-p3-1': 'assets/projects/haemadi/reply-method.mov',
+  'shot-p3-2': 'assets/projects/haemadi/monthly-stats.mov'
 };
 
 const IMAGE_DIMENSIONS = {
   'thumb-p1': [224, 140],
   'shot-p1-1': [1400, 1081],
-  'shot-p1-2': [1400, 1332]
+  'shot-p1-2': [1400, 1332],
+  'thumb-p2': [700, 393],
+  'shot-p2-1': [1920, 1080],
+  'shot-p2-2': [1920, 1080],
+  'thumb-p3': [700, 336]
+};
+
+const VIDEO_POSTERS = {
+  'shot-p3-1': 'assets/projects/haemadi/reply-method-poster.png',
+  'shot-p3-2': 'assets/projects/haemadi/monthly-stats-poster.png'
 };
 
 const LINKS = {
@@ -25,7 +40,6 @@ const LINKS = {
     { icon: '🗄', key: 'backend', url: 'https://github.com/FRONT-END-BOOTCAMP-PLUS-3/tododong-background' }
   ],
   p3: [
-    { icon: '🌐', key: 'live', url: 'https://haemadi.netlify.app' },
     { icon: '🐙', key: 'code', url: 'https://github.com/FRONTENDSCHOOL10/Haemadi' }
   ]
 };
@@ -167,7 +181,7 @@ const I18N = {
           '2026 리팩터링 프론트엔드를 facereview.net(Vercel)에 배포 · 백엔드는 온프레미스 Docker 운영',
           '배포 인프라를 AWS → 온프레미스(Docker·nginx·GitHub Actions) → Vercel로 직접 이전'
         ] },
-      { id: 'p2', name: '토도동', badge: '🏀', desc: 'NBA 경기의 실시간 문자 중계와 경기별 채팅을 함께 제공하는 플랫폼', period: '2025.02 ~ 2025.05', team: '팀 프로젝트 4인 · 전원 풀스택',
+      { id: 'p2', name: '토도동', badge: '🏀', desc: 'NBA 경기의 실시간 문자 중계와 경기별 채팅을 함께 제공하는 플랫폼', period: '2025.02 ~ 2025.05', team: '팀 프로젝트 4인 · 전원 풀스택', verified: true,
         role: ['기술 선정 · SSR/CSR 구조 설계', '인증·채팅 서버·DB 동기화 구현'],
         list: { contribution: ['기술 선정 · SSR/CSR 구조 설계', '코드 리뷰로 접근성·SEO·렌더링 개선'], implementation: ['Socket.IO 채팅 서버 호스팅', 'NBA API 동기화 cron(Express.js)'] },
         productSummary: [
@@ -217,7 +231,7 @@ const I18N = {
           '경기 일정·실시간 중계·채팅·인증을 갖춘 서비스를 기획부터 배포까지 완료',
           'Socket.IO 채팅 서버와 NBA 데이터 동기화 cron을 별도 저장소로 분리해 직접 호스팅·운영'
         ] },
-      { id: 'p3', name: '해마디', badge: '📔', desc: '하루의 감정을 기록하고 그 흐름을 시각화해 돌아보는 일기 서비스', period: '2024.08 ~ 2024.11', team: '팀 프로젝트 3인 · 개발 2인 + 디자인·개발 보조 1인', testAccount: 'joowon11 / joowon11!',
+      { id: 'p3', name: '해마디', badge: '📔', desc: '하루의 감정을 기록하고 그 흐름을 시각화해 돌아보는 일기 서비스', period: '2024.08 ~ 2024.11', team: '팀 프로젝트 3인 · 개발 2인 + 디자인·개발 보조 1인', testAccount: 'joowon11 / joowon11!', verified: true,
         role: ['DB·컴포넌트 구조 설계', '코드 리뷰 · 개발 일정 관리'],
         list: { contribution: ['PocketBase DB·컴포넌트 구조 설계', '코드 리뷰로 접근성·성능 개선'], implementation: ['Lighthouse 성능 대폭 개선', 'SVGIcon sprite 컴포넌트'] },
         productSummary: [
@@ -257,7 +271,7 @@ const I18N = {
         ],
         outcome: [
           'Lighthouse 성능 점수 개선 — 모바일 50~60점대 → 80~90점대, 데스크톱 70~80점대 → 90점대 후반',
-          'AI 답장·콘텐츠 추천을 포함한 일기 서비스를 기획부터 배포(haemadi.netlify.app)까지 완료'
+          'AI 답장·콘텐츠 추천을 포함한 일기 서비스를 기획부터 배포까지 완료'
         ] }
     ]
   },
@@ -385,7 +399,7 @@ const I18N = {
           '2026 refactored frontend live at facereview.net on Vercel · backend on an on-premises Docker server',
           'Migrated deployment hands-on: AWS → on-premises (Docker, nginx, GitHub Actions) → Vercel'
         ] },
-      { id: 'p2', name: 'Tododong', badge: '🏀', desc: 'A platform combining live NBA text play-by-play with per-game chat', period: '2025.02 ~ 2025.05', team: 'Team of 4 · all full-stack',
+      { id: 'p2', name: 'Tododong', badge: '🏀', desc: 'A platform combining live NBA text play-by-play with per-game chat', period: '2025.02 ~ 2025.05', team: 'Team of 4 · all full-stack', verified: true,
         role: ['Tech choices · SSR/CSR structure design', 'Auth, chat server & DB sync implementation'],
         list: { contribution: ['Tech choices · SSR/CSR structure design', 'A11y, SEO & rendering via code review'], implementation: ['Hosted the Socket.IO chat server', 'NBA API sync cron (Express.js)'] },
         productSummary: [
@@ -435,7 +449,7 @@ const I18N = {
           'Took a service with schedules, live play-by-play, chat, and auth from planning to deployment',
           'Hosted and ran the Socket.IO chat server and the NBA data sync cron in a separate repo'
         ] },
-      { id: 'p3', name: 'Haemadi', badge: '📔', desc: 'A journal for recording daily emotions and reflecting on their visualized flow', period: '2024.08 ~ 2024.11', team: 'Team of 3 · 2 devs + 1 design/dev support', testAccount: 'joowon11 / joowon11!',
+      { id: 'p3', name: 'Haemadi', badge: '📔', desc: 'A journal for recording daily emotions and reflecting on their visualized flow', period: '2024.08 ~ 2024.11', team: 'Team of 3 · 2 devs + 1 design/dev support', testAccount: 'joowon11 / joowon11!', verified: true,
         role: ['DB & component structure design', 'Code review · schedule management'],
         list: { contribution: ['PocketBase DB & component structure', 'A11y & performance via code review'], implementation: ['Major Lighthouse performance gains', 'SVGIcon sprite component'] },
         productSummary: [
@@ -475,7 +489,7 @@ const I18N = {
         ],
         outcome: [
           'Lighthouse score gains — mobile 50s–60s → 80s–90s, desktop 70s–80s → high 90s',
-          'Took a diary service with AI replies and content recommendations from planning to deployment (haemadi.netlify.app)'
+          'Took a diary service with AI replies and content recommendations from planning to deployment'
         ] }
     ]
   },
@@ -603,7 +617,7 @@ const I18N = {
           '2026年リファクタリングのフロントエンドをfacereview.net（Vercel）で公開 · バックエンドはオンプレミスDockerで運用',
           'デプロイインフラをAWS → オンプレミス（Docker・nginx・GitHub Actions）→ Vercelへ自ら移行'
         ] },
-      { id: 'p2', name: 'トドドン', badge: '🏀', desc: 'NBAのリアルタイム文字中継と試合別チャットを一緒に提供するプラットフォーム', period: '2025.02 ~ 2025.05', team: 'チーム4人 · 全員フルスタック',
+      { id: 'p2', name: 'トドドン', badge: '🏀', desc: 'NBAのリアルタイム文字中継と試合別チャットを一緒に提供するプラットフォーム', period: '2025.02 ~ 2025.05', team: 'チーム4人 · 全員フルスタック', verified: true,
         role: ['技術選定 · SSR/CSR構成設計', '認証・チャットサーバー・DB同期の実装'],
         list: { contribution: ['技術選定 · SSR/CSR構成設計', 'コードレビューでアクセシビリティ・SEO改善'], implementation: ['Socket.IOチャットサーバーのホスティング', 'NBA API同期cron(Express.js)'] },
         productSummary: [
@@ -653,7 +667,7 @@ const I18N = {
           '試合日程・リアルタイム中継・チャット・認証を備えたサービスを企画からデプロイまで完了',
           'Socket.IOチャットサーバーとNBAデータ同期cronを別リポジトリに分離し自らホスティング・運用'
         ] },
-      { id: 'p3', name: 'ヘマディ', badge: '📔', desc: '一日の感情を記録し、その流れを可視化して振り返る日記サービス', period: '2024.08 ~ 2024.11', team: 'チーム3人 · 開発2人 + デザイン・開発補助1人', testAccount: 'joowon11 / joowon11!',
+      { id: 'p3', name: 'ヘマディ', badge: '📔', desc: '一日の感情を記録し、その流れを可視化して振り返る日記サービス', period: '2024.08 ~ 2024.11', team: 'チーム3人 · 開発2人 + デザイン・開発補助1人', testAccount: 'joowon11 / joowon11!', verified: true,
         role: ['DB・コンポーネント構造設計', 'コードレビュー · 開発スケジュール管理'],
         list: { contribution: ['PocketBase DB・コンポーネント構造設計', 'コードレビューでアクセシビリティ・性能改善'], implementation: ['Lighthouseパフォーマンスの大幅改善', 'SVGIconスプライトコンポーネント'] },
         productSummary: [
@@ -693,7 +707,7 @@ const I18N = {
         ],
         outcome: [
           'Lighthouseスコア改善 — モバイル50〜60点台→80〜90点台、デスクトップ70〜80点台→90点台後半',
-          'AI返信・コンテンツ推薦を含む日記サービスを企画からデプロイ（haemadi.netlify.app）まで完了'
+          'AI返信・コンテンツ推薦を含む日記サービスを企画からデプロイまで完了'
         ] }
     ]
   }
@@ -719,11 +733,13 @@ const UI_COPY = {
     imageLabels: {
       photo: '장주원 프로필을 표현한 픽셀 아바타',
       p1: '페이스리뷰 공식 로고',
-      p2: '농구 코트와 실시간 중계를 표현한 토도동 픽셀 장면',
-      p3: '달빛 바다와 감정 일기를 표현한 해마디 픽셀 장면'
+      p2: 'NBA 경기 일정과 팀별 점수가 표시된 토도동 서비스 화면',
+      p3: '답장 방식 선택 화면을 모바일과 데스크톱으로 보여주는 해마디 서비스 화면'
     },
     shotLabels: {
-      p1: ['영상 위 감정 타임라인 그래프와 커스텀 재생 컨트롤이 표시된 페이스리뷰 시청 화면', '감정 분포 도넛 차트와 최근 시청 영상별 그래프가 표시된 페이스리뷰 마이페이지']
+      p1: ['영상 위 감정 타임라인 그래프와 커스텀 재생 컨트롤이 표시된 페이스리뷰 시청 화면', '감정 분포 도넛 차트와 최근 시청 영상별 그래프가 표시된 페이스리뷰 마이페이지'],
+      p2: ['날짜별 NBA 경기 일정과 팀별 점수를 조회하는 토도동 화면', '실시간 문자 중계와 경기별 채팅을 함께 제공하는 토도동 경기 화면'],
+      p3: ['AI 또는 익명 사용자 중 일기 답장 방식을 선택하는 해마디 화면', '월간 감정 분포와 일기 통계를 확인하는 해마디 나의 섬 화면']
     },
     hud: {
       p1: ['클릭·시청 기록만으로는 영상 구간별 감정 반응을 알기 어려움', ['2023: 프론트엔드 개발·감정 분석 모델 직접 학습', '2026: 프론트엔드 리팩터링 전담'], ['창의설계경진대회 대상', 'facereview.net 배포']],
@@ -745,11 +761,13 @@ const UI_COPY = {
     imageLabels: {
       photo: 'Pixel avatar representing Jang Joowon',
       p1: 'Official Face Review logo',
-      p2: 'Pixel scene of Tododong basketball court and live updates',
-      p3: 'Pixel scene of Haemadi moonlit sea and emotion journal'
+      p2: 'Tododong screen showing the NBA schedule and team scores',
+      p3: 'Haemadi reply-method screen shown on mobile and desktop'
     },
     shotLabels: {
-      p1: ['Face Review watch screen with an emotion timeline over the video and custom playback controls', 'Face Review profile screen with an emotion-distribution donut and graphs for recently watched videos']
+      p1: ['Face Review watch screen with an emotion timeline over the video and custom playback controls', 'Face Review profile screen with an emotion-distribution donut and graphs for recently watched videos'],
+      p2: ['Tododong schedule screen for browsing NBA games and scores by date', 'Tododong game screen combining live text play-by-play with per-game chat'],
+      p3: ['Haemadi screen for choosing an AI or anonymous-user reply to a journal entry', 'Haemadi My Island screen showing monthly emotion distribution and journal statistics']
     },
     hud: {
       p1: ['Click and watch history alone cannot show emotional reactions by video segment', ['2023: frontend development · trained the emotion classifier', '2026: sole frontend owner of the refactoring'], ['Creative Design grand prize', 'facereview.net deployed']],
@@ -771,11 +789,13 @@ const UI_COPY = {
     imageLabels: {
       photo: 'チャン・ジュウォンを表すピクセルアバター',
       p1: 'フェイスレビューの公式ロゴ',
-      p2: 'トドドンのバスケットコートと実況を表すピクセルシーン',
-      p3: 'ヘマディの月夜の海と感情日記を表すピクセルシーン'
+      p2: 'NBAの日程とチーム別スコアを表示するトドドンのサービス画面',
+      p3: '返信方法の選択画面をモバイルとデスクトップで示すヘマディのサービス画面'
     },
     shotLabels: {
-      p1: ['動画上の感情タイムラインとカスタム再生コントロールを表示するフェイスレビューの視聴画面', '感情分布ドーナツと最近見た動画別グラフを表示するフェイスレビューのマイページ']
+      p1: ['動画上の感情タイムラインとカスタム再生コントロールを表示するフェイスレビューの視聴画面', '感情分布ドーナツと最近見た動画別グラフを表示するフェイスレビューのマイページ'],
+      p2: ['日付別にNBAの試合日程とスコアを確認するトドドンの画面', 'リアルタイム文字中継と試合別チャットを同時に提供するトドドンの試合画面'],
+      p3: ['AIまたは匿名ユーザーからの日記返信方法を選ぶヘマディの画面', '月間の感情分布と日記統計を確認するヘマディの「私の島」画面']
     },
     hud: {
       p1: ['クリック・視聴履歴だけでは動画区間ごとの感情反応が分からない', ['2023: フロントエンド開発・感情分析モデルを直接学習', '2026: フロントエンドリファクタリング専任'], ['創意設計コンテスト大賞', 'facereview.net公開']],
