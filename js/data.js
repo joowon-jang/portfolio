@@ -59,11 +59,11 @@ const BLOG_POSTS = [
 const I18N = {
   ko: {
     nav: ['소개', '기술', '경력', '프로젝트', '블로그', '채널'],
-    heroTag: '▶ 프론트엔드 개발자 포트폴리오',
+    heroTag: '▶ 포트폴리오',
     heroName: '장주원',
     heroLevel: '주니어 웹 개발자',
     heroIntro: '사용자 경험과 접근성 개선을 항상 고민합니다. 사용하는 기술의 동작 원리를 깊이 공부하고, AI를 적극 활용해 개발 프로세스를 개선합니다.',
-    playerCaption: '장주원 · 프론트엔드 개발자',
+    playerCaption: '장주원 · 웹 개발자',
     statLabels: ['UX·접근성', '동작 원리 탐구', 'AI 활용'],
     inventoryTitle: '■ 보유 기술',
     collab: '협업 도구: Git · GitHub · Notion · Figma',
@@ -277,11 +277,11 @@ const I18N = {
   },
   en: {
     nav: ['Overview', 'Skills', 'Career', 'Projects', 'Blog', 'Channels'],
-    heroTag: '▶ FRONTEND DEVELOPER PORTFOLIO',
+    heroTag: '▶ PORTFOLIO',
     heroName: 'Jang Joowon',
     heroLevel: 'Junior Web Developer',
     heroIntro: 'I care deeply about user experience and accessibility, dig into how the tech I use actually works, and actively use AI to improve my development process.',
-    playerCaption: 'Jang Joowon · Frontend Developer',
+    playerCaption: 'Jang Joowon · Web Developer',
     statLabels: ['UX · Accessibility', 'Deep Understanding', 'AI Leverage'],
     inventoryTitle: '■ SKILLS',
     collab: 'Collaboration: Git · GitHub · Notion · Figma',
@@ -495,11 +495,11 @@ const I18N = {
   },
   ja: {
     nav: ['紹介', 'スキル', 'キャリア', 'プロジェクト', 'ブログ', 'チャンネル'],
-    heroTag: '▶ フロントエンド開発者ポートフォリオ',
+    heroTag: '▶ ポートフォリオ',
     heroName: 'チャン・ジュウォン',
     heroLevel: 'ジュニアWeb開発者',
     heroIntro: 'ユーザー体験とアクセシビリティの改善を常に考えています。使う技術の動作原理を深く学び、AIを積極的に活用して開発プロセスを改善します。',
-    playerCaption: 'チャン・ジュウォン · フロントエンド開発者',
+    playerCaption: 'チャン・ジュウォン · Web開発者',
     statLabels: ['UX・アクセシビリティ', '動作原理の探求', 'AI活用'],
     inventoryTitle: '■ 保有スキル',
     collab: '協業ツール: Git · GitHub · Notion · Figma',
@@ -715,8 +715,8 @@ const I18N = {
 
 const SKILLS = {
   main: ['TypeScript', 'React', 'Next.js'],
-  sub: ['TanStack Query', 'Zustand', 'Sass', 'Tailwind CSS', 'Node.js', 'PostgreSQL', 'nginx', 'Socket.IO', 'MCP · Agent Skills'],
-  special: 'Rust/WASM ★'
+  sub: ['TanStack Query', 'Zustand', 'Sass', 'Tailwind CSS', 'Node.js', 'PostgreSQL', 'nginx', 'Socket.IO', 'WASM'],
+  special: 'MCP · Agent Skills ★'
 };
 
 const UI_COPY = {
