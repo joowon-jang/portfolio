@@ -120,6 +120,9 @@
     langSwitch.setAttribute('aria-label', copy.langLabel);
     menuToggle.setAttribute('aria-label', copy.menu);
     menuToggle.querySelector('.menu-label').textContent = copy.menu.toUpperCase();
+    scrollTop.setAttribute('aria-label', t().scrollTop);
+    scrollTop.title = t().scrollTop;
+    scrollTop.querySelector('.scroll-top-label').textContent = t().scrollTop;
     navLinks.innerHTML = t().nav.map((label, index) =>
       `<button type="button" data-jump="${SEC_IDS[index]}">${label}</button>`
     ).join('');
@@ -311,8 +314,8 @@
           </section>
           ${sourceNotice}
       </div>
-      <nav class="detail-nav" aria-label="${tr.sideQuestTitle}">${projectIndex > 0 ? `<button class="btn-pager" type="button" data-pager="prev">◀ ${tr.prev}</button>` : ''}${projectIndex < projects.length - 1 ? `<button class="btn-pager" type="button" data-pager="next">${tr.next} ▶</button>` : ''}</nav>
-    </article>`;
+    </article>
+    <nav class="detail-nav" aria-label="${tr.sideQuestTitle}">${projectIndex > 0 ? `<button class="btn-pager" type="button" data-pager="prev">◀ ${tr.prev}</button>` : ''}${projectIndex < projects.length - 1 ? `<button class="btn-pager" type="button" data-pager="next">${tr.next} ▶</button>` : ''}</nav>`;
   }
 
   function startTyping() {
@@ -418,7 +421,7 @@
     navRight.classList.toggle('is-open', willOpen);
   });
   scrollTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' }));
-  window.addEventListener('scroll', () => { scrollTop.hidden = window.scrollY < 600; }, { passive: true });
+  window.addEventListener('scroll', () => { scrollTop.hidden = window.scrollY < 80; }, { passive: true });
   window.addEventListener('hashchange', () => onHash(true));
   window.addEventListener('resize', () => { if (window.innerWidth > 720) closeMenu(); });
   document.addEventListener('keydown', (event) => {
