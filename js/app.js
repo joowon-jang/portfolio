@@ -386,7 +386,7 @@
       state.view = 'detail';
       state.pid = hash;
       render();
-      window.scrollTo({ top: 0, behavior: 'auto' });
+      window.scrollTo({ top: 0, behavior: 'instant' });
     } else {
       state.view = 'home';
       render();
@@ -394,7 +394,7 @@
     closeMenu();
     if (shouldFocus) requestAnimationFrame(() => {
       app.focus({ preventScroll: true });
-      window.scrollTo({ top: 0, behavior: 'auto' });
+      window.scrollTo({ top: 0, behavior: 'instant' });
     });
   }
 
