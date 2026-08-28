@@ -423,6 +423,14 @@
   scrollTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' }));
   window.addEventListener('scroll', () => { scrollTop.hidden = window.scrollY < 80; }, { passive: true });
   window.addEventListener('hashchange', () => onHash(true));
+  window.addEventListener('beforeprint', () => {
+    // 인쇄할 때는 타이핑 연출이 끝나기를 기다리지 않고 이름을 모두 채운다.
+    clearInterval(typeTimer);
+    const typed = document.getElementById('typed');
+    if (typed) typed.textContent = t().heroName;
+    // 재생 중인 영상은 멈춰서 한 프레임이 그대로 인쇄되게 한다.
+    document.querySelectorAll('video').forEach((video) => video.pause());
+  });
   window.addEventListener('resize', () => { if (window.innerWidth > 720) closeMenu(); });
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {

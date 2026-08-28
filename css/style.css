@@ -991,3 +991,253 @@ p, figure { margin: 0; }
   .cursor, .footer .marker, .rec-dot, .stat-fill { animation: none; opacity: 1; }
   .proj-card, .link-btn, .scroll-top, .cert-card, .skip-link { transition: none; }
 }
+
+/* ▓▓ PRINT — 밝은 배경 기반 인쇄 레이아웃 ▓▓ */
+@media print {
+  @page { margin: 12mm; }
+
+  /* 어두운 CRT 팔레트를 종이용 밝은 팔레트로 교체 */
+  :root {
+    --bg: #ffffff;
+    --bg-panel: #ffffff;
+    --bg-deep: #f4f5f7;
+    --fg: #14161f;
+    --cyan: #0f566b;
+    --green: #1f6b2a;
+    --yellow: #7f5300;
+    --muted: #4a4f57;
+    --dim: #9aa0a8;
+    --body-text: #1f2229;
+    --line-soft: #ccd1d8;
+  }
+
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    filter: none !important;
+  }
+
+  html {
+    font-size: 13px;
+    scroll-behavior: auto;
+  }
+
+  body {
+    min-width: 0;
+    overflow: visible;
+    background: #fff;
+    color: var(--body-text);
+    font-size: 1rem;
+  }
+
+  /* 화면 전용 UI는 인쇄에서 제외 */
+  .scanlines,
+  .skip-link,
+  .scroll-top,
+  .detail-nav,
+  .menu-toggle,
+  .nav-right,
+  .cursor,
+  .btn-back,
+  .btn-pager,
+  .proj-enter,
+  .mission-enter,
+  .blog-card-enter,
+  .window-deco,
+  .rec-dot { display: none !important; }
+
+  /* 상단 로고만 머리글처럼 남긴다 */
+  .nav {
+    position: static;
+    display: block;
+    min-height: 0;
+    padding: 0 0 8px;
+    border-bottom: 2px solid var(--fg);
+  }
+  .nav-logo { display: inline-flex; min-height: 0; padding: 0; color: var(--fg); font-size: .875rem; }
+
+  .home, .detail { max-width: none; margin: 0; }
+  .section { padding: 16px 0 14px; scroll-margin-top: 0; }
+  .section-title { margin-bottom: 14px; }
+  .contact { padding: 16px 0 0; }
+  .detail { padding: 0; }
+  .detail-hero { padding: 14px 0 12px; }
+
+  /* 히어로 */
+  .hero {
+    grid-template-columns: minmax(0, 1fr) 190px;
+    gap: 28px;
+    min-height: 0;
+    padding: 18px 0 16px;
+    scroll-margin-top: 0;
+    break-after: avoid;
+  }
+  .hero-name { min-height: 0; }
+  .photo-slot { height: 210px; }
+  .achievement-hud { margin-top: 20px; }
+  .metrics { grid-template-columns: repeat(3, 1fr); }
+  .metric { padding: 12px 12px; border-right: 2px solid var(--dim); border-bottom: 0; display: block; }
+  .metric:last-child { border-right: 0; }
+  .metric span { margin-top: 6px; }
+
+  /* 픽셀 아트는 원래 레트로 색을 그대로 유지 */
+  .pixel-avatar,
+  .pixel-scene {
+    --bg: #1a1c2c;
+    --bg-panel: #29366f;
+    --bg-deep: #20263e;
+    --fg: #f4f4f4;
+    --cyan: #73eff7;
+    --green: #a7f070;
+    --yellow: #ffcd75;
+    --muted: #94b0c2;
+    --dim: #566c86;
+  }
+
+  /* 경력 */
+  .career-head { flex-direction: row; align-items: center; padding: 12px 16px; }
+  .career-period { text-align: end; }
+  .career-project-head { flex-direction: row; align-items: baseline; }
+  .contribution-log { grid-template-columns: 100px minmax(0, 1fr); gap: 14px; padding-block: 9px; }
+  .contribution-date { white-space: nowrap; }
+
+  /* 프로젝트 목록 */
+  .proj-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proj-card { grid-template-rows: 150px 1fr; }
+  .mission-row { grid-template-columns: 160px minmax(0, 1fr); min-height: 0; }
+  .mission-cover { min-height: 150px; border-right: 3px solid var(--fg); border-bottom: 0; }
+  .mission-main { padding: 14px 16px; }
+  .mission-side {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-top: 2px solid var(--dim);
+    border-left: 0;
+  }
+  .mission-facts { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); }
+  .mission-facts > div + div { margin-top: 0; padding-left: 14px; border-top: 0; border-left: 1px solid var(--line-soft); }
+  .mission-kicker { flex-direction: row; }
+  .mission-kicker span:last-child { text-align: end; }
+
+  .cert-grid { grid-template-columns: repeat(3, 1fr); }
+  .blog-grid { grid-template-columns: repeat(2, 1fr); }
+  .contact-box { grid-template-columns: repeat(2, 1fr); text-align: left; }
+
+  /* 상세 페이지 표는 종이에서 진짜 표로 되돌린다 */
+  .project-info-table { display: table; }
+  .project-info-table tbody { display: table-row-group; }
+  .project-info-table thead {
+    position: static;
+    display: table-header-group;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+  }
+  .project-info-table tr { display: table-row; padding: 0; border-bottom: 0; }
+  .project-info-table tbody tr:last-child { border-bottom: 0; }
+  .project-info-table tbody th,
+  .project-info-table tbody td {
+    display: table-cell;
+    width: auto;
+    padding: 10px 12px;
+    border-right: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .project-info-table tr > :last-child { border-right: 0; }
+  .project-info-table tbody th::before,
+  .project-info-table tbody td::before { content: none; }
+  .project-info-table tbody th strong { margin: 0; }
+  .project-info-table tbody th span { margin-top: 7px; }
+
+  .info-links-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .info-links { flex-direction: column; align-items: flex-start; gap: 5px; }
+  .link-btn {
+    min-height: 0;
+    padding: 4px 8px;
+    background: #fff;
+    color: var(--cyan);
+    border: 1px solid var(--cyan);
+  }
+  .brief-grid { grid-template-columns: 1fr 1.3fr .9fr; }
+  .brief-grid > li { border-top: 0; border-left: 2px solid var(--dim); }
+  .brief-grid > li:first-child { border-left: 0; }
+
+  /* 창(window) 헤더는 검정 띠 대신 옅은 회색 띠로 */
+  .window-bar,
+  .achievement-hud h2 {
+    background: #ececef;
+    color: var(--fg);
+    border-bottom: 2px solid var(--fg);
+  }
+  .window-outcome .window-bar { background: #e7f1e7; }
+  .window-body { padding: 14px 16px; }
+  .panel { padding: 16px 18px; }
+  .outcome-status { background: #fff; color: var(--green); border: 1px solid var(--green); }
+
+  /* 서비스 흐름도는 세로로 */
+  .service-flow { flex-direction: column; gap: 16px; }
+  .service-flow li { flex: 0 0 auto; min-height: 0; padding: 8px 10px; }
+  .service-flow li:not(:last-child)::after {
+    content: '▼';
+    left: 50%;
+    top: calc(100% + 4px);
+    transform: translateX(-50%);
+  }
+  .service-flow .flow-fork { flex: 0 0 auto; }
+  .service-flow .flow-fork-options li { min-height: 0; }
+
+  .feature-grid { grid-template-columns: 1fr 1fr; }
+  .shot-grid { grid-template-columns: 1fr 1fr; }
+  .shot { height: 240px; }
+  img, video { max-width: 100%; }
+  video::-webkit-media-controls { display: none !important; }
+
+  /* 페이지 넘김 제어 */
+  .career-card,
+  .career-project-card,
+  .mission-item,
+  .contribution-log,
+  .window,
+  .panel,
+  .cert-card,
+  .blog-card,
+  .feature,
+  .trouble,
+  .shot,
+  .metric,
+  .brief-grid > li,
+  .timeline > li,
+  figure { break-inside: avoid; }
+
+  h1, h2, h3, h4,
+  .section-title,
+  .window-bar,
+  .career-head,
+  .career-project-head,
+  .window-subtitle,
+  .stack-group-title { break-after: avoid; }
+
+  p, li { orphans: 2; widows: 2; }
+
+  /* 종이에서는 링크 주소를 함께 노출 */
+  .blog-head a[href^="http"]::after,
+  .link-btn[href^="http"]::after,
+  .blog-card[href^="http"]::after {
+    content: ' (' attr(href) ')';
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-size: .6875rem;
+    word-break: break-all;
+  }
+}
