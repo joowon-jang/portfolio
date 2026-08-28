@@ -3,6 +3,7 @@
 // 이미지 교체: 아래 IMAGES에 슬롯 id별 경로를 넣으면 플레이스홀더 대신 이미지가 표시됩니다.
 // 예) 'photo': 'assets/profile.jpg', 'thumb-p1': 'assets/face-review-thumb.png'
 const IMAGES = {
+  photo: 'assets/profile.jpg',
   'thumb-p1': 'assets/projects/facereview/logo.svg',
   'shot-p1-1': 'assets/projects/facereview/watch.png',
   'shot-p1-2': 'assets/projects/facereview/my.png',
@@ -15,6 +16,7 @@ const IMAGES = {
 };
 
 const IMAGE_DIMENSIONS = {
+  photo: [660, 880],
   'thumb-p1': [224, 140],
   'shot-p1-1': [1400, 1081],
   'shot-p1-2': [1400, 1332],
