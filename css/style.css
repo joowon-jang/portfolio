@@ -994,7 +994,7 @@ p, figure { margin: 0; }
 
 /* ▓▓ PRINT — 밝은 배경 기반 인쇄 레이아웃 ▓▓ */
 @media print {
-  @page { margin: 12mm; }
+  @page { margin: 10mm 12mm; }
 
   /* 어두운 CRT 팔레트를 종이용 밝은 팔레트로 교체 */
   :root {
@@ -1063,18 +1063,18 @@ p, figure { margin: 0; }
   .nav-logo { display: inline-flex; min-height: 0; padding: 0; color: var(--fg); font-size: .875rem; }
 
   .home, .detail { max-width: none; margin: 0; }
-  .section { padding: 16px 0 14px; scroll-margin-top: 0; }
-  .section-title { margin-bottom: 14px; }
+  .section { padding: 13px 0 11px; scroll-margin-top: 0; }
+  .section-title { margin-bottom: 11px; }
   .contact { padding: 16px 0 0; }
   .detail { padding: 0; }
-  .detail-hero { padding: 14px 0 12px; }
+  .detail-hero { padding: 12px 0 10px; }
 
   /* 히어로 */
   .hero {
     grid-template-columns: minmax(0, 1fr) 190px;
     gap: 28px;
     min-height: 0;
-    padding: 18px 0 16px;
+    padding: 14px 0 12px;
     scroll-margin-top: 0;
     break-after: avoid;
   }
@@ -1104,7 +1104,7 @@ p, figure { margin: 0; }
   .career-head { flex-direction: row; align-items: center; padding: 12px 16px; }
   .career-period { text-align: end; }
   .career-project-head { flex-direction: row; align-items: baseline; }
-  .contribution-log { grid-template-columns: 100px minmax(0, 1fr); gap: 14px; padding-block: 9px; }
+  .contribution-log { grid-template-columns: 100px minmax(0, 1fr); gap: 14px; padding-block: 7px; }
   .contribution-date { white-space: nowrap; }
 
   /* 프로젝트 목록 */
@@ -1112,7 +1112,7 @@ p, figure { margin: 0; }
   .proj-card { grid-template-rows: 150px 1fr; }
   .mission-row { grid-template-columns: 160px minmax(0, 1fr); min-height: 0; }
   .mission-cover { min-height: 150px; border-right: 3px solid var(--fg); border-bottom: 0; }
-  .mission-main { padding: 14px 16px; }
+  .mission-main { padding: 12px 16px; }
   .mission-side {
     grid-column: 1 / -1;
     display: grid;
@@ -1199,25 +1199,44 @@ p, figure { margin: 0; }
 
   .feature-grid { grid-template-columns: 1fr 1fr; }
   .shot-grid { grid-template-columns: 1fr 1fr; }
-  .shot { height: 240px; }
+  .shot { height: 205px; }
   img, video { max-width: 100%; }
   video::-webkit-media-controls { display: none !important; }
 
-  /* 페이지 넘김 제어 */
-  .career-card,
-  .career-project-card,
+  /* 세로로 쌓이는 목록은 블록 흐름으로 바꿔 페이지 경계에서 자연스럽게 나뉘게 한다.
+     grid/flex 컨테이너는 페이지 분할 시 빈 공간을 크게 남기는 경우가 있다. */
+  .careers,
+  .detail-main,
+  .mission-list,
+  .troubles,
+  .flow-tracks,
+  .text-list,
+  .bullet-list,
+  .timeline,
+  .timeline-points { display: block; }
+  .careers .career-card + .career-card { margin-top: 16px; }
+  .detail-main > * + * { margin-top: 14px; }
+  .mission-item + .mission-item { margin-top: 14px; }
+  .trouble + .trouble { margin-top: 10px; }
+  .flow-track + .flow-track { margin-top: 16px; }
+  .text-list li + li { margin-top: 7px; }
+  .outcome-list li + li { margin-top: 8px; }
+  .bullet-list li + li { margin-top: 4px; }
+  .timeline-points li + li { margin-top: 5px; }
+
+  /* 페이지 넘김 제어 — 통째로 묶는 건 한 페이지보다 훨씬 작은 단위에만 적용한다.
+     큰 블록까지 묶으면 페이지 하단에 큰 여백이 생긴다. */
+  .contact,
   .mission-item,
   .contribution-log,
-  .window,
-  .panel,
   .cert-card,
   .blog-card,
   .feature,
-  .trouble,
   .shot,
   .metric,
   .brief-grid > li,
   .timeline > li,
+  .stack-chip,
   figure { break-inside: avoid; }
 
   h1, h2, h3, h4,
