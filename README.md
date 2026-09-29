@@ -17,7 +17,7 @@ python3 -m http.server 8080
 - `index.html` — 셸(내비게이션, 폰트, 스크립트 로드)
 - `css/style.css` — 전체 스타일 + 태블릿/모바일 반응형 레이아웃
 - `js/data.js` — 콘텐츠 데이터 (ko/en/ja i18n, 프로젝트, 링크, 연락처)
-- `js/app.js` — 해시 라우팅(`#p1`~`#p3` 상세 페이지), 언어 전환, 성과 HUD, 접근 가능한 모바일 메뉴
+- `js/app.js` — 프로젝트 데이터 기반 해시 라우팅(`#p1`~`#p4` 상세 페이지), 언어 전환, 성과 HUD, 접근 가능한 모바일 메뉴
 
 ## 콘텐츠 수정
 
@@ -25,7 +25,8 @@ python3 -m http.server 8080
 
 - **경력**: `careers[] → projects[] → contributions[]` 구조로 회사, 프로젝트, 프로젝트별 기여를 구분합니다. 한 회사의 프로젝트가 늘어나도 회사 정보는 반복하지 않습니다.
 - **이미지**: `js/data.js`의 `IMAGES`에 경로를 넣으면 플레이스홀더가 교체됩니다.
-  (`photo`, `thumb-p1`~`p3`, `shot-p1-1` 등)
+  (`photo`, `thumb-p1`~`thumb-p4`, `shot-p1-1` 등)
+- **AioLM (`p4`)**: `AIOLM`에 ko/en/ja 소개를 정의합니다. `motivation`은 개발 배경이며, 개발 기여와 구분합니다. 실제 앱의 벤치마크·모델 설정 화면을 `assets/projects/aiolm/`에 저장했습니다. `screenshotLayout: 'wide'`는 이미지를 자르지 않고 한 열로 표시하며 원본 링크를 제공합니다.
 - **프로젝트 링크**: `LINKS`에 실제 배포/저장소 주소가 반영되어 있습니다. (토도동 배포는 운영 종료로 저장소 링크만 유지)
 
 남은 TODO:

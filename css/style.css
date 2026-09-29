@@ -836,6 +836,10 @@ p, figure { margin: 0; }
 .shot > .media-contain { object-fit: contain; object-position: center; background: #08090b; }
 .shot > .pixel-scene { min-height: 0; }
 .shot figcaption { padding: 9px 11px; border-top: 2px solid var(--bg-panel); color: var(--body-text); font-size: .8125rem; line-height: 1.55; }
+.shot-grid.shot-grid-wide { grid-template-columns: minmax(0, 1fr); }
+.shot-grid-wide .shot { height: auto; display: block; }
+.shot-link { display: block; }
+.shot-link .img-fill { display: block; width: 100%; height: auto; }
 .outcome-status { display: inline-block; margin-bottom: 12px; padding: 5px 8px; background: var(--green); color: var(--bg); font-size: .6875rem; }
 .outcome-text { max-width: 78ch; margin: 0; font-size: 1rem; }
 .flow-tracks { display: grid; gap: 18px; }

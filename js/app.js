@@ -85,7 +85,7 @@
     const src = IMAGES[key];
     const dimensions = IMAGE_DIMENSIONS[key];
     const sizeAttributes = dimensions ? `width="${dimensions[0]}" height="${dimensions[1]}"` : '';
-    const imageClass = key === 'thumb-p1' ? ' img-logo-cover' : '';
+    const imageClass = ['thumb-p1', 'thumb-p4'].includes(key) ? ' img-logo-cover' : '';
     const isVideo = /\.(?:mov|mp4|webm)$/i.test(src || '');
     const mediaClass = key.startsWith('shot-') && (isVideo || /\.gif$/i.test(src || '')) ? ' media-contain' : '';
     if (isVideo) {
@@ -284,6 +284,10 @@
         <ul class="brief-grid">${hud}</ul>
       </section>
       <div class="detail-main">
+          ${project.motivation ? `<section class="window" aria-labelledby="motivation-title">
+            ${windowBar('motivation-title', project.motivation.title)}
+            <div class="window-body">${bulletList(project.motivation.points)}</div>
+          </section>` : ''}
           <section class="window window-outcome" aria-labelledby="outcome-title">
             ${windowBar('outcome-title', tr.dOutcome)}
             <div class="window-body"><span class="outcome-status">${copy.outcomeStatus}</span>${Array.isArray(project.outcome) ? `<ul class="text-list outcome-list">${project.outcome.map((item) => `<li>${item}</li>`).join('')}</ul>` : `<p class="outcome-text">${project.outcome}</p>`}</div>
@@ -292,10 +296,14 @@
             ${windowBar('overview-title', tr.dOverview)}
             <div class="window-body">${productCopy}${flow ? `<h3 class="window-subtitle">${copy.flowTitle}</h3><div class="flow-tracks">${flow}</div>` : ''}</div>
           </section>
-          <section class="window" aria-labelledby="shots-title">
-            ${windowBar('shots-title', tr.dShots, project.verified ? copy.screenshotsReady : copy.screenshotsPending)}
-            <div class="window-body"><div class="shot-grid"><figure class="shot">${imageSlot(`shot-${project.id}-1`, shotLabels[0], project.id, 1)}<figcaption>${shotLabels[0]}</figcaption></figure><figure class="shot">${imageSlot(`shot-${project.id}-2`, shotLabels[1], project.id, 2)}<figcaption>${shotLabels[1]}</figcaption></figure></div></div>
-          </section>
+          ${project.hideScreenshots ? '' : `<section class="window" aria-labelledby="shots-title">
+            ${windowBar('shots-title', tr.dShots, project.screenshotsMeta || (project.verified ? copy.screenshotsReady : copy.screenshotsPending))}
+            <div class="window-body"><div class="shot-grid${project.screenshotLayout === 'wide' ? ' shot-grid-wide' : ''}">${shotLabels.map((label, index) => {
+              const key = `shot-${project.id}-${index + 1}`;
+              const media = imageSlot(key, label, project.id, index + 1);
+              return `<figure class="shot">${project.screenshotLayout === 'wide' && IMAGES[key] ? `<a class="shot-link" href="${IMAGES[key]}" target="_blank" rel="noopener">${media}</a>` : media}<figcaption>${label}</figcaption></figure>`;
+            }).join('')}</div></div>
+          </section>`}
           <section class="window" aria-labelledby="features-title">
             ${windowBar('features-title', tr.dFeatures)}
             <div class="window-body"><ul class="feature-grid">${features}</ul></div>
@@ -385,7 +393,7 @@
 
   function onHash(shouldFocus = false) {
     const hash = (location.hash || '').slice(1);
-    if (/^p[1-3]$/.test(hash)) {
+    if (t().projects.some((project) => project.id === hash)) {
       state.view = 'detail';
       state.pid = hash;
       render();

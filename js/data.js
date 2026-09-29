@@ -3,6 +3,9 @@
 // 이미지 교체: 아래 IMAGES에 슬롯 id별 경로를 넣으면 플레이스홀더 대신 이미지가 표시됩니다.
 // 예) 'photo': 'assets/profile.jpg', 'thumb-p1': 'assets/face-review-thumb.png'
 const IMAGES = {
+  'thumb-p4': 'assets/projects/aiolm/logo.png',
+  'shot-p4-1': 'assets/projects/aiolm/benchmark.png',
+  'shot-p4-2': 'assets/projects/aiolm/model-settings.png',
   photo: 'assets/profile.jpg',
   'thumb-p1': 'assets/projects/facereview/logo.svg',
   'shot-p1-1': 'assets/projects/facereview/watch.png',
@@ -16,6 +19,9 @@ const IMAGES = {
 };
 
 const IMAGE_DIMENSIONS = {
+  'thumb-p4': [1254, 1254],
+  'shot-p4-1': [3866, 2090],
+  'shot-p4-2': [3866, 2090],
   photo: [660, 880],
   'thumb-p1': [224, 140],
   'shot-p1-1': [1400, 1081],
@@ -32,6 +38,11 @@ const VIDEO_POSTERS = {
 };
 
 const LINKS = {
+  p4: [
+    { icon: '🌐', key: 'live', url: 'https://aiolm.vercel.app' },
+    { icon: '💻', key: 'desktop', url: 'https://github.com/aiolm/AioLM' },
+    { icon: '🐙', key: 'web', url: 'https://github.com/aiolm/AioLm-Web' }
+  ],
   p1: [
     { icon: '🌐', key: 'live', url: 'https://facereview.net' },
     { icon: '🐙', key: 'repo', url: 'https://github.com/joowon-jang/facereview-front' },
@@ -47,9 +58,9 @@ const LINKS = {
 };
 
 const LINK_LABELS = {
-  ko: { live: '배포 사이트', repo: '프론트엔드 저장소', backend: '백엔드 저장소', code: '프로젝트 저장소' },
-  en: { live: 'Live Site', repo: 'Frontend Repo', backend: 'Backend Repo', code: 'Project Repo' },
-  ja: { live: '公開サイト', repo: 'フロントエンドリポジトリ', backend: 'バックエンドリポジトリ', code: 'プロジェクトリポジトリ' }
+  ko: { live: '배포 사이트', repo: '프론트엔드 저장소', backend: '백엔드 저장소', code: '프로젝트 저장소', desktop: '데스크톱 앱 저장소', web: '웹사이트 저장소' },
+  en: { live: 'Live Site', repo: 'Frontend Repo', backend: 'Backend Repo', code: 'Project Repo', desktop: 'Desktop App Repo', web: 'Website Repo' },
+  ja: { live: '公開サイト', repo: 'フロントエンドリポジトリ', backend: 'バックエンドリポジトリ', code: 'プロジェクトリポジトリ', desktop: 'デスクトップアプリのリポジトリ', web: 'Webサイトのリポジトリ' }
 };
 
 const BLOG_POSTS = [
@@ -57,6 +68,111 @@ const BLOG_POSTS = [
   { id: 'b2', date: '2025.09.21', url: 'https://velog.io/@juwon98/createPortal사용과-FocusTrap으로-모달창-개선' },
   { id: 'b3', date: '2024.11.07', url: 'https://velog.io/@juwon98/React-createPortal-SplashScreen' }
 ];
+
+// 데스크톱 앱과 공개 벤치마크 웹을 하나의 개인 프로젝트로 소개합니다.
+const AIOLM = {
+  ko: {
+    id: 'p4', name: 'AioLM', badge: '🔬', period: '개발·공개 후 지속 개선 중', team: '개인 프로젝트',
+    desc: '로컬 LLM 실측 데이터를 공유해 기기 구매와 실행 환경 선택을 돕는 데스크톱 앱·웹 서비스',
+    role: ['기획·데스크톱 앱·웹사이트 개발'], verified: true,
+    screenshotLayout: 'wide', screenshotsMeta: '실제 앱 화면 · 2026.09',
+    list: { contribution: ['로컬 LLM 실행·벤치마크 앱 개발', '결과 공유·비교 웹사이트 개발'], implementation: ['모델·런타임 관리', '추론 성능 측정·공개 결과 비교'] },
+    motivation: { title: '개발 배경과 목적', points: [
+      'AI에 대한 관심으로 여러 기기를 자비로 구입하고, 다양한 환경에서 LLM의 추론과 파인튜닝을 배워왔습니다.',
+      '근무처의 다른 팀과 기술 커뮤니티에는 성능 정보가 부족해 기기 구매나 설정에 어려움을 겪는 사람들이 있었습니다.',
+      '실측 결과를 공유하고 구매·설정 판단에 참고할 수 있도록 AioLM을 개발·공개했으며, 현재도 개선하고 있습니다.'
+    ] },
+    productSummary: [
+      '데스크톱 앱: llama.cpp 기반 모델 실행·채팅·튜닝·벤치마크',
+      '웹사이트: 공개된 벤치마크 결과를 모델·기기·측정 조건별로 탐색·비교'
+    ],
+    flow: ['모델·런타임 선택', '입력 길이·동시 요청 수 설정', '로컬 벤치마크 측정', '사용자가 선택해 결과 공개', '웹에서 조건별 탐색·비교'],
+    features: [
+      { name: '다양한 로컬 실행 환경', desc: 'GGUF 모델과 CPU·Vulkan·ROCm·CUDA·SYCL·OpenVINO 런타임을 관리하고 실행 설정을 조정' },
+      { name: '조건을 기록하는 벤치마크', desc: '입력 길이·동시 요청 수별 TTFT·생성 속도·프로세스 RAM 등 실측값과 실행 환경을 함께 기록' },
+      { name: '공개 결과 탐색과 비교', desc: '모델·하드웨어·실행 환경으로 필터링하고 최대 3개 결과를 비교하며, 측정 방식이나 부하가 다르면 비교 유의사항 표시' },
+      { name: '계정 없이 결과 관리', desc: '복구 코드·복구 파일 또는 앱에서 웹으로 이어지는 일회성 연결로 공개 결과 설명 수정·삭제' }
+    ],
+    roles: [
+      { title: '데스크톱 앱 · AioLM', points: ['Tauri·Rust·React 기반 모델·런타임 관리와 로컬 추론 UI 개발', '전용 llama-server를 이용한 벤치마크·결과 이력·CSV 내보내기 구현'] },
+      { title: '웹사이트 · aiolm-web', points: ['Next.js·PostgreSQL 기반 벤치마크 검색·상세·비교 구현', '공통 데이터 스키마와 복구 코드 기반 결과 관리 구현'] }
+    ],
+    troubles: [
+      { problem: '측정 조건을 고려한 결과 비교', solution: '입력 길이와 동시 요청 수가 같은 지점의 값을 비교합니다. 모델·기기·런타임 정보를 함께 표시하고, 측정 방식이나 부하가 다르면 안내합니다.' },
+      { problem: '벤치마크 설정 분리와 측정값 검증', solution: '채팅 설정과 분리된 전용 서버에서 캐시 재사용 없이 측정합니다. 실제 토큰 수를 검증하고 실패한 측정은 평균에서 제외합니다.' },
+      { problem: '앱과 웹의 데이터 규칙 통일', solution: '검증 규칙과 OpenAPI 스키마를 benchmark-contracts 패키지로 공유합니다.' }
+    ],
+    stack: ['React', 'Tauri 2 · Rust', 'Next.js', 'TypeScript', 'llama.cpp', 'PostgreSQL', 'Vite', 'Vercel'],
+    stackGroups: [
+      { name: '데스크톱 앱', items: ['React', 'TypeScript', 'Tauri 2 · Rust', 'Vite', 'llama.cpp'] },
+      { name: '웹 · 데이터 공개', items: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Cloudflare Turnstile', 'Vercel'] },
+      { name: '앱·웹 연동', items: ['OpenAPI', 'Zod', '공통 benchmark-contracts 패키지'] }
+    ],
+    outcome: ['Windows 데스크톱 앱과 벤치마크 웹사이트 공개', '두 저장소의 소스 코드 공개·유지보수']
+  },
+  en: {
+    id: 'p4', name: 'AioLM', badge: '🔬', period: 'Released · ongoing improvements', team: 'Solo project',
+    desc: 'A desktop app and website sharing measured local LLM performance to inform hardware and setup decisions',
+    role: ['Product planning · desktop app · website'], verified: true,
+    screenshotLayout: 'wide', screenshotsMeta: 'Actual app screens · 2026.09',
+    list: { contribution: ['Built the local LLM app and benchmarks', 'Built the results sharing and comparison website'], implementation: ['Model and runtime management', 'Inference measurements · public comparisons'] },
+    motivation: { title: 'Why I built it', points: [
+      'My interest in AI led me to purchase several devices myself and study LLM inference and fine-tuning across different environments.',
+      'I saw people in other teams at work and in technical communities struggling to choose hardware and settings because performance information was scarce.',
+      'I built and released AioLM to share measured results for hardware and setup decisions, and continue to improve it.'
+    ] },
+    productSummary: ['Desktop app: llama.cpp model execution, chat, tuning, and benchmarks', 'Website: explore and compare public results by model, hardware, and measurement conditions'],
+    flow: ['Choose model and runtime', 'Set input length and concurrency', 'Measure locally', 'Choose to publish results', 'Explore and compare on the web'],
+    features: [
+      { name: 'Local runtime management', desc: 'Manage GGUF models and CPU, Vulkan, ROCm, CUDA, SYCL, and OpenVINO runtimes with adjustable execution settings' },
+      { name: 'Measurements with context', desc: 'Record TTFT, generation speed, process RAM, and execution context for each input length and concurrency' },
+      { name: 'Public exploration and comparison', desc: 'Filter by model, hardware, and environment; compare up to three results with notices for differing methods or workloads' },
+      { name: 'Account-free result management', desc: 'Edit descriptions or delete published results using recovery codes, recovery files, or a single-use app-to-web handoff' }
+    ],
+    roles: [
+      { title: 'Desktop app · AioLM', points: ['Built model and runtime management and local inference UI with Tauri, Rust, and React', 'Implemented dedicated-server benchmarks, result history, and CSV export'] },
+      { title: 'Website · aiolm-web', points: ['Built benchmark search, detail, and comparison with Next.js and PostgreSQL', 'Implemented shared schemas and recovery-code-based result management'] }
+    ],
+    troubles: [
+      { problem: 'Comparison with measurement context', solution: 'Compare values at the same input length and concurrency. Include model, hardware, and runtime details, with notices for different methods or workloads.' },
+      { problem: 'Isolated benchmarks and validated measurements', solution: 'Use a dedicated server separate from chat settings with cache reuse disabled. Validate actual token counts and exclude failed trials from averages.' },
+      { problem: 'Consistent app and website data rules', solution: 'Share validation rules and OpenAPI schemas through the benchmark-contracts package.' }
+    ],
+    stack: ['React', 'Tauri 2 · Rust', 'Next.js', 'TypeScript', 'llama.cpp', 'PostgreSQL', 'Vite', 'Vercel'],
+    outcome: ['Released the Windows desktop app and benchmark website', 'Published and maintain source code in both repositories']
+  },
+  ja: {
+    id: 'p4', name: 'AioLM', badge: '🔬', period: '公開後も継続改善中', team: '個人開発',
+    desc: 'ローカルLLMの実測データを共有し、機器購入と実行環境の選択を支えるデスクトップアプリ・Webサービス',
+    role: ['企画・デスクトップアプリ・Web開発'], verified: true,
+    screenshotLayout: 'wide', screenshotsMeta: '実際のアプリ画面 · 2026.09',
+    list: { contribution: ['ローカルLLM実行・測定アプリの開発', '結果共有・比較サイトの開発'], implementation: ['モデル・ランタイム管理', '推論性能の測定・公開結果の比較'] },
+    motivation: { title: '開発の背景と目的', points: [
+      'AIへの関心から複数の機器を自費で購入し、さまざまな環境でLLMの推論とファインチューニングを学んできました。',
+      '勤務先の他チームや技術コミュニティには、性能情報の不足から機器購入や設定に悩む人がいました。',
+      '実測結果を共有し、購入・設定の判断に役立てられるようAioLMを開発・公開し、現在も改善しています。'
+    ] },
+    productSummary: ['デスクトップアプリ：llama.cppでのモデル実行・チャット・チューニング・ベンチマーク', 'Webサイト：公開結果をモデル・機器・測定条件別に検索・比較'],
+    flow: ['モデル・ランタイム選択', '入力長・同時リクエスト数設定', 'ローカルで測定', '利用者が結果公開を選択', 'Webで検索・比較'],
+    features: [
+      { name: 'ローカル実行環境の管理', desc: 'GGUFモデルとCPU・Vulkan・ROCm・CUDA・SYCL・OpenVINOランタイムを管理し、実行設定を調整' },
+      { name: '条件を残すベンチマーク', desc: '入力長・同時リクエスト数ごとのTTFT・生成速度・プロセスRAMなどを実行環境とともに記録' },
+      { name: '公開結果の検索と比較', desc: 'モデル・機器・環境で絞り込み、最大3件を比較。測定方法や負荷が異なる場合は注意事項を表示' },
+      { name: 'アカウント不要の結果管理', desc: '復旧コード・復旧ファイル、またはアプリからWebへの一度限りの連携で説明の編集・削除が可能' }
+    ],
+    roles: [
+      { title: 'デスクトップアプリ · AioLM', points: ['Tauri・Rust・Reactによるモデル・ランタイム管理と推論UIを開発', '専用サーバーでのベンチマーク・履歴・CSV出力を実装'] },
+      { title: 'Webサイト · aiolm-web', points: ['Next.js・PostgreSQLで結果の検索・詳細・比較を実装', '共通スキーマと復旧コードによる結果管理を実装'] }
+    ],
+    troubles: [
+      { problem: '測定条件を考慮した比較', solution: '入力長と同時リクエスト数が同じ測定点で比較します。モデル・機器・ランタイム情報を表示し、測定方法や負荷が異なる場合は案内します。' },
+      { problem: '測定設定の分離と検証', solution: 'チャット設定と分離した専用サーバーで、キャッシュを再利用せず測定します。実トークン数を検証し、失敗した測定は平均から除外します。' },
+      { problem: 'アプリとWebのデータ規則の統一', solution: '検証規則とOpenAPIスキーマをbenchmark-contractsパッケージで共有します。' }
+    ],
+    stack: ['React', 'Tauri 2 · Rust', 'Next.js', 'TypeScript', 'llama.cpp', 'PostgreSQL', 'Vite', 'Vercel'],
+    outcome: ['Windowsアプリとベンチマークサイトを公開', '両リポジトリのソースコードを公開・保守']
+  }
+};
 
 const I18N = {
   ko: {
@@ -119,6 +235,7 @@ const I18N = {
     dOutcome: '검증된 결과',
     dTodo: '※ 스크린샷은 실제 서비스 화면 자료로 교체 예정입니다.',
     projects: [
+      AIOLM.ko,
       { id: 'p1', name: '페이스리뷰', badge: '🏆', desc: '웹캠 표정을 다섯 감정으로 분석해 시청 반응과 영상 추천으로 연결한 서비스', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: '최초 개발 4인 · 리팩터링 2인', verified: true, testAccount: 'test4@facereview.net / qwer1234',
         rolePhases: [
           { phase: '최초 개발', period: '2023.10 ~ 2023.12', role: ['프론트엔드 개발', '5종 감정 분류 모델 학습'], team: '프론트엔드 2명 · 백엔드 1명 · AI·백엔드 1명' },
@@ -338,6 +455,7 @@ const I18N = {
     dOutcome: 'VERIFIED RESULTS',
     dTodo: '※ Screenshots will be replaced with actual product screens.',
     projects: [
+      AIOLM.en,
       { id: 'p1', name: 'Face Review', badge: '🏆', desc: 'A service that turns five emotions inferred from webcam expressions into viewing reactions and video recommendations', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: 'Original team of 4 · Refactoring team of 2', verified: true, testAccount: 'test4@facereview.net / qwer1234',
         rolePhases: [
           { phase: 'Original build', period: '2023.10 – 2023.12', role: ['Frontend development', 'Five-emotion classifier training'], team: 'Frontend 2 · Backend 1 · AI & Backend 1' },
@@ -557,6 +675,7 @@ const I18N = {
     dOutcome: '確認済みの成果',
     dTodo: '※ スクリーンショットは実際のサービス画面に差し替え予定です。',
     projects: [
+      AIOLM.ja,
       { id: 'p1', name: 'フェイスレビュー', badge: '🏆', desc: 'Webカメラの表情を5感情に分類し、視聴反応と動画推薦につなげるサービス', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: '初期開発4人 · リファクタリング2人', verified: true, testAccount: 'test4@facereview.net / qwer1234',
         rolePhases: [
           { phase: '初期開発', period: '2023.10 ~ 2023.12', role: ['フロントエンド開発', '5感情分類モデル学習'], team: 'フロントエンド2人 · バックエンド1人 · AI・バックエンド1人' },
@@ -737,16 +856,19 @@ const UI_COPY = {
     roleLabel: '역할',
     imageLabels: {
       photo: '장주원 프로필을 표현한 픽셀 아바타',
+      p4: 'AioLM 공식 로고',
       p1: '페이스리뷰 공식 로고',
       p2: 'NBA 경기 일정과 팀별 점수가 표시된 토도동 서비스 화면',
       p3: '답장 방식 선택 화면을 모바일과 데스크톱으로 보여주는 해마디 서비스 화면'
     },
     shotLabels: {
+      p4: ['벤치마크 — 모델·실행 환경을 확인하고 입력 길이와 동시 요청 수를 설정하는 화면', '모델 설정 — GPU 레이어·배치 크기를 조정하고 예상 메모리 사용량을 확인하는 화면'],
       p1: ['영상 위 감정 타임라인 그래프와 커스텀 재생 컨트롤이 표시된 페이스리뷰 시청 화면', '감정 분포 도넛 차트와 최근 시청 영상별 그래프가 표시된 페이스리뷰 마이페이지'],
       p2: ['날짜별 NBA 경기 일정과 팀별 점수를 조회하는 토도동 화면', '실시간 문자 중계와 경기별 채팅을 함께 제공하는 토도동 경기 화면'],
       p3: ['AI 또는 익명 사용자 중 일기 답장 방식을 선택하는 해마디 화면', '월간 감정 분포와 일기 통계를 확인하는 해마디 나의 섬 화면']
     },
     hud: {
+      p4: ['기기 구매·설정에 참고할 LLM 실측 정보 부족', ['로컬 LLM 실행·벤치마크 앱 개발', '결과 공유·비교 웹사이트 개발'], ['데스크톱 앱·웹사이트 공개', '소스 코드 공개·유지보수']],
       p1: ['클릭·시청 기록만으로는 영상 구간별 감정 반응을 알기 어려움', ['2023: 프론트엔드 개발·감정 분석 모델 직접 학습', '2026: 프론트엔드 리팩터링 전담'], ['창의설계경진대회 대상', 'facereview.net 배포']],
       p2: ['NBA 경기를 보며 팬들과 실시간으로 소통할 공간이 없는 문제', ['기술 선정·SSR/CSR 구조 설계', '인증·채팅 서버·DB 동기화 구현'], ['실시간 중계·경기별 채팅 배포', 'NBA 데이터 자동 동기화 구축']],
       p3: ['감정 기록이 쌓여도 흐름을 돌아보기 어려운 문제', ['PocketBase DB·컴포넌트 구조 설계', '코드 리뷰·성능 개선'], ['Lighthouse 모바일 50~60 → 80~90점대', 'AI 답장 일기 서비스 배포']]
@@ -765,16 +887,19 @@ const UI_COPY = {
     roleLabel: 'ROLE',
     imageLabels: {
       photo: 'Pixel avatar representing Jang Joowon',
+      p4: 'Official AioLM logo',
       p1: 'Official Face Review logo',
       p2: 'Tododong screen showing the NBA schedule and team scores',
       p3: 'Haemadi reply-method screen shown on mobile and desktop'
     },
     shotLabels: {
+      p4: ['Benchmark — model, execution environment, input length, and concurrency settings', 'Model settings — GPU layers, batch sizes, and estimated memory usage'],
       p1: ['Face Review watch screen with an emotion timeline over the video and custom playback controls', 'Face Review profile screen with an emotion-distribution donut and graphs for recently watched videos'],
       p2: ['Tododong schedule screen for browsing NBA games and scores by date', 'Tododong game screen combining live text play-by-play with per-game chat'],
       p3: ['Haemadi screen for choosing an AI or anonymous-user reply to a journal entry', 'Haemadi My Island screen showing monthly emotion distribution and journal statistics']
     },
     hud: {
+      p4: ['Limited measured LLM data for hardware and setup decisions', ['Built the local LLM app and benchmarks', 'Built the results sharing and comparison website'], ['Released the desktop app and website', 'Published and maintain both repositories']],
       p1: ['Click and watch history alone cannot show emotional reactions by video segment', ['2023: frontend development · trained the emotion classifier', '2026: sole frontend owner of the refactoring'], ['Creative Design grand prize', 'facereview.net deployed']],
       p2: ['No place to follow an NBA game live while talking with fellow fans', ['Tech choices · SSR/CSR structure design', 'Auth, chat server & DB sync'], ['Shipped live play-by-play & per-game chat', 'Automated NBA data sync']],
       p3: ['Hard to look back on emotional flow as diary entries pile up', ['PocketBase DB & component structure', 'Code review · performance work'], ['Lighthouse mobile 50s–60s → 80s–90s', 'Shipped the AI-reply diary service']]
@@ -793,16 +918,19 @@ const UI_COPY = {
     roleLabel: '担当',
     imageLabels: {
       photo: 'チャン・ジュウォンを表すピクセルアバター',
+      p4: 'AioLM公式ロゴ',
       p1: 'フェイスレビューの公式ロゴ',
       p2: 'NBAの日程とチーム別スコアを表示するトドドンのサービス画面',
       p3: '返信方法の選択画面をモバイルとデスクトップで示すヘマディのサービス画面'
     },
     shotLabels: {
+      p4: ['ベンチマーク — モデル・実行環境・入力長・同時リクエスト数の設定', 'モデル設定 — GPUレイヤー・バッチサイズと推定メモリ使用量'],
       p1: ['動画上の感情タイムラインとカスタム再生コントロールを表示するフェイスレビューの視聴画面', '感情分布ドーナツと最近見た動画別グラフを表示するフェイスレビューのマイページ'],
       p2: ['日付別にNBAの試合日程とスコアを確認するトドドンの画面', 'リアルタイム文字中継と試合別チャットを同時に提供するトドドンの試合画面'],
       p3: ['AIまたは匿名ユーザーからの日記返信方法を選ぶヘマディの画面', '月間の感情分布と日記統計を確認するヘマディの「私の島」画面']
     },
     hud: {
+      p4: ['機器購入・設定に参考となるLLM実測情報の不足', ['ローカルLLM実行・測定アプリを開発', '結果共有・比較サイトを開発'], ['デスクトップアプリ・Webサイトを公開', 'ソースコードを公開・保守']],
       p1: ['クリック・視聴履歴だけでは動画区間ごとの感情反応が分からない', ['2023: フロントエンド開発・感情分析モデルを直接学習', '2026: フロントエンドリファクタリング専任'], ['創意設計コンテスト大賞', 'facereview.net公開']],
       p2: ['NBAの試合を見ながらファン同士でリアルタイムに交流できる場がない課題', ['技術選定 · SSR/CSR構成設計', '認証・チャットサーバー・DB同期を実装'], ['リアルタイム中継・試合別チャットを公開', 'NBAデータの自動同期を構築']],
       p3: ['感情の記録が溜まっても流れを振り返りにくい課題', ['PocketBase DB・コンポーネント構造設計', 'コードレビュー・性能改善'], ['Lighthouseモバイル50〜60→80〜90点台', 'AI返信付き日記サービスを公開']]
