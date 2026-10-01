@@ -196,7 +196,7 @@ const I18N = {
             name: '🛡 SafetyOne',
             desc: '산업안전보건 관리 솔루션 · B2B 서비스 개발',
             contributions: [
-              { date: '2026.07', title: '개발 컨벤션 정립 및 AI 활용 개발 환경 개선', desc: '개발 컨벤션이 명확하지 않던 프로젝트에서 코드·커밋 메시지 기준을 정립하고, Rules와 Agent Skills로 개발 규칙과 반복 작업 절차를 AI가 일관되게 참조할 수 있는 환경 개선을 주도했습니다. 코드 품질과 커밋 기록의 가독성을 높이고 오류 가능성을 줄였으며, 반복 설명과 불필요한 맥락 전달을 줄여 AI 토큰 사용을 절약할 수 있는 구조를 마련했습니다.' },
+              { date: '2026.07', title: '개발 컨벤션 및 AI 개발 환경 개선', desc: '개발·커밋 컨벤션을 정립하고 Rules와 Agent Skills 도입을 주도했습니다. 코드 품질과 변경 이력의 가독성을 높이고, 오류 가능성과 AI 토큰 낭비를 줄이는 구조를 마련했습니다.' },
               { date: '2026.04', title: 'WebView 인증/인가 프로세스 개선', desc: 'JWT를 HttpOnly Cookie 세션으로 전환, 인증 책임을 서버로 일원화' },
               { date: '2025.11', title: 'Rust(WASM) 사내 Excel 라이브러리 제작', desc: '영업 시연·고객사 유치에 기여' },
               { date: '2025.10', title: 'HTTP/2 적용 · nginx 최적화', desc: '평균 서버 응답 시간 약 20% 개선' },
@@ -417,7 +417,7 @@ const I18N = {
             name: '🛡 SafetyOne',
             desc: 'B2B industrial safety & health management solution',
             contributions: [
-              { date: '2026.07', title: 'Established development conventions and improved AI-assisted workflows', desc: 'Led the establishment of coding and commit-message standards in a project with unclear conventions, using Rules and Agent Skills to give AI consistent references for development rules and recurring procedures. Improved code quality and the clarity of commit history, reduced the risk of errors, and created a structure that can save AI tokens by reducing repeated explanations and unnecessary context sharing.' },
+              { date: '2026.07', title: 'Development conventions and AI workflow improvements', desc: 'Established coding and commit conventions and led adoption of Rules and Agent Skills. Improved code quality and change-history readability, creating a structure that reduces error risk and wasted AI tokens.' },
               { date: '2026.04', title: 'Improved WebView auth flow', desc: 'Moved JWT to HttpOnly cookie sessions, centralized auth on the server' },
               { date: '2025.11', title: 'In-house Excel library in Rust (WASM)', desc: 'Contributed to sales demos and client acquisition' },
               { date: '2025.10', title: 'HTTP/2 + nginx optimization', desc: '~20% faster average server response time' },
@@ -638,7 +638,7 @@ const I18N = {
             name: '🛡 SafetyOne',
             desc: '産業安全保健管理ソリューション · B2Bサービス開発',
             contributions: [
-              { date: '2026.07', title: '開発規約の整備とAI活用開発環境の改善', desc: '開発規約が明確でなかったプロジェクトでコード・コミットメッセージの基準を整備し、RulesとAgent Skillsを活用して、AIが開発ルールや繰り返し作業の手順を一貫して参照できる環境改善を主導しました。コード品質とコミット履歴の可読性を高め、エラーの発生リスクを低減するとともに、説明の繰り返しや不要な文脈の受け渡しを減らし、AIのトークン使用量を節約できる構造を整えました。' },
+              { date: '2026.07', title: '開発規約とAI開発環境の改善', desc: '開発・コミット規約を整備し、RulesとAgent Skillsの導入を主導しました。コード品質と変更履歴の可読性を高め、エラーの発生リスクとAIトークンの無駄を減らす構造を整えました。' },
               { date: '2026.04', title: 'WebView認証プロセスの改善', desc: 'JWTをHttpOnly Cookieセッションへ移行、認証責任をサーバーに一元化' },
               { date: '2025.11', title: 'Rust(WASM)社内Excelライブラリ制作', desc: '営業デモ・顧客獲得に貢献' },
               { date: '2025.10', title: 'HTTP/2適用 · nginx最適化', desc: '平均サーバー応答時間を約20%改善' },
