@@ -227,14 +227,14 @@ const I18N = {
           }
         ],
         contributions: [
-          { title: '모바일 앱 웹뷰 개발', desc: 'SafetyOne의 네이티브 앱 웹뷰를 개발했습니다.' },
-          { title: 'UX/DX 및 웹 접근성 개선', desc: 'SafetyOne의 사용자·개발자 경험과 웹 접근성을 개선했습니다.' },
-          { title: '고객사 AX PoC · 자연어 SQL 변환과 RAG', desc: [
+          { title: '고객사 AX PoC · 자연어 SQL 변환과 RAG', featured: true, summary: '비개발자를 위한 데이터 조회 · 로컬 LLM과 Jira 데이터 기반 RAG', desc: [
             '자연어를 SQL로 변환해 비개발자의 고객사 내부 데이터 조회를 돕는 서비스의 PoC 개발에 참여했습니다.',
             '고객사 데이터의 외부 유출을 방지하기 위해 오픈웨이트 모델을 로컬에서 서빙하는 방식으로 구성된 PoC입니다.',
             'Jira에서 PostgreSQL로 옮긴 데이터를 벡터화해 RAG를 구성했습니다.',
             '개인적으로 학습해 온 로컬 LLM 분야의 정보를 팀원들과 공유했습니다.'
-          ] }
+          ] },
+          { title: '모바일 앱 웹뷰 개발', desc: 'SafetyOne의 네이티브 앱 웹뷰를 개발했습니다.' },
+          { title: 'UX/DX 및 웹 접근성 개선', desc: 'SafetyOne의 사용자·개발자 경험과 웹 접근성을 개선했습니다.' }
         ]
       }
     ],
@@ -479,14 +479,14 @@ const I18N = {
           }
         ],
         contributions: [
-          { title: 'Mobile app WebView development', desc: 'Developed the native app WebView for SafetyOne.' },
-          { title: 'UX/DX and web accessibility improvements', desc: 'Improved user and developer experience and web accessibility for SafetyOne.' },
-          { title: 'Client AX PoC · natural language to SQL and RAG', desc: [
+          { title: 'Client AX PoC · natural language to SQL and RAG', featured: true, summary: 'Data access for non-developers · local LLM and RAG over Jira data', desc: [
             'Contributed to a proof of concept that converts natural language to SQL so non-developers can query the client’s internal data.',
             'The proof of concept served open-weight models locally to prevent client data from leaving their environment.',
             'Built a RAG system by vectorizing data migrated from Jira to PostgreSQL.',
             'Shared information with teammates from independent study of local LLMs.'
-          ] }
+          ] },
+          { title: 'Mobile app WebView development', desc: 'Developed the native app WebView for SafetyOne.' },
+          { title: 'UX/DX and web accessibility improvements', desc: 'Improved user and developer experience and web accessibility for SafetyOne.' }
         ]
       }
     ],
@@ -731,14 +731,14 @@ const I18N = {
           }
         ],
         contributions: [
-          { title: 'モバイルアプリのWebView開発', desc: 'SafetyOneのネイティブアプリWebViewを開発しました。' },
-          { title: 'UX/DX・Webアクセシビリティの改善', desc: 'SafetyOneのユーザー・開発者体験とWebアクセシビリティを改善しました。' },
-          { title: '顧客向けAX PoC · 自然言語SQL変換とRAG', desc: [
+          { title: '顧客向けAX PoC · 自然言語SQL変換とRAG', featured: true, summary: '非開発者向けデータ検索 · ローカルLLMとJiraデータによるRAG', desc: [
             '自然言語をSQLに変換し、非開発者による顧客社内データの検索を支援するサービスのPoC開発に参加しました。',
             '顧客データの外部流出を防ぐため、オープンウェイトモデルをローカルで提供する構成のPoCです。',
             'JiraからPostgreSQLに移行したデータをベクトル化し、RAGを構築しました。',
             '個人的に学んできたローカルLLM分野の情報をチームメンバーに共有しました。'
-          ] }
+          ] },
+          { title: 'モバイルアプリのWebView開発', desc: 'SafetyOneのネイティブアプリWebViewを開発しました。' },
+          { title: 'UX/DX・Webアクセシビリティの改善', desc: 'SafetyOneのユーザー・開発者体験とWebアクセシビリティを改善しました。' }
         ]
       }
     ],
@@ -943,7 +943,7 @@ const UI_COPY = {
   ko: {
     skip: '본문으로 건너뛰기', menu: '메뉴', navLabel: '주요 메뉴', langLabel: '언어 선택',
     careerChapter: 'CHAPTER · 회사', careerMission: 'MISSION · 프로젝트', careerLog: 'LOG · 기여 기록',
-    careerExpand: '펼치기', careerCollapse: '접기', careerStack: '기술 스택', careerOutcome: '성과', careerRelated: '그 외 업무',
+    careerExpand: '펼치기', careerCollapse: '접기', careerStack: '기술 스택', careerOutcome: '성과', careerRelated: '주요 업무',
     missionFile: 'MISSION FILE', projectContribution: '핵심 기여', projectImplementation: '대표 구현', projectLoadout: '핵심 기술', openLog: 'LOG 열기',
     projectGuide: '최근 작업일 순 · 핵심 기여와 대표 구현 기준', flowTitle: '서비스 작동 흐름', flowOr: '또는',
     visitBlog: 'Velog에서 전체 글 보기',
@@ -975,7 +975,7 @@ const UI_COPY = {
   en: {
     skip: 'Skip to main content', menu: 'Menu', navLabel: 'Primary', langLabel: 'Language',
     careerChapter: 'CHAPTER · COMPANY', careerMission: 'MISSION · PROJECT', careerLog: 'LOG · CONTRIBUTIONS',
-    careerExpand: 'Show details', careerCollapse: 'Hide details', careerStack: 'Tech stack', careerOutcome: 'Outcome', careerRelated: 'OTHER WORK',
+    careerExpand: 'Show details', careerCollapse: 'Hide details', careerStack: 'Tech stack', careerOutcome: 'Outcome', careerRelated: 'HIGHLIGHTED WORK',
     missionFile: 'MISSION FILE', projectContribution: 'CORE CONTRIBUTION', projectImplementation: 'KEY IMPLEMENTATION', projectLoadout: 'CORE STACK', openLog: 'OPEN LOG',
     projectGuide: 'Latest work first · compared by contribution and implementation', flowTitle: 'SERVICE FLOW', flowOr: 'OR',
     visitBlog: 'See all posts on Velog',
@@ -1007,7 +1007,7 @@ const UI_COPY = {
   ja: {
     skip: '本文へスキップ', menu: 'メニュー', navLabel: 'メインメニュー', langLabel: '言語選択',
     careerChapter: 'CHAPTER · 会社', careerMission: 'MISSION · プロジェクト', careerLog: 'LOG · 貢献記録',
-    careerExpand: '詳細を開く', careerCollapse: '閉じる', careerStack: '技術スタック', careerOutcome: '成果', careerRelated: 'その他の業務',
+    careerExpand: '詳細を開く', careerCollapse: '閉じる', careerStack: '技術スタック', careerOutcome: '成果', careerRelated: '主な業務',
     missionFile: 'MISSION FILE', projectContribution: '主要な貢献', projectImplementation: '代表実装', projectLoadout: '主要技術', openLog: 'LOGを開く',
     projectGuide: '最近の作業順 · 貢献と代表実装で比較', flowTitle: 'サービスの動作フロー', flowOr: 'または',
     visitBlog: 'Velogで全ての記事を見る',

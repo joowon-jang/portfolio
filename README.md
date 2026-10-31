@@ -27,7 +27,7 @@ python3 -m http.server 8080
 
 모든 텍스트는 `js/data.js`에 있습니다.
 
-- **경력**: `careers[] → projects[] → contributions[]` 구조로 프로젝트별 기여를 기록하고, 프로젝트에 묶지 않는 업무는 회사의 `contributions[]`에 별도로 기록합니다. 프로젝트의 `stack`은 기술 스택, 각 기여의 `title`과 선택적인 `outcome`은 항상 표시하고 `desc`(문자열 또는 불릿 배열)는 펼쳐 볼 수 있습니다. 인쇄 시 상세 내용도 모두 표시합니다. 날짜가 있는 기록은 최신순으로, 시기가 명시되지 않은 기록은 뒤에 작성하며 ko/en/ja 내용을 함께 갱신합니다.
+- **경력**: `careers[] → projects[] → contributions[]` 구조로 프로젝트별 기여를 기록하고, 프로젝트에 묶지 않는 업무는 회사의 `contributions[]`에 별도로 기록합니다. 회사의 주요 업무를 프로젝트보다 먼저 표시하며, `featured`와 `summary`로 강조 항목과 접힌 상태의 요약을 지정합니다. 프로젝트의 `stack`은 기술 스택, 각 기여의 `title`과 선택적인 `outcome`은 항상 표시하고 `desc`(문자열 또는 불릿 배열)는 펼쳐 볼 수 있습니다. 인쇄 시 상세 내용도 모두 표시합니다. ko/en/ja 내용을 함께 갱신합니다.
 - **이미지**: `js/data.js`의 `IMAGES`에 경로를 넣으면 플레이스홀더가 교체됩니다.
   (`photo`, `thumb-p1`~`thumb-p4`, `shot-p1-1` 등)
 - **AioLM (`p4`)**: `AIOLM`에 ko/en/ja 소개를 정의합니다. `motivation`은 개발 배경이며, 개발 기여와 구분합니다. 실제 앱의 벤치마크·모델 설정 화면을 `assets/projects/aiolm/`에 저장했습니다. `screenshotLayout: 'wide'`는 이미지를 자르지 않고 한 열로 표시하며 원본 링크를 제공합니다.

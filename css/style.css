@@ -627,6 +627,9 @@ p, figure { margin: 0; }
   padding-block: 11px;
   border-block-start: 1px solid var(--line-soft);
 }
+.contribution-log--featured { padding-inline: 14px; border: 2px solid var(--green); background: var(--bg-deep); }
+.contribution-log--featured .contribution-title { color: var(--yellow); }
+.contribution-brief { display: block; margin-top: 5px; color: var(--body-text); font-size: .875rem; line-height: 1.6; overflow-wrap: anywhere; }
 .contribution-date {
   color: var(--green);
   font-family: var(--font-pixel);

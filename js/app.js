@@ -148,12 +148,13 @@
       .concat([{ label: SKILLS.special, color: 'var(--green)' }])
       .map((skill) => `<li class="chip" style="--c:${skill.color}"><span class="stack-icons chip-icons" aria-hidden="true">${techIcons(skill.label)}</span><span>${skill.label}</span></li>`).join('');
     const renderContributions = (items) => items.map((contribution) => `
-          <li class="contribution-log">
+          <li class="contribution-log${contribution.featured ? ' contribution-log--featured' : ''}">
             ${contribution.date ? `<time class="contribution-date" datetime="${contribution.date.replace('.', '-')}"><span aria-hidden="true">◆</span> ${contribution.date}</time>` : '<span class="contribution-date" aria-hidden="true">◆</span>'}
             <details class="contribution-copy contribution-details">
               <summary class="contribution-summary">
                 <span class="contribution-heading">
                   <strong class="contribution-title">${contribution.title}</strong>
+                  ${contribution.summary ? `<span class="contribution-brief">${contribution.summary}</span>` : ''}
                   ${contribution.outcome ? `<span class="contribution-outcome"><span>${copy.careerOutcome} · </span>${contribution.outcome}</span>` : ''}
                 </span>
                 <span class="contribution-toggle"><span class="contribution-open">${copy.careerExpand} ▾</span><span class="contribution-close">${copy.careerCollapse} ▴</span></span>
@@ -182,8 +183,8 @@
           <div class="career-company-block"><span class="career-structure-label">${copy.careerChapter}</span><div class="career-title-row"><h3 class="career-company" id="${companyId}">${career.company}</h3><span class="career-role">${career.role}</span></div></div>
           <div class="career-period">${career.period}</div>
         </header>
-        <div class="career-projects">${careerProjects}</div>
         ${career.contributions?.length ? `<section class="career-additional" aria-labelledby="career-additional-${careerIndex}"><h4 class="career-log-label" id="career-additional-${careerIndex}">${copy.careerRelated}</h4><ul class="contribution-list">${renderContributions(career.contributions)}</ul></section>` : ''}
+        <div class="career-projects">${careerProjects}</div>
       </article>`;
     }).join('');
     const projectFiles = projects.map((project) => {
