@@ -17,6 +17,7 @@
   };
   let typeTimer = null;
   let sectionObserver = null;
+  const printOpenedDetails = new Set();
 
   const TECH_ICON_RULES = [
     { test: /^React(?:\s|$)/i, icons: ['react'] },
@@ -89,11 +90,12 @@
     const isVideo = /\.(?:mov|mp4|webm)$/i.test(src || '');
     const mediaClass = key.startsWith('shot-') && (isVideo || /\.gif$/i.test(src || '')) ? ' media-contain' : '';
     if (isVideo) {
-      const poster = VIDEO_POSTERS[key] ? `poster="${VIDEO_POSTERS[key]}"` : '';
+      const posterSrc = VIDEO_POSTERS[key];
+      const poster = posterSrc ? `poster="${posterSrc}"` : '';
       const autoplay = reduceMotion.matches ? '' : 'autoplay';
       return `<video class="img-fill${mediaClass}" ${poster} ${autoplay} loop muted playsinline controls preload="metadata" aria-label="${label}">
         <source src="${src}">
-      </video>`;
+      </video>${posterSrc ? `<img class="print-video-poster" src="${posterSrc}" alt="">` : ''}`;
     }
     if (src) return `<img class="img-fill${imageClass}${mediaClass}" src="${src}" alt="${label}" ${sizeAttributes} ${key === 'photo' ? 'fetchpriority="high"' : 'loading="lazy"'}>`;
     if (projectId) return projectScene(projectId, label, shotIndex);
@@ -145,24 +147,34 @@
       .concat(SKILLS.sub.map((skill) => ({ label: skill, color: 'var(--muted)' })))
       .concat([{ label: SKILLS.special, color: 'var(--green)' }])
       .map((skill) => `<li class="chip" style="--c:${skill.color}"><span class="stack-icons chip-icons" aria-hidden="true">${techIcons(skill.label)}</span><span>${skill.label}</span></li>`).join('');
+    const renderContributions = (items) => items.map((contribution) => `
+          <li class="contribution-log">
+            ${contribution.date ? `<time class="contribution-date" datetime="${contribution.date.replace('.', '-')}"><span aria-hidden="true">◆</span> ${contribution.date}</time>` : '<span class="contribution-date" aria-hidden="true">◆</span>'}
+            <details class="contribution-copy contribution-details">
+              <summary class="contribution-summary">
+                <span class="contribution-heading">
+                  <strong class="contribution-title">${contribution.title}</strong>
+                  ${contribution.outcome ? `<span class="contribution-outcome"><span>${copy.careerOutcome} · </span>${contribution.outcome}</span>` : ''}
+                </span>
+                <span class="contribution-toggle"><span class="contribution-open">${copy.careerExpand} ▾</span><span class="contribution-close">${copy.careerCollapse} ▴</span></span>
+              </summary>
+              <div class="contribution-desc">${Array.isArray(contribution.desc) ? bulletList(contribution.desc) : `<p>${contribution.desc}</p>`}</div>
+            </details>
+          </li>`).join('');
     const careers = tr.careers.map((career, careerIndex) => {
       const companyId = `career-company-${careerIndex}`;
       const projectCountClass = career.projects.length > 1 ? 'career-card--multi' : 'career-card--single';
       const careerProjects = career.projects.map((project, projectIndex) => {
         const projectId = `career-project-${careerIndex}-${projectIndex}`;
-        const contributions = project.contributions.map((contribution) => `
-          <li class="contribution-log">
-            <time class="contribution-date" datetime="${contribution.date.replace('.', '-')}"><span aria-hidden="true">◆</span> ${contribution.date}</time>
-            <div class="contribution-copy"><strong class="contribution-title">${contribution.title}</strong><p class="contribution-desc">${contribution.desc}</p></div>
-          </li>`).join('');
         return `<section class="career-project-card">
           <header class="career-project-head">
             <div class="career-project-heading"><span class="career-structure-label">${copy.careerMission}</span><h4 class="career-project-name" id="${projectId}">${project.name}</h4></div>
             ${project.period ? `<time class="career-project-period">${project.period}</time>` : ''}
           </header>
           <p class="career-project-desc">${project.desc}</p>
+          ${project.stack?.length ? `<p class="career-project-stack"><strong>${copy.careerStack}</strong> ${project.stack.join(' · ')}</p>` : ''}
           <div class="career-log-label">${copy.careerLog}</div>
-          <ol class="contribution-list">${contributions}</ol>
+          <ol class="contribution-list">${renderContributions(project.contributions)}</ol>
         </section>`;
       }).join('');
       return `<article class="career-card ${projectCountClass}" aria-labelledby="${companyId}">
@@ -171,6 +183,7 @@
           <div class="career-period">${career.period}</div>
         </header>
         <div class="career-projects">${careerProjects}</div>
+        ${career.contributions?.length ? `<section class="career-additional" aria-labelledby="career-additional-${careerIndex}"><h4 class="career-log-label" id="career-additional-${careerIndex}">${copy.careerRelated}</h4><ul class="contribution-list">${renderContributions(career.contributions)}</ul></section>` : ''}
       </article>`;
     }).join('');
     const projectFiles = projects.map((project) => {
@@ -432,6 +445,11 @@
   window.addEventListener('scroll', () => { scrollTop.hidden = window.scrollY < 80; }, { passive: true });
   window.addEventListener('hashchange', () => onHash(true));
   window.addEventListener('beforeprint', () => {
+    // 접힌 경력 상세도 인쇄하고, 인쇄가 끝나면 원래 상태로 되돌린다.
+    document.querySelectorAll('.contribution-details:not([open])').forEach((details) => {
+      printOpenedDetails.add(details);
+      details.open = true;
+    });
     // 인쇄할 때는 타이핑 연출이 끝나기를 기다리지 않고 이름을 모두 채운다.
     clearInterval(typeTimer);
     const typed = document.getElementById('typed');
@@ -439,7 +457,11 @@
     // 재생 중인 영상은 멈춰서 한 프레임이 그대로 인쇄되게 한다.
     document.querySelectorAll('video').forEach((video) => video.pause());
   });
-  window.addEventListener('resize', () => { if (window.innerWidth > 720) closeMenu(); });
+  window.addEventListener('afterprint', () => {
+    printOpenedDetails.forEach((details) => { details.open = false; });
+    printOpenedDetails.clear();
+  });
+  window.addEventListener('resize', () => { if (window.innerWidth > 940) closeMenu(); });
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
       closeMenu();

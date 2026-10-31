@@ -79,19 +79,19 @@ const AIOLM = {
     list: { contribution: ['로컬 LLM 실행·벤치마크 앱 개발', '결과 공유·비교 웹사이트 개발'], implementation: ['모델·런타임 관리', '추론 성능 측정·공개 결과 비교'] },
     motivation: { title: '개발 배경과 목적', points: [
       'AI에 대한 관심으로 여러 기기를 자비로 구입하고, 다양한 환경에서 LLM의 추론과 파인튜닝을 배워왔습니다.',
-      '근무처의 다른 팀과 기술 커뮤니티에는 성능 정보가 부족해 기기 구매나 설정에 어려움을 겪는 사람들이 있었습니다.',
-      '실측 결과를 공유하고 구매·설정 판단에 참고할 수 있도록 AioLM을 개발·공개했으며, 현재도 개선하고 있습니다.'
+      '근무처의 다른 팀과 기술 커뮤니티에서 성능 정보가 부족해 기기 구매나 설정에 어려움을 겪는 사람들을 보았습니다.',
+      '실측 결과를 공유해 구매와 설정 판단을 돕고자 AioLM을 개발·공개했으며, 현재도 개선하고 있습니다.'
     ] },
     productSummary: [
       '데스크톱 앱: llama.cpp 기반 모델 실행·채팅·튜닝·벤치마크',
       '웹사이트: 공개된 벤치마크 결과를 모델·기기·측정 조건별로 탐색·비교'
     ],
-    flow: ['모델·런타임 선택', '입력 길이·동시 요청 수 설정', '로컬 벤치마크 측정', '사용자가 선택해 결과 공개', '웹에서 조건별 탐색·비교'],
+    flow: ['모델·런타임 선택', '입력 길이·동시 요청 수 설정', '로컬 벤치마크 측정', '사용자가 결과 공개 여부 선택', '웹에서 조건별 탐색·비교'],
     features: [
       { name: '다양한 로컬 실행 환경', desc: 'GGUF 모델과 CPU·Vulkan·ROCm·CUDA·SYCL·OpenVINO 런타임을 관리하고 실행 설정을 조정' },
       { name: '조건을 기록하는 벤치마크', desc: '입력 길이·동시 요청 수별 TTFT·생성 속도·프로세스 RAM 등 실측값과 실행 환경을 함께 기록' },
       { name: '공개 결과 탐색과 비교', desc: '모델·하드웨어·실행 환경으로 필터링하고 최대 3개 결과를 비교하며, 측정 방식이나 부하가 다르면 비교 유의사항 표시' },
-      { name: '계정 없이 결과 관리', desc: '복구 코드·복구 파일 또는 앱에서 웹으로 이어지는 일회성 연결로 공개 결과 설명 수정·삭제' }
+      { name: '계정 없이 결과 관리', desc: '복구 코드·복구 파일 또는 앱에서 웹으로 이어지는 일회성 연결을 이용해 공개 결과의 설명을 수정하거나 삭제' }
     ],
     roles: [
       { title: '데스크톱 앱 · AioLM', points: ['Tauri·Rust·React 기반 모델·런타임 관리와 로컬 추론 UI 개발', '전용 llama-server를 이용한 벤치마크·결과 이력·CSV 내보내기 구현'] },
@@ -180,7 +180,7 @@ const I18N = {
     heroTag: '▶ 포트폴리오',
     heroName: '장주원',
     heroLevel: '주니어 웹 개발자',
-    heroIntro: '사용자 경험과 접근성 개선을 항상 고민합니다. 사용하는 기술의 동작 원리를 깊이 공부하고, AI를 적극 활용해 개발 프로세스를 개선합니다.',
+    heroIntro: '사용자 경험과 접근성을 개선할 방법을 고민합니다. 사용하는 기술의 동작 원리를 깊이 공부하고, AI를 적극 활용해 개발 프로세스를 개선합니다.',
     playerCaption: '장주원 · 웹 개발자',
     statLabels: ['UX·접근성', '동작 원리 탐구', 'AI 활용'],
     inventoryTitle: '■ 보유 기술',
@@ -189,21 +189,52 @@ const I18N = {
     careers: [
       {
         company: '(주)커리어넷',
-        role: '풀스택 개발자',
+        role: 'Next.js 풀스택 개발자',
         period: '2025.04 ~ 재직 중',
         projects: [
           {
             name: '🛡 SafetyOne',
-            desc: '산업안전보건 관리 솔루션 · B2B 서비스 개발',
+            desc: '산업 현장의 안전보건 관리 업무를 디지털화하는 솔루션입니다. 이를 기반으로 고객사 요구에 맞춘 B2B 구축형 정보시스템 개발에 주로 참여했습니다.',
+            stack: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Rust', 'WebAssembly', 'NGINX'],
             contributions: [
-              { date: '2026.07', title: '개발 컨벤션 및 AI 개발 환경 개선', desc: '개발·커밋 컨벤션을 정립하고 Rules와 Agent Skills 도입을 주도했습니다. 코드 품질과 변경 이력의 가독성을 높이고, 오류 가능성과 AI 토큰 낭비를 줄이는 구조를 마련했습니다.' },
-              { date: '2026.04', title: 'WebView 인증/인가 프로세스 개선', desc: 'JWT를 HttpOnly Cookie 세션으로 전환, 인증 책임을 서버로 일원화' },
-              { date: '2025.11', title: 'Rust(WASM) 사내 Excel 라이브러리 제작', desc: '영업 시연·고객사 유치에 기여' },
-              { date: '2025.10', title: 'HTTP/2 적용 · nginx 최적화', desc: '평균 서버 응답 시간 약 20% 개선' },
-              { date: '2025.06', title: '외부 SDK 모듈화 · 공통 컴포넌트화', desc: '리렌더링에도 편집 상태가 유지되는 래퍼 설계' },
-              { date: '2025.05', title: 'SSO 인증 구현', desc: 'OAuth2.0 기반 서비스 간 인증 유지 구조 설계' }
+              { date: '2026.10', title: '사용자 권한 관리 시스템 구축 · AI 업무 활용', outcome: '서비스 적용 후 오류 미발생', desc: 'AI 오케스트레이션을 적극 활용해 구현 계획과 구조도를 작성하고, 팀 리더와 보안 및 성능을 고려한 설계를 논의했습니다. 이후 모든 API의 권한을 확인하는 요청 검증 계층을 구현해 불필요한 DB 조회와 잦은 트랜잭션으로 인한 커넥션 풀 낭비를 줄이고자 했습니다. 구현 결과를 교차 검증한 뒤 서비스에 적용했습니다.' },
+              { date: '2026.07', title: 'AI 도구 도입 · 개발 생산성 개선', outcome: '팀 개발 생산성과 코드·변경 이력의 가독성 개선', desc: '개발·커밋 컨벤션을 정립하고 Rules와 Agent Skills 도입을 주도했으며, MCP 등 AI 도구를 활용했습니다. 오류 가능성과 AI 토큰 낭비를 줄이는 구조를 마련했습니다.' },
+              { date: '2026.04', title: '네이티브 앱 WebView 인증·인가 개선', outcome: '토큰 노출 축소와 서버 인증 일원화로 보안성·유지보수성 개선', desc: [
+                '기존 WebView 인증에서 JWT를 JavaScript Cookie 또는 Authorization 헤더로 직접 다루던 방식을 정리했습니다.',
+                'Kotlin·Swift 앱에서 전달한 JWT를 Next.js 서버에서 검증하고 HttpOnly Cookie 기반 세션으로 전환했습니다.',
+                '프론트엔드에서 직접 Redis를 호출하던 중복 로그인 방지 로직을 서버사이드 세션 검증 흐름으로 이관했습니다.',
+                '인증 실패 응답 형식을 정리해 클라이언트별 예외 처리를 단순화했습니다.'
+              ] },
+              { date: '2025.11', title: 'Rust·WebAssembly 및 TypeScript 사내 라이브러리', outcome: '안정적인 핵심 기능 구현으로 영업 시연과 고객사 유치에 기여', desc: [
+                'ExcelJS, XLSX 등 기존 라이브러리로 해결하기 어려운 Excel 편집 요구사항을 분석했습니다.',
+                'Rust로 Excel 편집 로직을 구현하고 WebAssembly로 빌드해 웹에서 실행하도록 구성했습니다.',
+                'JavaScript 헬퍼 함수와 TypeScript 타입을 제공해 팀이 사용할 수 있는 사내 라이브러리로 정리했습니다.'
+              ] },
+              { date: '2025.10', title: 'HTTP/2 전환 · nginx 설정 최적화', outcome: '도메인 전체 평균 서버 응답 시간 약 20% 개선', desc: [
+                'nginx 설정을 점검하고 HTTP/1.1에서 HTTP/2로 전환했습니다.',
+                '정적 리소스 전송과 서버 응답 흐름을 개선해 페이지 로딩 성능을 최적화했습니다.'
+              ] },
+              { date: '2025.06', title: '외부 SDK 모듈화 · 공통 컴포넌트화', outcome: 'React에 익숙하지 않은 팀원도 안정적으로 SDK 사용', desc: [
+                'Next.js·React 환경에서 사용하기 어려운 외부 SDK를 공통 컴포넌트로 래핑했습니다.',
+                'useRef와 forwardRef를 활용해 리렌더링 시에도 SDK 내부 편집 상태가 유지되도록 설계했습니다.',
+                'SDK 객체와 메서드의 타입을 정의하고 반복적으로 필요한 기능을 유틸 함수로 분리했습니다.'
+              ] },
+              { date: '2025.05', title: 'SSO 인증 구현', desc: [
+                'OAuth 2.0 표준 흐름을 기반으로 서비스 간 인증 유지 구조를 설계했습니다.',
+                '기존 NextAuth 기반 로그인을 확장해 redirect URI와 authorization code를 전달하고, 다른 서비스에서 JWT를 발급받을 수 있도록 구성했습니다.'
+              ] }
             ]
           }
+        ],
+        contributions: [
+          { title: '모바일 앱 웹뷰 개발', desc: 'SafetyOne의 네이티브 앱 웹뷰를 개발했습니다.' },
+          { title: 'UX/DX 및 웹 접근성 개선', desc: 'SafetyOne의 사용자·개발자 경험과 웹 접근성을 개선했습니다.' },
+          { title: '고객사 AX PoC · 자연어 SQL 변환과 RAG', desc: [
+            '자연어를 SQL로 변환해 비개발자의 고객사 내부 데이터 조회를 돕는 서비스의 PoC 개발에 참여했습니다.',
+            '고객사 데이터의 외부 유출을 방지하기 위해 오픈웨이트 모델을 로컬에서 서빙하는 방식으로 구성된 PoC입니다.',
+            'Jira에서 PostgreSQL로 옮긴 데이터를 벡터화해 RAG를 구성했습니다.',
+            '개인적으로 학습해 온 로컬 LLM 분야의 정보를 팀원들과 공유했습니다.'
+          ] }
         ]
       }
     ],
@@ -248,12 +279,12 @@ const I18N = {
           implementation: ['감정 타임라인·영상 컨트롤', '검색·즐겨찾기', '반응형·접근성·SSG']
         },
         productSummary: [
-          '시청 중 웹캠 프레임을 Socket.IO로 전송 — AI Hub 데이터셋으로 직접 학습한 TensorFlow 모델이 행복·놀람·분노·슬픔·무표정 5감정으로 분류',
+          '시청 중 웹캠 프레임을 Socket.IO로 전송하고, AI Hub 데이터셋으로 직접 학습한 TensorFlow 모델이 표정을 행복·놀람·분노·슬픔·무표정의 5가지 감정으로 분류',
           '구간·영상 단위로 누적한 감정 데이터로 현재 구간의 시청자 반응, 감정 타임라인, 개인 통계를 제공',
           '비슷한 감정 분포를 가진 영상을 추천'
         ],
         flow: [
-          { name: '시청 중 · 실시간 분석 파이프라인', steps: ['재생 중 0.5초마다 프레임 전송', 'OpenCV 얼굴 영역 추출', 'TensorFlow 모델로 5감정 분류', '100개 진행 구간·영상 단위 집계'] },
+          { name: '시청 중 · 실시간 분석 파이프라인', steps: ['재생 중 0.5초마다 프레임 전송', 'OpenCV 얼굴 영역 추출', 'TensorFlow 모델로 5가지 감정 분류', '100개 진행 구간·영상 단위 집계'] },
           { name: '집계 데이터 활용', steps: ['현재 구간 반응·감정 타임라인 표시', '개인 통계 시각화', '감정 유사도 기반 추천'] }
         ],
         features: [
@@ -265,7 +296,7 @@ const I18N = {
         roles: [
           { title: '2023 · 최초 개발 (4인)', points: [
             '프론트엔드 2인 중 1인으로 React 서비스 화면 구현',
-            '행복·놀람·분노·슬픔·무표정 5감정 분류 모델 직접 학습'
+            '행복·놀람·분노·슬픔·무표정의 5가지 감정 분류 모델 직접 학습'
           ] },
           { title: '2026.01 ~ 04 · 1차 리팩터링 (2인)', points: [
             '프론트엔드 전담 — 개선 방향·신규 기능·디자인 기획',
@@ -281,7 +312,7 @@ const I18N = {
           { title: 'AI 에이전트 활용', points: [
             'Claude Code · OpenAI Codex 병행 사용',
             'AGENTS.md·DESIGN.md·API 레퍼런스 스킬로 작업 기준 문서화',
-            '수행 결과를 커밋 단위로 직접 검수 — AI에 의존이 아닌 활용'
+            '수행 결과를 커밋 단위로 직접 검수하며 AI를 보조 도구로 활용'
           ] }
         ],
         troubles: [
@@ -307,8 +338,8 @@ const I18N = {
         list: { contribution: ['기술 선정 · SSR/CSR 구조 설계', '코드 리뷰로 접근성·SEO·렌더링 개선'], implementation: ['Socket.IO 채팅 서버 호스팅', 'NBA API 동기화 cron(Express.js)'] },
         productSummary: [
           'NBA 경기 일정을 캘린더로 조회하고, 경기별 영상·선수 기록·실시간 문자 중계·채팅을 제공합니다.',
-          '실시간 문자 중계는 일정 시간 간격으로 쿼터별 진행 상황을 갱신하고, 별도로 호스팅한 Socket.IO 서버가 경기별 채팅방과 최근 50개 메시지 조회를 담당합니다.',
-          '경기 데이터는 NBA 공식 API를 사용하는 cron 작업(Express.js)이 로컬 DB에 주기적으로 동기화하고, 회원 기능은 JWT·쿠키 기반 인증과 이메일 인증코드로 제공합니다.'
+          '실시간 문자 중계는 일정 시간 간격으로 쿼터별 진행 상황을 갱신합니다. 별도로 호스팅한 Socket.IO 서버는 경기별 채팅방과 최근 50개 메시지 조회를 담당합니다.',
+          '경기 데이터는 NBA 공식 API를 사용하는 cron 작업(Express.js)으로 로컬 DB에 주기적으로 동기화합니다. 회원 기능에는 JWT·쿠키 기반 인증과 이메일 인증코드를 사용합니다.'
         ],
         flow: [
           { name: '사용자 흐름', steps: ['캘린더에서 경기 일정 확인', '경기 상세로 이동 — 영상·선수 기록 조회', '실시간 문자 중계·채팅 참여'] },
@@ -317,18 +348,18 @@ const I18N = {
         ],
         features: [
           { name: '경기 일정 캘린더', desc: 'react-calendar·Swiper로 날짜를 선택하고, 날짜별 경기 수를 캘린더에 표시' },
-          { name: '경기 정보 조회', desc: 'YouTube Data API로 경기 영상을, NBA 공식 데이터로 선수 기록을 컬럼별 정렬해 제공' },
+          { name: '경기 정보 조회', desc: 'YouTube Data API로 경기 영상을 제공하고, NBA 공식 데이터의 선수 기록을 컬럼별로 정렬해 제공' },
           { name: '실시간 문자 중계', desc: '일정 시간 간격으로 쿼터별 진행 상황을 타임라인으로 표시' },
           { name: '경기별 실시간 채팅', desc: '별도로 호스팅한 Socket.IO 서버로 경기방 채팅을 지원하고 최근 50개 메시지를 DB에서 조회' }
         ],
         roles: [
           { title: '기술 고문 역할', points: [
-            '성능·개발 편의성·npm 패키지 최신 현황을 고려한 기술 선택 결정 및 피드백',
+            '성능·개발 편의성·npm 패키지 최신 현황을 고려해 기술 선택 및 피드백 제공',
             'SSR/CSR로 처리할 영역을 분리해 앱 전체 구조 설계',
             '코드 리뷰로 웹 접근성·SEO·렌더링 속도·가독성 등 UX/DX 개선'
           ] },
           { title: '프론트엔드 구현', points: [
-            'JWT·쿠키 기반 로그인/회원가입 UI 및 인증 관리, nodemailer 이메일 인증',
+            'JWT·쿠키 기반 로그인·회원가입 UI 및 인증 관리, nodemailer 이메일 인증',
             'focus trapping·외부 스크롤 방지 등 접근성 가이드를 준수한 모달 구현',
             'mixin·색상 변수 등 Sass 유틸로 스타일 구조화'
           ] },
@@ -363,13 +394,13 @@ const I18N = {
         flow: ['오늘의 감정 선택 후 일기 작성', '답장 방식 선택', { branch: ['AI — Gemini 답장·콘텐츠 추천', '익명 — 다른 사용자의 답장'] }, '유리병 편지함에서 답장 확인', '기록이 쌓이면 캘린더·월간 통계로 회고'],
         features: [
           { name: '감정 일기 작성', desc: '오늘의 감정을 선택하고 일기를 작성 — 저장 시 답장 방식(AI/익명)을 선택' },
-          { name: 'AI·유저 답장', desc: 'Google Gemini로 답장과 노래·영화·책 추천을 받거나, 다른 사용자로부터 익명 답장을 받음' },
+          { name: 'AI·사용자 답장', desc: 'Google Gemini로 답장과 노래·영화·책 추천을 받거나, 다른 사용자로부터 익명 답장을 받음' },
           { name: '유리병 편지함', desc: '5개의 편지 중 하나를 골라 확인하고 답장을 보낼 수 있는 마디 유리병 편지함' },
           { name: '나의 기록 · 나의 섬', desc: '캘린더로 과거 일기·답장을 다시 보고, 월간 통계로 감정 흐름을 종합 분석' }
         ],
         roles: [
           { title: '기술 고문 역할', points: [
-            '코드 리뷰로 팀원들에게 접근성·SEO·렌더링 속도·가독성 등 UX/DX 향상 피드백',
+            '코드 리뷰를 통해 접근성·SEO·렌더링 속도·가독성 등 UX/DX 개선 피드백 제공',
             '개발 일정 관리'
           ] },
           { title: '주요 구현', points: [
@@ -387,7 +418,7 @@ const I18N = {
         stack: ['React', 'React Router', 'Swiper', 'Framer Motion', 'Zustand', 'TanStack Query', 'Google Gemini', 'PocketBase'],
         stackGroups: [
           { name: 'Frontend', items: ['HTML5', 'CSS3', 'JavaScript', 'React', 'React Router', 'Swiper', 'Framer Motion'] },
-          { name: '상태관리 · API', items: ['Zustand', 'TanStack Query', 'Google Gemini', 'PocketBase'] },
+          { name: '상태 관리 · API', items: ['Zustand', 'TanStack Query', 'Google Gemini', 'PocketBase'] },
           { name: 'Development', items: ['Vite', 'pnpm', 'ESLint', 'Prettier', 'Netlify', 'Figma', 'Notion', 'Discord', 'GitHub'] }
         ],
         outcome: [
@@ -410,21 +441,52 @@ const I18N = {
     careers: [
       {
         company: 'CareerNet Inc.',
-        role: 'Fullstack Developer',
+        role: 'Next.js Fullstack Developer',
         period: '2025.04 ~ present',
         projects: [
           {
             name: '🛡 SafetyOne',
-            desc: 'B2B industrial safety & health management solution',
+            desc: 'A solution that digitizes safety and health management at industrial sites. Primarily contributed to B2B information systems built on the solution and tailored to client requirements.',
+            stack: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Rust', 'WebAssembly', 'NGINX'],
             contributions: [
-              { date: '2026.07', title: 'Development conventions and AI workflow improvements', desc: 'Established coding and commit conventions and led adoption of Rules and Agent Skills. Improved code quality and change-history readability, creating a structure that reduces error risk and wasted AI tokens.' },
-              { date: '2026.04', title: 'Improved WebView auth flow', desc: 'Moved JWT to HttpOnly cookie sessions, centralized auth on the server' },
-              { date: '2025.11', title: 'In-house Excel library in Rust (WASM)', desc: 'Contributed to sales demos and client acquisition' },
-              { date: '2025.10', title: 'HTTP/2 + nginx optimization', desc: '~20% faster average server response time' },
-              { date: '2025.06', title: 'External SDK modularization', desc: 'Wrapper components that keep editor state across re-renders' },
-              { date: '2025.05', title: 'SSO authentication', desc: 'OAuth2.0-based cross-service auth architecture' }
+              { date: '2026.10', title: 'User authorization system · AI in development', outcome: 'No errors after production deployment', desc: 'Actively used AI orchestration to prepare implementation plans and architecture diagrams, then discussed security and performance considerations with the team lead. Implemented a request validation layer to check permissions for every API while aiming to reduce unnecessary database queries and connection pool waste from frequent transactions. Cross-checked the implementation before deploying it to production.' },
+              { date: '2026.07', title: 'AI tools · development productivity', outcome: 'Improved team productivity, code quality and change-history readability', desc: 'Established coding and commit conventions, led adoption of Rules and Agent Skills, and used AI tools such as MCP. Created a structure to reduce error risk and wasted AI tokens.' },
+              { date: '2026.04', title: 'Native app WebView authentication and authorization', outcome: 'Reduced token exposure and centralized authentication, improving security and maintainability', desc: [
+                'Reworked the existing WebView authentication, which mixed direct JWT handling in JavaScript cookies and Authorization headers.',
+                'Verified JWTs from Kotlin and Swift apps on the Next.js server and migrated to HttpOnly cookie-based sessions.',
+                'Moved Redis-based duplicate-login prevention from direct frontend calls into server-side session validation.',
+                'Standardized authentication failure responses to simplify client-specific error handling.'
+              ] },
+              { date: '2025.11', title: 'Internal Rust·WebAssembly and TypeScript library', outcome: 'Reliable core feature supported sales demonstrations and customer acquisition', desc: [
+                'Analyzed Excel editing requirements that existing libraries such as ExcelJS and XLSX could not easily meet.',
+                'Implemented Excel editing logic in Rust and built it with WebAssembly for the web.',
+                'Provided JavaScript helper functions and TypeScript types as an internal library for the team.'
+              ] },
+              { date: '2025.10', title: 'HTTP/2 migration · nginx optimization', outcome: 'Approximately 20% faster average server response across the domain', desc: [
+                'Reviewed nginx settings and migrated from HTTP/1.1 to HTTP/2.',
+                'Improved static resource delivery and server response flow to optimize page loading.'
+              ] },
+              { date: '2025.06', title: 'External SDK modularization · shared component', outcome: 'Reliable SDK use for teammates less familiar with React', desc: [
+                'Wrapped an external SDK that was difficult to use in Next.js and React as a shared component.',
+                'Used useRef and forwardRef to preserve the SDK’s editing state across re-renders.',
+                'Defined types for SDK objects and methods and extracted recurring functionality into utilities.'
+              ] },
+              { date: '2025.05', title: 'SSO authentication', desc: [
+                'Designed cross-service authentication based on the OAuth 2.0 standard flow.',
+                'Extended the existing NextAuth login to pass the redirect URI and authorization code, enabling other services to obtain JWTs.'
+              ] }
             ]
           }
+        ],
+        contributions: [
+          { title: 'Mobile app WebView development', desc: 'Developed the native app WebView for SafetyOne.' },
+          { title: 'UX/DX and web accessibility improvements', desc: 'Improved user and developer experience and web accessibility for SafetyOne.' },
+          { title: 'Client AX PoC · natural language to SQL and RAG', desc: [
+            'Contributed to a proof of concept that converts natural language to SQL so non-developers can query the client’s internal data.',
+            'The proof of concept served open-weight models locally to prevent client data from leaving their environment.',
+            'Built a RAG system by vectorizing data migrated from Jira to PostgreSQL.',
+            'Shared information with teammates from independent study of local LLMs.'
+          ] }
         ]
       }
     ],
@@ -631,21 +693,52 @@ const I18N = {
     careers: [
       {
         company: 'CareerNet',
-        role: 'フルスタック開発者',
+        role: 'Next.jsフルスタック開発者',
         period: '2025.04 ~ 在職中',
         projects: [
           {
             name: '🛡 SafetyOne',
-            desc: '産業安全保健管理ソリューション · B2Bサービス開発',
+            desc: '産業現場の安全保健管理業務をデジタル化するソリューションです。これを基に、顧客の要件に合わせたB2B構築型情報システムの開発に主に参加しました。',
+            stack: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Rust', 'WebAssembly', 'NGINX'],
             contributions: [
-              { date: '2026.07', title: '開発規約とAI開発環境の改善', desc: '開発・コミット規約を整備し、RulesとAgent Skillsの導入を主導しました。コード品質と変更履歴の可読性を高め、エラーの発生リスクとAIトークンの無駄を減らす構造を整えました。' },
-              { date: '2026.04', title: 'WebView認証プロセスの改善', desc: 'JWTをHttpOnly Cookieセッションへ移行、認証責任をサーバーに一元化' },
-              { date: '2025.11', title: 'Rust(WASM)社内Excelライブラリ制作', desc: '営業デモ・顧客獲得に貢献' },
-              { date: '2025.10', title: 'HTTP/2適用 · nginx最適化', desc: '平均サーバー応答時間を約20%改善' },
-              { date: '2025.06', title: '外部SDKのモジュール化', desc: '再レンダリングでも編集状態を保持するラッパー設計' },
-              { date: '2025.05', title: 'SSO認証の実装', desc: 'OAuth2.0ベースのサービス間認証構造を設計' }
+              { date: '2026.10', title: 'ユーザー権限管理システムの構築 · AIの業務活用', outcome: 'サービス適用後のエラー発生なし', desc: 'AIオーケストレーションを積極的に活用して実装計画と構成図を作成し、チームリーダーとセキュリティ・性能を考慮した設計を協議しました。その後、全APIの権限を確認するリクエスト検証層を実装し、不要なDB検索や頻繁なトランザクションによるコネクションプールの浪費を抑えることを目指しました。実装結果を相互検証してサービスに適用しました。' },
+              { date: '2026.07', title: 'AIツール導入 · 開発生産性の改善', outcome: 'チームの開発生産性・コード品質・変更履歴の可読性を改善', desc: '開発・コミット規約を整備し、RulesとAgent Skillsの導入を主導。MCPなどのAIツールを活用しました。エラーリスクとAIトークンの無駄を減らす構造を整えました。' },
+              { date: '2026.04', title: 'ネイティブアプリWebViewの認証・認可改善', outcome: 'トークン露出の削減と認証の一元化でセキュリティ・保守性を改善', desc: [
+                'JWTをJavaScript CookieまたはAuthorizationヘッダーで直接扱う方式が混在していたWebView認証を整理しました。',
+                'Kotlin・Swiftアプリから渡されたJWTをNext.jsサーバーで検証し、HttpOnly Cookieベースのセッションに移行しました。',
+                'フロントエンドからRedisを直接呼び出していた重複ログイン防止処理を、サーバー側のセッション検証に移行しました。',
+                '認証失敗時の応答形式を整理し、クライアント別の例外処理を簡素化しました。'
+              ] },
+              { date: '2025.11', title: 'Rust・WebAssemblyとTypeScriptによる社内ライブラリ', outcome: '安定した中核機能の実装で営業デモと顧客獲得に貢献', desc: [
+                'ExcelJSやXLSXなどの既存ライブラリでは対応が難しいExcel編集の要件を分析しました。',
+                'RustでExcel編集ロジックを実装し、WebAssemblyにビルドしてWeb上で実行できるようにしました。',
+                'JavaScriptヘルパー関数とTypeScriptの型を提供し、チームが使える社内ライブラリにまとめました。'
+              ] },
+              { date: '2025.10', title: 'HTTP/2移行 · nginx設定の最適化', outcome: 'ドメイン全体の平均サーバー応答時間を約20%改善', desc: [
+                'nginx設定を確認し、HTTP/1.1からHTTP/2に移行しました。',
+                '静的リソースの配信とサーバー応答の流れを改善し、ページ読み込みを最適化しました。'
+              ] },
+              { date: '2025.06', title: '外部SDKのモジュール化 · 共通コンポーネント化', outcome: 'Reactに不慣れなメンバーもSDKを安定して利用可能に', desc: [
+                'Next.js・React環境で使いにくい外部SDKを共通コンポーネントでラップしました。',
+                'useRefとforwardRefを活用し、再レンダリング時もSDK内部の編集状態を保持できるようにしました。',
+                'SDKオブジェクトとメソッドの型を定義し、繰り返し必要な機能をユーティリティ関数に分離しました。'
+              ] },
+              { date: '2025.05', title: 'SSO認証の実装', desc: [
+                'OAuth 2.0の標準フローに基づき、サービス間で認証を維持する構造を設計しました。',
+                '既存のNextAuthログインを拡張してredirect URIとauthorization codeを渡し、他のサービスでJWTを取得できるようにしました。'
+              ] }
             ]
           }
+        ],
+        contributions: [
+          { title: 'モバイルアプリのWebView開発', desc: 'SafetyOneのネイティブアプリWebViewを開発しました。' },
+          { title: 'UX/DX・Webアクセシビリティの改善', desc: 'SafetyOneのユーザー・開発者体験とWebアクセシビリティを改善しました。' },
+          { title: '顧客向けAX PoC · 自然言語SQL変換とRAG', desc: [
+            '自然言語をSQLに変換し、非開発者による顧客社内データの検索を支援するサービスのPoC開発に参加しました。',
+            '顧客データの外部流出を防ぐため、オープンウェイトモデルをローカルで提供する構成のPoCです。',
+            'JiraからPostgreSQLに移行したデータをベクトル化し、RAGを構築しました。',
+            '個人的に学んできたローカルLLM分野の情報をチームメンバーに共有しました。'
+          ] }
         ]
       }
     ],
@@ -850,6 +943,7 @@ const UI_COPY = {
   ko: {
     skip: '본문으로 건너뛰기', menu: '메뉴', navLabel: '주요 메뉴', langLabel: '언어 선택',
     careerChapter: 'CHAPTER · 회사', careerMission: 'MISSION · 프로젝트', careerLog: 'LOG · 기여 기록',
+    careerExpand: '펼치기', careerCollapse: '접기', careerStack: '기술 스택', careerOutcome: '성과', careerRelated: '그 외 업무',
     missionFile: 'MISSION FILE', projectContribution: '핵심 기여', projectImplementation: '대표 구현', projectLoadout: '핵심 기술', openLog: 'LOG 열기',
     projectGuide: '최근 작업일 순 · 핵심 기여와 대표 구현 기준', flowTitle: '서비스 작동 흐름', flowOr: '또는',
     visitBlog: 'Velog에서 전체 글 보기',
@@ -881,6 +975,7 @@ const UI_COPY = {
   en: {
     skip: 'Skip to main content', menu: 'Menu', navLabel: 'Primary', langLabel: 'Language',
     careerChapter: 'CHAPTER · COMPANY', careerMission: 'MISSION · PROJECT', careerLog: 'LOG · CONTRIBUTIONS',
+    careerExpand: 'Show details', careerCollapse: 'Hide details', careerStack: 'Tech stack', careerOutcome: 'Outcome', careerRelated: 'OTHER WORK',
     missionFile: 'MISSION FILE', projectContribution: 'CORE CONTRIBUTION', projectImplementation: 'KEY IMPLEMENTATION', projectLoadout: 'CORE STACK', openLog: 'OPEN LOG',
     projectGuide: 'Latest work first · compared by contribution and implementation', flowTitle: 'SERVICE FLOW', flowOr: 'OR',
     visitBlog: 'See all posts on Velog',
@@ -912,6 +1007,7 @@ const UI_COPY = {
   ja: {
     skip: '本文へスキップ', menu: 'メニュー', navLabel: 'メインメニュー', langLabel: '言語選択',
     careerChapter: 'CHAPTER · 会社', careerMission: 'MISSION · プロジェクト', careerLog: 'LOG · 貢献記録',
+    careerExpand: '詳細を開く', careerCollapse: '閉じる', careerStack: '技術スタック', careerOutcome: '成果', careerRelated: 'その他の業務',
     missionFile: 'MISSION FILE', projectContribution: '主要な貢献', projectImplementation: '代表実装', projectLoadout: '主要技術', openLog: 'LOGを開く',
     projectGuide: '最近の作業順 · 貢献と代表実装で比較', flowTitle: 'サービスの動作フロー', flowOr: 'または',
     visitBlog: 'Velogで全ての記事を見る',
