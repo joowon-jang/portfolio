@@ -197,7 +197,7 @@ const I18N = {
             desc: '산업 현장의 안전보건 관리 업무를 디지털화하는 솔루션입니다. 이를 기반으로 고객사 요구에 맞춘 B2B 구축형 정보시스템 개발에 주로 참여했습니다.',
             stack: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Rust', 'WebAssembly', 'NGINX'],
             contributions: [
-              { date: '2026.10', title: '사용자 권한 관리 시스템 구축 · AI 업무 활용', outcome: '서비스 적용 후 오류 미발생', desc: 'AI 오케스트레이션을 적극 활용해 구현 계획과 구조도를 작성하고, 팀 리더와 보안 및 성능을 고려한 설계를 논의했습니다. 이후 모든 API의 권한을 확인하는 요청 검증 계층을 구현해 불필요한 DB 조회와 잦은 트랜잭션으로 인한 커넥션 풀 낭비를 줄이고자 했습니다. 구현 결과를 교차 검증한 뒤 서비스에 적용했습니다.' },
+              { date: '2026.10', title: '사용자 권한 관리 시스템 구축 · AI 업무 활용', desc: 'AI 오케스트레이션을 적극 활용해 구현 계획과 구조도를 작성하고, 팀 리더와 보안 및 성능을 고려한 설계를 논의했습니다. 이후 모든 API의 권한을 확인하는 요청 검증 계층을 구현해 불필요한 DB 조회와 잦은 트랜잭션으로 인한 커넥션 풀 낭비를 줄이고자 했습니다. 구현 결과를 교차 검증한 뒤 서비스에 적용했습니다.' },
               { date: '2026.07', title: 'AI 도구 도입 · 개발 생산성 개선', outcome: '팀 개발 생산성과 코드·변경 이력의 가독성 개선', desc: '개발·커밋 컨벤션을 정립하고 Rules와 Agent Skills 도입을 주도했으며, MCP 등 AI 도구를 활용했습니다. 오류 가능성과 AI 토큰 낭비를 줄이는 구조를 마련했습니다.' },
               { date: '2026.04', title: '네이티브 앱 WebView 인증·인가 개선', outcome: '토큰 노출 축소와 서버 인증 일원화로 보안성·유지보수성 개선', desc: [
                 '기존 WebView 인증에서 JWT를 JavaScript Cookie 또는 Authorization 헤더로 직접 다루던 방식을 정리했습니다.',
@@ -227,10 +227,10 @@ const I18N = {
           }
         ],
         contributions: [
-          { title: '고객사 AX PoC · 자연어 SQL 변환과 RAG', featured: true, summary: '비개발자를 위한 데이터 조회 · 로컬 LLM과 Jira 데이터 기반 RAG', desc: [
+          { title: '고객사 AX PoC · 자연어 SQL 변환과 RAG', featured: true, summary: '비개발자를 위한 데이터 조회 · 로컬 LLM과 데이터·문서 기반 RAG', desc: [
             '자연어를 SQL로 변환해 비개발자의 고객사 내부 데이터 조회를 돕는 서비스의 PoC 개발에 참여했습니다.',
             '고객사 데이터의 외부 유출을 방지하기 위해 오픈웨이트 모델을 로컬에서 서빙하는 방식으로 구성된 PoC입니다.',
-            'Jira에서 PostgreSQL로 옮긴 데이터를 벡터화해 RAG를 구성했습니다.',
+            'Jira에서 PostgreSQL로 옮긴 데이터와 PDF 등 문서를 함께 벡터화해 RAG를 구성했습니다.',
             '개인적으로 학습해 온 로컬 LLM 분야의 정보를 팀원들과 공유했습니다.'
           ] },
           { title: '모바일 앱 웹뷰 개발', desc: 'SafetyOne의 네이티브 앱 웹뷰를 개발했습니다.' },
@@ -449,7 +449,7 @@ const I18N = {
             desc: 'A solution that digitizes safety and health management at industrial sites. Primarily contributed to B2B information systems built on the solution and tailored to client requirements.',
             stack: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Rust', 'WebAssembly', 'NGINX'],
             contributions: [
-              { date: '2026.10', title: 'User authorization system · AI in development', outcome: 'No errors after production deployment', desc: 'Actively used AI orchestration to prepare implementation plans and architecture diagrams, then discussed security and performance considerations with the team lead. Implemented a request validation layer to check permissions for every API while aiming to reduce unnecessary database queries and connection pool waste from frequent transactions. Cross-checked the implementation before deploying it to production.' },
+              { date: '2026.10', title: 'User authorization system · AI in development', desc: 'Actively used AI orchestration to prepare implementation plans and architecture diagrams, then discussed security and performance considerations with the team lead. Implemented a request validation layer to check permissions for every API while aiming to reduce unnecessary database queries and connection pool waste from frequent transactions. Cross-checked the implementation before deploying it to production.' },
               { date: '2026.07', title: 'AI tools · development productivity', outcome: 'Improved team productivity, code quality and change-history readability', desc: 'Established coding and commit conventions, led adoption of Rules and Agent Skills, and used AI tools such as MCP. Created a structure to reduce error risk and wasted AI tokens.' },
               { date: '2026.04', title: 'Native app WebView authentication and authorization', outcome: 'Reduced token exposure and centralized authentication, improving security and maintainability', desc: [
                 'Reworked the existing WebView authentication, which mixed direct JWT handling in JavaScript cookies and Authorization headers.',
@@ -479,10 +479,10 @@ const I18N = {
           }
         ],
         contributions: [
-          { title: 'Client AX PoC · natural language to SQL and RAG', featured: true, summary: 'Data access for non-developers · local LLM and RAG over Jira data', desc: [
+          { title: 'Client AX PoC · natural language to SQL and RAG', featured: true, summary: 'Data access for non-developers · local LLM and RAG over data and documents', desc: [
             'Contributed to a proof of concept that converts natural language to SQL so non-developers can query the client’s internal data.',
             'The proof of concept served open-weight models locally to prevent client data from leaving their environment.',
-            'Built a RAG system by vectorizing data migrated from Jira to PostgreSQL.',
+            'Built a RAG system by vectorizing both data migrated from Jira to PostgreSQL and documents such as PDFs.',
             'Shared information with teammates from independent study of local LLMs.'
           ] },
           { title: 'Mobile app WebView development', desc: 'Developed the native app WebView for SafetyOne.' },
@@ -701,7 +701,7 @@ const I18N = {
             desc: '産業現場の安全保健管理業務をデジタル化するソリューションです。これを基に、顧客の要件に合わせたB2B構築型情報システムの開発に主に参加しました。',
             stack: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Rust', 'WebAssembly', 'NGINX'],
             contributions: [
-              { date: '2026.10', title: 'ユーザー権限管理システムの構築 · AIの業務活用', outcome: 'サービス適用後のエラー発生なし', desc: 'AIオーケストレーションを積極的に活用して実装計画と構成図を作成し、チームリーダーとセキュリティ・性能を考慮した設計を協議しました。その後、全APIの権限を確認するリクエスト検証層を実装し、不要なDB検索や頻繁なトランザクションによるコネクションプールの浪費を抑えることを目指しました。実装結果を相互検証してサービスに適用しました。' },
+              { date: '2026.10', title: 'ユーザー権限管理システムの構築 · AIの業務活用', desc: 'AIオーケストレーションを積極的に活用して実装計画と構成図を作成し、チームリーダーとセキュリティ・性能を考慮した設計を協議しました。その後、全APIの権限を確認するリクエスト検証層を実装し、不要なDB検索や頻繁なトランザクションによるコネクションプールの浪費を抑えることを目指しました。実装結果を相互検証してサービスに適用しました。' },
               { date: '2026.07', title: 'AIツール導入 · 開発生産性の改善', outcome: 'チームの開発生産性・コード品質・変更履歴の可読性を改善', desc: '開発・コミット規約を整備し、RulesとAgent Skillsの導入を主導。MCPなどのAIツールを活用しました。エラーリスクとAIトークンの無駄を減らす構造を整えました。' },
               { date: '2026.04', title: 'ネイティブアプリWebViewの認証・認可改善', outcome: 'トークン露出の削減と認証の一元化でセキュリティ・保守性を改善', desc: [
                 'JWTをJavaScript CookieまたはAuthorizationヘッダーで直接扱う方式が混在していたWebView認証を整理しました。',
@@ -731,10 +731,10 @@ const I18N = {
           }
         ],
         contributions: [
-          { title: '顧客向けAX PoC · 自然言語SQL変換とRAG', featured: true, summary: '非開発者向けデータ検索 · ローカルLLMとJiraデータによるRAG', desc: [
+          { title: '顧客向けAX PoC · 自然言語SQL変換とRAG', featured: true, summary: '非開発者向けデータ検索 · ローカルLLMとデータ・文書によるRAG', desc: [
             '自然言語をSQLに変換し、非開発者による顧客社内データの検索を支援するサービスのPoC開発に参加しました。',
             '顧客データの外部流出を防ぐため、オープンウェイトモデルをローカルで提供する構成のPoCです。',
-            'JiraからPostgreSQLに移行したデータをベクトル化し、RAGを構築しました。',
+            'JiraからPostgreSQLに移行したデータとPDFなどの文書を併せてベクトル化し、RAGを構築しました。',
             '個人的に学んできたローカルLLM分野の情報をチームメンバーに共有しました。'
           ] },
           { title: 'モバイルアプリのWebView開発', desc: 'SafetyOneのネイティブアプリWebViewを開発しました。' },

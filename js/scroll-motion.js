@@ -13,11 +13,11 @@
     const nodes = Object.fromEntries(nodeEntries);
     const stages = element.querySelectorAll('.flow-stages li');
     const definitions = [
-      ['jira', 'postgres', 0, .14], ['postgres', 'vector', .14, .28], ['vector', 'rag', .28, .42],
+      ['sources', 'vector', 0, .21], ['vector', 'rag', .21, .42],
       ['rag', 'model', .42, .64],
       ['question', 'model', .64, .76], ['model', 'sql', .76, .88], ['sql', 'result', .88, 1]
     ];
-    const thresholds = { jira: 0, postgres: .14, vector: .28, rag: .42, model: .64, question: .64, sql: .88, result: 1 };
+    const thresholds = { sources: 0, vector: .21, rag: .42, model: .64, question: .64, sql: .88, result: 1 };
     const phaseRanges = [[0, .42], [.42, .64], [.64, 1]];
     const routes = definitions.map(([from, to, start, end]) => {
       const group = document.createElementNS(svgNS, 'g');
