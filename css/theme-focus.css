@@ -1,0 +1,5 @@
+body[data-variant="focus"]{color-scheme:light;--paper:#fcfdff;--surface:#f2f6fc;--ink:#172034;--body:#34435c;--muted:#65748a;--line:#e0e7f0;--accent:#1766e8;--accent-strong:#1454bc;--accent-soft:#eaf2ff;--night:#172034;--on-night:#eef4ff;--radius:9px}
+body[data-variant="focus"] .featured{border-color:#cdddf3;background:var(--surface)}
+body[data-variant="focus"] .contribution summary:hover{background:var(--accent-soft)}
+body[data-variant="focus"] .project-media{border:1px solid var(--line)}
+body[data-variant="focus"] .contribution-outcome>span{color:#526783}

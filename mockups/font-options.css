@@ -1,0 +1,14 @@
+@import url("../css/line-seed.css?v=main-13");
+/* Alternative font specimens; the selected LINE Seed has one shared declaration. */
+@font-face{font-family:"NanumSquare Neo";src:url("https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff") format("woff");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"NanumSquare Neo";src:url("https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff") format("woff");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"NanumSquare Neo";src:url("https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.woff") format("woff");font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:MaruBuri;src:url("https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:MaruBuri;src:url("https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+[data-font=line]{--font-body:"LINE Seed KR",system-ui,sans-serif;--font-heading:var(--font-body)}
+[data-font=noto]{--font-body:"Noto Sans KR",system-ui,sans-serif;--font-heading:var(--font-body)}
+[data-font=gothic]{--font-body:"Gothic A1",system-ui,sans-serif;--font-heading:var(--font-body)}
+[data-font=neo]{--font-body:"NanumSquare Neo",system-ui,sans-serif;--font-heading:var(--font-body)}
+[data-font=free]{--font-body:Freesentation,system-ui,sans-serif;--font-heading:var(--font-body)}
+[data-font=maru]{--font-body:"Noto Sans KR",system-ui,sans-serif;--font-heading:MaruBuri,serif}
+html[lang=ja][data-font]{--font-body:"Noto Sans JP",system-ui,sans-serif;--font-heading:var(--font-body)}

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LINE Seed 적용안 — 장주원 포트폴리오</title>
+<link rel="stylesheet" href="../css/line-seed.css?v=main-13">
+<style>
+:root{color-scheme:light;--ink:#172034;--muted:#65748a;--line:#dfe5ee;--accent:#2f43ff}*{box-sizing:border-box}body{margin:0;background:#f7f9fc;color:var(--ink);font-family:"LINE Seed KR",system-ui,sans-serif;line-height:1.65;word-break:keep-all;overflow-wrap:anywhere}h1,p{margin:0}a{color:inherit;text-decoration:none}button{font:inherit}a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:4px}.wrap{width:min(1440px,calc(100% - 64px));margin-inline:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:66px;border-bottom:1px solid var(--line);font-size:13px}.top a{color:var(--muted)}.intro{padding:28px 0 22px}.intro h1{font-size:clamp(25px,3vw,36px);letter-spacing:-.035em;line-height:1.4}.intro p{margin-top:10px;color:var(--muted);font-size:14px;max-width:880px}.choices{display:flex;gap:8px;flex-wrap:wrap;padding:10px 0 14px}.choice{background:#fff;border:1px solid var(--line);border-radius:6px;padding:9px 16px;font-size:14px}.choice[aria-current]{border-color:var(--accent);background:#f1f3ff;color:var(--accent)}.preview-toolbar{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:12px 0 16px}.view-controls{display:flex;gap:7px;flex-wrap:wrap}.view-controls button{border:1px solid var(--line);background:white;border-radius:5px;padding:7px 12px;font-size:12px;color:var(--muted);cursor:pointer}.view-controls button[aria-pressed=true]{border-color:var(--accent);color:var(--accent)}.preview-meta{display:flex;gap:18px;align-items:center;font-size:12px;color:var(--muted)}.preview-meta strong{font-weight:700;color:var(--ink)}.preview-meta a{color:var(--accent)}.preview-shell{border:1px solid var(--line);border-radius:9px;overflow:hidden;background:white}.preview-frame{display:block;width:100%;height:900px;border:0;background:white}.notes{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:20px 0 34px;font-size:12px;color:var(--muted)}.notes p{max-width:660px}.references{display:flex;gap:16px;flex-wrap:wrap}.references a:hover{color:var(--accent)}html:not(.preview-ready) .view-controls{display:none}@media(max-width:600px){.wrap{width:calc(100% - 32px)}.top{min-height:58px;font-size:12px}.intro{padding-top:23px}.intro p{font-size:13px}.choice{font-size:13px;padding:8px 13px}.preview-toolbar{gap:12px}.preview-meta{font-size:11px;width:100%;justify-content:space-between}.preview-shell{margin-inline:-16px;border-radius:0;border-inline:0}.preview-frame{height:80svh;min-height:600px}.notes{font-size:11px}}
+</style>
+</head>
+<body>
+<header class="top wrap"><strong>장주원 / 포트폴리오 디자인 검토</strong><a href="../index.html">현재 사이트 ↗</a></header>
+<main class="wrap">
+<header class="intro"><h1>LINE Seed 적용안.</h1><p>보유 기술을 정리하고 AI 활용을 주력 목록의 첫 항목으로 표시했습니다. RAG를 추가했으며, 경력·프로젝트의 실제 사용 기술 기록과 페이지 전체 배경은 유지했습니다.</p></header>
+<nav class="choices" aria-label="색상안"><a class="choice" data-choice href="claude-wave.html?v=skills-12" aria-current="true" aria-controls="portfolio-preview">Wave</a><a class="choice" data-choice href="opencode-wave.html?v=skills-12" aria-controls="portfolio-preview">Pulse</a><a class="choice" data-choice href="focus.html?v=skills-12" aria-controls="portfolio-preview">Focus</a></nav>
+<div class="preview-toolbar"><div class="view-controls" role="group" aria-label="미리보기 위치"><button type="button" data-view="sec-about" aria-pressed="true">소개 · 연락처</button><button type="button" data-view="sec-career" aria-pressed="false">AX · 경력</button><button type="button" data-view="sec-projects" aria-pressed="false">프로젝트 · 맨 아래</button></div><div class="preview-meta"><strong id="selected-preview">Wave · LINE Seed KR</strong><a id="open-preview" href="claude-wave.html?v=skills-12" target="_blank" rel="noopener">새 탭에서 전체 보기 ↗</a></div></div>
+<div class="preview-shell"><iframe class="preview-frame" id="portfolio-preview" src="claude-wave.html?v=skills-12" title="Wave · LINE Seed KR 전체 포트폴리오"></iframe></div>
+<footer class="notes"><p>안쪽 페이지를 직접 스크롤할 수 있습니다. 화면 안으로 들어온 AX 도식과 프로젝트 이미지의 변화를 확인할 수 있습니다.</p><div class="references"><a href="font-round.html">이전 서체 비교 ↗</a><a href="flow.html">보존한 Flow ↗</a></div></footer>
+</main>
+<script>
+const frame=document.getElementById('portfolio-preview');
+const choices=[...document.querySelectorAll('[data-choice]')];
+const views=[...document.querySelectorAll('[data-view]')];
+let position={id:'sec-about',offset:0};
+const remember=()=>{const doc=frame.contentDocument;if(!doc?.querySelector('.home'))return;const win=frame.contentWindow;const sections=[...doc.querySelectorAll('.home>[id]')];const anchor=sections.filter(section=>section.getBoundingClientRect().top<=110).at(-1)||sections[0];if(!anchor)return;position={id:anchor.id,offset:win.scrollY-(anchor.getBoundingClientRect().top+win.scrollY)};};
+const restore=()=>{const win=frame.contentWindow;const section=win.document.getElementById(position.id);if(section)win.scrollTo({top:position.id==='sec-about'&&position.offset===0?0:section.getBoundingClientRect().top+win.scrollY+position.offset,behavior:'instant'});};
+frame.addEventListener('load',async()=>{await frame.contentDocument.fonts.ready;restore();});
+choices.forEach(link=>link.addEventListener('click',event=>{if(event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();if(link.hasAttribute('aria-current'))return;remember();choices.forEach(item=>item.removeAttribute('aria-current'));link.setAttribute('aria-current','true');document.getElementById('selected-preview').textContent=link.textContent+' · LINE Seed KR';document.getElementById('open-preview').href=link.href;frame.title=link.textContent+' · LINE Seed KR 전체 포트폴리오';frame.src=link.href;}));
+views.forEach(button=>button.addEventListener('click',()=>{position={id:button.dataset.view,offset:button.dataset.view==='sec-about'?0:-98};views.forEach(item=>item.setAttribute('aria-pressed',String(item===button)));restore();}));
+document.documentElement.classList.add('preview-ready');
+</script>
+</body>
+</html>

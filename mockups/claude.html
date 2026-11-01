@@ -1,0 +1,1021 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>장주원 — 웹 개발자 포트폴리오</title>
+<meta name="description" content="Next.js 풀스택 개발자 장주원의 포트폴리오. 고객사 AX PoC, SafetyOne B2B 구축, AioLM.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+/* ──────────────────────────────────────────────
+   Editorial mockup · 장주원 포트폴리오
+   원칙: 활자가 위계를 만든다 / 장식 대신 괘선 / 강조색은 하나
+   ────────────────────────────────────────────── */
+:root {
+  --paper: #f5f2ea;
+  --paper-2: #ebe6d9;
+  --ink: #1a1916;
+  --ink-2: #3a372f;
+  --muted: #6a6457;
+  --rule: #d4ccbb;
+  --accent: #a3321f;
+  --accent-soft: rgba(163, 50, 31, .08);
+  --shadow: rgba(26, 25, 22, .08);
+
+  --serif: 'Noto Serif KR', 'Nanum Myeongjo', 'AppleMyungjo', serif;
+  --sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --measure: 38rem;
+  --gutter: clamp(16px, 4vw, 48px);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #141311; --paper-2: #1d1b18; --ink: #eee9df; --ink-2: #cfc8ba;
+    --muted: #9d9586; --rule: #36322b; --accent: #e57d65; --accent-soft: rgba(229, 125, 101, .1);
+    --shadow: rgba(0, 0, 0, .4); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #141311; --paper-2: #1d1b18; --ink: #eee9df; --ink-2: #cfc8ba;
+  --muted: #9d9586; --rule: #36322b; --accent: #e57d65; --accent-soft: rgba(229, 125, 101, .1);
+  --shadow: rgba(0, 0, 0, .4); color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--sans); font-size: 17px; line-height: 1.75;
+  word-break: keep-all; overflow-wrap: break-word;
+  font-feature-settings: 'tnum' 0; -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .22em; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3, h4 { margin: 0; font-weight: 700; text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+ul { margin: 0; padding: 0; }
+button { font: inherit; color: inherit; }
+
+.skip { position: absolute; left: -9999px; top: 8px; background: var(--ink); color: var(--paper); padding: 8px 14px; z-index: 100; }
+.skip:focus { left: 8px; }
+
+.mono { font-family: var(--mono); font-size: .78rem; letter-spacing: .02em; }
+.label { font-family: var(--mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.num { font-variant-numeric: tabular-nums lining-nums; }
+
+/* ── reading progress ── */
+.progress { position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 60; pointer-events: none; }
+.progress span { display: block; height: 100%; width: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
+
+/* ── masthead ── */
+.masthead {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: saturate(1.2) blur(6px); -webkit-backdrop-filter: saturate(1.2) blur(6px);
+  border-bottom: 1px solid var(--rule);
+}
+.masthead-inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--gutter); height: 60px; display: flex; align-items: center; gap: 24px; }
+.wordmark { font-family: var(--serif); font-weight: 700; font-size: 1.05rem; text-decoration: none; white-space: nowrap; }
+.wordmark small { font-family: var(--mono); font-weight: 400; font-size: .72rem; color: var(--muted); margin-left: 10px; letter-spacing: .04em; }
+.masthead nav { margin-left: auto; }
+.masthead nav ul { list-style: none; display: flex; gap: 22px; }
+.masthead nav a { font-size: .875rem; text-decoration: none; color: var(--ink-2); padding: 4px 0; border-bottom: 1px solid transparent; }
+.masthead nav a[aria-current="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.tools { display: flex; gap: 8px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 14px;
+  border: 1px solid var(--ink); background: transparent; border-radius: 999px; cursor: pointer;
+  font-size: .8125rem; text-decoration: none; white-space: nowrap;
+}
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn.solid { background: var(--ink); color: var(--paper); }
+.btn.solid:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.icon { width: 36px; padding: 0; justify-content: center; }
+.btn svg { width: 16px; height: 16px; }
+
+/* ── page ── */
+.page { max-width: 1280px; margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ── hero ── */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: clamp(32px, 6vw, 96px); padding: clamp(48px, 9vw, 120px) 0 clamp(40px, 6vw, 72px); border-bottom: 2px solid var(--ink); }
+.hero-kicker { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-bottom: 28px; }
+.hero h1 { font-family: var(--serif); font-weight: 900; font-size: clamp(4.25rem, 13vw, 10rem); line-height: .92; letter-spacing: -.04em; }
+.hero-role { font-family: var(--serif); font-weight: 500; font-size: clamp(1.35rem, 2.6vw, 2rem); line-height: 1.35; margin-top: 28px; max-width: 22em; }
+.hero-role em { font-style: normal; color: var(--accent); }
+.hero-intro { margin-top: 24px; max-width: var(--measure); color: var(--ink-2); font-size: 1.0625rem; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+.hero-aside { align-self: end; }
+.portrait { margin: 0; }
+.portrait img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; filter: grayscale(1) contrast(1.04); transition: filter .4s; }
+.portrait:hover img { filter: none; }
+.portrait figcaption { margin-top: 10px; }
+.facts { margin: 22px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; font-size: .875rem; }
+.facts dt { color: var(--muted); font-family: var(--mono); font-size: .75rem; letter-spacing: .04em; padding-top: 2px; }
+.facts dd { margin: 0; }
+
+/* ── summary / 3 highlights ── */
+.brief { padding: clamp(40px, 6vw, 72px) 0; border-bottom: 1px solid var(--rule); }
+.brief-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+.brief-head h2 { font-family: var(--serif); font-size: 1.375rem; }
+.brief-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+.brief-item { padding: 24px 28px 28px 0; display: flex; flex-direction: column; gap: 12px; text-decoration: none; }
+.brief-item + .brief-item { padding-left: 28px; border-left: 1px solid var(--rule); }
+.brief-item .no { font-family: var(--mono); font-size: .75rem; color: var(--accent); }
+.brief-item h3 { font-family: var(--serif); font-size: 1.375rem; line-height: 1.3; }
+.brief-item p { color: var(--ink-2); font-size: .9375rem; line-height: 1.65; }
+.brief-item .more { margin-top: auto; font-size: .8125rem; color: var(--muted); }
+.brief-item:hover h3 { color: var(--accent); }
+.brief-item:hover .more { color: var(--accent); }
+.figure-num { font-family: var(--serif); font-weight: 900; font-size: 3.25rem; line-height: 1; letter-spacing: -.03em; color: var(--accent); }
+.figure-num small { font-size: .4em; font-weight: 700; letter-spacing: 0; margin-right: 4px; color: var(--ink-2); }
+
+/* ── main layout with side index ── */
+.layout { display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); padding-top: 24px; }
+.toc { position: sticky; top: 92px; align-self: start; padding-top: 48px; }
+.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.toc li { counter-increment: toc; }
+.toc a { display: grid; grid-template-columns: 28px 1fr; padding: 6px 0; text-decoration: none; font-size: .875rem; color: var(--muted); border-left: 2px solid transparent; padding-left: 12px; margin-left: -14px; }
+.toc a::before { content: counter(toc, decimal-leading-zero); font-family: var(--mono); font-size: .72rem; padding-top: 3px; }
+.toc a:hover { color: var(--ink); }
+.toc a[aria-current="true"] { color: var(--ink); border-left-color: var(--accent); font-weight: 600; }
+
+/* ── section frame ── */
+.section { padding: 48px 0 clamp(56px, 8vw, 104px); border-bottom: 1px solid var(--rule); }
+.section:last-child { border-bottom: 0; }
+.sec-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 12px 24px; padding-bottom: 20px; border-bottom: 2px solid var(--ink); margin-bottom: 40px; }
+.sec-head h2 { font-family: var(--serif); font-weight: 900; font-size: clamp(2.25rem, 5vw, 3.5rem); line-height: 1.05; letter-spacing: -.02em; }
+.sec-head .label { text-align: right; }
+.sec-dek { grid-column: 1 / -1; color: var(--ink-2); max-width: var(--measure); }
+
+/* ── career ── */
+.employer { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 24px; align-items: baseline; margin-bottom: 40px; }
+.employer h3 { font-family: var(--serif); font-size: 1.75rem; }
+.employer .role { color: var(--ink-2); grid-column: 1; }
+.employer .period { grid-row: 1 / span 2; grid-column: 2; font-family: var(--mono); font-size: .875rem; text-align: right; }
+.employer .period b { display: block; font-weight: 500; color: var(--accent); font-size: .75rem; letter-spacing: .06em; }
+
+.subhead { display: flex; align-items: baseline; gap: 14px; margin: 0 0 18px; }
+.subhead h4 { font-family: var(--serif); font-size: 1.375rem; }
+.subhead .label { margin-left: auto; }
+
+/* feature story: AX PoC */
+.story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 340px); gap: clamp(28px, 4vw, 56px); padding: clamp(28px, 4vw, 44px); background: var(--paper-2); margin-bottom: 64px; position: relative; }
+.story::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); }
+.story .tag { display: inline-block; font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; color: var(--accent); border: 1px solid currentColor; padding: 2px 8px; border-radius: 999px; margin-bottom: 18px; }
+.story h3 { font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.25rem); line-height: 1.25; letter-spacing: -.01em; }
+.story .dek { margin-top: 12px; color: var(--ink-2); font-size: 1.0625rem; }
+.story ol { margin: 28px 0 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 14px; }
+.story ol li { counter-increment: s; display: grid; grid-template-columns: 32px 1fr; max-width: var(--measure); }
+.story ol li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: .75rem; color: var(--muted); padding-top: 5px; }
+.pull { margin: 0; font-family: var(--serif); font-weight: 700; font-size: 1.25rem; line-height: 1.5; border-top: 1px solid var(--ink); padding-top: 16px; }
+.pull span { color: var(--accent); }
+.schema { margin-top: 28px; display: grid; gap: 18px; }
+.schema-row .label { display: block; margin-bottom: 8px; }
+.chain { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.chain li { font-size: .8125rem; background: var(--paper); border: 1px solid var(--rule); padding: 4px 10px; border-radius: 4px; line-height: 1.5; }
+.chain li + li::before { content: '→'; color: var(--muted); margin: 0 8px 0 -2px; }
+.chain li + li { padding-left: 0; border: 0; background: none; }
+.chain li + li span { background: var(--paper); border: 1px solid var(--rule); padding: 4px 10px; border-radius: 4px; display: inline-block; }
+.schema-note { font-size: .8125rem; color: var(--muted); border-top: 1px dashed var(--rule); padding-top: 12px; }
+
+/* SafetyOne */
+.product { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: clamp(24px, 4vw, 56px); margin-bottom: 28px; }
+.product p { max-width: var(--measure); color: var(--ink-2); }
+.product p strong { color: var(--ink); font-weight: 600; background: linear-gradient(transparent 62%, var(--accent-soft) 62%); }
+.stat { border-top: 1px solid var(--ink); padding-top: 14px; }
+.stat .figure-num { font-size: 4rem; }
+.stat p { font-size: .875rem; color: var(--ink-2); margin-top: 8px; }
+.stat .src { font-size: .75rem; color: var(--muted); margin-top: 6px; }
+.chips { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+.chips li { font-family: var(--mono); font-size: .75rem; padding: 3px 9px; border: 1px solid var(--rule); border-radius: 999px; color: var(--ink-2); }
+
+.log-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 36px 0 0; padding-bottom: 10px; border-bottom: 1px solid var(--ink); }
+.log-bar h5 { margin: 0; font-family: var(--sans); font-size: .9375rem; font-weight: 700; }
+.linkbtn { background: none; border: 0; padding: 4px 0; cursor: pointer; font-size: .8125rem; color: var(--muted); text-decoration: underline; text-underline-offset: .22em; }
+.linkbtn:hover { color: var(--accent); }
+
+.log { list-style: none; }
+.entry { border-bottom: 1px solid var(--rule); }
+.entry summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 84px minmax(0, 1fr) 20px; gap: 4px 20px; padding: 18px 0; align-items: start; }
+.entry summary::-webkit-details-marker { display: none; }
+.entry time { font-family: var(--mono); font-size: .8125rem; padding-top: 3px; color: var(--muted); }
+.entry .t { font-weight: 600; font-size: 1.0625rem; line-height: 1.5; }
+.entry .o { grid-column: 2; font-size: .9375rem; color: var(--accent); line-height: 1.55; }
+.entry .o::before { content: '성과 — '; color: var(--muted); }
+.entry .chev { grid-row: 1; grid-column: 3; width: 20px; height: 20px; margin-top: 3px; position: relative; }
+.entry .chev::before, .entry .chev::after { content: ''; position: absolute; left: 4px; right: 4px; top: 9px; height: 1.5px; background: var(--ink-2); transition: transform .2s; }
+.entry .chev::after { transform: rotate(90deg); }
+.entry[open] .chev::after { transform: rotate(0); }
+.entry summary:hover .t { color: var(--accent); }
+.entry.key time { color: var(--accent); }
+.entry-body { padding: 0 0 22px 104px; max-width: calc(var(--measure) + 104px); }
+.entry-body ul { list-style: none; display: grid; gap: 8px; }
+.entry-body li { position: relative; padding-left: 18px; color: var(--ink-2); font-size: .9688rem; }
+.entry-body li::before { content: ''; position: absolute; left: 0; top: .78em; width: 8px; height: 1px; background: var(--muted); }
+
+.also { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 40px; }
+.also > div { border-top: 1px solid var(--ink); padding-top: 14px; }
+.also h5 { margin: 0 0 6px; font-size: 1rem; }
+.also p { color: var(--ink-2); font-size: .9375rem; }
+
+/* ── projects ── */
+.feature-project { margin-bottom: 72px; }
+.fp-head { display: grid; grid-template-columns: 72px minmax(0, 1fr) auto; gap: 20px; align-items: center; margin-bottom: 28px; }
+.fp-head img { width: 72px; height: 72px; border-radius: 14px; border: 1px solid var(--rule); background: #fff; }
+.fp-head h3 { font-family: var(--serif); font-weight: 900; font-size: clamp(2.25rem, 5vw, 3.25rem); line-height: 1; letter-spacing: -.02em; }
+.fp-head p { color: var(--ink-2); margin-top: 8px; }
+.fp-meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule); margin-bottom: 36px; }
+.fp-meta div { padding: 12px 16px 14px 0; }
+.fp-meta div + div { padding-left: 16px; border-left: 1px solid var(--rule); }
+.fp-meta dt { font-family: var(--mono); font-size: .72rem; color: var(--muted); letter-spacing: .06em; }
+.fp-meta dd { margin: 2px 0 0; font-size: .9375rem; }
+
+.essay { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: clamp(24px, 4vw, 56px); margin-bottom: 40px; }
+.essay .body p { max-width: var(--measure); }
+.essay .body p + p { margin-top: 14px; }
+.essay .body p:first-child::first-letter { font-family: var(--serif); font-weight: 900; float: left; font-size: 3.6em; line-height: .9; margin: 6px 10px 0 0; color: var(--accent); }
+.essay aside h4 { font-family: var(--sans); font-size: .9375rem; margin-bottom: 10px; }
+.essay aside ul { list-style: none; display: grid; gap: 8px; }
+.essay aside li { font-size: .875rem; color: var(--ink-2); border-top: 1px solid var(--rule); padding-top: 8px; }
+.essay aside li b { display: block; font-weight: 600; color: var(--ink); }
+
+.viewer { margin: 0 0 48px; }
+.tabs { display: flex; gap: 0; border-bottom: 1px solid var(--rule); margin-bottom: 14px; overflow-x: auto; }
+.tabs button { background: none; border: 0; border-bottom: 2px solid transparent; padding: 10px 16px 10px 0; margin-right: 16px; cursor: pointer; font-size: .875rem; color: var(--muted); white-space: nowrap; }
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 600; }
+.tabs button:hover { color: var(--ink); }
+.shot { margin: 0; }
+.shot img { width: 100%; border: 1px solid var(--rule); box-shadow: 0 18px 40px -24px var(--shadow); background: var(--paper-2); }
+.shot figcaption { margin-top: 10px; font-size: .8125rem; color: var(--muted); display: flex; gap: 12px; justify-content: space-between; flex-wrap: wrap; }
+
+.flow { list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); counter-reset: f; margin-bottom: 48px; border-top: 1px solid var(--ink); }
+.flow li { counter-increment: f; padding: 12px 14px 0 0; font-size: .875rem; line-height: 1.5; }
+.flow li + li { padding-left: 14px; border-left: 1px solid var(--rule); }
+.flow li::before { content: counter(f, decimal-leading-zero); display: block; font-family: var(--mono); font-size: .72rem; color: var(--accent); margin-bottom: 4px; }
+
+.cols-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 40px; }
+.block-title { font-family: var(--serif); font-size: 1.25rem; margin-bottom: 18px; display: flex; align-items: baseline; gap: 12px; }
+.block-title .label { font-family: var(--mono); font-weight: 400; }
+.feat { border-top: 1px solid var(--rule); padding-top: 12px; }
+.feat h5 { margin: 0 0 4px; font-size: 1rem; }
+.feat p { font-size: .9375rem; color: var(--ink-2); line-height: 1.65; }
+
+.qa { list-style: none; margin-top: 48px; }
+.qa li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 8px 40px; padding: 18px 0; border-top: 1px solid var(--rule); }
+.qa li:last-child { border-bottom: 1px solid var(--rule); }
+.qa .p { font-family: var(--serif); font-weight: 700; font-size: 1.0625rem; line-height: 1.5; }
+.qa .p::before { content: '문제'; display: block; font-family: var(--mono); font-weight: 400; font-size: .72rem; color: var(--accent); letter-spacing: .06em; margin-bottom: 4px; }
+.qa .s { color: var(--ink-2); font-size: .9688rem; }
+.qa .s::before { content: '해결'; display: block; font-family: var(--mono); font-size: .72rem; color: var(--muted); letter-spacing: .06em; margin-bottom: 4px; }
+
+.stackgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 48px; }
+.stackgrid h5 { margin: 0 0 10px; font-size: .875rem; padding-bottom: 8px; border-bottom: 1px solid var(--ink); }
+
+.outro { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: end; margin-top: 48px; padding-top: 20px; border-top: 2px solid var(--ink); }
+.outro ul { list-style: none; display: grid; gap: 6px; }
+.outro li::before { content: '✓'; color: var(--accent); margin-right: 10px; }
+.links { display: flex; flex-wrap: wrap; gap: 8px; }
+.links a .ext { font-size: .75em; opacity: .7; }
+
+.index-list { list-style: none; border-top: 1px solid var(--ink); }
+.index-list > li { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 28px; padding: 28px 0; border-bottom: 1px solid var(--rule); }
+.index-list .thumb { aspect-ratio: 16 / 10; overflow: hidden; background: var(--paper-2); border: 1px solid var(--rule); }
+.index-list .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform .5s; }
+.index-list > li:hover .thumb img { transform: scale(1.03); }
+.ix-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; }
+.ix-top h4 { font-family: var(--serif); font-size: 1.5rem; }
+.ix-top .mono { color: var(--muted); }
+.ix-desc { margin-top: 6px; color: var(--ink-2); max-width: var(--measure); }
+.ix-dl { margin: 14px 0 0; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 4px 12px; font-size: .875rem; }
+.ix-dl dt { font-family: var(--mono); font-size: .72rem; color: var(--muted); padding-top: 3px; }
+.ix-dl dd { margin: 0; color: var(--ink-2); }
+.ix-dl dd.hl { color: var(--accent); }
+.ix-links { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: .8125rem; }
+
+/* ── skills ── */
+.skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+.skills > div { padding: 18px 24px 22px 0; }
+.skills > div + div { padding-left: 24px; border-left: 1px solid var(--rule); }
+.skills .main { font-family: var(--serif); font-weight: 900; font-size: 1.75rem; line-height: 1.25; margin-top: 10px; }
+.skills .sub { margin-top: 12px; }
+.skills .special { margin-top: 12px; font-family: var(--serif); font-weight: 700; font-size: 1.25rem; }
+.skills .note { margin-top: 10px; font-size: .875rem; color: var(--ink-2); }
+
+/* ── records ── */
+.records { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(28px, 4vw, 64px); }
+.tbl { width: 100%; border-collapse: collapse; font-size: .9375rem; }
+.tbl th, .tbl td { text-align: left; padding: 12px 12px 12px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.tbl thead th { font-family: var(--mono); font-weight: 400; font-size: .72rem; color: var(--muted); letter-spacing: .06em; border-bottom: 1px solid var(--ink); }
+.tbl td.mono { white-space: nowrap; }
+.posts { list-style: none; border-top: 1px solid var(--ink); }
+.posts li { border-bottom: 1px solid var(--rule); }
+.posts a { display: grid; grid-template-columns: 92px minmax(0, 1fr) auto; gap: 4px 16px; padding: 14px 0; text-decoration: none; }
+.posts time { font-family: var(--mono); font-size: .8125rem; color: var(--muted); padding-top: 2px; }
+.posts b { font-weight: 600; }
+.posts span { grid-column: 2; font-size: .875rem; color: var(--ink-2); }
+.posts .arr { grid-row: 1; grid-column: 3; color: var(--muted); }
+.posts a:hover b, .posts a:hover .arr { color: var(--accent); }
+.posts-more { margin-top: 14px; font-size: .875rem; }
+
+/* ── contact ── */
+.contact { padding: clamp(64px, 10vw, 128px) 0; border-top: 2px solid var(--ink); margin-top: 24px; }
+.contact h2 { font-family: var(--serif); font-weight: 900; font-size: clamp(2.5rem, 7vw, 5.5rem); line-height: 1.02; letter-spacing: -.03em; }
+.mail { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 28px; }
+.mail a { font-family: var(--serif); font-size: clamp(1.25rem, 3.4vw, 2rem); font-weight: 700; text-decoration-thickness: 2px; text-decoration-color: var(--accent); }
+.channels { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 48px; border-top: 1px solid var(--ink); }
+.channels li { padding: 14px 16px 0 0; }
+.channels li + li { padding-left: 16px; border-left: 1px solid var(--rule); }
+.channels a { display: block; margin-top: 4px; font-size: .9375rem; overflow-wrap: anywhere; }
+.footer { padding: 24px 0 40px; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; color: var(--muted); }
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); background: var(--ink); color: var(--paper); padding: 10px 18px; border-radius: 999px; font-size: .875rem; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 80; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ── responsive ── */
+@media (max-width: 1080px) {
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  .toc { display: none; }
+  .masthead nav ul { gap: 16px; }
+}
+@media (max-width: 900px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .hero-aside { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 24px; align-items: start; }
+  .facts { margin-top: 0; }
+  .story, .product, .essay, .records { grid-template-columns: minmax(0, 1fr); }
+  .brief-grid { grid-template-columns: minmax(0, 1fr); }
+  .brief-item, .brief-item + .brief-item { padding: 20px 0; border-left: 0; }
+  .brief-item + .brief-item { border-top: 1px solid var(--rule); }
+  .flow { grid-template-columns: minmax(0, 1fr); }
+  .flow li, .flow li + li { padding: 10px 0; border-left: 0; border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: 32px 1fr; }
+  .flow li::before { margin: 2px 0 0; }
+  .stackgrid, .skills { grid-template-columns: minmax(0, 1fr); }
+  .skills > div, .skills > div + div { padding: 18px 0; border-left: 0; }
+  .skills > div + div { border-top: 1px solid var(--rule); }
+  .index-list > li { grid-template-columns: 160px minmax(0, 1fr); gap: 20px; }
+}
+@media (max-width: 760px) {
+  .masthead nav { position: fixed; left: 0; right: 0; top: 60px; margin: 0; background: var(--paper); border-bottom: 1px solid var(--rule); overflow-x: auto; scrollbar-width: none; }
+  .masthead nav::-webkit-scrollbar { display: none; }
+  .masthead nav ul { padding: 0 16px; gap: 20px; height: 44px; align-items: center; }
+  .masthead nav a { font-size: .8125rem; white-space: nowrap; }
+  .tools { margin-left: auto; }
+  .wordmark small { display: none; }
+  .tools .btn.solid { display: none; }
+  html { scroll-padding-top: 116px; }
+  .hero { padding-top: 88px; }
+}
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .hero-aside { grid-template-columns: 112px minmax(0, 1fr); gap: 16px; }
+  .facts { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .facts dd { margin-bottom: 8px; }
+  .sec-head { grid-template-columns: minmax(0, 1fr); }
+  .sec-head .label { text-align: left; grid-row: 1; }
+  .employer { grid-template-columns: minmax(0, 1fr); }
+  .employer .period { grid-row: auto; grid-column: 1; text-align: left; }
+  .entry summary { grid-template-columns: minmax(0, 1fr) 20px; }
+  .entry time { grid-column: 1; padding: 0; }
+  .entry .t, .entry .o { grid-column: 1; }
+  .entry .chev { grid-row: 1 / span 2; grid-column: 2; }
+  .entry-body { padding-left: 0; }
+  .also, .cols-2 { grid-template-columns: minmax(0, 1fr); }
+  .fp-head { grid-template-columns: 56px minmax(0, 1fr); }
+  .fp-head img { width: 56px; height: 56px; }
+  .fp-head .links { grid-column: 1 / -1; }
+  .fp-meta { grid-template-columns: minmax(0, 1fr); }
+  .fp-meta div, .fp-meta div + div { padding: 10px 0; border-left: 0; }
+  .fp-meta div + div { border-top: 1px solid var(--rule); }
+  .qa li { grid-template-columns: minmax(0, 1fr); }
+  .outro { grid-template-columns: minmax(0, 1fr); }
+  .index-list > li { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .posts a { grid-template-columns: minmax(0, 1fr) auto; }
+  .posts time, .posts b, .posts span { grid-column: 1; }
+  .posts .arr { grid-row: 1 / span 3; grid-column: 2; align-self: center; }
+  .channels { grid-template-columns: minmax(0, 1fr); }
+  .channels li, .channels li + li { padding: 12px 0; border-left: 0; border-bottom: 1px solid var(--rule); }
+  .story { padding: 24px 20px; margin-left: calc(-1 * var(--gutter)); margin-right: calc(-1 * var(--gutter)); }
+}
+
+/* ── print ── */
+@media print {
+  .masthead, .toc, .progress, .tools, .tabs, .linkbtn, .toast, .hero-actions { display: none !important; }
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .layout { grid-template-columns: 1fr; }
+  .entry .entry-body { display: block; }
+  details > :not(summary) { display: block !important; }
+  .section { break-inside: auto; }
+  .shot img[hidden] { display: block !important; }
+  a[href^="http"]::after { content: ' (' attr(href) ')'; font-size: .8em; color: #555; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="wordmark" href="#top">장주원<small>WEB DEVELOPER · PORTFOLIO</small></a>
+    <nav aria-label="주요 메뉴">
+      <ul id="topnav">
+        <li><a href="#career">경력</a></li>
+        <li><a href="#projects">프로젝트</a></li>
+        <li><a href="#skills">기술</a></li>
+        <li><a href="#records">자격·글</a></li>
+        <li><a href="#contact">연락</a></li>
+      </ul>
+    </nav>
+    <div class="tools">
+      <a class="btn solid" href="mailto:mac52485@gmail.com">이메일 보내기</a>
+      <button class="btn icon" id="themeBtn" type="button" aria-label="어두운 화면으로 전환">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="page" id="top">
+
+  <!-- ═════════ HERO ═════════ -->
+  <section class="hero" aria-labelledby="name">
+    <div>
+      <div class="hero-kicker">
+        <span class="label">개발자 포트폴리오</span>
+        <span class="label">(주)커리어넷 재직 중</span>
+      </div>
+      <h1 id="name">장주원</h1>
+      <p class="hero-role">B2B 구축형 서비스를 만드는 <em>Next.js 풀스택 개발자</em>입니다.</p>
+      <p class="hero-intro">사용자 경험과 접근성을 개선할 방법을 고민합니다. 사용하는 기술의 동작 원리를 깊이 공부하고, AI를 적극 활용해 개발 프로세스를 개선합니다.</p>
+      <div class="hero-actions">
+        <a class="btn solid" href="#career">대표 경력 보기</a>
+        <a class="btn" href="https://github.com/joowon-jang" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://velog.io/@juwon98/posts" target="_blank" rel="noopener">기술 블로그</a>
+      </div>
+    </div>
+    <div class="hero-aside">
+      <figure class="portrait">
+        <img src="../assets/profile.jpg" width="660" height="880" alt="장주원 프로필 사진">
+        <figcaption class="label">장주원 · 웹 개발자</figcaption>
+      </figure>
+      <dl class="facts">
+        <dt>현재</dt><dd>(주)커리어넷 · Next.js 풀스택 개발자</dd>
+        <dt>재직</dt><dd class="num">2025.04 ~ 재직 중</dd>
+        <dt>주력</dt><dd>TypeScript · React · Next.js</dd>
+        <dt>자격</dt><dd>정보처리기사 · SQLD · JLPT N2</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ═════════ BRIEF ═════════ -->
+  <section class="brief" aria-labelledby="brief-title">
+    <div class="brief-head">
+      <h2 id="brief-title">먼저 볼 세 가지</h2>
+      <span class="label">핵심 요약</span>
+    </div>
+    <div class="brief-grid">
+      <a class="brief-item" href="#ax-poc">
+        <span class="no">01 — 고객사 AX PoC</span>
+        <h3>비개발자를 위한 자연어 데이터 조회</h3>
+        <p>자연어→SQL 변환 PoC 개발에 참여. 데이터 유출 방지를 위해 오픈웨이트 모델을 로컬 서빙하고, Jira→PostgreSQL 데이터로 RAG 구성.</p>
+        <span class="more">자세히 →</span>
+      </a>
+      <a class="brief-item" href="#safetyone">
+        <span class="no">02 — SafetyOne</span>
+        <div class="figure-num num"><small>약</small>20%</div>
+        <p>HTTP/2 전환·nginx 설정 최적화로 도메인 전체 평균 서버 응답 시간 개선. 고객사 맞춤 B2B 구축형 정보시스템 개발.</p>
+        <span class="more">기여 기록 →</span>
+      </a>
+      <a class="brief-item" href="#aiolm">
+        <span class="no">03 — AioLM · 개인 프로젝트</span>
+        <h3>로컬 LLM 실측 데이터를 공유하는 앱과 웹</h3>
+        <p>Tauri·Rust 데스크톱 앱으로 측정하고, Next.js·PostgreSQL 웹에서 조건별로 비교. 공개 후 지속 개선 중.</p>
+        <span class="more">프로젝트 →</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="layout">
+    <aside class="toc" aria-label="목차">
+      <ol id="toc">
+        <li><a href="#career">경력</a></li>
+        <li><a href="#projects">프로젝트</a></li>
+        <li><a href="#skills">기술</a></li>
+        <li><a href="#records">자격 · 글</a></li>
+        <li><a href="#contact">연락</a></li>
+      </ol>
+    </aside>
+
+    <main id="main">
+
+      <!-- ═════════ CAREER ═════════ -->
+      <section class="section" id="career" aria-labelledby="career-title">
+        <header class="sec-head">
+          <h2 id="career-title">경력</h2>
+          <span class="label">Career · 01</span>
+        </header>
+
+        <div class="employer">
+          <h3>(주)커리어넷</h3>
+          <p class="role">Next.js 풀스택 개발자</p>
+          <p class="period num"><b>재직 중</b>2025.04 ~ 현재</p>
+        </div>
+
+        <!-- Feature story: AX PoC -->
+        <article class="story" id="ax-poc" aria-labelledby="ax-title">
+          <div>
+            <span class="tag">주요 업무 · 고객사 AX PoC</span>
+            <h3 id="ax-title">자연어 SQL 변환과 RAG — 비개발자를 위한 데이터 조회</h3>
+            <p class="dek">비개발자를 위한 데이터 조회 · 로컬 LLM과 Jira 데이터 기반 RAG</p>
+            <ol>
+              <li><span>자연어를 SQL로 변환해 비개발자의 고객사 내부 데이터 조회를 돕는 서비스의 PoC 개발에 참여했습니다.</span></li>
+              <li><span>고객사 데이터의 외부 유출을 방지하기 위해 오픈웨이트 모델을 로컬에서 서빙하는 방식으로 구성된 PoC입니다.</span></li>
+              <li><span>Jira에서 PostgreSQL로 옮긴 데이터를 벡터화해 RAG를 구성했습니다.</span></li>
+              <li><span>개인적으로 학습해 온 로컬 LLM 분야의 정보를 팀원들과 공유했습니다.</span></li>
+            </ol>
+          </div>
+          <div>
+            <blockquote class="pull">“고객사 데이터의 외부 유출을 막기 위해 <span>오픈웨이트 모델을 로컬에서</span> 서빙했습니다.”</blockquote>
+            <div class="schema" aria-label="PoC 구성 요약">
+              <div class="schema-row">
+                <span class="label">자연어 → SQL</span>
+                <ul class="chain">
+                  <li>자연어 질문</li>
+                  <li><span>SQL 변환</span></li>
+                  <li><span>고객사 내부 데이터 조회</span></li>
+                </ul>
+              </div>
+              <div class="schema-row">
+                <span class="label">RAG</span>
+                <ul class="chain">
+                  <li>Jira 데이터</li>
+                  <li><span>PostgreSQL</span></li>
+                  <li><span>벡터화</span></li>
+                  <li><span>RAG</span></li>
+                </ul>
+              </div>
+              <p class="schema-note">모델 운용 — 오픈웨이트 모델 로컬 서빙 · 팀 내 로컬 LLM 지식 공유</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- SafetyOne -->
+        <div id="safetyone">
+          <div class="subhead">
+            <h4>SafetyOne</h4>
+            <span class="label">B2B 구축형 정보시스템</span>
+          </div>
+          <div class="product">
+            <div>
+              <p>산업 현장의 안전보건 관리 업무를 디지털화하는 솔루션입니다. 이를 기반으로 <strong>고객사 요구에 맞춘 B2B 구축형 정보시스템 개발</strong>에 주로 참여했습니다.</p>
+              <ul class="chips" style="margin-top:18px" aria-label="기술 스택">
+                <li>Next.js</li><li>React</li><li>TypeScript</li><li>PostgreSQL</li><li>Rust</li><li>WebAssembly</li><li>NGINX</li>
+              </ul>
+            </div>
+            <div class="stat">
+              <div class="figure-num num"><small>약</small>20%</div>
+              <p>도메인 전체 평균 서버 응답 시간 개선</p>
+              <p class="src mono">2025.10 · HTTP/2 전환 · nginx 설정 최적화</p>
+            </div>
+          </div>
+
+          <div class="log-bar">
+            <h5>기여 기록 <span class="mono" style="color:var(--muted);font-weight:400">· 최신순 6건</span></h5>
+            <button class="linkbtn" type="button" data-toggle-all="#log-safetyone" aria-controls="log-safetyone">모두 펼치기</button>
+          </div>
+          <ul class="log" id="log-safetyone">
+            <li>
+              <details class="entry">
+                <summary><time class="num" datetime="2026-10">2026.10</time><span class="t">사용자 권한 관리 시스템 구축 · AI 업무 활용</span><span class="chev" aria-hidden="true"></span><span class="o">서비스 적용 후 오류 미발생</span></summary>
+                <div class="entry-body"><ul>
+                  <li>AI 오케스트레이션을 적극 활용해 구현 계획과 구조도를 작성하고, 팀 리더와 보안 및 성능을 고려한 설계를 논의했습니다.</li>
+                  <li>모든 API의 권한을 확인하는 요청 검증 계층을 구현해 불필요한 DB 조회와 잦은 트랜잭션으로 인한 커넥션 풀 낭비를 줄이고자 했습니다.</li>
+                  <li>구현 결과를 교차 검증한 뒤 서비스에 적용했습니다.</li>
+                </ul></div>
+              </details>
+            </li>
+            <li>
+              <details class="entry">
+                <summary><time class="num" datetime="2026-07">2026.07</time><span class="t">AI 도구 도입 · 개발 생산성 개선</span><span class="chev" aria-hidden="true"></span><span class="o">팀 개발 생산성과 코드·변경 이력의 가독성 개선</span></summary>
+                <div class="entry-body"><ul>
+                  <li>개발·커밋 컨벤션을 정립하고 Rules와 Agent Skills 도입을 주도했으며, MCP 등 AI 도구를 활용했습니다.</li>
+                  <li>오류 가능성과 AI 토큰 낭비를 줄이는 구조를 마련했습니다.</li>
+                </ul></div>
+              </details>
+            </li>
+            <li>
+              <details class="entry">
+                <summary><time class="num" datetime="2026-04">2026.04</time><span class="t">네이티브 앱 WebView 인증·인가 개선</span><span class="chev" aria-hidden="true"></span><span class="o">토큰 노출 축소와 서버 인증 일원화로 보안성·유지보수성 개선</span></summary>
+                <div class="entry-body"><ul>
+                  <li>기존 WebView 인증에서 JWT를 JavaScript Cookie 또는 Authorization 헤더로 직접 다루던 방식을 정리했습니다.</li>
+                  <li>Kotlin·Swift 앱에서 전달한 JWT를 Next.js 서버에서 검증하고 HttpOnly Cookie 기반 세션으로 전환했습니다.</li>
+                  <li>프론트엔드에서 직접 Redis를 호출하던 중복 로그인 방지 로직을 서버사이드 세션 검증 흐름으로 이관했습니다.</li>
+                  <li>인증 실패 응답 형식을 정리해 클라이언트별 예외 처리를 단순화했습니다.</li>
+                </ul></div>
+              </details>
+            </li>
+            <li>
+              <details class="entry">
+                <summary><time class="num" datetime="2025-11">2025.11</time><span class="t">Rust·WebAssembly 및 TypeScript 사내 라이브러리</span><span class="chev" aria-hidden="true"></span><span class="o">안정적인 핵심 기능 구현으로 영업 시연과 고객사 유치에 기여</span></summary>
+                <div class="entry-body"><ul>
+                  <li>ExcelJS, XLSX 등 기존 라이브러리로 해결하기 어려운 Excel 편집 요구사항을 분석했습니다.</li>
+                  <li>Rust로 Excel 편집 로직을 구현하고 WebAssembly로 빌드해 웹에서 실행하도록 구성했습니다.</li>
+                  <li>JavaScript 헬퍼 함수와 TypeScript 타입을 제공해 팀이 사용할 수 있는 사내 라이브러리로 정리했습니다.</li>
+                </ul></div>
+              </details>
+            </li>
+            <li>
+              <details class="entry key" open>
+                <summary><time class="num" datetime="2025-10">2025.10</time><span class="t">HTTP/2 전환 · nginx 설정 최적화</span><span class="chev" aria-hidden="true"></span><span class="o">도메인 전체 평균 서버 응답 시간 약 20% 개선</span></summary>
+                <div class="entry-body"><ul>
+                  <li>nginx 설정을 점검하고 HTTP/1.1에서 HTTP/2로 전환했습니다.</li>
+                  <li>정적 리소스 전송과 서버 응답 흐름을 개선해 페이지 로딩 성능을 최적화했습니다.</li>
+                  <li>관련 글: <a href="https://velog.io/@juwon98/HTTP1.1-to-HTTP2" target="_blank" rel="noopener">HTTP2로 성능향상 (1.1 → 2)</a></li>
+                </ul></div>
+              </details>
+            </li>
+            <li>
+              <details class="entry">
+                <summary><time class="num" datetime="2025-06">2025.06</time><span class="t">외부 SDK 모듈화 · 공통 컴포넌트화</span><span class="chev" aria-hidden="true"></span><span class="o">React에 익숙하지 않은 팀원도 안정적으로 SDK 사용</span></summary>
+                <div class="entry-body"><ul>
+                  <li>Next.js·React 환경에서 사용하기 어려운 외부 SDK를 공통 컴포넌트로 래핑했습니다.</li>
+                  <li>useRef와 forwardRef를 활용해 리렌더링 시에도 SDK 내부 편집 상태가 유지되도록 설계했습니다.</li>
+                  <li>SDK 객체와 메서드의 타입을 정의하고 반복적으로 필요한 기능을 유틸 함수로 분리했습니다.</li>
+                </ul></div>
+              </details>
+            </li>
+            <li>
+              <details class="entry">
+                <summary><time class="num" datetime="2025-05">2025.05</time><span class="t">SSO 인증 구현</span><span class="chev" aria-hidden="true"></span></summary>
+                <div class="entry-body"><ul>
+                  <li>OAuth 2.0 표준 흐름을 기반으로 서비스 간 인증 유지 구조를 설계했습니다.</li>
+                  <li>기존 NextAuth 기반 로그인을 확장해 redirect URI와 authorization code를 전달하고, 다른 서비스에서 JWT를 발급받을 수 있도록 구성했습니다.</li>
+                </ul></div>
+              </details>
+            </li>
+          </ul>
+
+          <div class="also">
+            <div>
+              <h5>모바일 앱 웹뷰 개발</h5>
+              <p>SafetyOne의 네이티브 앱 웹뷰를 개발했습니다.</p>
+            </div>
+            <div>
+              <h5>UX/DX 및 웹 접근성 개선</h5>
+              <p>SafetyOne의 사용자·개발자 경험과 웹 접근성을 개선했습니다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════════ PROJECTS ═════════ -->
+      <section class="section" id="projects" aria-labelledby="projects-title">
+        <header class="sec-head">
+          <h2 id="projects-title">프로젝트</h2>
+          <span class="label">Projects · 02</span>
+          <p class="sec-dek">최근 작업 순. 대표 프로젝트 하나를 깊게, 나머지는 핵심 기여와 결과만 간추렸습니다.</p>
+        </header>
+
+        <article class="feature-project" id="aiolm" aria-labelledby="aiolm-title">
+          <div class="fp-head">
+            <img src="../assets/projects/aiolm/logo.png" width="1254" height="1254" alt="AioLM 공식 로고">
+            <div>
+              <h3 id="aiolm-title">AioLM</h3>
+              <p>로컬 LLM 실측 데이터를 공유해 기기 구매와 실행 환경 선택을 돕는 데스크톱 앱·웹 서비스</p>
+            </div>
+            <div class="links">
+              <a class="btn" href="https://aiolm.vercel.app" target="_blank" rel="noopener">배포 사이트 <span class="ext" aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+
+          <dl class="fp-meta">
+            <div><dt>기간</dt><dd>개발·공개 후 지속 개선 중</dd></div>
+            <div><dt>팀 구성</dt><dd>개인 프로젝트</dd></div>
+            <div><dt>역할</dt><dd>기획·데스크톱 앱·웹사이트 개발</dd></div>
+          </dl>
+
+          <div class="essay">
+            <div class="body">
+              <p>AI에 대한 관심으로 여러 기기를 자비로 구입하고, 다양한 환경에서 LLM의 추론과 파인튜닝을 배워왔습니다. 근무처의 다른 팀과 기술 커뮤니티에서 성능 정보가 부족해 기기 구매나 설정에 어려움을 겪는 사람들을 보았습니다.</p>
+              <p>실측 결과를 공유해 구매와 설정 판단을 돕고자 AioLM을 개발·공개했으며, 현재도 개선하고 있습니다.</p>
+            </div>
+            <aside>
+              <h4>두 개의 제품</h4>
+              <ul>
+                <li><b>데스크톱 앱</b>llama.cpp 기반 모델 실행·채팅·튜닝·벤치마크</li>
+                <li><b>웹사이트</b>공개된 벤치마크 결과를 모델·기기·측정 조건별로 탐색·비교</li>
+              </ul>
+            </aside>
+          </div>
+
+          <figure class="viewer">
+            <div class="tabs" role="tablist" aria-label="AioLM 실제 앱 화면">
+              <button type="button" role="tab" id="tab-bench" aria-selected="true" aria-controls="panel-bench">벤치마크</button>
+              <button type="button" role="tab" id="tab-model" aria-selected="false" aria-controls="panel-model" tabindex="-1">모델 설정</button>
+            </div>
+            <div class="shot" role="tabpanel" id="panel-bench" aria-labelledby="tab-bench">
+              <img src="../assets/projects/aiolm/benchmark.png" width="3866" height="2090" loading="lazy" alt="벤치마크 — 모델·실행 환경을 확인하고 입력 길이와 동시 요청 수를 설정하는 화면">
+            </div>
+            <div class="shot" role="tabpanel" id="panel-model" aria-labelledby="tab-model" hidden>
+              <img src="../assets/projects/aiolm/model-settings.png" width="3866" height="2090" loading="lazy" alt="모델 설정 — GPU 레이어·배치 크기를 조정하고 예상 메모리 사용량을 확인하는 화면">
+            </div>
+            <figcaption class="shot"><span id="shotCaption">벤치마크 — 모델·실행 환경을 확인하고 입력 길이와 동시 요청 수를 설정하는 화면</span><span class="mono">실제 앱 화면 · 2026.09</span></figcaption>
+          </figure>
+
+          <h4 class="block-title">사용 흐름 <span class="label">Flow</span></h4>
+          <ol class="flow">
+            <li>모델·런타임 선택</li>
+            <li>입력 길이·동시 요청 수 설정</li>
+            <li>로컬 벤치마크 측정</li>
+            <li>사용자가 결과 공개 여부 선택</li>
+            <li>웹에서 조건별 탐색·비교</li>
+          </ol>
+
+          <h4 class="block-title">핵심 사용자 경험 <span class="label">Features</span></h4>
+          <div class="cols-2">
+            <div class="feat"><h5>다양한 로컬 실행 환경</h5><p>GGUF 모델과 CPU·Vulkan·ROCm·CUDA·SYCL·OpenVINO 런타임을 관리하고 실행 설정을 조정</p></div>
+            <div class="feat"><h5>조건을 기록하는 벤치마크</h5><p>입력 길이·동시 요청 수별 TTFT·생성 속도·프로세스 RAM 등 실측값과 실행 환경을 함께 기록</p></div>
+            <div class="feat"><h5>공개 결과 탐색과 비교</h5><p>모델·하드웨어·실행 환경으로 필터링하고 최대 3개 결과를 비교하며, 측정 방식이나 부하가 다르면 비교 유의사항 표시</p></div>
+            <div class="feat"><h5>계정 없이 결과 관리</h5><p>복구 코드·복구 파일 또는 앱에서 웹으로 이어지는 일회성 연결을 이용해 공개 결과의 설명을 수정하거나 삭제</p></div>
+          </div>
+
+          <ul class="qa" aria-label="핵심 문제 해결">
+            <li><p class="p">측정 조건을 고려한 결과 비교</p><p class="s">입력 길이와 동시 요청 수가 같은 지점의 값을 비교합니다. 모델·기기·런타임 정보를 함께 표시하고, 측정 방식이나 부하가 다르면 안내합니다.</p></li>
+            <li><p class="p">벤치마크 설정 분리와 측정값 검증</p><p class="s">채팅 설정과 분리된 전용 서버에서 캐시 재사용 없이 측정합니다. 실제 토큰 수를 검증하고 실패한 측정은 평균에서 제외합니다.</p></li>
+            <li><p class="p">앱과 웹의 데이터 규칙 통일</p><p class="s">검증 규칙과 OpenAPI 스키마를 benchmark-contracts 패키지로 공유합니다.</p></li>
+          </ul>
+
+          <div class="stackgrid">
+            <div><h5>데스크톱 앱</h5><ul class="chips"><li>React</li><li>TypeScript</li><li>Tauri 2 · Rust</li><li>Vite</li><li>llama.cpp</li></ul></div>
+            <div><h5>웹 · 데이터 공개</h5><ul class="chips"><li>Next.js</li><li>React</li><li>TypeScript</li><li>PostgreSQL</li><li>Cloudflare Turnstile</li><li>Vercel</li></ul></div>
+            <div><h5>앱·웹 연동</h5><ul class="chips"><li>OpenAPI</li><li>Zod</li><li>benchmark-contracts</li></ul></div>
+          </div>
+
+          <div class="outro">
+            <ul>
+              <li>Windows 데스크톱 앱과 벤치마크 웹사이트 공개</li>
+              <li>두 저장소의 소스 코드 공개·유지보수</li>
+            </ul>
+            <div class="links">
+              <a class="btn" href="https://github.com/aiolm/AioLM" target="_blank" rel="noopener">데스크톱 앱 저장소 <span class="ext" aria-hidden="true">↗</span></a>
+              <a class="btn" href="https://github.com/aiolm/AioLm-Web" target="_blank" rel="noopener">웹사이트 저장소 <span class="ext" aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <h3 class="block-title" style="font-size:1.5rem">그 밖의 프로젝트</h3>
+        <ul class="index-list">
+          <li>
+            <div class="thumb"><img src="../assets/projects/facereview/watch.png" width="1400" height="1081" loading="lazy" alt="영상 위 감정 타임라인 그래프와 커스텀 재생 컨트롤이 표시된 페이스리뷰 시청 화면"></div>
+            <div>
+              <div class="ix-top"><h4>페이스리뷰</h4><span class="mono num">2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07</span></div>
+              <p class="ix-desc">웹캠 표정을 다섯 감정으로 분석해 시청 반응과 영상 추천으로 연결한 서비스</p>
+              <dl class="ix-dl">
+                <dt>팀</dt><dd>최초 개발 4인 · 리팩터링 2인</dd>
+                <dt>기여</dt><dd>2023: 프론트엔드 개발·감정 분석 모델 직접 학습 / 2026: 프론트엔드 리팩터링 전담</dd>
+                <dt>결과</dt><dd class="hl">2023 세종대학교 제16회 창의설계경진대회 대상 수상 · facereview.net 배포</dd>
+              </dl>
+              <div class="ix-links">
+                <a href="https://facereview.net" target="_blank" rel="noopener">배포 사이트 ↗</a>
+                <a href="https://github.com/joowon-jang/facereview-front" target="_blank" rel="noopener">프론트엔드 저장소 ↗</a>
+                <a href="https://github.com/joowon-jang/facereview-refactor-back" target="_blank" rel="noopener">백엔드 저장소 ↗</a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="thumb"><img src="../assets/projects/tododong/schedule-poster.png" width="700" height="393" loading="lazy" alt="NBA 경기 일정과 팀별 점수가 표시된 토도동 서비스 화면"></div>
+            <div>
+              <div class="ix-top"><h4>토도동</h4><span class="mono num">2025.02 ~ 2025.05</span></div>
+              <p class="ix-desc">NBA 경기의 실시간 문자 중계와 경기별 채팅을 함께 제공하는 플랫폼</p>
+              <dl class="ix-dl">
+                <dt>팀</dt><dd>팀 프로젝트 4인 · 전원 풀스택</dd>
+                <dt>기여</dt><dd>기술 선정 · SSR/CSR 구조 설계 / 인증·채팅 서버·DB 동기화 구현</dd>
+                <dt>결과</dt><dd class="hl">Socket.IO 채팅 서버와 NBA 데이터 동기화 cron을 별도 저장소로 분리해 직접 호스팅·운영</dd>
+              </dl>
+              <div class="ix-links">
+                <a href="https://github.com/FRONT-END-BOOTCAMP-PLUS-3/tododong" target="_blank" rel="noopener">프론트엔드 저장소 ↗</a>
+                <a href="https://github.com/FRONT-END-BOOTCAMP-PLUS-3/tododong-background" target="_blank" rel="noopener">백엔드 저장소 ↗</a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="thumb"><img src="../assets/projects/haemadi/reply-method-poster.png" width="700" height="336" loading="lazy" alt="답장 방식 선택 화면을 모바일과 데스크톱으로 보여주는 해마디 서비스 화면"></div>
+            <div>
+              <div class="ix-top"><h4>해마디</h4><span class="mono num">2024.08 ~ 2024.11</span></div>
+              <p class="ix-desc">하루의 감정을 기록하고 그 흐름을 시각화해 돌아보는 일기 서비스</p>
+              <dl class="ix-dl">
+                <dt>팀</dt><dd>팀 프로젝트 3인 · 개발 2인 + 디자인·개발 보조 1인</dd>
+                <dt>기여</dt><dd>PocketBase DB·컴포넌트 구조 설계 / 코드 리뷰로 접근성·성능 개선</dd>
+                <dt>결과</dt><dd class="hl num">Lighthouse 성능 점수 — 모바일 50~60점대 → 80~90점대, 데스크톱 70~80점대 → 90점대 후반</dd>
+              </dl>
+              <div class="ix-links">
+                <a href="https://github.com/FRONTENDSCHOOL10/Haemadi" target="_blank" rel="noopener">프로젝트 저장소 ↗</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ═════════ SKILLS ═════════ -->
+      <section class="section" id="skills" aria-labelledby="skills-title">
+        <header class="sec-head">
+          <h2 id="skills-title">기술</h2>
+          <span class="label">Skills · 03</span>
+        </header>
+        <div class="skills">
+          <div>
+            <span class="label">주력</span>
+            <p class="main">TypeScript<br>React<br>Next.js</p>
+          </div>
+          <div>
+            <span class="label">사용 경험</span>
+            <ul class="chips sub">
+              <li>TanStack Query</li><li>Zustand</li><li>Sass</li><li>Tailwind CSS</li><li>Node.js</li><li>PostgreSQL</li><li>nginx</li><li>Socket.IO</li><li>WASM</li>
+            </ul>
+          </div>
+          <div>
+            <span class="label">AI 개발 환경</span>
+            <p class="special">MCP · Agent Skills</p>
+            <p class="note">협업 도구: Git · GitHub · Notion · Figma</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════════ RECORDS ═════════ -->
+      <section class="section" id="records" aria-labelledby="records-title">
+        <header class="sec-head">
+          <h2 id="records-title">자격 · 글</h2>
+          <span class="label">Records · 04</span>
+        </header>
+        <div class="records">
+          <div>
+            <h3 class="block-title">자격증 · 어학</h3>
+            <table class="tbl">
+              <thead><tr><th scope="col">자격</th><th scope="col">취득</th><th scope="col">발급</th></tr></thead>
+              <tbody>
+                <tr><td>정보처리기사</td><td class="mono num">2023.06</td><td>한국산업인력공단</td></tr>
+                <tr><td>SQLD (SQL개발자)</td><td class="mono num">2022.06</td><td>한국데이터산업진흥원</td></tr>
+                <tr><td>JLPT N2 (일본어)</td><td class="mono num">2026.01</td><td>국제교류기금</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h3 class="block-title">기술 블로그</h3>
+            <ul class="posts">
+              <li><a href="https://velog.io/@juwon98/HTTP1.1-to-HTTP2" target="_blank" rel="noopener"><time class="num">2025.10.27</time><b>HTTP2로 성능향상 (1.1 → 2)</b><span>HTTP/1.1 → HTTP/2 전환으로 응답 속도를 개선한 실무 경험</span><span class="arr" aria-hidden="true">↗</span></a></li>
+              <li><a href="https://velog.io/@juwon98/createPortal사용과-FocusTrap으로-모달창-개선" target="_blank" rel="noopener"><time class="num">2025.09.21</time><b>[React] FocusTrap으로 모달창 개선하기</b><span>키보드 포커스를 모달 안에 가두는 Focus Trap 구현기</span><span class="arr" aria-hidden="true">↗</span></a></li>
+              <li><a href="https://velog.io/@juwon98/React-createPortal-SplashScreen" target="_blank" rel="noopener"><time class="num">2024.11.07</time><b>[React] [웹 접근성] createPortal을 사용한 SplashScreen</b><span>createPortal로 스플래시 스크린을 구현하며 접근성까지 고려</span><span class="arr" aria-hidden="true">↗</span></a></li>
+            </ul>
+            <p class="posts-more"><a href="https://velog.io/@juwon98/posts" target="_blank" rel="noopener">Velog에서 전체 글 보기 →</a></p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ═════════ CONTACT ═════════ -->
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <span class="label">Contact · 05</span>
+    <h2 id="contact-title" style="margin-top:14px">연락처</h2>
+    <div class="mail">
+      <a href="mailto:mac52485@gmail.com">mac52485@gmail.com</a>
+      <button class="btn" type="button" id="copyMail" data-copy="mac52485@gmail.com">주소 복사</button>
+    </div>
+    <ul class="channels">
+      <li><span class="label">GitHub</span><a href="https://github.com/joowon-jang" target="_blank" rel="noopener">github.com/joowon-jang</a></li>
+      <li><span class="label">Blog</span><a href="https://velog.io/@juwon98/posts" target="_blank" rel="noopener">velog.io/@juwon98</a></li>
+      <li><span class="label">Hugging Face</span><a href="https://huggingface.co/wonone" target="_blank" rel="noopener">huggingface.co/wonone</a></li>
+    </ul>
+  </section>
+
+  <footer class="footer">
+    <span class="mono">© 2026 장주원</span>
+    <a class="mono" href="#top">맨 위로 ↑</a>
+  </footer>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+
+  /* theme toggle — remembered per viewer when storage is available */
+  var themeBtn = document.getElementById('themeBtn');
+  function currentTheme() {
+    var set = root.getAttribute('data-theme');
+    if (set) return set;
+    return window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function syncThemeLabel() {
+    themeBtn.setAttribute('aria-label', currentTheme() === 'dark' ? '밝은 화면으로 전환' : '어두운 화면으로 전환');
+  }
+  try { var saved = localStorage.getItem('jw-theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+  syncThemeLabel();
+  themeBtn.addEventListener('click', function () {
+    var next = currentTheme() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('jw-theme', next); } catch (e) {}
+    syncThemeLabel();
+  });
+
+  /* reading progress */
+  var bar = document.getElementById('progressBar');
+  var ticking = false;
+  function updateProgress() {
+    var max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0) + ')';
+    ticking = false;
+  }
+  addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(updateProgress); } }, { passive: true });
+  updateProgress();
+
+  /* scrollspy for side index + top nav */
+  var navLinks = document.querySelectorAll('#toc a, #topnav a');
+  var sections = ['career', 'projects', 'skills', 'records', 'contact'].map(function (id) { return document.getElementById(id); });
+  function setActive(id) {
+    navLinks.forEach(function (a) {
+      if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+  }
+  if ('IntersectionObserver' in window) {
+    var visible = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+      var current = null;
+      sections.forEach(function (s) { if (visible[s.id] && !current) current = s.id; });
+      if (current) setActive(current);
+    }, { rootMargin: '-35% 0px -55% 0px' });
+    sections.forEach(function (s) { io.observe(s); });
+  }
+
+  /* expand / collapse all log entries */
+  document.querySelectorAll('[data-toggle-all]').forEach(function (btn) {
+    var list = document.querySelector(btn.getAttribute('data-toggle-all'));
+    var items = list.querySelectorAll('details');
+    function sync() {
+      var allOpen = Array.prototype.every.call(items, function (d) { return d.open; });
+      btn.textContent = allOpen ? '모두 접기' : '모두 펼치기';
+      btn.setAttribute('aria-expanded', String(allOpen));
+    }
+    btn.addEventListener('click', function () {
+      var allOpen = Array.prototype.every.call(items, function (d) { return d.open; });
+      items.forEach(function (d) { d.open = !allOpen; });
+      sync();
+    });
+    items.forEach(function (d) { d.addEventListener('toggle', sync); });
+    sync();
+  });
+
+  /* accessible tabs for screenshots */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  var caption = document.getElementById('shotCaption');
+  function selectTab(tab, focus) {
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    var img = document.getElementById(tab.getAttribute('aria-controls')).querySelector('img');
+    if (caption && img) caption.textContent = img.alt;
+    if (focus) tab.focus();
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { selectTab(t); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        var n = (i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+        selectTab(tabs[n], true);
+      }
+    });
+  });
+
+  /* copy email */
+  var toast = document.getElementById('toast');
+  var toastTimer;
+  function showToast(msg) {
+    toast.textContent = msg; toast.classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+  document.getElementById('copyMail').addEventListener('click', function () {
+    var text = this.getAttribute('data-copy');
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { showToast('이메일 주소를 복사했습니다'); }, function () { showToast(text); });
+    } else {
+      showToast(text);
+    }
+  });
+})();
+</script>
+</body>
+</html>

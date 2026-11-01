@@ -1,0 +1,2585 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>장주원 | 웹 개발자 포트폴리오 (Next.js 풀스택 · AX & B2B)</title>
+  <meta name="description" content="사용자 경험과 접근성, 기술의 동작 원리를 깊이 탐구하는 개발자 장주원의 포트폴리오입니다. 실무 B2B 솔루션 최적화, AX PoC(로컬 LLM/RAG), AioLM 오픈소스 벤치마크 플랫폼.">
+  <!-- Pretendard Dynamic Subset CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <style>
+    :root {
+      --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      --color-bg: #f8fafc;
+      --color-surface: #ffffff;
+      --color-surface-subtle: #f1f5f9;
+      --color-surface-card: #ffffff;
+      --color-border: #e2e8f0;
+      --color-border-subtle: #f1f5f9;
+      --color-border-hover: #cbd5e1;
+      --color-text-main: #0f172a;
+      --color-text-body: #334155;
+      --color-text-muted: #64748b;
+      --color-text-light: #94a3b8;
+      --color-primary: #2563eb;
+      --color-primary-hover: #1d4ed8;
+      --color-primary-light: #eff6ff;
+      --color-primary-border: #bfdbfe;
+      --color-emerald: #059669;
+      --color-emerald-light: #ecfdf5;
+      --color-emerald-border: #a7f3d0;
+      --color-amber: #d97706;
+      --color-amber-light: #fffbeb;
+      --color-amber-border: #fde68a;
+      --color-purple: #7c3aed;
+      --color-purple-light: #f5f3ff;
+      --color-purple-border: #ddd6fe;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+      --container-max: 1080px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--color-bg);
+      color: var(--color-text-body);
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Sticky Navigation */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+      transition: all 0.2s ease;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--color-text-main);
+    }
+
+    .nav-brand .role-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      background: var(--color-primary-light);
+      padding: 3px 8px;
+      border-radius: 9999px;
+      border: 1px solid var(--color-primary-border);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-link {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      transition: color 0.15s ease;
+      padding: 6px 4px;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--color-primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 7px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text-main);
+      transition: all 0.15s ease;
+    }
+
+    .btn-action:hover {
+      background: var(--color-surface-subtle);
+      border-color: var(--color-border-hover);
+    }
+
+    .btn-action-primary {
+      background: var(--color-text-main);
+      color: #ffffff;
+      border-color: var(--color-text-main);
+    }
+
+    .btn-action-primary:hover {
+      background: #1e293b;
+      color: #ffffff;
+    }
+
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: none;
+      padding: 8px;
+      color: var(--color-text-main);
+      font-size: 1.25rem;
+    }
+
+    /* Hero Profile Section */
+    .hero-section {
+      padding: 48px 0 36px;
+      background: linear-gradient(180deg, #ffffff 0%, var(--color-bg) 100%);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .hero-avatar-wrap {
+      position: relative;
+    }
+
+    .hero-avatar {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--color-border);
+      background: #e2e8f0;
+    }
+
+    .hero-status-pill {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--color-emerald);
+      background: var(--color-emerald-light);
+      border: 1px solid var(--color-emerald-border);
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+    }
+
+    .hero-status-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--color-emerald);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero-headline {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .tag-chip {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: var(--color-surface-subtle);
+      color: var(--color-text-muted);
+      border: 1px solid var(--color-border);
+    }
+
+    .tag-chip.primary {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      border-color: var(--color-primary-border);
+    }
+
+    .hero-name {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .hero-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .hero-summary {
+      font-size: 1rem;
+      color: var(--color-text-body);
+      line-height: 1.7;
+    }
+
+    .hero-channels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .channel-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-main);
+      transition: all 0.15s ease;
+    }
+
+    .channel-link:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .channel-link svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+    }
+
+    /* Key Metrics Banner (3-Second Recruiter Briefing) */
+    .metrics-section {
+      padding: 32px 0;
+    }
+
+    .metrics-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-muted);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .metric-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 20px 18px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-border-hover);
+    }
+
+    .metric-value {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--color-primary);
+      line-height: 1.15;
+    }
+
+    .metric-value.emerald {
+      color: var(--color-emerald);
+    }
+
+    .metric-value.purple {
+      color: var(--color-purple);
+    }
+
+    .metric-label {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      line-height: 1.35;
+    }
+
+    .metric-desc {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      line-height: 1.45;
+    }
+
+    /* Main Sections */
+    .section-wrap {
+      padding: 44px 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .section-wrap:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-header {
+      margin-bottom: 28px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .section-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      letter-spacing: -0.01em;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Experience / Career Section */
+    .career-block {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .company-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--color-border-subtle);
+      padding-bottom: 20px;
+    }
+
+    .company-info h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      margin-bottom: 4px;
+    }
+
+    .company-role-period {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      color: var(--color-text-body);
+    }
+
+    .company-role {
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    .period-badge {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-emerald);
+      background: var(--color-emerald-light);
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--color-emerald-border);
+    }
+
+    /* AX PoC Featured Banner */
+    .featured-ax-box {
+      background: linear-gradient(135deg, #f0f7ff 0%, #f5f3ff 100%);
+      border: 1.5px solid var(--color-primary-border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-ax-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--color-primary);
+    }
+
+    .ax-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ax-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ax-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: var(--color-primary);
+      color: #ffffff;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    .ax-title {
+      font-size: 1.125rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+    }
+
+    .ax-summary {
+      font-size: 0.925rem;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .ax-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ax-points li {
+      font-size: 0.925rem;
+      color: var(--color-text-body);
+      position: relative;
+      padding-left: 20px;
+      line-height: 1.6;
+    }
+
+    .ax-points li::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--color-primary);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .tech-pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .tech-pill {
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: var(--color-surface);
+      color: var(--color-text-body);
+      border: 1px solid var(--color-border);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    /* SafetyOne Career Project Grid */
+    .project-role-header {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .project-role-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .project-role-desc {
+      font-size: 0.925rem;
+      color: var(--color-text-body);
+      line-height: 1.6;
+    }
+
+    .contributions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    .contribution-item {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      background: var(--color-surface);
+      transition: border-color 0.15s ease;
+    }
+
+    .contribution-item:hover {
+      border-color: var(--color-border-hover);
+    }
+
+    .contribution-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .contribution-date-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .contribution-date {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      font-variant-numeric: tabular-nums;
+      background: var(--color-surface-subtle);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .contribution-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+
+    .contribution-outcome {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--color-emerald);
+      background: var(--color-emerald-light);
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--color-emerald-border);
+    }
+
+    .contribution-desc {
+      font-size: 0.9rem;
+      color: var(--color-text-body);
+      line-height: 1.6;
+    }
+
+    .contribution-desc ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .contribution-desc ul li {
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .contribution-desc ul li::before {
+      content: '•';
+      position: absolute;
+      left: 6px;
+      color: var(--color-text-muted);
+      font-weight: bold;
+    }
+
+    /* Case Studies (Detailed Deep Dive Cards) */
+    .case-study-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      transition: border-color 0.15s ease;
+    }
+    .case-study-card, .case-card-header, .case-title-area, .case-meta, .case-exec-summary, .exec-col { min-width: 0; }
+    .case-meta, .exec-content { overflow-wrap: anywhere; }
+    .case-badges { flex-wrap: wrap; }
+
+    .case-study-card:hover {
+      border-color: var(--color-border-hover);
+    }
+
+    .case-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-bottom: 1px solid var(--color-border-subtle);
+      padding-bottom: 20px;
+    }
+
+    .case-title-area {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .case-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-md);
+      object-fit: contain;
+      border: 1px solid var(--color-border);
+      background: #ffffff;
+      padding: 6px;
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+    }
+
+    .case-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .case-badges {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .case-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .case-badge.primary {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary-border);
+    }
+
+    .case-badge.award {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+
+    .case-badge.period {
+      background: var(--color-surface-subtle);
+      color: var(--color-text-muted);
+      border: 1px solid var(--color-border);
+    }
+
+    .case-name {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      letter-spacing: -0.01em;
+    }
+
+    .case-desc {
+      font-size: 1rem;
+      color: var(--color-text-body);
+      max-width: 720px;
+      line-height: 1.55;
+    }
+
+    .case-links {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .case-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--color-surface-subtle);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-main);
+      transition: all 0.15s ease;
+    }
+
+    .case-link-btn.primary {
+      background: var(--color-primary);
+      color: #ffffff;
+      border-color: var(--color-primary);
+    }
+
+    .case-link-btn:hover {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .case-link-btn.primary:hover {
+      background: var(--color-primary-hover);
+      color: #ffffff;
+    }
+
+    /* Executive Case Summary Box (Problem - Contribution - Outcome) */
+    .case-exec-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      background: var(--color-surface-subtle);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+    }
+
+    .exec-col {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .exec-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .exec-content {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--color-text-main);
+      line-height: 1.55;
+    }
+
+    .exec-content ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .exec-content ul li {
+      position: relative;
+      padding-left: 14px;
+    }
+
+    .exec-content ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--color-primary);
+      font-weight: bold;
+    }
+
+    /* Screenshots Gallery */
+    .screenshots-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .gallery-caption {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .gallery-grid.single-wide {
+      grid-template-columns: 1fr;
+    }
+
+    .screenshot-item {
+      position: relative;
+      background: #e2e8f0;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: zoom-in;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .screenshot-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-border-hover);
+    }
+
+    .screenshot-item img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+
+    .screenshot-label {
+      padding: 10px 14px;
+      font-size: 0.825rem;
+      color: var(--color-text-body);
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      line-height: 1.45;
+    }
+
+    /* Troubleshooting Cards (Recruiter-Favorite: Problem -> Solution) */
+    .troubles-section {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .subheading {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .trouble-cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .trouble-card {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-left: 4px solid var(--color-amber);
+    }
+
+    .trouble-card.success-border {
+      border-left-color: var(--color-emerald);
+    }
+
+    .trouble-prob {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.925rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      line-height: 1.5;
+    }
+
+    .prob-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      background: var(--color-amber-light);
+      color: var(--color-amber);
+      border: 1px solid var(--color-amber-border);
+      padding: 2px 6px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .trouble-sol {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--color-text-body);
+      line-height: 1.6;
+      background: var(--color-surface-subtle);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+    }
+
+    .sol-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      background: var(--color-emerald-light);
+      color: var(--color-emerald);
+      border: 1px solid var(--color-emerald-border);
+      padding: 2px 6px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Stack Groups Display */
+    .stack-groups-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      background: var(--color-surface-subtle);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+    }
+
+    .stack-group-col h4 {
+      font-size: 0.825rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+
+    /* Secondary Projects Grid */
+    .secondary-projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .secondary-project-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.15s ease;
+    }
+
+    .secondary-project-card:hover {
+      border-color: var(--color-border-hover);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .secondary-thumb-wrap {
+      width: 100%;
+      height: 200px;
+      background: #e2e8f0;
+      overflow: hidden;
+    }
+
+    .secondary-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .secondary-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+
+    .secondary-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .secondary-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .secondary-desc {
+      font-size: 0.9rem;
+      color: var(--color-text-body);
+      line-height: 1.55;
+    }
+
+    .secondary-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.875rem;
+      color: var(--color-text-body);
+    }
+
+    .secondary-bullets li {
+      position: relative;
+      padding-left: 16px;
+    }
+
+    .secondary-bullets li::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      color: var(--color-emerald);
+      font-size: 0.8rem;
+    }
+
+    .secondary-footer {
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid var(--color-border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* Skills Section */
+    .skills-wrapper {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .skill-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .skill-icon-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .skill-card-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+    }
+
+    .skill-items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .skill-row {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .skill-name-badge {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+
+    .skill-context {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      line-height: 1.4;
+    }
+
+    /* Tech Blog Section */
+    .blog-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .blog-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      transition: all 0.15s ease;
+    }
+
+    .blog-card:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .blog-meta-date {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+    }
+
+    .blog-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      line-height: 1.45;
+    }
+
+    .blog-desc {
+      font-size: 0.875rem;
+      color: var(--color-text-body);
+      line-height: 1.5;
+    }
+
+    .blog-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .blog-tag {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      background: var(--color-surface-subtle);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .blog-read-link {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Certifications & Languages */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .cert-item {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .cert-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .cert-info h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+    }
+
+    .cert-info p {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Contact Footer */
+    .footer-section {
+      background: #ffffff;
+      border-top: 1px solid var(--color-border);
+      padding: 56px 0 40px;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 24px;
+    }
+
+    .footer-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+    }
+
+    .footer-desc {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      max-width: 540px;
+    }
+
+    .footer-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .footer-copyright {
+      font-size: 0.825rem;
+      color: var(--color-text-light);
+      margin-top: 20px;
+    }
+
+    /* Lightbox Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-content {
+      max-width: 1000px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .modal-img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: var(--radius-md);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      background: #ffffff;
+    }
+
+    .modal-caption {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: -44px;
+      right: 0;
+      color: #ffffff;
+      font-size: 1.8rem;
+      cursor: pointer;
+      padding: 6px;
+    }
+
+    /* Toast Notification */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--color-text-main);
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      z-index: 3000;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.25s ease;
+      pointer-events: none;
+    }
+
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 960px) {
+      .hero-grid {
+        grid-template-columns: 160px 1fr;
+        gap: 28px;
+      }
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .skills-wrapper, .blog-cards-grid, .certs-grid {
+        grid-template-columns: 1fr;
+      }
+      .secondary-projects-grid {
+        grid-template-columns: 1fr;
+      }
+      .case-exec-summary {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .mobile-menu-open .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        border-bottom: 1px solid var(--color-border);
+        padding: 20px 24px;
+        box-shadow: var(--shadow-lg);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-avatar {
+        max-width: 180px;
+        margin: 0 auto;
+      }
+      .hero-name {
+        font-size: 1.85rem;
+      }
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+      .case-study-card {
+        padding: 22px;
+      }
+      .career-block {
+        padding: 20px;
+      }
+    }
+
+    /* Print Stylesheet for High-Quality PDF/Paper Resume */
+    @media print {
+      body {
+        background: #ffffff;
+        color: #000000;
+        font-size: 11pt;
+      }
+      .top-nav, .btn-action, .menu-toggle, .channel-link svg, .case-links, .modal-overlay, .toast-msg, .footer-buttons {
+        display: none !important;
+      }
+      .hero-section {
+        background: none;
+        border-bottom: 2px solid #000000;
+        padding: 0 0 16pt;
+      }
+      .hero-grid {
+        grid-template-columns: 100pt 1fr;
+        gap: 16pt;
+      }
+      .hero-avatar {
+        max-width: 100pt;
+      }
+      .metric-card, .case-study-card, .career-block, .secondary-project-card, .skill-card, .blog-card, .cert-item {
+        box-shadow: none !important;
+        border: 1px solid #cccccc !important;
+        break-inside: avoid;
+      }
+      .featured-ax-box {
+        background: #f8f8f8 !important;
+        border: 1px solid #aaaaaa !important;
+      }
+      .screenshot-item img {
+        height: 180pt;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Navigation -->
+  <header class="top-nav">
+    <div class="container nav-inner">
+      <a href="#" class="nav-brand">
+        <span>장주원</span>
+        <span class="role-badge">Next.js Fullstack · AX</span>
+      </a>
+
+      <nav class="nav-links" id="nav-menu">
+        <a href="#about" class="nav-link">소개</a>
+        <a href="#experience" class="nav-link">실무 경력 & AX PoC</a>
+        <a href="#case-studies" class="nav-link">케이스 스터디</a>
+        <a href="#other-projects" class="nav-link">기타 프로젝트</a>
+        <a href="#skills" class="nav-link">기술 스택</a>
+        <a href="#articles" class="nav-link">블로그 & 자격</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="btn-action" onclick="copyEmail()" title="이메일 주소 복사">
+          <span>이메일 복사</span>
+        </button>
+        <button type="button" class="btn-action btn-action-primary" onclick="window.print()" title="이력서 인쇄 또는 PDF 저장">
+          <span>PDF / 인쇄</span>
+        </button>
+        <button type="button" class="menu-toggle" id="menu-toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Profile Section -->
+  <section class="hero-section" id="about">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-avatar-wrap">
+          <img src="../assets/profile.jpg" alt="장주원 프로필 사진" class="hero-avatar">
+          <div class="hero-status-pill">
+            <span class="hero-status-dot"></span>
+            <span>(주)커리어넷 재직 중</span>
+          </div>
+        </div>
+
+        <div class="hero-content">
+          <div class="hero-headline">
+            <div class="hero-tags">
+              <span class="tag-chip primary">Next.js Fullstack Developer</span>
+              <span class="tag-chip">AX PoC (Local LLM & RAG)</span>
+              <span class="tag-chip">B2B Solution Engineering</span>
+              <span class="tag-chip">Rust · WebAssembly</span>
+            </div>
+            <h1 class="hero-name">장주원 (Jang Joowon)</h1>
+            <p class="hero-title">사용자 경험과 접근성, 기술의 동작 원리를 깊이 탐구하는 개발자</p>
+          </div>
+
+          <p class="hero-summary">
+            Next.js 기반 풀스택 개발자로, B2B 산업안전 정보시스템에서 <strong>HTTP/2 전환을 통한 평균 서버 응답 시간 약 20% 개선</strong>, <strong>Rust·WebAssembly 기반 사내 엑셀 편집 라이브러리 개발</strong>, <strong>네이티브 앱 WebView 세션 인증 일원화</strong>에 참여했습니다.
+            또한 <strong>로컬 오픈웨이트 LLM과 Jira 데이터 기반 RAG를 활용한 고객사 AX PoC</strong> 개발에 참여했으며, 개인 프로젝트 <strong>AioLM</strong>을 개발·공개했습니다.
+          </p>
+
+          <div class="hero-channels">
+            <button type="button" class="channel-link" onclick="copyEmail()">
+              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              <span>mac52485@gmail.com</span>
+            </button>
+            <a href="https://github.com/joowon-jang" target="_blank" rel="noopener noreferrer" class="channel-link">
+              <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              <span>GitHub</span>
+            </a>
+            <a href="https://velog.io/@juwon98/posts" target="_blank" rel="noopener noreferrer" class="channel-link">
+              <span>기술 블로그 (Velog)</span>
+            </a>
+            <a href="https://huggingface.co/wonone" target="_blank" rel="noopener noreferrer" class="channel-link">
+              <span>Hugging Face</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Metrics (3-Second Recruiter Briefing) -->
+  <section class="metrics-section">
+    <div class="container">
+      <div class="metrics-title">
+        <span>핵심 경험과 성과 (Recruiter Highlights)</span>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">AX PoC</div>
+          <div class="metric-label">자연어 SQL & 로컬 LLM 기반 RAG</div>
+          <div class="metric-desc">오픈웨이트 모델 로컬 서빙 및 Jira→PostgreSQL 데이터 벡터화</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value emerald">~20%</div>
+          <div class="metric-label">도메인 전체 응답 시간 개선</div>
+          <div class="metric-desc">SafetyOne B2B NGINX 설정 최적화 및 HTTP/1.1 → HTTP/2 전환</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value purple">Rust + WASM</div>
+          <div class="metric-label">브라우저 엑셀 편집 라이브러리</div>
+          <div class="metric-desc">Excel 편집 로직 Rust 구현 및 TypeScript 사내 라이브러리</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">대상 수상</div>
+          <div class="metric-label">창의설계경진대회 대상 (2023)</div>
+          <div class="metric-desc">세종대학교 제16회 대회 — 웹캠 표정 감정 분석 서비스 (페이스리뷰)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience & AX PoC Section -->
+  <section class="section-wrap" id="experience">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2 class="section-title">실무 경력 & 주요 프로젝트</h2>
+        </div>
+        <span class="section-subtitle">2025.04 ~ 현재</span>
+      </div>
+
+      <div class="career-block">
+        <div class="company-header">
+          <div class="company-info">
+            <h3>(주)커리어넷</h3>
+            <div class="company-role-period">
+              <span class="company-role">Next.js 풀스택 개발자</span>
+              <span>·</span>
+              <span class="period-badge">2025.04 ~ 재직 중</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured AX PoC Box -->
+        <div class="featured-ax-box">
+          <div class="ax-header">
+            <div class="ax-title-wrap">
+              <span class="ax-badge">Featured AX Case</span>
+              <h4 class="ax-title">고객사 AX PoC · 자연어 SQL 변환과 RAG</h4>
+            </div>
+            <span class="ax-summary">비개발자를 위한 데이터 조회 · 로컬 LLM & Jira 데이터 기반</span>
+          </div>
+
+          <ul class="ax-points">
+            <li><strong>자연어 데이터 조회:</strong> 비개발자가 자연어를 SQL로 변환해 고객사 내부 데이터를 조회할 수 있는 서비스의 PoC 개발에 참여했습니다.</li>
+            <li><strong>로컬 모델 서빙:</strong> 고객사 데이터의 외부 유출을 방지하기 위해 오픈웨이트 모델을 로컬에서 서빙하는 방식으로 구성했습니다.</li>
+            <li><strong>Jira → PostgreSQL 데이터 기반 RAG:</strong> Jira에서 PostgreSQL로 옮긴 데이터를 벡터화해 RAG를 구성했습니다.</li>
+            <li><strong>팀 내 기술 공유:</strong> 개인적으로 학습해 온 로컬 LLM 분야의 정보를 팀원들과 공유했습니다.</li>
+          </ul>
+
+          <div class="tech-pill-group">
+            <span class="tech-pill">Local LLM</span>
+            <span class="tech-pill">Open-weight Models</span>
+            <span class="tech-pill">RAG</span>
+            <span class="tech-pill">PostgreSQL</span>
+          </div>
+        </div>
+
+        <!-- SafetyOne B2B Solution -->
+        <div class="project-role-header">
+          <h4 class="project-role-title">
+            <span>SafetyOne 산업안전 B2B 구축형 솔루션</span>
+          </h4>
+          <p class="project-role-desc">
+            산업 현장의 안전보건 관리 업무를 디지털화하는 솔루션입니다. 이를 기반으로 고객사 요구에 맞춘 B2B 구축형 정보시스템 개발에 주로 참여했습니다.
+          </p>
+          <div class="tech-pill-group" style="margin-top: 4px;">
+            <span class="tech-pill">Next.js</span>
+            <span class="tech-pill">React</span>
+            <span class="tech-pill">TypeScript</span>
+            <span class="tech-pill">PostgreSQL</span>
+            <span class="tech-pill">Rust</span>
+            <span class="tech-pill">WebAssembly</span>
+            <span class="tech-pill">NGINX</span>
+          </div>
+        </div>
+
+        <!-- Detailed Contributions Timeline -->
+        <div class="contributions-list">
+          <!-- 2026.10 -->
+          <div class="contribution-item">
+            <div class="contribution-header">
+              <div class="contribution-date-title">
+                <span class="contribution-date">2026.10</span>
+                <span class="contribution-title">사용자 권한 관리 시스템 구축 및 AI 오케스트레이션 활용</span>
+              </div>
+              <span class="contribution-outcome">✔ 서비스 적용 후 오류 미발생</span>
+            </div>
+            <div class="contribution-desc">
+              AI 오케스트레이션으로 구현 계획과 구조도를 작성하고 팀 리더와 보안·성능 설계를 논의했습니다. 모든 API의 권한을 확인하는 요청 검증 계층을 구현해 불필요한 DB 조회와 잦은 트랜잭션에 따른 커넥션 풀 낭비를 줄이고자 했으며, 구현 결과를 교차 검증한 뒤 서비스에 적용했습니다.
+            </div>
+          </div>
+
+          <!-- 2026.07 -->
+          <div class="contribution-item">
+            <div class="contribution-header">
+              <div class="contribution-date-title">
+                <span class="contribution-date">2026.07</span>
+                <span class="contribution-title">AI 개발 도구 도입 및 팀 개발 생산성 개선</span>
+              </div>
+              <span class="contribution-outcome">✔ 팀 개발 생산성 및 코드·변경 이력 가독성 개선</span>
+            </div>
+            <div class="contribution-desc">
+              개발·커밋 컨벤션을 정립하고 Rules 및 Agent Skills 도입을 주도했으며, MCP 등 AI 도구를 활용했습니다. 오류 가능성과 AI 토큰 낭비를 줄이는 구조를 마련했습니다.
+            </div>
+          </div>
+
+          <!-- 2026.04 -->
+          <div class="contribution-item">
+            <div class="contribution-header">
+              <div class="contribution-date-title">
+                <span class="contribution-date">2026.04</span>
+                <span class="contribution-title">네이티브 앱 WebView 인증·인가 아키텍처 개편</span>
+              </div>
+              <span class="contribution-outcome">✔ 토큰 노출 축소 및 서버 인증 일원화로 보안성·유지보수성 강화</span>
+            </div>
+            <div class="contribution-desc">
+              <ul>
+                <li>기존 WebView 환경에서 JavaScript Cookie 또는 Authorization 헤더로 JWT를 직접 노출·취급하던 방식을 전면 개편했습니다.</li>
+                <li>Kotlin·Swift 앱에서 전달한 JWT를 Next.js 서버에서 검증하고 HttpOnly Cookie 기반 세션으로 전환했습니다.</li>
+                <li>프론트엔드에서 Redis를 직접 호출하여 발생하던 중복 로그인 방지 로직을 서버사이드 세션 검증 파이프라인으로 안전하게 이관했습니다.</li>
+                <li>인증 실패 시의 응답 표준 규격을 정리하여 iOS/Android 클라이언트별 예외 처리를 단순화했습니다.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 2025.11 -->
+          <div class="contribution-item">
+            <div class="contribution-header">
+              <div class="contribution-date-title">
+                <span class="contribution-date">2025.11</span>
+                <span class="contribution-title">Rust · WebAssembly 및 TypeScript 사내 엑셀 라이브러리 개발</span>
+              </div>
+              <span class="contribution-outcome">✔ 안정적 핵심 기능 구현으로 영업 시연 및 신규 고객사 유치 기여</span>
+            </div>
+            <div class="contribution-desc">
+              <ul>
+                <li>ExcelJS, XLSX 등 기존 라이브러리로 해결하기 어려운 Excel 편집 요구사항을 분석했습니다.</li>
+                <li>Rust로 Excel 편집 로직을 구현하고 WebAssembly로 빌드해 웹에서 실행하도록 구성했습니다.</li>
+                <li>JavaScript 헬퍼 함수와 TypeScript 타입을 제공해 팀이 사용할 수 있는 사내 라이브러리로 정리했습니다.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 2025.10 -->
+          <div class="contribution-item">
+            <div class="contribution-header">
+              <div class="contribution-date-title">
+                <span class="contribution-date">2025.10</span>
+                <span class="contribution-title">HTTP/2 전환 및 NGINX 서버 네트워크 최적화</span>
+              </div>
+              <span class="contribution-outcome">✔ 도메인 전체 평균 서버 응답 시간 약 20% 개선</span>
+            </div>
+            <div class="contribution-desc">
+              NGINX 설정을 점검하고 HTTP/1.1에서 HTTP/2로 전환했습니다. 정적 리소스 전송과 서버 응답 흐름을 개선해 페이지 로딩 성능을 최적화했습니다.
+            </div>
+          </div>
+
+          <!-- 2025.06 & 05 -->
+          <div class="contribution-item">
+            <div class="contribution-header">
+              <div class="contribution-date-title">
+                <span class="contribution-date">2025.05 ~ 06</span>
+                <span class="contribution-title">외부 SDK 모듈화·공통 컴포넌트화 및 SSO 인증 구축</span>
+              </div>
+              <span class="contribution-outcome">✔ SDK 개발 경험 개선 및 서비스 간 인증 유지</span>
+            </div>
+            <div class="contribution-desc">
+              Next.js 리렌더링 사이클에서 상태 손실이 발생하던 레거시 외부 SDK를 `useRef`와 `forwardRef`를 활용해 내부 편집 상태가 보존되도록 공통 컴포넌트로 래핑했습니다. 또한 OAuth 2.0 표준 규격에 따라 NextAuth 로그인을 확장해 다른 서비스에서도 안전하게 JWT를 발급받을 수 있는 통합 SSO 인증 구조를 구축했습니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Case Studies Section -->
+  <section class="section-wrap" id="case-studies">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2 class="section-title">대표 케이스 스터디 (Deep Dive)</h2>
+        </div>
+        <span class="section-subtitle">문제 해결과 엔지니어링 의사결정 중심</span>
+      </div>
+
+      <!-- Case Study 1: AioLM -->
+      <article class="case-study-card" id="aiolm">
+        <div class="case-card-header">
+          <div class="case-title-area">
+            <img src="../assets/projects/aiolm/logo.png" alt="AioLM 공식 로고" class="case-logo">
+            <div class="case-meta">
+              <div class="case-badges">
+                <span class="case-badge primary">개인 프로젝트 (기획·개발)</span>
+                <span class="case-badge period">개발·공개 후 지속 개선 중</span>
+                <span class="case-badge" style="background:#f1f5f9;">로컬 LLM 벤치마크</span>
+              </div>
+              <h3 class="case-name">AioLM — 로컬 LLM 실측 벤치마크 & 하드웨어 가이드 플랫폼</h3>
+              <p class="case-desc">
+                로컬 LLM 실측 데이터를 공유해 기기 구매와 실행 환경 선택을 돕는 데스크톱 앱(Windows) 및 웹 서비스
+              </p>
+            </div>
+          </div>
+
+          <div class="case-links">
+            <a href="https://aiolm.vercel.app" target="_blank" rel="noopener noreferrer" class="case-link-btn primary">
+              <span>웹사이트 라이브</span>
+            </a>
+            <a href="https://github.com/aiolm/AioLM" target="_blank" rel="noopener noreferrer" class="case-link-btn">
+              <span>데스크톱 앱 저장소</span>
+            </a>
+            <a href="https://github.com/aiolm/AioLm-Web" target="_blank" rel="noopener noreferrer" class="case-link-btn">
+              <span>웹사이트 저장소</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3-Column Executive Summary -->
+        <div class="case-exec-summary">
+          <div class="exec-col">
+            <span class="exec-label">개발 배경 (Why)</span>
+            <div class="exec-content">
+              자비로 다수의 하드웨어를 구매해 LLM 추론·파인튜닝을 연구하던 중, 커뮤니티와 사내 타 팀에서 실측 정보 부족으로 하드웨어 구매와 설정에 겪는 어려움을 목격하고 해결하고자 직접 개발·공개했습니다.
+            </div>
+          </div>
+          <div class="exec-col">
+            <span class="exec-label">핵심 아키텍처 (What)</span>
+            <div class="exec-content">
+              <ul>
+                <li><strong>앱:</strong> Tauri 2 + Rust + React + llama.cpp 기반 런타임 제어</li>
+                <li><strong>웹:</strong> Next.js + PostgreSQL + Cloudflare Turnstile</li>
+                <li><strong>연동:</strong> OpenAPI & Zod 기반 benchmark-contracts 패키지 공유</li>
+              </ul>
+            </div>
+          </div>
+          <div class="exec-col">
+            <span class="exec-label">검증된 결과 (Outcome)</span>
+            <div class="exec-content">
+              <ul>
+                <li>Windows 데스크톱 앱과 공개 벤치마크 웹사이트 배포 완료</li>
+                <li>GGUF 모델 및 Vulkan/ROCm/CUDA/SYCL/OpenVINO 실측 지원</li>
+                <li>두 저장소 오픈소스 공개 및 지속 유지보수 중</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screenshots Gallery -->
+        <div class="screenshots-gallery">
+          <div class="gallery-caption">
+            <span>실제 데스크톱 앱 실행 화면 (2026.09) · 클릭 시 확대</span>
+            <span style="font-weight: normal; font-size: 0.8rem; color: var(--color-text-light);">Tauri 2 · Rust 기반 로컬 벤치마크 엔진</span>
+          </div>
+          <div class="gallery-grid">
+            <div class="screenshot-item" onclick="openLightbox('../assets/projects/aiolm/benchmark.png', 'AioLM 벤치마크 — 모델·실행 환경 확인 및 입력 길이·동시 요청 수 설정')">
+              <img src="../assets/projects/aiolm/benchmark.png" alt="AioLM 벤치마크 설정 화면">
+              <div class="screenshot-label">
+                <strong>벤치마크 측정 화면:</strong> 입력 길이, 동시 요청 수, TTFT(첫 토큰 시간), 생성 속도(토큰/초), 프로세스 RAM을 실측
+              </div>
+            </div>
+            <div class="screenshot-item" onclick="openLightbox('../assets/projects/aiolm/model-settings.png', 'AioLM 모델 설정 — GPU 레이어·배치 크기 조정 및 예상 메모리 확인')">
+              <img src="../assets/projects/aiolm/model-settings.png" alt="AioLM 모델 설정 화면">
+              <div class="screenshot-label">
+                <strong>모델 설정 화면:</strong> GPU 오프로드 레이어 수, 배치 크기 조절 및 실시간 VRAM/RAM 예상 사용량 시각화
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Engineering Challenges & Solutions -->
+        <div class="troubles-section">
+          <h4 class="subheading">
+            <span>엔지니어링 과제 및 해결 (Problem Solving)</span>
+          </h4>
+          <div class="trouble-cards-list">
+            <div class="trouble-card">
+              <div class="trouble-prob">
+                <span class="prob-badge">과제 1</span>
+                <span>측정 조건의 편차를 고려한 공정한 결과 비교</span>
+              </div>
+              <div class="trouble-sol">
+                <span class="sol-badge">해결</span>
+                <span>입력 길이와 동시 요청 수가 정확히 일치하는 기준점에서만 수치를 비교하도록 시스템을 설계했습니다. 모델·기기·런타임 정보를 함께 표기하고, 측정 방식이나 워크로드가 다를 경우 사용자에게 비교 유의사항 배지를 즉시 표시합니다.</span>
+              </div>
+            </div>
+
+            <div class="trouble-card">
+              <div class="trouble-prob">
+                <span class="prob-badge">과제 2</span>
+                <span>벤치마크 설정 격리 및 실측값 신뢰도 검증</span>
+              </div>
+              <div class="trouble-sol">
+                <span class="sol-badge">해결</span>
+                <span>일상 채팅 설정과의 간섭을 막기 위해 벤치마크 전용 독립 llama-server 프로세스를 구동하고 캐시 재사용을 엄격히 차단했습니다. 토큰 카운트를 실시간 교차 검증하고 비정상 실패한 trial은 통계 평균에서 자동 제외했습니다.</span>
+              </div>
+            </div>
+
+            <div class="trouble-card success-border">
+              <div class="trouble-prob">
+                <span class="prob-badge" style="background:var(--color-emerald-light); color:var(--color-emerald); border-color:var(--color-emerald-border);">설계 3</span>
+                <span>앱과 웹 간 데이터 스키마 통일 및 무계정 결과 관리</span>
+              </div>
+              <div class="trouble-sol">
+                <span class="sol-badge">해결</span>
+                <span>검증 규칙과 OpenAPI 스키마를 benchmark-contracts 패키지로 공유했습니다. 복구 코드·복구 파일 또는 일회성 앱-웹 연동을 통해 계정 없이 공개 결과의 설명을 수정하거나 삭제할 수 있도록 했습니다.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tech Stack Groups -->
+        <div class="stack-groups-box">
+          <div class="stack-group-col">
+            <h4>데스크톱 앱 (Desktop)</h4>
+            <div class="tech-pill-group">
+              <span class="tech-pill">React</span>
+              <span class="tech-pill">TypeScript</span>
+              <span class="tech-pill">Tauri 2 (Rust)</span>
+              <span class="tech-pill">llama.cpp</span>
+              <span class="tech-pill">Vite</span>
+            </div>
+          </div>
+          <div class="stack-group-col">
+            <h4>웹 & 데이터 공개 (Web)</h4>
+            <div class="tech-pill-group">
+              <span class="tech-pill">Next.js</span>
+              <span class="tech-pill">React</span>
+              <span class="tech-pill">TypeScript</span>
+              <span class="tech-pill">PostgreSQL</span>
+              <span class="tech-pill">Cloudflare Turnstile</span>
+              <span class="tech-pill">Vercel</span>
+            </div>
+          </div>
+          <div class="stack-group-col">
+            <h4>규격 및 인터페이스 (Contracts)</h4>
+            <div class="tech-pill-group">
+              <span class="tech-pill">OpenAPI</span>
+              <span class="tech-pill">Zod</span>
+              <span class="tech-pill">공통 benchmark-contracts</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Case Study 2: Face Review -->
+      <article class="case-study-card" id="facereview">
+        <div class="case-card-header">
+          <div class="case-title-area">
+            <img src="../assets/projects/facereview/logo.svg" alt="페이스리뷰 공식 로고" class="case-logo">
+            <div class="case-meta">
+              <div class="case-badges">
+                <span class="case-badge award">창의설계경진대회 대상 수상</span>
+                <span class="case-badge primary">프론트엔드 전담 리팩터링 (2인)</span>
+                <span class="case-badge period">2023.10 ~ 2026.07</span>
+              </div>
+              <h3 class="case-name">페이스리뷰 (FaceReview) — 웹캠 표정 감정 분석 영상 서비스</h3>
+              <p class="case-desc">
+                웹캠 표정을 다섯 가지 감정으로 실시간 분석하여 시청자 반응 타임라인을 생성하고, 감정 기반 영상 추천을 제공하는 플랫폼
+              </p>
+            </div>
+          </div>
+
+          <div class="case-links">
+            <a href="https://facereview.net" target="_blank" rel="noopener noreferrer" class="case-link-btn primary">
+              <span>라이브 사이트 (facereview.net)</span>
+            </a>
+            <a href="https://github.com/joowon-jang/facereview-front" target="_blank" rel="noopener noreferrer" class="case-link-btn">
+              <span>프론트엔드 저장소</span>
+            </a>
+            <a href="https://github.com/joowon-jang/facereview-refactor-back" target="_blank" rel="noopener noreferrer" class="case-link-btn">
+              <span>백엔드 저장소</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3-Column Executive Summary -->
+        <div class="case-exec-summary">
+          <div class="exec-col">
+            <span class="exec-label">핵심 기능</span>
+            <div class="exec-content">
+              0.5초마다 웹캠 프레임을 전송해 5가지 감정(행복·놀람·분노·슬픔·무표정)을 분류하고, 100개 구간 타임라인 시각화, 구간 드래그 시킹, 감정 유사도 기반 추천을 제공합니다.
+            </div>
+          </div>
+          <div class="exec-col">
+            <span class="exec-label">개발 단계 및 역할</span>
+            <div class="exec-content">
+              <ul>
+                <li><strong>2023 최초 개발:</strong> React 프론트엔드 화면 구현 및 AI Hub 데이터셋 기반 감정 분류 모델 직접 학습</li>
+                <li><strong>2026 1·2차 리팩터링:</strong> 프론트엔드 1인 전담 (React 19, TS 5.9, Vite 7, TanStack Query v5, Vercel 이전)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="exec-col">
+            <span class="exec-label">검증된 성과</span>
+            <div class="exec-content">
+              <ul>
+                <li>2023 세종대학교 제16회 창의설계경진대회 대상 수상</li>
+                <li>배포 인프라를 AWS → 온프레미스 Docker → Vercel로 성공적 이전</li>
+                <li>테스트 계정: <code>test4@facereview.net</code></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screenshots Gallery -->
+        <div class="screenshots-gallery">
+          <div class="gallery-caption">
+            <span>실제 서비스 화면 (2026.07 배포 버전) · 클릭 시 확대</span>
+            <span style="font-weight: normal; font-size: 0.8rem; color: var(--color-text-light);">React 19 & Nivo 기반 감정 타임라인</span>
+          </div>
+          <div class="gallery-grid">
+            <div class="screenshot-item" onclick="openLightbox('../assets/projects/facereview/watch.png', '페이스리뷰 시청 화면 — 감정 타임라인 라인 차트와 커스텀 비디오 컨트롤')">
+              <img src="../assets/projects/facereview/watch.png" alt="페이스리뷰 시청 화면">
+              <div class="screenshot-label">
+                <strong>시청 화면:</strong> 영상 상단에 실시간 감정 타임라인 그래프와 커스텀 재생 컨트롤러를 오버레이하여 구간 드래그 이동 지원
+              </div>
+            </div>
+            <div class="screenshot-item" onclick="openLightbox('../assets/projects/facereview/my.png', '페이스리뷰 마이페이지 — 감정 분포 도넛 차트 및 최근 시청 영상 통계')">
+              <img src="../assets/projects/facereview/my.png" alt="페이스리뷰 마이페이지">
+              <div class="screenshot-label">
+                <strong>마이페이지:</strong> 누적 감정 분포 도넛 차트와 최근 시청 영상별 감정 변화 곡선을 Nivo 차트로 반응형 시각화
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 Key Troubleshooting Items -->
+        <div class="troubles-section">
+          <h4 class="subheading">
+            <span>프론트엔드 심층 트러블슈팅 (5 Key Challenges)</span>
+          </h4>
+          <div class="trouble-cards-list">
+            <div class="trouble-card">
+              <div class="trouble-prob">
+                <span class="prob-badge">트러블 1</span>
+                <span>SPA 구조에서 모든 경로가 동일 메타데이터를 반환해 검색 노출 및 링크 공유(OG)가 저하되는 문제</span>
+              </div>
+              <div class="trouble-sol">
+                <span class="sol-badge">해결</span>
+                <span>빌드 타임에 정적 라우트를 SSG로 사전 렌더링하고, 영상 상세 페이지는 영상별 OG 메타데이터를 동적으로 생성했습니다. 썸네일 고화질 로드 실패 시 표준 화질로 안전하게 폴백되도록 처리하고 새로고침 404 문제는 Vercel catch-all rewrite로 완벽히 해결했습니다.</span>
+              </div>
+            </div>
+
+            <div class="trouble-card">
+              <div class="trouble-prob">
+                <span class="prob-badge">트러블 2</span>
+                <span>수동 벤더 청크 분리 후 배포 환경에서 TDZ(Temporal Dead Zone) 및 ReferenceError 런타임 크래시 발생</span>
+              </div>
+              <div class="trouble-sol">
+                <span class="sol-badge">해결</span>
+                <span>청크 간 모듈 초기화 순서 종속성 문제로 진단했습니다. 초기화 순서에 민감한 라이브러리를 수동 분할 목록에서 제외하고 번들러 기본 분할 로직에 위임함으로써 배포 후 크래시를 원천 차단했습니다.</span>
+              </div>
+            </div>
+
+            <div class="trouble-card">
+              <div class="trouble-prob">
+                <span class="prob-badge">트러블 3</span>
+                <span>목록 내 모든 비디오 카드가 미리보기용 YouTube iframe을 상시 마운트하여 초기 네트워크 요청 폭증</span>
+              </div>
+              <div class="trouble-sol">
+                <span class="sol-badge">해결</span>
+                <span>모든 iframe을 초기 마운트하지 않고 hover 시점에만 조건부로 동적 마운트하며 포인터 이탈 시 언마운트하도록 전환하여, 초기 목록 진입 시 발생하던 불필요한 네트워크 부하를 100% 제거했습니다.</span>
+              </div>
+            </div>
+
+            <div class="trouble-card">
+              <div class="trouble-prob">
+                <span class="prob-badge">트러블 4</span>
+                <span>모바일 터치 디바이스에서 탭 후 hover 스타일이 고착되어 버튼이 영구적으로 눌린 상태로 보이는 UI 버그</span>
+              </div>
+              <div class="trouble-sol">
+                <span class="sol-badge">해결</span>
+                <span>실제 마우스 포인터의 hover를 지원하는 환경에서만 스타일이 동작하도록 <code>@media (hover: hover)</code> 미디어 쿼리 가드를 전역 일괄 적용하여 모바일 터치 오동작을 말끔히 해결했습니다.</span>
+              </div>
+            </div>
+
+            <div class="trouble-card">
+              <div class="trouble-prob">
+                <span class="prob-badge">트러블 5</span>
+                <span>복수 API가 동시에 401 수신 시 중복 토큰 재발급 요청이 발생하여 인증 상태가 꼬이는 경합(Race Condition)</span>
+              </div>
+              <div class="trouble-sol">
+                <span class="sol-badge">해결</span>
+                <span>Axios Interceptor 내에 단일 프로미스 락 큐를 구현했습니다. 첫 번째 401 발생 시 재발급 요청은 단 1회만 실행하고, 후속 요청들은 큐에서 대기시킨 뒤 갱신된 토큰으로 일괄 재시도하도록 완벽히 정류했습니다.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tech Stack Groups -->
+        <div class="stack-groups-box">
+          <div class="stack-group-col">
+            <h4>프론트엔드 (직접 담당)</h4>
+            <div class="tech-pill-group">
+              <span class="tech-pill">React 19</span>
+              <span class="tech-pill">TypeScript 5.9</span>
+              <span class="tech-pill">Vite 7</span>
+              <span class="tech-pill">Yarn Berry</span>
+              <span class="tech-pill">TanStack Query v5</span>
+              <span class="tech-pill">Zustand</span>
+              <span class="tech-pill">Axios</span>
+              <span class="tech-pill">Socket.IO Client</span>
+              <span class="tech-pill">Nivo</span>
+              <span class="tech-pill">SCSS (7-1)</span>
+              <span class="tech-pill">Vitest</span>
+              <span class="tech-pill">Vercel</span>
+            </div>
+          </div>
+          <div class="stack-group-col">
+            <h4>백엔드 & AI 파이프라인</h4>
+            <div class="tech-pill-group">
+              <span class="tech-pill">Flask 3</span>
+              <span class="tech-pill">Flask-SocketIO</span>
+              <span class="tech-pill">TensorFlow</span>
+              <span class="tech-pill">OpenCV</span>
+              <span class="tech-pill">Celery</span>
+              <span class="tech-pill">APScheduler</span>
+              <span class="tech-pill">JWT</span>
+            </div>
+          </div>
+          <div class="stack-group-col">
+            <h4>데이터 & 인프라</h4>
+            <div class="tech-pill-group">
+              <span class="tech-pill">MariaDB</span>
+              <span class="tech-pill">MongoDB</span>
+              <span class="tech-pill">Redis</span>
+              <span class="tech-pill">Docker</span>
+              <span class="tech-pill">NGINX</span>
+              <span class="tech-pill">GitHub Actions</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Other Projects Section -->
+  <section class="section-wrap" id="other-projects">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2 class="section-title">추가 프로젝트</h2>
+        </div>
+        <span class="section-subtitle">풀스택 아키텍처 및 성능 최적화 경험</span>
+      </div>
+
+      <div class="secondary-projects-grid">
+        <!-- Tododong -->
+        <article class="secondary-project-card">
+          <div class="secondary-thumb-wrap">
+            <img src="../assets/projects/tododong/schedule-poster.png" alt="토도동 NBA 경기 일정 화면">
+          </div>
+          <div class="secondary-body">
+            <div class="secondary-header">
+              <span class="tag-chip primary" style="width:fit-content;">팀 프로젝트 4인 (전원 풀스택) · 2025.02 ~ 2025.05</span>
+              <h3 class="secondary-title">토도동 (Tododong)</h3>
+              <p class="secondary-desc">NBA 경기 일정 캘린더, 실시간 문자 중계 및 경기별 실시간 채팅을 제공하는 풀스택 스포츠 플랫폼</p>
+            </div>
+
+            <ul class="secondary-bullets">
+              <li><strong>기술 선정 및 아키텍처:</strong> 성능과 최신 패키지 생태계를 분석해 SSR/CSR 영역을 분리 설계했습니다.</li>
+              <li><strong>인증 및 실시간 통신:</strong> 별도의 Socket.IO 채팅 서버를 호스팅하고, NBA 공식 API로 로컬 DB를 자동 동기화하는 Express.js cron 작업을 구축했습니다.</li>
+              <li><strong>웹 접근성(A11y) 모달:</strong> 포커스가 모달 밖으로 탈출하지 않도록 Focus Trapping 및 배경 스크롤 차단을 직접 구현했습니다.</li>
+              <li><strong>스타일 체계화:</strong> Sass mixin과 색상 변수 utils를 체계화하여 팀 내 중복 스타일을 제거했습니다.</li>
+            </ul>
+
+            <div class="tech-pill-group">
+              <span class="tech-pill">Next.js</span>
+              <span class="tech-pill">TypeScript</span>
+              <span class="tech-pill">Prisma</span>
+              <span class="tech-pill">Socket.IO</span>
+              <span class="tech-pill">Express.js</span>
+              <span class="tech-pill">Sass Modules</span>
+            </div>
+
+            <div class="secondary-footer">
+              <a href="https://github.com/FRONT-END-BOOTCAMP-PLUS-3/tododong" target="_blank" rel="noopener noreferrer" class="case-link-btn">
+                <span>프론트 저장소 ↗</span>
+              </a>
+              <a href="https://github.com/FRONT-END-BOOTCAMP-PLUS-3/tododong-background" target="_blank" rel="noopener noreferrer" class="case-link-btn">
+                <span>백엔드 저장소 ↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Haemadi -->
+        <article class="secondary-project-card">
+          <div class="secondary-thumb-wrap">
+            <img src="../assets/projects/haemadi/reply-method-poster.png" alt="해마디 답장 방식 선택 화면">
+          </div>
+          <div class="secondary-body">
+            <div class="secondary-header">
+              <span class="tag-chip primary" style="width:fit-content;">팀 프로젝트 3인 (개발 2인) · 2024.08 ~ 2024.11</span>
+              <h3 class="secondary-title">해마디 (Haemadi)</h3>
+              <p class="secondary-desc">하루 감정을 기록하고 Google Gemini AI 또는 익명 사용자로부터 답장과 콘텐츠 추천을 받는 감정 회고 다이어리</p>
+            </div>
+
+            <ul class="secondary-bullets">
+              <li><strong>Lighthouse 성능 대폭 개선:</strong> 모바일 50~60점대 → <strong>80~90점대</strong>, 데스크톱 70~80점대 → <strong>90점대 후반</strong>으로 도약시켰습니다. (모든 이미지 WebP 변환 및 서버 응답 완료 시점 조건부 렌더링 분리)</li>
+              <li><strong>SVGIcon Sprite 컴포넌트:</strong> <code>&lt;symbol&gt;/&lt;use&gt;</code> 구조로 에셋을 통합하고, iOS에서 SVG filter가 깨지는 크로스 브라우징 결함을 CSS 대체로 해결했습니다.</li>
+              <li><strong>DB & 상태 설계:</strong> PocketBase 데이터베이스 구조 설계, Zustand를 통한 인증(authStore) 및 시간대별 뷰포트 배경 상태를 정밀 제어했습니다.</li>
+            </ul>
+
+            <div class="tech-pill-group">
+              <span class="tech-pill">React</span>
+              <span class="tech-pill">PocketBase</span>
+              <span class="tech-pill">Zustand</span>
+              <span class="tech-pill">TanStack Query</span>
+              <span class="tech-pill">Google Gemini</span>
+              <span class="tech-pill">Framer Motion</span>
+            </div>
+
+            <div class="secondary-footer">
+              <span style="font-size:0.8rem; color:var(--color-text-muted);">테스트 계정: joowon11 / joowon11!</span>
+              <a href="https://github.com/FRONTENDSCHOOL10/Haemadi" target="_blank" rel="noopener noreferrer" class="case-link-btn">
+                <span>프로젝트 저장소 ↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="section-wrap" id="skills">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2 class="section-title">기술 역량 (Technical Stack)</h2>
+        </div>
+        <span class="section-subtitle">단순 나열이 아닌 실제 프로덕션 적용 경험 기준</span>
+      </div>
+
+      <div class="skills-wrapper">
+        <!-- Frontend -->
+        <div class="skill-card">
+          <div class="skill-card-header">
+            <div class="skill-icon-badge">⚛️</div>
+            <h3 class="skill-card-title">Frontend Engineering</h3>
+          </div>
+          <div class="skill-items-list">
+            <div class="skill-row">
+              <span class="skill-name-badge">TypeScript & React 19</span>
+              <span class="skill-context">타입 안정성 보장, forwardRef/useRef 고급 컴포넌트 추상화, React 19 최신 마이그레이션</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name-badge">Next.js (Fullstack)</span>
+              <span class="skill-context">App Router / Pages, SSR/CSR 경계 분리, NextAuth SSO, 미들웨어 인증 일원화</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name-badge">TanStack Query v5 & Zustand</span>
+              <span class="skill-context">서버 상태 캐싱/동기화, 경합 없는 Axios 인터셉터 락 큐, 전역 상태 경량 분리</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name-badge">웹 접근성 (WAI-ARIA) & CSS</span>
+              <span class="skill-context">Focus Trapping, 스크린 리더 고려, Sass(7-1 아키텍처), Tailwind CSS, 반응형 3-단계</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Backend & Systems -->
+        <div class="skill-card">
+          <div class="skill-card-header">
+            <div class="skill-icon-badge" aria-hidden="true">BE</div>
+            <h3 class="skill-card-title">Backend & Systems</h3>
+          </div>
+          <div class="skill-items-list">
+            <div class="skill-row">
+              <span class="skill-name-badge">Rust & WebAssembly</span>
+              <span class="skill-context">고난도 엑셀 편집 엔진 Rust 구현 및 WASM 컴파일, TS 사내 라이브러리 패키징</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name-badge">PostgreSQL & Redis</span>
+              <span class="skill-context">Jira 데이터 마이그레이션 및 벡터화, 세션 및 중복 로그인 방지 서버사이드 캐싱</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name-badge">NGINX & HTTP/2</span>
+              <span class="skill-context">도메인 응답 시간 약 20% 단축, 리소스 전송 및 프록시 스트림 최적화</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name-badge">Node.js, Express & Socket.IO</span>
+              <span class="skill-context">실시간 양방향 채팅 서버 별도 호스팅, 공식 API 주기 동기화 cron 파이프라인</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI & Collaboration -->
+        <div class="skill-card">
+          <div class="skill-card-header">
+            <div class="skill-icon-badge" aria-hidden="true">AI</div>
+            <h3 class="skill-card-title">AI & Engineering Practices</h3>
+          </div>
+          <div class="skill-items-list">
+            <div class="skill-row">
+              <span class="skill-name-badge">Local LLM & RAG (AX PoC)</span>
+              <span class="skill-context">오픈웨이트 모델 로컬 서빙, 자연어-SQL 변환, Jira 데이터 기반 RAG</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name-badge">MCP & AI Agent Orchestration</span>
+              <span class="skill-context">사내 Rules 및 Agent Skills 도입 주도, AI 코딩 워크플로우를 통한 개발 생산성 혁신</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name-badge">테스트 & 인프라</span>
+              <span class="skill-context">Vitest 단위 테스트, Docker 컨테이너라이징, GitHub Actions CI/CD, Vercel 배포</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name-badge">협업 도구</span>
+              <span class="skill-context">Git, GitHub, Notion, Figma (접근성 및 디자인 시스템 정립)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Articles & Licenses -->
+  <section class="section-wrap" id="articles">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2 class="section-title">기술 블로그 & 자격 사항</h2>
+        </div>
+        <span class="section-subtitle">배운 것을 문서화하고 공유하는 습관</span>
+      </div>
+
+      <div class="blog-cards-grid">
+        <a href="https://velog.io/@juwon98/HTTP1.1-to-HTTP2" target="_blank" rel="noopener noreferrer" class="blog-card">
+          <div>
+            <div class="blog-meta-date">2025.10.27</div>
+            <h4 class="blog-title">HTTP2로 성능향상 (1.1 -> 2)</h4>
+            <p class="blog-desc">SafetyOne 프로덕션 서비스에서 HTTP/1.1을 HTTP/2로 전환하여 도메인 전체 평균 응답 속도를 20% 개선한 실무 최적화 기록</p>
+          </div>
+          <div>
+            <div class="blog-tags">
+              <span class="blog-tag">HTTP/2</span>
+              <span class="blog-tag">Nginx</span>
+              <span class="blog-tag">성능 최적화</span>
+            </div>
+            <div class="blog-read-link" style="margin-top:10px;">글 읽기 ↗</div>
+          </div>
+        </a>
+
+        <a href="https://velog.io/@juwon98/createPortal사용과-FocusTrap으로-모달창-개선" target="_blank" rel="noopener noreferrer" class="blog-card">
+          <div>
+            <div class="blog-meta-date">2025.09.21</div>
+            <h4 class="blog-title">[React] FocusTrap으로 모달창 개선하기</h4>
+            <p class="blog-desc">모달 오픈 시 키보드 포커스가 배경 요소로 탈출하는 접근성 결함을 해결하고, 포커스를 내부에 가두는 Focus Trap 구현 과정</p>
+          </div>
+          <div>
+            <div class="blog-tags">
+              <span class="blog-tag">React</span>
+              <span class="blog-tag">웹 접근성</span>
+              <span class="blog-tag">A11y</span>
+            </div>
+            <div class="blog-read-link" style="margin-top:10px;">글 읽기 ↗</div>
+          </div>
+        </a>
+
+        <a href="https://velog.io/@juwon98/React-createPortal-SplashScreen" target="_blank" rel="noopener noreferrer" class="blog-card">
+          <div>
+            <div class="blog-meta-date">2024.11.07</div>
+            <h4 class="blog-title">[React] [웹 접근성] createPortal을 사용한 SplashScreen</h4>
+            <p class="blog-desc">createPortal을 이용해 DOM 계층 구조를 분리하면서도 스크린 리더와 키보드 접근성 지침을 준수한 스플래시 스크린 구현기</p>
+          </div>
+          <div>
+            <div class="blog-tags">
+              <span class="blog-tag">React</span>
+              <span class="blog-tag">createPortal</span>
+              <span class="blog-tag">접근성</span>
+            </div>
+            <div class="blog-read-link" style="margin-top:10px;">글 읽기 ↗</div>
+          </div>
+        </a>
+      </div>
+
+      <div style="margin-top: 32px;">
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 16px;">
+          자격증 및 어학 (Certifications & Languages)
+        </h3>
+        <div class="certs-grid">
+          <div class="cert-item">
+            <span class="cert-icon" aria-hidden="true">01</span>
+            <div class="cert-info">
+              <h4>정보처리기사</h4>
+              <p>2023.06 · 한국산업인력공단</p>
+            </div>
+          </div>
+          <div class="cert-item">
+            <span class="cert-icon" aria-hidden="true">02</span>
+            <div class="cert-info">
+              <h4>SQLD (SQL 개발자)</h4>
+              <p>2022.06 · 한국데이터산업진흥원</p>
+            </div>
+          </div>
+          <div class="cert-item">
+            <span class="cert-icon" aria-hidden="true">03</span>
+            <div class="cert-info">
+              <h4>JLPT N2 (일본어)</h4>
+              <p>2026.01 · 일본국제교류기금</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer & Contact Section -->
+  <footer class="footer-section">
+    <div class="container footer-content">
+      <h2 class="footer-title">함께 성장하고 임팩트를 만들 준비가 되어 있습니다</h2>
+      <p class="footer-desc">
+        사용자 경험과 접근성, 그리고 견고한 엔지니어링 아키텍처에 관심이 많습니다. 실무와 프로젝트에 관한 어떤 이야기든 편하게 연락 부탁드립니다.
+      </p>
+
+      <div class="footer-buttons">
+        <button type="button" class="btn-action btn-action-primary" style="padding:10px 20px; font-size:0.95rem;" onclick="copyEmail()">
+          <span>mac52485@gmail.com 복사</span>
+        </button>
+        <a href="https://github.com/joowon-jang" target="_blank" rel="noopener noreferrer" class="btn-action" style="padding:10px 20px; font-size:0.95rem;">
+          <span>GitHub 둘러보기</span>
+        </a>
+        <a href="https://velog.io/@juwon98/posts" target="_blank" rel="noopener noreferrer" class="btn-action" style="padding:10px 20px; font-size:0.95rem;">
+          <span>기술 블로그 (Velog)</span>
+        </a>
+      </div>
+
+      <div class="footer-copyright">
+        © 2026 장주원 (Jang Joowon). 모든 수치와 프로젝트 기록은 검증된 사실에 기반합니다.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal -->
+  <div class="modal-overlay" id="lightbox-modal" onclick="closeLightbox(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button type="button" class="modal-close" onclick="closeLightbox()" aria-label="닫기">✕</button>
+      <img alt="" class="modal-img" id="lightbox-img">
+      <p class="modal-caption" id="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-msg" id="toast-msg">이메일 주소가 클립보드에 복사되었습니다!</div>
+
+  <script>
+    // Copy email to clipboard with toast
+    function copyEmail() {
+      const email = 'mac52485@gmail.com';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(showToast);
+      } else {
+        const tempInput = document.createElement('input');
+        tempInput.value = email;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        showToast();
+      }
+    }
+
+    function showToast() {
+      const toast = document.getElementById('toast-msg');
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // Lightbox modal functionality
+    function openLightbox(src, caption) {
+      const modal = document.getElementById('lightbox-modal');
+      const img = document.getElementById('lightbox-img');
+      const cap = document.getElementById('lightbox-caption');
+      img.src = src;
+      img.alt = caption;
+      cap.textContent = caption;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(e) {
+      const modal = document.getElementById('lightbox-modal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+
+    // Mobile nav toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const topNav = document.querySelector('.top-nav');
+    if (menuToggle && topNav) {
+      const closeMenu = () => {
+        topNav.classList.remove('mobile-menu-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', '메뉴 열기');
+      };
+      menuToggle.addEventListener('click', () => {
+        const open = topNav.classList.toggle('mobile-menu-open');
+        menuToggle.setAttribute('aria-expanded', String(open));
+        menuToggle.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+      });
+      document.getElementById('nav-menu').addEventListener('click', (event) => {
+        if (event.target.closest('a')) closeMenu();
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
+          closeMenu();
+          menuToggle.focus();
+        }
+      });
+    }
+
+    // Smooth active nav highlight on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      const scrollY = window.pageYOffset;
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        const sectionHeight = section.offsetHeight;
+        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    }, { passive: true });
+  </script>
+</body>
+</html>

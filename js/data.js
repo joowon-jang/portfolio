@@ -72,7 +72,7 @@ const BLOG_POSTS = [
 // 데스크톱 앱과 공개 벤치마크 웹을 하나의 개인 프로젝트로 소개합니다.
 const AIOLM = {
   ko: {
-    id: 'p4', name: 'AioLM', badge: '🔬', period: '개발·공개 후 지속 개선 중', team: '개인 프로젝트',
+    id: 'p4', name: 'AioLM', badge: '🔬', period: '2026.08 ~ 진행 중', team: '개인 프로젝트',
     desc: '로컬 LLM 실측 데이터를 공유해 기기 구매와 실행 환경 선택을 돕는 데스크톱 앱·웹 서비스',
     role: ['기획·데스크톱 앱·웹사이트 개발'], verified: true,
     screenshotLayout: 'wide', screenshotsMeta: '실제 앱 화면 · 2026.09',
@@ -111,7 +111,7 @@ const AIOLM = {
     outcome: ['Windows 데스크톱 앱과 벤치마크 웹사이트 공개', '두 저장소의 소스 코드 공개·유지보수']
   },
   en: {
-    id: 'p4', name: 'AioLM', badge: '🔬', period: 'Released · ongoing improvements', team: 'Solo project',
+    id: 'p4', name: 'AioLM', badge: '🔬', period: '2026.08 – Present', team: 'Solo project',
     desc: 'A desktop app and website sharing measured local LLM performance to inform hardware and setup decisions',
     role: ['Product planning · desktop app · website'], verified: true,
     screenshotLayout: 'wide', screenshotsMeta: 'Actual app screens · 2026.09',
@@ -142,7 +142,7 @@ const AIOLM = {
     outcome: ['Released the Windows desktop app and benchmark website', 'Published and maintain source code in both repositories']
   },
   ja: {
-    id: 'p4', name: 'AioLM', badge: '🔬', period: '公開後も継続改善中', team: '個人開発',
+    id: 'p4', name: 'AioLM', badge: '🔬', period: '2026.08 ～ 継続開発中', team: '個人開発',
     desc: 'ローカルLLMの実測データを共有し、機器購入と実行環境の選択を支えるデスクトップアプリ・Webサービス',
     role: ['企画・デスクトップアプリ・Web開発'], verified: true,
     screenshotLayout: 'wide', screenshotsMeta: '実際のアプリ画面 · 2026.09',
@@ -176,7 +176,7 @@ const AIOLM = {
 
 const I18N = {
   ko: {
-    nav: ['소개', '기술', '경력', '프로젝트', '블로그', '채널'],
+    nav: ['소개', '기술', '경력', '프로젝트', '블로그', '연락처·링크'],
     heroTag: '▶ 포트폴리오',
     heroName: '장주원',
     heroLevel: '주니어 웹 개발자',
@@ -252,7 +252,7 @@ const I18N = {
       { id: 'b2', title: '[React] FocusTrap으로 모달창 개선하기', desc: '키보드 포커스를 모달 안에 가두는 Focus Trap 구현기', tags: ['React', '접근성'] },
       { id: 'b3', title: '[React] [웹 접근성] createPortal을 사용한 SplashScreen', desc: 'createPortal로 스플래시 스크린을 구현하며 접근성까지 고려', tags: ['React', '웹 접근성'] }
     ],
-    contactTitle: '■ 채널 — 이메일 · 저장소 · 블로그 · Hugging Face',
+    contactTitle: '■ 연락처·링크',
     footer: '© 2026 장주원 · JOOWON.EXE',
     back: '돌아가기',
     scrollTop: '맨 위로',
@@ -428,7 +428,7 @@ const I18N = {
     ]
   },
   en: {
-    nav: ['Overview', 'Skills', 'Career', 'Projects', 'Blog', 'Channels'],
+    nav: ['Overview', 'Skills', 'Career', 'Projects', 'Blog', 'Contact & Links'],
     heroTag: '▶ PORTFOLIO',
     heroName: 'Jang Joowon',
     heroLevel: 'Junior Web Developer',
@@ -504,7 +504,7 @@ const I18N = {
       { id: 'b2', title: '[React] Improving Modals with Focus Trap', desc: 'Trapping keyboard focus inside a modal for better accessibility', tags: ['React', 'Accessibility'] },
       { id: 'b3', title: '[React] Accessible Splash Screen with createPortal', desc: 'Building a splash screen with createPortal, accessibility included', tags: ['React', 'Accessibility'] }
     ],
-    contactTitle: '■ CHANNELS — EMAIL · REPOS · BLOG · HUGGING FACE',
+    contactTitle: '■ CONTACT & LINKS',
     footer: '© 2026 Jang Joowon · JOOWON.EXE',
     back: 'BACK',
     scrollTop: 'BACK TO TOP',
@@ -680,7 +680,7 @@ const I18N = {
     ]
   },
   ja: {
-    nav: ['紹介', 'スキル', 'キャリア', 'プロジェクト', 'ブログ', 'チャンネル'],
+    nav: ['紹介', 'スキル', 'キャリア', 'プロジェクト', 'ブログ', '連絡先・リンク'],
     heroTag: '▶ ポートフォリオ',
     heroName: 'チャン・ジュウォン',
     heroLevel: 'ジュニアWeb開発者',
@@ -756,7 +756,7 @@ const I18N = {
       { id: 'b2', title: '[React] FocusTrapでモーダルを改善', desc: 'モーダル内にキーボードフォーカスを閉じ込める実装記録', tags: ['React', 'アクセシビリティ'] },
       { id: 'b3', title: '[React][アクセシビリティ] createPortalで作るSplashScreen', desc: 'createPortalでスプラッシュスクリーンを実装しアクセシビリティも考慮', tags: ['React', 'アクセシビリティ'] }
     ],
-    contactTitle: '■ チャンネル — メール · リポジトリ · ブログ · Hugging Face',
+    contactTitle: '■ 連絡先・リンク',
     footer: '© 2026 チャン・ジュウォン · JOOWON.EXE',
     back: '戻る',
     scrollTop: 'ページ上部へ',
@@ -934,14 +934,14 @@ const I18N = {
 };
 
 const SKILLS = {
-  main: ['TypeScript', 'React', 'Next.js'],
-  sub: ['TanStack Query', 'Zustand', 'Sass', 'Tailwind CSS', 'Node.js', 'PostgreSQL', 'nginx', 'Socket.IO', 'WASM'],
-  special: 'MCP · Agent Skills ★'
+  main: ['AI 활용', 'TypeScript', 'React', 'Next.js'],
+  sub: ['Node.js', 'PostgreSQL', 'Nginx', 'WASM', 'RAG']
 };
 
 const UI_COPY = {
   ko: {
     skip: '본문으로 건너뛰기', menu: '메뉴', navLabel: '주요 메뉴', langLabel: '언어 선택',
+    aiUsage: 'AI 활용',
     careerChapter: 'CHAPTER · 회사', careerMission: 'MISSION · 프로젝트', careerLog: 'LOG · 기여 기록',
     careerExpand: '펼치기', careerCollapse: '접기', careerStack: '기술 스택', careerOutcome: '성과', careerRelated: '주요 업무',
     missionFile: 'MISSION FILE', projectContribution: '핵심 기여', projectImplementation: '대표 구현', projectLoadout: '핵심 기술', openLog: 'LOG 열기',
@@ -974,6 +974,7 @@ const UI_COPY = {
   },
   en: {
     skip: 'Skip to main content', menu: 'Menu', navLabel: 'Primary', langLabel: 'Language',
+    aiUsage: 'AI Leverage',
     careerChapter: 'CHAPTER · COMPANY', careerMission: 'MISSION · PROJECT', careerLog: 'LOG · CONTRIBUTIONS',
     careerExpand: 'Show details', careerCollapse: 'Hide details', careerStack: 'Tech stack', careerOutcome: 'Outcome', careerRelated: 'HIGHLIGHTED WORK',
     missionFile: 'MISSION FILE', projectContribution: 'CORE CONTRIBUTION', projectImplementation: 'KEY IMPLEMENTATION', projectLoadout: 'CORE STACK', openLog: 'OPEN LOG',
@@ -1006,6 +1007,7 @@ const UI_COPY = {
   },
   ja: {
     skip: '本文へスキップ', menu: 'メニュー', navLabel: 'メインメニュー', langLabel: '言語選択',
+    aiUsage: 'AI活用',
     careerChapter: 'CHAPTER · 会社', careerMission: 'MISSION · プロジェクト', careerLog: 'LOG · 貢献記録',
     careerExpand: '詳細を開く', careerCollapse: '閉じる', careerStack: '技術スタック', careerOutcome: '成果', careerRelated: '主な業務',
     missionFile: 'MISSION FILE', projectContribution: '主要な貢献', projectImplementation: '代表実装', projectLoadout: '主要技術', openLog: 'LOGを開く',

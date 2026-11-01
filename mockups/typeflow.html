@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="장주원 · 웹 개발자. 고객사 AX PoC 개발 참여, 로컬 LLM 앱·웹 AioLM, SafetyOne 고객사 구축 경험.">
+  <meta name="theme-color" content="#ffffff">
+  <title>Typeflow — 장주원</title>
+  <style>
+    :root { --ink: #121212; --paper: #fff; --lime: #c5ff29; --muted: #646464; --line: #d7d7d7; --header: 66px; }
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: calc(var(--header) + 20px); }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-underline-offset: .24em; }
+    button { font: inherit; }
+    a:focus-visible, button:focus-visible { outline: 3px solid #657d00; outline-offset: 5px; }
+    ::selection { background: var(--lime); color: var(--ink); }
+    .skip { position: fixed; top: -100px; left: 20px; z-index: 100; background: var(--lime); padding: 15px; }
+    .skip:focus { top: 10px; }
+    .site-header { position: sticky; top: 0; z-index: 30; height: var(--header); display: flex; align-items: center; justify-content: space-between; gap: 22px; padding: 0 3.5vw; background: #fff; border-bottom: 1px solid var(--ink); }
+    .identity { display: flex; align-items: baseline; gap: 13px; text-decoration: none; white-space: nowrap; }
+    .identity strong { font-size: 17px; letter-spacing: -.05em; }
+    .identity span, .site-header nav, .motion-toggle { font-size: 12px; }
+    .identity span { color: var(--muted); }
+    .site-header nav { display: flex; gap: 25px; }
+    .site-header nav a { text-decoration: none; }
+    .site-header nav a:hover { text-decoration: underline; }
+    .motion-toggle { display: none; border: 0; border-bottom: 1px solid var(--ink); background: none; color: var(--ink); padding: 6px 0; cursor: pointer; }
+    .ready .motion-toggle { display: block; }
+    .eyebrow { font-family: "SFMono-Regular", Consolas, monospace; font-size: 11px; font-weight: 500; letter-spacing: .07em; line-height: 1.6; }
+    .index { display: inline-flex; align-items: center; gap: 12px; }
+    .index::before { content: ""; width: 8px; height: 8px; background: var(--lime); }
+    .ax { border-bottom: 1px solid var(--ink); }
+    .ax-pin { padding: 28px 3.5vw 24px; }
+    .ax-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 35px; }
+    .ax-heading h1 { margin: 9px 0 0; font-size: clamp(28px, 3.1vw, 49px); line-height: 1.1; letter-spacing: -.065em; font-weight: 650; }
+    .ax-heading h1 span { font-size: .42em; font-weight: 400; letter-spacing: -.03em; vertical-align: middle; margin-left: 12px; }
+    .ax-heading > p { margin: 27px 0 0; max-width: 290px; font-size: 13px; line-height: 1.8; word-break: keep-all; }
+    .type-stage { position: relative; display: grid; grid-template-columns: 1fr; justify-items: center; align-content: center; min-height: 510px; padding: 35px 0; perspective: 1100px; isolation: isolate; }
+    .word { margin: 0; position: relative; z-index: 2; font-family: Arial, Helvetica, sans-serif; font-weight: 900; font-size: clamp(80px, 14vw, 215px); line-height: .85; letter-spacing: -.075em; white-space: nowrap; transform-style: preserve-3d; }
+    .word-local { color: white; -webkit-text-stroke: 2px var(--ink); }
+    .word-rag { z-index: 3; }
+    .word > span { display: block; text-shadow: 1px 1px 0 #838383, 2px 2px 0 #838383, 3px 3px 0 #838383, 4px 4px 0 #838383, 5px 5px 0 #838383, 6px 6px 0 #838383; }
+    .envelope { display: none; position: absolute; width: 75%; height: 65%; top: 17%; left: 12.5%; border: 1px solid #9a9a9a; border-left: 9px solid var(--lime); z-index: 1; }
+    .stage-margin { display: flex; align-items: center; justify-content: space-between; padding-bottom: 13px; border-bottom: 1px solid var(--ink); color: var(--muted); font-size: 10px; gap: 20px; }
+    .stage-margin span:last-child { text-align: right; }
+    .ax-facts { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 0; gap: 34px; }
+    .ax-fact { position: relative; padding-top: 18px; }
+    .ax-fact::before { content: ""; position: absolute; inset: -3px 0 auto; height: 5px; background: var(--lime); transform: scaleX(var(--weight, 1)); transform-origin: left; }
+    .ax-fact h2 { margin: 0 0 8px; display: flex; gap: 12px; align-items: baseline; font-size: 16px; font-weight: 650; letter-spacing: -.035em; }
+    .ax-fact h2 span { font: 10px "SFMono-Regular", Consolas, monospace; color: var(--muted); }
+    .ax-fact p { margin: 0; max-width: 400px; font-size: 13px; line-height: 1.8; color: #494949; word-break: keep-all; }
+    .context { display: grid; grid-template-columns: 1fr 2fr; gap: 55px; padding: 74px 3.5vw 85px; }
+    .context h2 { margin: 0; font-size: 14px; line-height: 1.7; font-weight: 500; }
+    .context p { margin: 0; max-width: 850px; font-size: clamp(21px, 2.6vw, 36px); line-height: 1.6; letter-spacing: -.055em; word-break: keep-all; }
+    .context em { font-style: normal; border-bottom: 2px solid var(--ink); }
+    .app { background: #141414; color: #fff; }
+    .app-pin { padding: 33px 3.5vw 24px; }
+    .app-heading { display: flex; align-items: flex-end; gap: 40px; justify-content: space-between; }
+    .app-heading h2 { margin: 6px 0 0; font-family: Arial, Helvetica, sans-serif; font-size: clamp(65px, 8vw, 126px); line-height: .9; letter-spacing: -.075em; font-weight: 700; }
+    .app-heading p { margin: 0; font-size: 14px; line-height: 1.9; word-break: keep-all; max-width: 330px; }
+    .app-heading .eyebrow { color: #aaa; }
+    .screens { position: relative; perspective: 1400px; margin-top: 42px; padding-bottom: 20px; }
+    .screen { width: 90%; margin: 0 0 45px; transform-origin: 50% 50%; }
+    .screen-settings { margin-left: 10%; }
+    .screen img { display: block; width: 100%; height: auto; background: #222; border: 1px solid #555; }
+    .screen figcaption { display: flex; align-items: baseline; justify-content: space-between; gap: 15px; margin-top: 12px; font-size: 11px; color: #c1c1c1; line-height: 1.7; }
+    .screen figcaption span:first-child { color: #fff; }
+    .app-ledger { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #5d5d5d; }
+    .app-ledger > div { display: flex; justify-content: space-between; gap: 15px; padding: 18px 0 4px; font-size: 12px; line-height: 1.7; }
+    .app-ledger > div:first-child { padding-right: 30px; }
+    .app-ledger > div:last-child { padding-left: 30px; border-left: 1px solid #5d5d5d; }
+    .app-ledger strong { font-weight: 400; }
+    .app-ledger a { color: #ccc; white-space: nowrap; }
+    .app a:focus-visible { outline-color: var(--lime); }
+    .project-notes { padding: 55px 3.5vw 65px; display: grid; grid-template-columns: 1fr 2fr; gap: 55px; border-bottom: 1px solid var(--ink); }
+    .project-links { display: flex; align-items: flex-start; flex-direction: column; gap: 15px; font-size: 13px; }
+    .project-notes p { margin: 0 0 21px; max-width: 810px; font-size: 18px; line-height: 1.8; letter-spacing: -.035em; word-break: keep-all; }
+    .stack { display: flex; flex-wrap: wrap; gap: 9px 20px; color: var(--muted); font: 11px "SFMono-Regular", Consolas, monospace; }
+    .work { padding: 75px 3.5vw 85px; }
+    .work-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 35px; }
+    .work-heading h2 { margin: 12px 0 0; font-size: clamp(36px, 5vw, 70px); line-height: 1; letter-spacing: -.065em; }
+    .work-heading p { margin: 20px 0 0; font-size: 12px; line-height: 1.9; color: var(--muted); text-align: right; }
+    .work-description { margin: 33px 0 44px; max-width: 650px; font-size: 16px; line-height: 1.9; word-break: keep-all; }
+    .record { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 35px; align-items: start; padding-top: 22px; border-top: 1px solid var(--ink); }
+    .record time { font: 11px "SFMono-Regular", Consolas, monospace; }
+    .record h3 { margin: 13px 0 12px; font-size: 21px; letter-spacing: -.04em; line-height: 1.5; }
+    .record p { margin: 0; font-size: 13px; line-height: 1.9; color: #555; word-break: keep-all; }
+    .record-outcome { font-family: Arial, Helvetica, sans-serif; font-size: clamp(58px, 7vw, 100px); letter-spacing: -.075em; line-height: 1; }
+    .record-outcome small { font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-size: 12px; letter-spacing: 0; }
+    .record-outcome span { display: block; margin-top: 12px; font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-size: 12px; letter-spacing: -.02em; line-height: 1.7; }
+    footer { padding: 27px 3.5vw; border-top: 1px solid var(--ink); display: flex; justify-content: space-between; align-items: baseline; gap: 25px; flex-wrap: wrap; font-size: 12px; }
+    footer p { margin: 0; }
+    footer a { text-decoration: none; }
+    footer .footer-links { display: flex; gap: 25px; flex-wrap: wrap; }
+    /* Enhancement is optional: the base document is the complete, static portfolio. */
+    .motion .ax { height: 320vh; height: 320svh; }
+    .motion .ax-pin { position: sticky; top: var(--header); height: calc(100vh - var(--header)); height: calc(100svh - var(--header)); display: flex; flex-direction: column; }
+    .motion .type-stage { display: block; flex: 1; min-height: 0; padding: 0; }
+    .motion .word { position: absolute; top: 50%; left: 50%; font-size: clamp(110px, 14vw, 215px); will-change: transform; }
+    .motion .envelope { display: block; will-change: transform; }
+    .motion .ax-facts { flex-shrink: 0; }
+    .motion .app { height: 260vh; height: 260svh; }
+    .motion .app-pin { position: sticky; top: var(--header); height: calc(100vh - var(--header)); height: calc(100svh - var(--header)); display: flex; flex-direction: column; overflow: clip; }
+    .motion .screens { flex: 1; min-height: 0; margin-top: 22px; padding: 0; }
+    .motion .screen { position: absolute; width: 82%; left: 9%; top: 4%; margin: 0; will-change: transform; }
+    .motion .screen-settings { z-index: 2; }
+    .motion .screen img { max-height: calc(100svh - 350px); object-fit: contain; }
+    .motion .app-ledger { position: relative; z-index: 4; flex-shrink: 0; background: #141414; }
+    @media (min-width: 1500px) { .ax-fact p { font-size: 15px; } .ax-fact h2 { font-size: 18px; } }
+    @media (max-width: 799px) {
+      :root { --header: 62px; }
+      .site-header { padding: 0 22px; gap: 18px; }
+      .site-header nav { gap: 16px; }
+      .identity span { display: none; }
+      .motion-toggle { font-size: 10px; }
+      .ax-pin, .app-pin { padding: 28px 22px; }
+      .ax-heading { display: block; }
+      .ax-heading > p { margin-top: 19px; max-width: 420px; }
+      .type-stage { min-height: 440px; gap: 9px; }
+      .word { font-size: clamp(83px, 21vw, 165px); }
+      .word-sql { justify-self: start; }
+      .word-local { justify-self: end; }
+      .word-rag { justify-self: start; margin-left: 17%; }
+      .ax-facts { grid-template-columns: 1fr; gap: 24px; }
+      .ax-fact { padding-top: 14px; }
+      .ax-fact p { max-width: none; font-size: 14px; }
+      .ax-fact::before { width: 35px; height: 4px; }
+      .stage-margin { margin-bottom: 25px; font-size: 9px; }
+      .context, .project-notes { grid-template-columns: 1fr; padding: 45px 22px; gap: 25px; }
+      .context h2 br { display: none; }
+      .context p { font-size: 24px; }
+      .app-heading { align-items: flex-start; flex-direction: column; gap: 24px; }
+      .app-heading h2 { font-size: 85px; }
+      .app-heading p { max-width: 480px; }
+      .screens { margin-top: 30px; }
+      .screen { width: 100%; margin-bottom: 34px; }
+      .screen-settings { margin-left: 0; }
+      .screen figcaption { display: block; }
+      .screen figcaption span { display: block; }
+      .app-ledger { grid-template-columns: 1fr; }
+      .app-ledger > div:first-child { padding-right: 0; }
+      .app-ledger > div:last-child { padding-left: 0; border-left: 0; }
+      .app-ledger > div { padding-top: 14px; }
+      .project-links { flex-direction: row; flex-wrap: wrap; gap: 16px 25px; }
+      .project-notes p { font-size: 16px; }
+      .work { padding: 48px 22px; }
+      .work-heading { display: block; }
+      .work-heading p { text-align: left; margin-top: 20px; }
+      .work-description { font-size: 15px; margin: 24px 0 32px; }
+      .record { grid-template-columns: 1fr 1fr; gap: 25px; }
+      .record > p { grid-column: 1 / -1; }
+      .record h3 { font-size: 18px; }
+      .record-outcome { align-self: center; font-size: 65px; }
+      footer { padding: 25px 22px; }
+    }
+    @media (max-width: 380px) {
+      .site-header { padding: 0 16px; gap: 13px; }
+      .identity strong { font-size: 15px; }
+      .site-header nav { gap: 13px; font-size: 11px; }
+      .ready .motion-toggle { display: none; }
+      .ax-pin, .app-pin { padding-left: 16px; padding-right: 16px; }
+      .ax-heading h1 span { display: block; margin: 10px 0 0; font-size: 13px; }
+      .type-stage { min-height: 335px; }
+      .word { font-size: 21vw; }
+      .stage-margin span:last-child { max-width: 130px; }
+      .context, .project-notes, .work { padding-left: 16px; padding-right: 16px; }
+      .record { grid-template-columns: 1fr; }
+      .record > p { grid-column: auto; }
+      .app-heading h2 { font-size: 72px; }
+      .app-ledger > div { flex-wrap: wrap; }
+    }
+    @media (max-height: 719px) and (min-width: 800px) {
+      .type-stage { min-height: 350px; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+      .word { font-size: 10vw; }
+      .word-local { font-size: 8vw; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; }
+      .word > span { text-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">본문으로 건너뛰기</a>
+  <header class="site-header">
+    <a class="identity" href="#main"><strong>장주원</strong><span>웹 개발자</span></a>
+    <nav aria-label="프로젝트 탐색"><a href="#ax">AX PoC</a><a href="#aiolm">AioLM</a><a href="#work">실무 기록</a></nav>
+    <button class="motion-toggle" type="button" aria-pressed="false">정적 보기</button>
+  </header>
+  <main id="main">
+    <section class="ax" id="ax" aria-labelledby="ax-title">
+      <div class="ax-pin">
+        <header class="ax-heading">
+          <div><div class="eyebrow index">01 / CLIENT AX</div><h1 id="ax-title">고객사 AX PoC <span>개발 참여</span></h1></div>
+          <p>비개발자의 내부 데이터 조회를 돕는<br>자연어 SQL 변환과 로컬 LLM, RAG.</p>
+        </header>
+        <div class="type-stage" aria-hidden="true">
+          <div class="envelope"></div>
+          <p class="word word-sql"><span>SQL</span></p>
+          <p class="word word-local"><span>LOCAL</span></p>
+          <p class="word word-rag"><span>RAG</span></p>
+        </div>
+        <div class="stage-margin"><span class="eyebrow">NATURAL LANGUAGE / LOCAL LLM / CONTEXT</span><span>기술어로 표현한 작업 주제 · 실제 시스템 화면 아님</span></div>
+        <div class="ax-facts">
+          <article class="ax-fact"><h2><span>01</span> 자연어를 SQL로</h2><p>비개발자가 고객사 내부 데이터를 조회할 수 있도록 자연어를 SQL로 변환하는 서비스의 PoC 개발에 참여했습니다.</p></article>
+          <article class="ax-fact"><h2><span>02</span> 외부 유출 방지를 위한 로컬 서빙</h2><p>고객사 데이터의 외부 유출을 방지하기 위해 오픈웨이트 모델을 로컬에서 서빙하는 방식으로 구성된 PoC입니다.</p></article>
+          <article class="ax-fact"><h2><span>03</span> 업무 데이터를 검색 맥락으로</h2><p>Jira에서 PostgreSQL로 옮긴 데이터를 벡터화해 RAG를 구성했습니다. 개인적으로 학습한 로컬 LLM 정보도 팀원들과 공유했습니다.</p></article>
+        </div>
+      </div>
+    </section>
+    <section class="context" aria-labelledby="context-title">
+      <h2 id="context-title">고객사 PoC에서의 경험,<br>개인 프로젝트에서의 구현.</h2>
+      <p>로컬 LLM을 공부하며 얻은 정보를 팀과 나누고, 개인 프로젝트에서는 <em>실행 환경을 설정하고 성능을 측정하는 앱과 웹</em>을 만들었습니다.</p>
+    </section>
+    <section class="app" id="aiolm" aria-labelledby="app-title">
+      <div class="app-pin">
+        <header class="app-heading">
+          <div><div class="eyebrow index">02 / INDEPENDENT PROJECT</div><h2 id="app-title">AioLM</h2></div>
+          <p>로컬 LLM 실측 데이터를 공유해<br>기기 구매와 실행 환경 선택을 돕는<br>데스크톱 앱 · 웹 서비스.</p>
+        </header>
+        <div class="screens">
+          <figure class="screen screen-benchmark">
+            <img src="../assets/projects/aiolm/benchmark.png" width="3866" height="2090" alt="AioLM 실제 벤치마크 화면. 모델과 실행 환경, 입력 길이와 동시 요청 수 설정." loading="eager" decoding="async">
+            <figcaption><span>01 / BENCHMARK</span><span>실제 앱 화면 · 모델과 측정 조건 설정</span></figcaption>
+          </figure>
+          <figure class="screen screen-settings">
+            <img src="../assets/projects/aiolm/model-settings.png" width="3866" height="2090" alt="AioLM 실제 모델 설정 화면. GPU 레이어와 배치 크기, 예상 메모리 사용량." loading="eager" decoding="async">
+            <figcaption><span>02 / MODEL SETTINGS</span><span>실제 앱 화면 · 모델 실행 설정</span></figcaption>
+          </figure>
+        </div>
+        <div class="app-ledger" aria-label="실제 앱 화면 원본">
+          <div><strong>벤치마크 · 입력 길이와 동시 요청 수</strong><a href="../assets/projects/aiolm/benchmark.png">화면 원본 ↗</a></div>
+          <div><strong>모델 설정 · GPU 레이어와 배치 크기</strong><a href="../assets/projects/aiolm/model-settings.png">화면 원본 ↗</a></div>
+        </div>
+      </div>
+    </section>
+    <section class="project-notes" aria-label="AioLM 개발 내용과 링크">
+      <div class="project-links"><a href="https://aiolm.vercel.app">벤치마크 웹사이트 ↗</a><a href="https://github.com/aiolm/AioLM">데스크톱 앱 저장소 ↗</a><a href="https://github.com/aiolm/AioLm-Web">웹 저장소 ↗</a></div>
+      <div><p>기획부터 데스크톱 앱과 웹사이트 개발까지 맡은 개인 프로젝트입니다. 앱에서는 모델·런타임 관리와 로컬 추론, 벤치마크를, 웹에서는 공개 결과의 검색·상세·비교를 구현했습니다.</p><p>입력 길이와 동시 요청 수가 같은 측정 지점을 비교하고 모델·기기·런타임 정보를 함께 표시합니다. Windows 앱과 웹사이트를 공개했으며, 지속 개선 중입니다.</p><div class="stack"><span>Tauri 2 · Rust</span><span>React</span><span>llama.cpp</span><span>Next.js · PostgreSQL</span></div></div>
+    </section>
+    <section class="work" id="work" aria-labelledby="work-title">
+      <header class="work-heading"><div><div class="eyebrow index">03 / CLIENT DEVELOPMENT</div><h2 id="work-title">SafetyOne</h2></div><p>(주)커리어넷 · Next.js 풀스택 개발자<br>2025.04 — 재직 중</p></header>
+      <p class="work-description">산업 현장의 안전보건 관리 업무를 디지털화하는 솔루션입니다. 이를 기반으로 고객사 요구에 맞춘 B2B 구축형 정보시스템 개발에 주로 참여했습니다.</p>
+      <article class="record"><div><time datetime="2025-10">2025.10 / PERFORMANCE</time><h3>HTTP/2 전환<br>nginx 설정 최적화</h3></div><div class="record-outcome"><small>약</small> 20<small>% 개선</small><span>도메인 전체 평균 서버 응답 시간</span></div><p>nginx 설정을 점검하고 HTTP/1.1에서 HTTP/2로 전환했습니다. 정적 리소스 전송과 서버 응답 흐름을 개선해 페이지 로딩 성능을 최적화했습니다.</p></article>
+    </section>
+  </main>
+  <footer><p>장주원 · 웹 개발자</p><div class="footer-links"><a href="mailto:mac52485@gmail.com">이메일 ↗</a><a href="https://github.com/joowon-jang">GitHub ↗</a><a href="https://velog.io/@juwon98/posts">개발 기록 ↗</a><a href="directions.html">시안 목록 ↗</a><a href="#main">처음으로 ↑</a></div><span class="eyebrow">TYPEFLOW</span></footer>
+  <script>
+    (() => {
+      'use strict';
+      // Native scroll is the only timeline; no wheel/touch interception or easing loop.
+      // Narrow, short, reduced-motion and failed-JS views retain the full static layout.
+      const root = document.documentElement;
+      const query = matchMedia('(min-width: 800px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)');
+      const toggle = document.querySelector('.motion-toggle');
+      const ax = document.querySelector('.ax');
+      const app = document.querySelector('.app');
+      const typeStage = document.querySelector('.type-stage');
+      const screens = document.querySelector('.screens');
+      const words = [...document.querySelectorAll('.word')];
+      const facts = [...document.querySelectorAll('.ax-fact')];
+      const envelope = document.querySelector('.envelope');
+      const benchmark = document.querySelector('.screen-benchmark');
+      const settings = document.querySelector('.screen-settings');
+      let optedOut = false;
+      let active = false;
+      let frame = 0;
+      let dirty = true;
+      let geometry;
+      const clamp = value => Math.max(0, Math.min(1, value));
+      const mix = (from, to, t) => from + (to - from) * t;
+      const smooth = value => value * value * (3 - 2 * value);
+      // x/y are stage-relative; scale, z-rotation, y-rotation and x-rotation follow.
+      const poses = [
+        [[-.18, -.24, 1.18, -12, -20, 8], [-.31, -.28, .48, 0, 0, 0], [-.30, -.28, .45, 0, 0, 0]],
+        [[.10, .03, .88, 10, 32, -10], [0, 0, 1.15, 0, 0, 0], [.20, -.28, .45, 0, 0, 0]],
+        [[.22, .30, .70, -8, -30, 8], [.32, .30, .50, 0, 0, 0], [0, .10, 1.45, 0, -15, 0]]
+      ];
+      function clearMotion() {
+        words.forEach(word => word.style.removeProperty('transform'));
+        facts.forEach(fact => fact.style.removeProperty('--weight'));
+        [benchmark, settings, envelope].forEach(element => element.style.removeProperty('transform'));
+        envelope.style.removeProperty('opacity');
+      }
+      function measure() {
+        const header = document.querySelector('.site-header').offsetHeight;
+        const y = window.scrollY;
+        geometry = {
+          axTop: ax.getBoundingClientRect().top + y - header,
+          axRange: Math.max(1, ax.offsetHeight - ax.firstElementChild.offsetHeight),
+          appTop: app.getBoundingClientRect().top + y - header,
+          appRange: Math.max(1, app.offsetHeight - app.firstElementChild.offsetHeight),
+          width: typeStage.clientWidth,
+          height: typeStage.clientHeight,
+          screenWidth: screens.clientWidth,
+          screenHeight: screens.clientHeight
+        };
+      }
+      function paint() {
+        frame = 0;
+        try {
+          if (dirty) {
+            const next = query.matches && !optedOut;
+            if (next !== active) {
+              active = next;
+              root.classList.toggle('motion', active);
+              if (!active) clearMotion();
+            }
+            if (active) measure();
+            dirty = false;
+          }
+          if (!active) return;
+          const y = window.scrollY;
+          const p = clamp((y - geometry.axTop) / geometry.axRange);
+          const segment = p < .5 ? 0 : 1;
+          const t = smooth(p < .5 ? p * 2 : (p - .5) * 2);
+          words.forEach((word, index) => {
+            const start = poses[index][segment];
+            const end = poses[index][segment + 1];
+            const v = start.map((value, i) => mix(value, end[i], t));
+            word.style.transform = `translate(-50%, -50%) translate3d(${v[0] * geometry.width}px, ${v[1] * geometry.height}px, 0) rotateZ(${v[3]}deg) rotateY(${v[4]}deg) rotateX(${v[5]}deg) scale(${v[2]})`;
+            const emphasis = Math.max(0, 1 - Math.abs(p * 2 - index));
+            facts[index].style.setProperty('--weight', String(.12 + .88 * emphasis));
+          });
+          const local = Math.max(0, 1 - Math.abs(p - .5) * 2);
+          envelope.style.opacity = String(.12 + local * .75);
+          envelope.style.transform = `rotateY(${mix(-35, 0, local)}deg) rotateX(${mix(15, 0, local)}deg) scale(${mix(.78, 1, local)})`;
+          const q = smooth(clamp((y - geometry.appTop) / geometry.appRange));
+          const w = geometry.screenWidth;
+          const h = geometry.screenHeight;
+          benchmark.style.transform = `translate3d(${-q * w * .19}px, ${-q * h * .22}px, 0) rotateY(${-q * 22}deg) rotateZ(${-q * 11}deg) rotateX(${(1 - q) * 8}deg) scale(${mix(.96, .64, q)})`;
+          settings.style.transform = `translate3d(${(1 - q) * w * .13}px, ${(1 - q) * h * .88}px, 0) rotateX(${(1 - q) * 46}deg) rotateY(${(1 - q) * -16}deg) rotateZ(${(1 - q) * 9}deg) scale(${mix(.70, 1, q)})`;
+        } catch (_) {
+          active = false;
+          root.classList.remove('motion', 'ready');
+          clearMotion();
+        }
+      }
+      function schedule() {
+        if (!frame) frame = requestAnimationFrame(paint);
+      }
+      function resize() { dirty = true; schedule(); }
+      toggle.addEventListener('click', () => {
+        // Preserve the section and its local progress when changing document length.
+        const story = [ax, app].find(section => {
+          const box = section.getBoundingClientRect();
+          return box.top <= 100 && box.bottom > 100;
+        });
+        const before = story ? story.getBoundingClientRect() : null;
+        const relative = before ? clamp((66 - before.top) / Math.max(1, before.height - innerHeight + 66)) : 0;
+        optedOut = !optedOut;
+        toggle.setAttribute('aria-pressed', String(optedOut));
+        toggle.textContent = optedOut ? '모션 보기' : '정적 보기';
+        dirty = true;
+        if (frame) cancelAnimationFrame(frame);
+        paint();
+        if (story) {
+          const pinHeight = story.firstElementChild.offsetHeight;
+          const top = story.getBoundingClientRect().top + scrollY - 66;
+          window.scrollTo({ top: Math.max(0, top + relative * Math.max(0, story.offsetHeight - pinHeight)), behavior: 'instant' });
+        }
+        schedule();
+      });
+      window.addEventListener('scroll', schedule, { passive: true });
+      window.addEventListener('resize', resize, { passive: true });
+      if (query.addEventListener) query.addEventListener('change', resize);
+      else query.addListener(resize);
+      window.addEventListener('pageshow', resize);
+      root.classList.add('ready');
+      schedule();
+    })();
+  </script>
+</body>
+</html>

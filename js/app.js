@@ -1,476 +1,255 @@
-(function () {
+/* Shared production homepage, project shell, and hash navigation. */
+(() => {
   'use strict';
 
-  const app = document.getElementById('app');
-  const nav = document.querySelector('.nav');
-  const navLinks = document.getElementById('nav-links');
-  const navRight = document.getElementById('nav-right');
-  const langSwitch = document.getElementById('lang-switch');
-  const menuToggle = document.getElementById('menu-toggle');
-  const scrollTop = document.getElementById('scroll-top');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const SEC_IDS = ['sec-about', 'sec-skills', 'sec-career', 'sec-projects', 'sec-blog', 'sec-contact'];
-  const state = {
-    lang: ['ko', 'en', 'ja'].includes(localStorage.getItem('jw-lang')) ? localStorage.getItem('jw-lang') : 'ko',
-    view: 'home',
-    pid: 'p1'
+  const assetBaseURL = new URL('../', document.currentScript.src);
+  const indexURL = new URL('index.html', assetBaseURL);
+  const root = document.querySelector('[data-portfolio-root]');
+  const sectionIds = ['sec-about', 'sec-skills', 'sec-career', 'sec-projects', 'sec-blog', 'sec-contact'];
+  const languages = { ko: '한국어', en: 'English', ja: '日本語' };
+  const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+  const label = value => String(value).replace(/^[■▶\s]+/, '').replace(/^\p{Extended_Pictographic}\uFE0F?\s*/u, '').replace(/\s*★$/, '');
+  const list = value => Array.isArray(value) ? `<ul>${value.map(item => `<li>${escape(item)}</li>`).join('')}</ul>` : `<p>${escape(value)}</p>`;
+  const stack = values => `<ul class="project-stack" role="list">${values.map(value => `<li>${escape(value)}</li>`).join('')}</ul>`;
+  const routeURL = hash => `${indexURL.href}#${hash}`;
+  const picture = (slot, alt, className = '') => {
+    const [width, height] = IMAGE_DIMENSIONS[slot];
+    return `<img class="${className}" src="${escape(new URL(IMAGES[slot], assetBaseURL).href)}" alt="${escape(alt)}" width="${width}" height="${height}" loading="eager" decoding="async">`;
   };
-  let typeTimer = null;
-  let sectionObserver = null;
-  const printOpenedDetails = new Set();
+  const flowCopy = {
+    ko: { title: 'PoC 핵심 흐름', query: '자연어 조회', preparation: 'RAG 데이터 준비', question: '자연어 질문', model: '로컬 LLM', local: '오픈웨이트 · 로컬 서빙', result: '조회 결과', vector: '벡터화', context: '검색 맥락', stages: ['데이터 준비', '검색 맥락 연결', '질문에서 조회까지'], detail: '기여 내용' },
+    en: { title: 'Core PoC flow', query: 'Natural-language queries', preparation: 'RAG data preparation', question: 'Question', model: 'Local LLM', local: 'Open-weight · locally served', result: 'Query results', vector: 'Vectorization', context: 'Retrieved context', stages: ['Prepare data', 'Retrieve context', 'Question to results'], detail: 'Contributions' },
+    ja: { title: 'PoCの主要フロー', query: '自然言語での照会', preparation: 'RAGデータの準備', question: '自然言語の質問', model: 'ローカルLLM', local: 'オープンウェイト・ローカル配信', result: '照会結果', vector: 'ベクトル化', context: '検索コンテキスト', stages: ['データ準備', '検索情報の接続', '質問から照会へ'], detail: '貢献内容' }
+  };
 
-  const TECH_ICON_RULES = [
-    { test: /^React(?:\s|$)/i, icons: ['react'] },
-    { test: /^TypeScript(?:\s|$)/i, icons: ['typescript'] },
-    { test: /^Vite(?:\s|$)/i, icons: ['vite'] },
-    { test: /^TanStack Query(?:\s|$)/i, icons: ['tanstack'] },
-    { test: /^Zustand$/i, label: 'ZS' },
-    { test: /^Socket\.IO(?: Client)?$/i, icons: ['socketdotio'] },
-    { test: /^Nivo$/i, label: 'NV' },
-    { test: /^(?:Sass|SCSS)$/i, icons: ['sass'] },
-    { test: /^Tailwind CSS$/i, icons: ['tailwindcss'] },
-    { test: /^Node\.js$/i, icons: ['nodedotjs'] },
-    { test: /^PostgreSQL$/i, icons: ['postgresql'] },
-    { test: /^NGINX$/i, icons: ['nginx'] },
-    { test: /^MCP · Agent Skills ★$/i, icons: ['agentskills'] },
-    { test: /^WASM$/i, icons: ['webassembly'] },
-    { test: /^Vitest$/i, icons: ['vitest'] },
-    { test: /^Vercel$/i, icons: ['vercel'] },
-    { test: /^Flask(?:\s|$)/i, icons: ['flask'] },
-    { test: /^TensorFlow$/i, icons: ['tensorflow'] },
-    { test: /^OpenCV$/i, icons: ['opencv'] },
-    { test: /^Redis$/i, icons: ['redis'] },
-    { test: /^MongoDB$/i, icons: ['mongodb'] },
-    { test: /^TensorFlow · OpenCV$/i, icons: ['tensorflow', 'opencv'] },
-    { test: /^Redis · MongoDB$/i, icons: ['redis', 'mongodb'] },
-    { test: /^Next\.js$/i, icons: ['nextdotjs'] },
-    { test: /^Clean Architecture$/i, label: 'CA' },
-    { test: /^Framer Motion$/i, icons: ['framer'] }
-  ];
-
-  const t = () => I18N[state.lang];
-  const ui = () => UI_COPY[state.lang];
-
-  function getProjects() {
-    const labels = LINK_LABELS[state.lang];
-    return t().projects.map((project) => ({
-      ...project,
-      links: (LINKS[project.id] || []).map((link) => ({ ...link, label: labels[link.key] }))
-    }));
+  function axFlow(language) {
+    const words = flowCopy[language];
+    const node = (id, title, detail = '') => `<div class="flow-node" data-flow-node="${id}"><span class="flow-node-title">${escape(title)}</span>${detail ? `<span class="flow-node-detail">${escape(detail)}</span>` : ''}</div>`;
+    return `<figure class="ax-flow" data-ax-flow><figcaption>${escape(words.title)}</figcaption><div class="flow-board"><svg class="flow-connectors" aria-hidden="true"><g data-flow-routes></g></svg><div class="flow-lane"><p class="flow-lane-label">${escape(words.query)}</p><div class="flow-nodes">${node('question', words.question)}${node('model', words.model, words.local)}${node('sql', 'SQL')}${node('result', words.result)}</div></div><div class="flow-context-label">${escape(words.context)}</div><div class="flow-lane"><p class="flow-lane-label">${escape(words.preparation)}</p><div class="flow-nodes">${node('jira', 'Jira')}${node('postgres', 'PostgreSQL')}${node('vector', words.vector)}${node('rag', 'RAG')}</div></div></div><ol class="flow-stages">${words.stages.map((stage, index) => `<li><span aria-hidden="true">0${index + 1}</span>${escape(stage)}</li>`).join('')}</ol></figure>`;
   }
 
-  function projectScene(id, label, shotIndex = 0) {
-    const variant = shotIndex ? ` scene-shot-${shotIndex}` : '';
-    if (id === 'p1') {
-      return `<div class="pixel-scene scene-face${variant}" role="img" aria-label="${label}">
-        <div class="scene-ui" aria-hidden="true"><span>AI CAM</span><span class="rec-dot"></span></div>
-        <div class="pixel-face" aria-hidden="true"><i></i><i></i><b></b></div>
-        <div class="emotion-chart" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-      </div>`;
+  function contribution(item, copy, language) {
+    const disclosure = `<span class="disclosure-label"><span class="when-closed">${escape(copy.careerExpand)}</span><span class="when-open">${escape(copy.careerCollapse)}</span><span class="disclosure-icon" aria-hidden="true">+</span></span>`;
+    const body = `<div class="contribution-body">${list(item.desc)}</div>`;
+    if (item.featured) {
+      return `<li class="contribution featured"><header class="feature-heading"><h4 class="contribution-title">${escape(item.title)}</h4>${item.summary ? `<p class="contribution-summary">${escape(item.summary)}</p>` : ''}</header>${axFlow(language)}<details class="feature-details"><summary><span class="contribution-heading">${escape(flowCopy[language].detail)}</span>${disclosure}</summary>${body}</details></li>`;
     }
-    if (id === 'p2') {
-      return `<div class="pixel-scene scene-court${variant}" role="img" aria-label="${label}">
-        <div class="scoreboard" aria-hidden="true"><span>LIVE</span><b>88 : 86</b></div>
-        <div class="court-lines" aria-hidden="true"><i></i><b></b></div>
-        <div class="pixel-ball" aria-hidden="true"></div>
-      </div>`;
-    }
-    return `<div class="pixel-scene scene-diary${variant}" role="img" aria-label="${label}">
-      <div class="pixel-moon" aria-hidden="true"></div>
-      <div class="pixel-book" aria-hidden="true"><i></i><i></i></div>
-      <div class="pixel-waves" aria-hidden="true"><i></i><i></i><i></i></div>
-    </div>`;
+    return `<li class="contribution"><details><summary><span class="contribution-date">${item.date ? `<time datetime="${escape(item.date.replace('.', '-'))}">${escape(item.date)}</time>` : ''}</span><span class="contribution-heading"><span class="contribution-title">${escape(item.title)}</span>${item.summary ? `<span class="contribution-summary">${escape(item.summary)}</span>` : ''}${item.outcome ? `<span class="contribution-outcome"><span>${escape(copy.careerOutcome)}</span>${escape(item.outcome)}</span>` : ''}</span>${disclosure}</summary>${body}</details></li>`;
   }
 
-  function imageSlot(key, label, projectId, shotIndex = 0) {
-    const src = IMAGES[key];
-    const dimensions = IMAGE_DIMENSIONS[key];
-    const sizeAttributes = dimensions ? `width="${dimensions[0]}" height="${dimensions[1]}"` : '';
-    const imageClass = ['thumb-p1', 'thumb-p4'].includes(key) ? ' img-logo-cover' : '';
-    const isVideo = /\.(?:mov|mp4|webm)$/i.test(src || '');
-    const mediaClass = key.startsWith('shot-') && (isVideo || /\.gif$/i.test(src || '')) ? ' media-contain' : '';
-    if (isVideo) {
-      const posterSrc = VIDEO_POSTERS[key];
-      const poster = posterSrc ? `poster="${posterSrc}"` : '';
-      const autoplay = reduceMotion.matches ? '' : 'autoplay';
-      return `<video class="img-fill${mediaClass}" ${poster} ${autoplay} loop muted playsinline controls preload="metadata" aria-label="${label}">
-        <source src="${src}">
-      </video>${posterSrc ? `<img class="print-video-poster" src="${posterSrc}" alt="">` : ''}`;
-    }
-    if (src) return `<img class="img-fill${imageClass}${mediaClass}" src="${src}" alt="${label}" ${sizeAttributes} ${key === 'photo' ? 'fetchpriority="high"' : 'loading="lazy"'}>`;
-    if (projectId) return projectScene(projectId, label, shotIndex);
-    return `<div class="pixel-avatar" role="img" aria-label="${label}"><div aria-hidden="true"><i></i><b></b><span></span></div><small>PLAYER 01</small></div>`;
+  function shell(language, content) {
+    const tr = I18N[language];
+    const copy = UI_COPY[language];
+    const nav = [0, 5, 1, 2, 4, 3].map(index => `<a href="${escape(routeURL(sectionIds[index]))}">${escape(tr.nav[index])}</a>`).join('');
+    const languageButtons = Object.entries(languages).map(([key, name]) => `<button type="button" data-language="${key}" lang="${key}" aria-label="${name}" aria-pressed="${key === language}">${key.toUpperCase()}</button>`).join('');
+    return `<a class="skip-link" href="#main-content">${escape(copy.skip)}</a>
+      <header class="preview-header"><div class="header-inner"><a class="identity" href="${escape(routeURL('sec-about'))}">${escape(tr.heroName)}<span>Portfolio</span></a><button class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="false">${escape(copy.menu)}<span aria-hidden="true">+</span></button><div class="navigation" id="primary-navigation"><nav class="primary-nav" aria-label="${escape(copy.navLabel)}">${nav}</nav><div class="languages" role="group" aria-label="${escape(copy.langLabel)}">${languageButtons}</div></div></div></header>
+      <main class="preview-main" id="main-content" tabindex="-1"><div class="home">${content}<footer class="preview-footer">${escape(tr.footer)}</footer></div></main><a class="back-to-top" href="${escape(routeURL('sec-about'))}" aria-label="${escape(tr.scrollTop)}">↑</a>`;
   }
 
-  function techIcons(skill) {
-    const rule = TECH_ICON_RULES.find((item) => item.test.test(skill));
-    if (rule?.icons) return rule.icons.map((icon) =>
-      `<img class="stack-icon stack-icon-image" src="assets/icons/tech/${icon}.svg" alt="" width="16" height="16" decoding="async">`
-    ).join('');
-    return `<span class="stack-icon stack-icon-fallback">${rule?.label || skill.slice(0, 2).toUpperCase()}</span>`;
-  }
-
-  function bulletList(value) {
-    if (!Array.isArray(value)) return value;
-    return `<ul class="bullet-list">${value.map((item) => `<li>${item}</li>`).join('')}</ul>`;
-  }
-
-  function renderNav() {
-    const copy = ui();
-    document.querySelector('.skip-link').textContent = copy.skip;
-    nav.setAttribute('aria-label', copy.navLabel);
-    langSwitch.setAttribute('aria-label', copy.langLabel);
-    menuToggle.setAttribute('aria-label', copy.menu);
-    menuToggle.querySelector('.menu-label').textContent = copy.menu.toUpperCase();
-    scrollTop.setAttribute('aria-label', t().scrollTop);
-    scrollTop.title = t().scrollTop;
-    scrollTop.querySelector('.scroll-top-label').textContent = t().scrollTop;
-    navLinks.innerHTML = t().nav.map((label, index) =>
-      `<button type="button" data-jump="${SEC_IDS[index]}">${label}</button>`
-    ).join('');
-    langSwitch.innerHTML = ['ko', 'en', 'ja'].map((lang) =>
-      `<button type="button" data-lang="${lang}" aria-pressed="${lang === state.lang}">${lang.toUpperCase()}</button>`
-    ).join('');
-  }
-
-  function renderHome() {
-    const tr = t();
-    const copy = ui();
-    const projects = getProjects();
-    const statValues = [92, 95, 88];
-    const stats = tr.statLabels.map((label, index) => `
-      <li class="stat" style="--stat-value:${statValues[index]}%; --stat-delay:${index * 90}ms">
-        <div class="stat-head"><span>${label}</span><span>${statValues[index]}/100</span></div>
-        <div class="stat-bar" aria-hidden="true"><span class="stat-fill"></span></div>
-      </li>`).join('');
-    const chips = SKILLS.main.map((skill) => ({ label: skill, color: 'var(--cyan)' }))
-      .concat(SKILLS.sub.map((skill) => ({ label: skill, color: 'var(--muted)' })))
-      .concat([{ label: SKILLS.special, color: 'var(--green)' }])
-      .map((skill) => `<li class="chip" style="--c:${skill.color}"><span class="stack-icons chip-icons" aria-hidden="true">${techIcons(skill.label)}</span><span>${skill.label}</span></li>`).join('');
-    const renderContributions = (items) => items.map((contribution) => `
-          <li class="contribution-log${contribution.featured ? ' contribution-log--featured' : ''}">
-            ${contribution.date ? `<time class="contribution-date" datetime="${contribution.date.replace('.', '-')}"><span aria-hidden="true">◆</span> ${contribution.date}</time>` : '<span class="contribution-date" aria-hidden="true">◆</span>'}
-            <details class="contribution-copy contribution-details">
-              <summary class="contribution-summary">
-                <span class="contribution-heading">
-                  <strong class="contribution-title">${contribution.title}</strong>
-                  ${contribution.summary ? `<span class="contribution-brief">${contribution.summary}</span>` : ''}
-                  ${contribution.outcome ? `<span class="contribution-outcome"><span>${copy.careerOutcome} · </span>${contribution.outcome}</span>` : ''}
-                </span>
-                <span class="contribution-toggle"><span class="contribution-open">${copy.careerExpand} ▾</span><span class="contribution-close">${copy.careerCollapse} ▴</span></span>
-              </summary>
-              <div class="contribution-desc">${Array.isArray(contribution.desc) ? bulletList(contribution.desc) : `<p>${contribution.desc}</p>`}</div>
-            </details>
-          </li>`).join('');
-    const careers = tr.careers.map((career, careerIndex) => {
-      const companyId = `career-company-${careerIndex}`;
-      const projectCountClass = career.projects.length > 1 ? 'career-card--multi' : 'career-card--single';
-      const careerProjects = career.projects.map((project, projectIndex) => {
-        const projectId = `career-project-${careerIndex}-${projectIndex}`;
-        return `<section class="career-project-card">
-          <header class="career-project-head">
-            <div class="career-project-heading"><span class="career-structure-label">${copy.careerMission}</span><h4 class="career-project-name" id="${projectId}">${project.name}</h4></div>
-            ${project.period ? `<time class="career-project-period">${project.period}</time>` : ''}
-          </header>
-          <p class="career-project-desc">${project.desc}</p>
-          ${project.stack?.length ? `<p class="career-project-stack"><strong>${copy.careerStack}</strong> ${project.stack.join(' · ')}</p>` : ''}
-          <div class="career-log-label">${copy.careerLog}</div>
-          <ol class="contribution-list">${renderContributions(project.contributions)}</ol>
-        </section>`;
-      }).join('');
-      return `<article class="career-card ${projectCountClass}" aria-labelledby="${companyId}">
-        <header class="career-head">
-          <div class="career-company-block"><span class="career-structure-label">${copy.careerChapter}</span><div class="career-title-row"><h3 class="career-company" id="${companyId}">${career.company}</h3><span class="career-role">${career.role}</span></div></div>
-          <div class="career-period">${career.period}</div>
-        </header>
-        ${career.contributions?.length ? `<section class="career-additional" aria-labelledby="career-additional-${careerIndex}"><h4 class="career-log-label" id="career-additional-${careerIndex}">${copy.careerRelated}</h4><ul class="contribution-list">${renderContributions(career.contributions)}</ul></section>` : ''}
-        <div class="career-projects">${careerProjects}</div>
-      </article>`;
+  function homeMarkup(language) {
+    if (!Object.hasOwn(languages, language)) language = 'ko';
+    const tr = I18N[language];
+    const copy = UI_COPY[language];
+    const careers = tr.careers.map(career => `<article class="company"><header class="company-head"><div><h3>${escape(career.company)}</h3><p class="company-role">${escape(career.role)}</p></div><p class="company-period">${escape(career.period)}</p></header><ul class="company-work" role="list">${(career.contributions || []).map(item => contribution(item, copy, language)).join('')}</ul>${career.projects.map(project => `<section class="career-project"><header class="career-project-head"><h4>${escape(label(project.name))}</h4><p>${escape(project.desc)}</p>${stack(project.stack)}</header><ul class="contribution-list" role="list">${project.contributions.map(item => contribution(item, copy, language)).join('')}</ul></section>`).join('')}</article>`).join('');
+    const projects = tr.projects.map(project => {
+      const media = project.id === 'p4'
+        ? `<div class="screen-reel" data-screen-reel>${picture('shot-p4-1', project.shots?.[0]?.caption || 'AioLM · Benchmark', 'screen-first')}${picture('shot-p4-2', project.shots?.[1]?.caption || 'AioLM · Model settings', 'screen-second')}</div>`
+        : picture(`thumb-${project.id}`, copy.imageLabels[project.id]);
+      const href = escape(routeURL(project.id));
+      return `<li class="portfolio-project" data-project="${escape(project.id)}"><div class="project-media">${media}</div><div class="project-copy"><p class="project-period">${escape(project.period)}</p><h3 class="project-name"><a href="${href}">${escape(project.name)}<span aria-hidden="true">↗</span></a></h3><p class="project-description">${escape(project.desc)}</p><dl class="project-facts"><div><dt>${escape(copy.projectContribution)}</dt><dd>${list(project.list.contribution)}</dd></div><div><dt>${escape(copy.projectImplementation)}</dt><dd>${list(project.list.implementation)}</dd></div></dl><p class="project-team">${escape(project.team)}</p>${stack(project.stack.slice(0, 3))}<a class="project-open" href="${href}">${escape(tr.sideQuestLabel)} <span aria-hidden="true">↗</span></a></div></li>`;
     }).join('');
-    const projectFiles = projects.map((project) => {
-      const listCopy = project.list;
-      const stackPreview = project.stack.slice(0, 3).map((skill) => `<li>${skill}</li>`).join('');
-      return `<li class="mission-item">
-        <a class="mission-row" href="#${project.id}">
-          <figure class="mission-cover">${imageSlot(`thumb-${project.id}`, copy.imageLabels[project.id], project.id)}</figure>
-          <div class="mission-main">
-            <div class="mission-kicker"><span>${copy.missionFile}</span><span>${project.period}</span></div>
-            <h3 class="mission-name">${project.name}</h3>
-            <p class="mission-summary">${project.desc}</p>
-            <dl class="mission-facts">
-              <div><dt>${copy.projectContribution}</dt><dd>${bulletList(listCopy.contribution)}</dd></div>
-              <div><dt>${copy.projectImplementation}</dt><dd>${bulletList(listCopy.implementation)}</dd></div>
-            </dl>
-          </div>
-          <div class="mission-side">
-            <span class="mission-team">${project.team}</span>
-            <div><span class="mission-side-label">${copy.projectLoadout}</span><ul class="mission-stack" role="list">${stackPreview}</ul></div>
-            <span class="mission-enter">${copy.openLog} ▶</span>
-          </div>
-        </a>
-      </li>`;
+    const certs = tr.certs.map(cert => `<li><strong>${escape(cert.name)}</strong><span>${escape(cert.meta)}</span></li>`).join('');
+    const blogs = tr.blogPosts.map(post => {
+      const meta = BLOG_POSTS.find(item => item.id === post.id);
+      return `<li><a href="${escape(meta.url)}" target="_blank" rel="noopener noreferrer"><time datetime="${meta.date.replaceAll('.', '-')}">${escape(meta.date)}</time><h3>${escape(post.title)}<span aria-hidden="true">↗</span></h3><p>${escape(post.desc)}</p><ul class="blog-tags" role="list">${post.tags.map(tag => `<li>${escape(tag)}</li>`).join('')}</ul></a></li>`;
     }).join('');
-    const certs = tr.certs.map((cert) => `
-      <li class="cert-card"><span class="cert-icon" aria-hidden="true">🎖</span><strong class="cert-name">${cert.name}</strong><span class="cert-meta">${cert.meta}</span></li>`).join('');
-    const blogPosts = tr.blogPosts.map((post) => {
-      const meta = BLOG_POSTS.find((b) => b.id === post.id);
-      const tags = post.tags.map((tag) => `<li>${tag}</li>`).join('');
-      return `<li>
-        <a class="blog-card" href="${meta.url}" target="_blank" rel="noopener">
-          <div class="blog-card-kicker"><span>${copy.blogLogLabel}</span><span>${meta.date}</span></div>
-          <h3 class="blog-card-title">${post.title}</h3>
-          <p class="blog-card-desc">${post.desc}</p>
-          <ul class="blog-card-tags" role="list">${tags}</ul>
-          <span class="blog-card-enter">${copy.blogOpen} ▶</span>
-        </a>
-      </li>`;
-    }).join('');
-
-    app.innerHTML = `<div class="home">
-      <header class="hero" id="sec-about">
-        <div class="hero-copy"><p class="hero-tag">${tr.heroTag}</p><h1 class="hero-name"><span id="typed"></span><span class="cursor" aria-hidden="true"></span></h1><p class="hero-level">${tr.heroLevel}</p><p class="hero-intro">${tr.heroIntro}</p>
-          <ul class="stats" aria-label="${tr.statLabels.join(', ')}">${stats}</ul>
-        </div>
-        <figure class="hero-photo"><div class="photo-frame"><div class="photo-slot">${imageSlot('photo', copy.imageLabels.photo)}</div></div><figcaption class="photo-caption">${tr.playerCaption}</figcaption></figure>
-      </header>
-
-      <section class="section section-minor" id="sec-skills" aria-labelledby="skills-title"><h2 class="section-title" id="skills-title">${tr.inventoryTitle}</h2><ul class="chips" role="list">${chips}</ul><p class="collab">${tr.collab}</p></section>
-      <section class="section section-standard" id="sec-career" aria-labelledby="career-title"><h2 class="section-title" id="career-title">${tr.careerTitle}</h2><div class="careers">${careers}</div></section>
-      <section class="section section-major" id="sec-projects" aria-labelledby="projects-title"><div class="project-section-head"><h2 class="section-title" id="projects-title">${tr.sideQuestTitle}</h2><p>${copy.projectGuide}</p></div><ul class="mission-list" role="list">${projectFiles}</ul></section>
-      <section class="section section-minor" aria-labelledby="cert-title"><h2 class="section-title" id="cert-title">${tr.achieveTitle}</h2><ul class="cert-grid">${certs}</ul></section>
-      <section class="section section-standard" id="sec-blog" aria-labelledby="blog-title"><div class="blog-head"><h2 class="section-title" id="blog-title">${tr.blogTitle}</h2><a href="${CONTACT.blog.url}" target="_blank" rel="noopener">${copy.visitBlog} ↗</a></div><ul class="blog-grid" role="list">${blogPosts}</ul></section>
-      <section class="section section-major contact" id="sec-contact" aria-labelledby="contact-title"><h2 class="section-title" id="contact-title">${tr.contactTitle}</h2><div class="contact-box"><div><span class="contact-label">EMAIL</span><a href="mailto:${CONTACT.email}">${CONTACT.email}</a></div><div><span class="contact-label">GITHUB</span><a href="${CONTACT.github.url}" target="_blank" rel="noopener">${CONTACT.github.label}</a></div><div><span class="contact-label">BLOG</span><a href="${CONTACT.blog.url}" target="_blank" rel="noopener">${CONTACT.blog.label}</a></div><div><span class="contact-label">HUGGING FACE</span><a href="${CONTACT.huggingface.url}" target="_blank" rel="noopener">${CONTACT.huggingface.label}</a></div></div><footer class="footer"><span class="marker" aria-hidden="true">▶</span> ${tr.footer}</footer></section>
-    </div>`;
-    startTyping();
-    observeSections();
+    const contacts = [['EMAIL', CONTACT.email, `mailto:${CONTACT.email}`], ['GITHUB', CONTACT.github.label, CONTACT.github.url], ['BLOG', CONTACT.blog.label, CONTACT.blog.url], ['HUGGING FACE', CONTACT.huggingface.label, CONTACT.huggingface.url]].map(([name, text, url]) => `<div><span>${name}</span><a href="${escape(url)}"${name === 'EMAIL' ? '' : ' target="_blank" rel="noopener noreferrer"'}>${escape(text)}<span aria-hidden="true">↗</span></a></div>`).join('');
+    return shell(language, `
+        <header class="intro" id="sec-about"><div class="intro-grid"><div class="intro-copy"><p class="intro-kicker">${escape(label(tr.heroTag))}</p><h1>${escape(tr.heroName)}</h1><p class="intro-role">${escape(tr.heroLevel)}</p><p class="intro-text">${escape(tr.heroIntro)}</p></div><figure class="profile">${picture('photo', tr.heroName)}<figcaption>${escape(tr.playerCaption)}</figcaption></figure></div></header>
+        <section class="main-section contact-section" id="sec-contact" aria-labelledby="contact-title"><header class="section-head"><h2 class="section-title" id="contact-title">${escape(label(tr.contactTitle))}</h2></header><div class="contact-grid">${contacts}</div></section>
+        <section class="main-section skills-section" id="sec-skills" aria-labelledby="skills-title"><header class="section-head"><h2 class="section-title" id="skills-title">${escape(label(tr.inventoryTitle))}</h2></header><ul class="skill-list" role="list">${[...SKILLS.main, ...SKILLS.sub].map((skill, index) => `<li class="skill${index < SKILLS.main.length ? ' primary-skill' : ''}">${escape(skill === 'AI 활용' ? copy.aiUsage : label(skill))}</li>`).join('')}</ul><p class="collaboration">${escape(tr.collab)}</p></section>
+        <section class="main-section" id="sec-career" aria-labelledby="career-title"><header class="section-head"><h2 class="section-title" id="career-title">${escape(label(tr.careerTitle))}</h2></header>${careers}</section>
+        <section class="main-section" id="sec-certs" aria-labelledby="cert-title"><header class="section-head"><h2 class="section-title" id="cert-title">${escape(label(tr.achieveTitle))}</h2></header><ul class="cert-list" role="list">${certs}</ul></section>
+        <section class="main-section" id="sec-blog" aria-labelledby="blog-title"><header class="section-head"><h2 class="section-title" id="blog-title">${escape(label(tr.blogTitle))}</h2><a href="${escape(CONTACT.blog.url)}" target="_blank" rel="noopener noreferrer">${escape(copy.visitBlog)} <span aria-hidden="true">↗</span></a></header><ul class="blog-list" role="list">${blogs}</ul></section>
+        <section class="main-section" id="sec-projects" aria-labelledby="projects-title"><header class="section-head"><h2 class="section-title" id="projects-title">${escape(label(tr.sideQuestTitle))}</h2><p>${escape(copy.projectGuide)}</p></header><ul class="project-list" role="list">${projects}</ul></section>`);
   }
 
-  function renderDetail() {
-    const tr = t();
-    const copy = ui();
-    const projects = getProjects();
-    const project = projects.find((item) => item.id === state.pid) || projects[0];
-    const projectIndex = projects.findIndex((item) => item.id === project.id);
-    const hud = copy.hud[project.id].map((value, index) => `<li><span>${copy.hudLabels[index]}</span>${Array.isArray(value) ? bulletList(value) : `<strong>${value}</strong>`}</li>`).join('');
-    const links = project.links.map((link) => `<a class="link-btn" href="${link.url}" target="_blank" rel="noopener">${link.icon} ${link.label} ↗</a>`).join('');
-    const summaryItems = Array.isArray(project.productSummary)
-      ? project.productSummary
-      : (project.productSummary ? [project.productSummary] : project.bullets);
-    const productCopy = `<ul class="text-list">${summaryItems.map((item) => `<li>${item}</li>`).join('')}</ul>`;
-    const features = project.features.map((feature) => `<li class="feature"><strong class="feature-name">${feature.name}</strong><p class="feature-desc">${feature.desc}</p></li>`).join('');
-    const roles = project.roles.map((role) => {
-      if (typeof role === 'string') return `<li><p class="timeline-desc">${role}</p></li>`;
-      const body = role.points
-        ? `<ul class="timeline-points">${role.points.map((point) => `<li>${point}</li>`).join('')}</ul>`
-        : `<p class="timeline-desc">${role.desc}</p>`;
-      return `<li><strong class="timeline-title">${role.title}</strong>${body}</li>`;
-    }).join('');
-    const troubles = project.troubles.map((item) => `<li class="trouble"><strong class="trouble-problem"><span aria-hidden="true">⚠</span> ${item.problem}</strong><p class="trouble-solution"><span aria-hidden="true">→</span> ${item.solution}</p></li>`).join('');
-    const stack = project.stack.map((skill) => `<li class="stack-chip"><span class="stack-icons" aria-hidden="true">${techIcons(skill)}</span><span>${skill}</span></li>`).join('');
-    const groupedStack = project.stackGroups?.map((group) => `<section class="stack-group"><h3 class="stack-group-title">${group.name}</h3><ul class="stack-chips" role="list">${group.items.map((skill) => `<li class="stack-chip"><span class="stack-icons" aria-hidden="true">${techIcons(skill)}</span><span>${skill}</span></li>`).join('')}</ul></section>`).join('');
-    const flowTracks = (project.flow || []).length
-      ? (typeof project.flow[0] === 'string' ? [{ steps: project.flow }] : project.flow)
-      : [];
-    const flowStep = (step) => typeof step === 'string'
-      ? `<li><span>${step}</span></li>`
-      : `<li class="flow-fork"><ul class="flow-fork-options" role="list">${step.branch.map((option) => `<li><span>${option}</span></li>`).join(`<li class="flow-or">${copy.flowOr}</li>`)}</ul></li>`;
-    const flow = flowTracks.map((track) => `<div class="flow-track">${track.name ? `<h4 class="flow-track-name">${track.name}</h4>` : ''}<ol class="service-flow">${track.steps.map(flowStep).join('')}</ol></div>`).join('');
-    const imageLabel = copy.imageLabels[project.id];
-    const shotLabels = copy.shotLabels[project.id] || [imageLabel, imageLabel];
-    const sourceNotice = project.verified ? '' : `<aside class="panel panel-todo">${tr.dTodo}</aside>`;
-    const windowBar = (id, title, meta) => `<header class="window-bar"><h2 id="${id}">${title}</h2>${meta ? `<span class="window-meta">${meta}</span>` : '<span class="window-deco" aria-hidden="true">▚▚▚</span>'}</header>`;
-    const roleRows = (project.rolePhases || [{ period: project.period, role: project.role, team: project.team }]).map((item) => `<tr><th scope="row" class="${item.phase ? '' : 'period-only'}" data-label="${copy.statusLabels.period}">${item.phase ? `<strong>${item.phase}</strong>` : ''}<span>${item.period || project.period}</span></th><td data-label="${copy.statusLabels.team}">${item.team}</td><td data-label="${copy.roleLabel}">${bulletList(item.role)}</td></tr>`).join('');
+  window.Portfolio = { homeMarkup };
+  if (!root) return;
+  document.documentElement.classList.add('has-js');
 
-    document.title = `${project.name} | JOOWON.EXE`;
-    app.innerHTML = `<article class="detail">
-      <a class="btn-back" href="#">◀ ${tr.back}</a>
-      <header class="detail-hero"><div class="detail-label">▶ ${tr.sideQuestLabel}</div><h1 class="detail-title">${project.name} ${project.badge}</h1><p class="detail-dek">${project.desc}</p></header>
-      <section class="window project-info" aria-labelledby="info-title">
-        ${windowBar('info-title', copy.statusTitle)}
-        <div class="project-info-body">
-          <div class="project-info-table-wrap"><table class="project-info-table"><thead><tr><th scope="col">${copy.statusLabels.period}</th><th scope="col">${copy.statusLabels.team}</th><th scope="col">${copy.roleLabel}</th></tr></thead><tbody>${roleRows}</tbody></table></div>
-          <div class="info-links-row"><span class="info-label">${copy.statusLabels.links}</span><div class="info-links">${links}</div></div>
-          ${project.testAccount ? `<div class="info-links-row"><span class="info-label">${copy.statusLabels.testAccount}</span><code class="info-test-account">${project.testAccount}</code></div>` : ''}
-        </div>
-      </section>
-      <section class="window window-brief" aria-labelledby="brief-title">
-        ${windowBar('brief-title', copy.hudTitle)}
-        <ul class="brief-grid">${hud}</ul>
-      </section>
-      <div class="detail-main">
-          ${project.motivation ? `<section class="window" aria-labelledby="motivation-title">
-            ${windowBar('motivation-title', project.motivation.title)}
-            <div class="window-body">${bulletList(project.motivation.points)}</div>
-          </section>` : ''}
-          <section class="window window-outcome" aria-labelledby="outcome-title">
-            ${windowBar('outcome-title', tr.dOutcome)}
-            <div class="window-body"><span class="outcome-status">${copy.outcomeStatus}</span>${Array.isArray(project.outcome) ? `<ul class="text-list outcome-list">${project.outcome.map((item) => `<li>${item}</li>`).join('')}</ul>` : `<p class="outcome-text">${project.outcome}</p>`}</div>
-          </section>
-          <section class="window" aria-labelledby="overview-title">
-            ${windowBar('overview-title', tr.dOverview)}
-            <div class="window-body">${productCopy}${flow ? `<h3 class="window-subtitle">${copy.flowTitle}</h3><div class="flow-tracks">${flow}</div>` : ''}</div>
-          </section>
-          ${project.hideScreenshots ? '' : `<section class="window" aria-labelledby="shots-title">
-            ${windowBar('shots-title', tr.dShots, project.screenshotsMeta || (project.verified ? copy.screenshotsReady : copy.screenshotsPending))}
-            <div class="window-body"><div class="shot-grid${project.screenshotLayout === 'wide' ? ' shot-grid-wide' : ''}">${shotLabels.map((label, index) => {
-              const key = `shot-${project.id}-${index + 1}`;
-              const media = imageSlot(key, label, project.id, index + 1);
-              return `<figure class="shot">${project.screenshotLayout === 'wide' && IMAGES[key] ? `<a class="shot-link" href="${IMAGES[key]}" target="_blank" rel="noopener">${media}</a>` : media}<figcaption>${label}</figcaption></figure>`;
-            }).join('')}</div></div>
-          </section>`}
-          <section class="window" aria-labelledby="features-title">
-            ${windowBar('features-title', tr.dFeatures)}
-            <div class="window-body"><ul class="feature-grid">${features}</ul></div>
-          </section>
-          <section class="window" aria-labelledby="role-title">
-            ${windowBar('role-title', tr.dRole)}
-            <div class="window-body"><ol class="timeline">${roles}</ol></div>
-          </section>
-          <section class="window" aria-labelledby="trouble-title">
-            ${windowBar('trouble-title', tr.dTrouble)}
-            <div class="window-body"><ul class="troubles">${troubles}</ul></div>
-          </section>
-          <section class="window" aria-labelledby="stack-title">
-            ${windowBar('stack-title', tr.dStack)}
-            <div class="window-body">${groupedStack || `<ul class="stack-chips" role="list">${stack}</ul>`}</div>
-          </section>
-          ${sourceNotice}
-      </div>
-    </article>
-    <nav class="detail-nav" aria-label="${tr.sideQuestTitle}">${projectIndex > 0 ? `<button class="btn-pager" type="button" data-pager="prev">◀ ${tr.prev}</button>` : ''}${projectIndex < projects.length - 1 ? `<button class="btn-pager" type="button" data-pager="next">${tr.next} ▶</button>` : ''}</nav>`;
-  }
+  let language = root.dataset.renderedLang || 'ko';
+  try {
+    const savedLanguage = localStorage.getItem('jw-lang');
+    if (Object.hasOwn(languages, savedLanguage)) language = savedLanguage;
+  } catch (error) { /* Storage is optional in restricted browsing contexts. */ }
+  if (!Object.hasOwn(languages, language)) language = 'ko';
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let renderedRoute;
+  let renderedLanguage;
+  let cleanupMotion;
+  let activeObserver;
+  let printState;
+  let locationURL;
+  let navigationFrame = 0;
 
-  function startTyping() {
-    clearInterval(typeTimer);
-    const target = document.getElementById('typed');
-    if (!target) return;
-    const name = t().heroName;
-    if (reduceMotion.matches) {
-      target.textContent = name;
-      return;
-    }
-    target.textContent = '';
-    let index = 0;
-    typeTimer = window.setInterval(() => {
-      index += 1;
-      target.textContent = name.slice(0, index);
-      if (index >= name.length) clearInterval(typeTimer);
-    }, 110);
-  }
-
-  function observeSections() {
-    sectionObserver?.disconnect();
-    if (!('IntersectionObserver' in window)) return;
-    sectionObserver = new IntersectionObserver((entries) => {
-      const active = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (!active) return;
-      navLinks.querySelectorAll('[data-jump]').forEach((button) => {
-        if (button.dataset.jump === active.target.id) button.setAttribute('aria-current', 'true');
-        else button.removeAttribute('aria-current');
-      });
-    }, { rootMargin: '-25% 0px -60%', threshold: [0, 0.1, 0.5] });
-    SEC_IDS.map((id) => document.getElementById(id)).filter(Boolean).forEach((section) => sectionObserver.observe(section));
-  }
-
-  function render() {
-    renderNav();
-    if (state.view === 'detail') renderDetail();
-    else {
-      document.title = `JOOWON.EXE — ${t().heroName}`;
-      renderHome();
-    }
+  function projectForHash(hash) {
+    return I18N[language].projects.find(project => project.id === hash);
   }
 
   function closeMenu() {
-    menuToggle.setAttribute('aria-expanded', 'false');
-    navRight.classList.remove('is-open');
+    root.querySelector('.menu-toggle')?.setAttribute('aria-expanded', 'false');
+    root.querySelector('.navigation')?.classList.remove('is-open');
   }
 
-  function setLang(lang) {
-    try { localStorage.setItem('jw-lang', lang); } catch (error) { /* Storage can be unavailable in private contexts. */ }
-    state.lang = lang;
-    document.documentElement.lang = lang;
-    render();
-    closeMenu();
+  function stopContent() {
+    cleanupMotion?.();
+    cleanupMotion = undefined;
+    activeObserver?.disconnect();
+    activeObserver = undefined;
+    root.querySelectorAll('video').forEach(video => video.pause());
   }
 
-  function jump(id) {
-    const go = () => document.getElementById(id)?.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' });
-    closeMenu();
-    if (state.view !== 'home') {
-      history.pushState(null, '', location.pathname + location.search);
-      state.view = 'home';
-      render();
-      requestAnimationFrame(go);
-    } else go();
-  }
-
-  function onHash(shouldFocus = false) {
-    const hash = (location.hash || '').slice(1);
-    if (t().projects.some((project) => project.id === hash)) {
-      state.view = 'detail';
-      state.pid = hash;
-      render();
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    } else {
-      state.view = 'home';
-      render();
-    }
-    closeMenu();
-    if (shouldFocus) requestAnimationFrame(() => {
-      app.focus({ preventScroll: true });
-      window.scrollTo({ top: 0, behavior: 'instant' });
+  function attachHome() {
+    cleanupMotion = window.setupMainMotion?.(root);
+    if (!('IntersectionObserver' in window)) return;
+    activeObserver = new IntersectionObserver(entries => {
+      const entry = entries.filter(item => item.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+      if (!entry) return;
+      root.querySelectorAll('.primary-nav a').forEach(link => {
+        if (link.hash === `#${entry.target.id}`) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    }, { rootMargin: '-15% 0px -65% 0px' });
+    sectionIds.forEach(id => {
+      const section = root.querySelector(`#${id}`);
+      if (section) activeObserver.observe(section);
     });
   }
 
-  document.addEventListener('click', (event) => {
-    const jumpButton = event.target.closest('[data-jump]');
-    if (jumpButton) { jump(jumpButton.dataset.jump); return; }
-    const langButton = event.target.closest('[data-lang]');
-    if (langButton) { setLang(langButton.dataset.lang); return; }
-    const pagerButton = event.target.closest('[data-pager]');
-    if (pagerButton) {
-      const projects = t().projects;
-      const index = projects.findIndex((project) => project.id === state.pid);
-      const direction = pagerButton.dataset.pager === 'next' ? 1 : -1;
-      location.hash = projects[(index + direction + projects.length) % projects.length].id;
-    }
-  });
-
-  menuToggle.addEventListener('click', () => {
-    const willOpen = menuToggle.getAttribute('aria-expanded') !== 'true';
-    menuToggle.setAttribute('aria-expanded', String(willOpen));
-    navRight.classList.toggle('is-open', willOpen);
-  });
-  scrollTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' }));
-  window.addEventListener('scroll', () => { scrollTop.hidden = window.scrollY < 80; }, { passive: true });
-  window.addEventListener('hashchange', () => onHash(true));
-  window.addEventListener('beforeprint', () => {
-    // 접힌 경력 상세도 인쇄하고, 인쇄가 끝나면 원래 상태로 되돌린다.
-    document.querySelectorAll('.contribution-details:not([open])').forEach((details) => {
-      printOpenedDetails.add(details);
+  function preparePrint() {
+    if (!printState) printState = new Map();
+    root.querySelectorAll('details').forEach(details => {
+      if (!printState.has(details)) printState.set(details, details.open);
       details.open = true;
     });
-    // 인쇄할 때는 타이핑 연출이 끝나기를 기다리지 않고 이름을 모두 채운다.
-    clearInterval(typeTimer);
-    const typed = document.getElementById('typed');
-    if (typed) typed.textContent = t().heroName;
-    // 재생 중인 영상은 멈춰서 한 프레임이 그대로 인쇄되게 한다.
-    document.querySelectorAll('video').forEach((video) => video.pause());
-  });
-  window.addEventListener('afterprint', () => {
-    printOpenedDetails.forEach((details) => { details.open = false; });
-    printOpenedDetails.clear();
-  });
-  window.addEventListener('resize', () => { if (window.innerWidth > 940) closeMenu(); });
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
-      closeMenu();
-      menuToggle.focus();
+    root.querySelectorAll('video').forEach(video => video.pause());
+  }
+
+  function render(project) {
+    stopContent();
+    root.innerHTML = project
+      ? shell(language, window.PortfolioDetails.markup({ projectId: project.id, language, assetBaseURL }))
+      : homeMarkup(language);
+    root.dataset.renderedLang = language;
+    document.documentElement.lang = language;
+    const title = `${I18N[language].heroName} Portfolio`;
+    document.title = project ? `${project.name} · ${title}` : `${document.body.dataset.designName ? `${document.body.dataset.designName} · ` : ''}${title}`;
+    renderedRoute = project?.id || 'home';
+    renderedLanguage = language;
+    if (!project) attachHome();
+    if (printState) preparePrint();
+  }
+
+  function focusTarget(target) {
+    if (!target) return;
+    if (!target.hasAttribute('tabindex')) {
+      target.setAttribute('tabindex', '-1');
+      target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true });
     }
+    target.focus({ preventScroll: true });
+  }
+
+  function syncRoute({ initial = false, focus = false, smooth = false } = {}) {
+    cancelAnimationFrame(navigationFrame);
+    locationURL = location.href;
+    const hash = location.hash.slice(1);
+    const project = projectForHash(hash);
+    const route = project?.id || 'home';
+    const changed = route !== renderedRoute || language !== renderedLanguage;
+    if (changed) render(project);
+    closeMenu();
+    if (!changed && !hash) return;
+    navigationFrame = requestAnimationFrame(() => {
+      if (project) {
+        if (focus) focusTarget(root.querySelector('#main-content'));
+        if (changed || initial) window.scrollTo({ top: 0, behavior: 'instant' });
+        return;
+      }
+      const target = hash ? document.getElementById(hash) : null;
+      if (target && root.contains(target)) {
+        if (focus) focusTarget(target);
+        target.scrollIntoView({ block: 'start', behavior: smooth && !reducedMotion.matches ? 'smooth' : 'instant' });
+      } else if (changed || initial) {
+        if (focus) focusTarget(root.querySelector('#main-content'));
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+    });
+  }
+
+  function setLanguage(nextLanguage) {
+    if (!Object.hasOwn(languages, nextLanguage) || nextLanguage === language) return;
+    cancelAnimationFrame(navigationFrame);
+    const oldY = window.scrollY;
+    language = nextLanguage;
+    try { localStorage.setItem('jw-lang', language); } catch (error) { /* Language selection still works without storage. */ }
+    render(projectForHash(location.hash.slice(1)));
+    root.querySelector(`[data-language="${language}"]`).focus({ preventScroll: true });
+    window.scrollTo({ top: oldY, behavior: 'instant' });
+  }
+
+  root.addEventListener('click', event => {
+    const languageButton = event.target.closest('[data-language]');
+    if (languageButton) {
+      setLanguage(languageButton.dataset.language);
+      return;
+    }
+    const menu = root.querySelector('.menu-toggle');
+    if (event.target.closest('.menu-toggle')) {
+      const open = menu.getAttribute('aria-expanded') !== 'true';
+      menu.setAttribute('aria-expanded', String(open));
+      root.querySelector('.navigation').classList.toggle('is-open', open);
+      return;
+    }
+    const anchor = event.target.closest('a[href]');
+    if (!anchor || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || anchor.hasAttribute('download') || (anchor.target && anchor.target !== '_self')) return;
+    const url = new URL(anchor.href);
+    const sameDocument = url.pathname === location.pathname && url.search === location.search;
+    const canonicalPage = url.pathname === indexURL.pathname && !url.search;
+    if (url.origin !== location.origin || (!sameDocument && !canonicalPage) || !url.hash) return;
+    const hash = url.hash.slice(1);
+    if (!projectForHash(hash) && !/^sec-/.test(hash) && hash !== 'main-content') return;
+    event.preventDefault();
+    if (hash === 'main-content') {
+      closeMenu();
+      const main = root.querySelector('#main-content');
+      focusTarget(main);
+      main.scrollIntoView({ block: 'start', behavior: 'instant' });
+      return;
+    }
+    if (location.hash !== url.hash) history.pushState(null, '', url.hash);
+    syncRoute({ focus: true, smooth: true });
   });
 
-  scrollTop.hidden = true;
-  document.documentElement.lang = state.lang;
-  onHash(false);
+  root.addEventListener('keydown', event => {
+    if (event.key !== 'Escape') return;
+    const menu = root.querySelector('.menu-toggle');
+    if (menu?.getAttribute('aria-expanded') !== 'true') return;
+    closeMenu();
+    menu.focus();
+  });
+  const onLocationChange = () => {
+    if (locationURL !== location.href) syncRoute({ focus: true });
+  };
+  window.addEventListener('hashchange', onLocationChange);
+  window.addEventListener('popstate', onLocationChange);
+  window.addEventListener('resize', () => { if (window.innerWidth > 940) closeMenu(); });
+  window.addEventListener('beforeprint', preparePrint);
+  window.addEventListener('afterprint', () => {
+    printState?.forEach((open, details) => { details.open = open; });
+    printState = undefined;
+  });
+  // Static Korean shells remain complete and readable when JavaScript is disabled.
+  syncRoute({ initial: true });
 })();

@@ -1,0 +1,5 @@
+body[data-variant="pulse"]{color-scheme:light;--paper:#faf9f7;--surface:#ffffff;--ink:#2b2825;--body:#4b453f;--muted:#70685f;--line:#e4ded7;--accent:#ed5837;--accent-strong:#ad3922;--accent-soft:#fff0e9;--night:#2b2825;--on-night:#faf9f7;--radius:10px}
+body[data-variant="pulse"] .intro-role{color:var(--accent-strong)}
+body[data-variant="pulse"] .featured{background:var(--surface);border-top:2px solid var(--accent)}
+body[data-variant="pulse"] .contribution summary:hover{background:var(--accent-soft)}
+body[data-variant="pulse"] .screen-reel img{box-shadow:none}

@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="장주원의 개발 포트폴리오. 고객사 AX PoC 개발 참여와 로컬 LLM 앱·웹 AioLM을 소개합니다.">
+<title>장주원 — Aperture</title>
+<style>
+:root{color-scheme:light;--paper:#eef1f3;--ink:#14262d;--muted:#51646e;--line:#cbd4da;--accent:#007d96;--header:72px;font-family:Pretendard,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;font-synthesis:none}
+*{box-sizing:border-box}html{scroll-padding-top:calc(var(--header) + 20px)}body{margin:0;background:var(--paper);color:var(--ink);word-break:keep-all;overflow-wrap:anywhere}a{color:inherit;text-underline-offset:5px}button{font:inherit}a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:6px}button,a{-webkit-tap-highlight-color:transparent}::selection{background:#a7e3ea;color:#102a32}
+.skip{position:fixed;top:10px;left:16px;transform:translateY(-160%);z-index:30;padding:12px 18px;background:var(--ink);color:white}.skip:focus{transform:none}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.site-header{position:sticky;top:0;z-index:20;min-height:var(--header);display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 4vw;background:rgba(238,241,243,.95);border-bottom:1px solid var(--line)}.identity{text-decoration:none;font-size:17px;letter-spacing:-.03em;white-space:nowrap}.identity span{font-size:12px;color:var(--muted);font-weight:400;margin-left:12px}.site-header nav{display:flex;gap:25px;font-size:13px}.site-header nav a{text-decoration:none;padding:9px 0}.site-header nav a:hover{text-decoration:underline}.header-actions{display:flex;align-items:center;gap:20px;font-size:12px}.header-actions a{text-decoration:none}.motion-toggle{border:0;background:none;color:var(--muted);padding:10px 0;cursor:pointer}.motion-toggle[hidden]{display:none}
+.story{position:relative;isolation:isolate}.stage{display:none;overflow:hidden;pointer-events:none}.stage canvas{display:block;width:100%;height:100%}.stage-label{position:absolute;bottom:25px;left:4vw;right:4vw;display:flex;justify-content:space-between;gap:15px;font-size:10px;letter-spacing:.05em;color:var(--muted)}.stage-label span:last-child{text-align:right}.scene-track{position:absolute;bottom:0;left:0;height:2px;width:100%;background:var(--line);transform-origin:left}.scene-track span{display:block;height:100%;background:var(--accent);transform:scaleX(0);transform-origin:left}.app-visual{position:absolute;inset:0;perspective:1400px;opacity:0}.app-plane{position:absolute;width:min(80vw,1050px);aspect-ratio:3866/2090;left:50%;top:62%;transform:translate(-50%,-50%);transform-style:preserve-3d;will-change:transform,clip-path,opacity}.app-plane img{display:block;width:100%;height:100%;object-fit:contain;border:1px solid rgba(20,38,45,.18);border-radius:8px;box-shadow:0 25px 75px -35px rgba(16,43,57,.36);background:white}.app-plane figcaption{font-size:11px;letter-spacing:.06em;color:var(--muted);margin-top:14px;display:flex;justify-content:space-between;gap:15px}.app-plane figure{margin:0}.app-plane.settings{opacity:0}.reticle{position:absolute;inset:36% 8% 12%;border:1px solid rgba(0,125,150,.14);opacity:0}.reticle::before,.reticle::after{content:"";position:absolute;width:12px;height:12px;border-color:var(--accent);border-style:solid}.reticle::before{left:-1px;top:-1px;border-width:1px 0 0 1px}.reticle::after{right:-1px;bottom:-1px;border-width:0 1px 1px 0}
+.chapter{padding:72px 6vw 64px;max-width:1440px;margin:0 auto;border-bottom:1px solid var(--line);position:relative}.chapter-head{max-width:1100px;margin:auto}.eyebrow{display:flex;align-items:center;gap:14px;font-size:11px;letter-spacing:.08em;margin:0 0 30px;color:var(--muted)}.eyebrow .number{font-variant-numeric:tabular-nums;color:var(--accent)}.eyebrow .rule{width:38px;height:1px;background:var(--accent)}.chapter-title{font-size:clamp(30px,4.5vw,62px);line-height:1.2;letter-spacing:-.055em;font-weight:600;margin:0}.chapter-title em{font-style:normal;color:var(--accent)}.chapter-intro{display:grid;grid-template-columns:1.15fr .85fr;align-items:start;gap:7%;margin-bottom:28px}.chapter-copy{font-size:15px;line-height:1.85;color:var(--muted);padding-top:4px}.chapter-copy p{margin:0 0 14px}.scope{font-size:11px;color:var(--accent);display:inline-block;border-bottom:1px solid var(--accent);padding-bottom:4px;margin-bottom:14px}.chapter-meta{display:flex;gap:12px 24px;flex-wrap:wrap;font-size:11px;color:var(--muted);line-height:1.8;margin-top:24px}.chapter-meta a{color:var(--ink)}.source-screen{margin:38px auto 0;max-width:1100px}.source-screen img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:6px}.source-screen figcaption{font-size:12px;color:var(--muted);margin-top:14px}.static-lens{width:min(52vw,330px);aspect-ratio:1;margin:42px auto 18px;border-radius:50%;background:radial-gradient(circle,transparent 0 28%,#087f94 28.3% 28.7%,#d4dee3 29% 36%,#edf2f5 36.5% 39%,#a8bac5 39.5% 40%,#dce4e9 41% 55%,#f7f9fa 56% 59%,#a4b6c2 60% 60.5%,transparent 61%);transform:rotateX(28deg) rotateY(-18deg);box-shadow:0 50px 50px -60px #365b70}.static-note{text-align:center;font-size:11px;color:var(--muted);line-height:1.7}.work-details{max-width:1100px;margin:36px auto 0;padding:23px 0 0;border-top:1px solid var(--line);display:flex;gap:30px;flex-wrap:wrap;color:var(--muted);font-size:13px;line-height:1.9}.work-details p{margin:0;flex:1 1 220px}.work-details strong{display:block;font-weight:500;color:var(--ink);margin-bottom:3px}
+.enhanced .stage{display:block;position:sticky;top:var(--header);height:calc(100svh - var(--header));margin-bottom:calc(var(--header) - 100svh);z-index:-1}.enhanced .chapter{min-height:115svh;border:0;padding-top:6svh;padding-bottom:0;pointer-events:none}.enhanced .chapter:last-child{min-height:108svh}.enhanced .chapter-head{pointer-events:auto}.enhanced .static-lens,.enhanced .static-note{display:none}.enhanced .source-screen,.enhanced .work-details{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}.enhanced .chapter-intro{margin-bottom:0}.enhanced .chapter-meta{margin-top:16px}.enhanced .chapter-head{background:linear-gradient(var(--paper) 82%,rgba(238,241,243,0));padding-bottom:22px}.enhanced .chapter-title{font-size:clamp(30px,4.3vw,58px)}.enhanced .eyebrow{margin-bottom:22px}
+.career{padding:100px 6vw 90px;background:#e4eaee;position:relative;border-top:1px solid var(--line)}.section-inner{max-width:1100px;margin:auto}.section-kicker{font-size:11px;letter-spacing:.08em;color:var(--muted);margin:0 0 22px}.career-heading{display:flex;justify-content:space-between;align-items:baseline;gap:26px;margin-bottom:52px}.career h2{font-size:clamp(32px,4vw,52px);letter-spacing:-.055em;font-weight:500;margin:0}.career-heading p{font-size:13px;color:var(--muted);line-height:1.8;margin:0}.career-heading p span{font-size:11px}.career-summary{display:grid;grid-template-columns:1fr 1.4fr;gap:9%;border-top:1px solid #b7c5ce;padding:28px 0}.career-summary h3{font-size:28px;font-weight:500;letter-spacing:-.035em;margin:0}.career-summary p{font-size:15px;line-height:1.9;color:var(--muted);margin:0}.response-record{display:grid;grid-template-columns:1fr 1.4fr;gap:9%;border-top:1px solid #b7c5ce;padding-top:28px}.response-record .metric{font-size:clamp(52px,7vw,88px);letter-spacing:-.065em;font-weight:400;margin:0;color:var(--accent)}.response-record .metric small{font-size:20px;letter-spacing:-.03em}.response-record .metric-label{font-size:12px;color:var(--muted);margin:10px 0 0;line-height:1.7}.response-record h3{font-size:20px;font-weight:500;margin:6px 0 14px}.response-record .record-copy{font-size:14px;line-height:1.9;color:var(--muted);margin:0}.response-record a{font-size:12px;display:inline-block;margin-top:18px}
+.contact{padding:65px 6vw 30px}.contact .section-inner{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}.contact h2{font-size:28px;letter-spacing:-.04em;font-weight:500;margin:0 0 14px}.contact p{color:var(--muted);font-size:13px;line-height:1.8;margin:0}.contact-links{display:flex;flex-direction:column;gap:16px;align-items:flex-start;font-size:14px}.colophon{width:100%;margin-top:52px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:11px}.colophon a{text-decoration:none}
+@media(min-width:1500px){.app-plane{width:min(74vw,1190px)}}
+@media(max-width:760px){:root{--header:64px}.site-header{padding:10px 5vw;gap:12px}.identity span{display:none}.site-header nav{gap:17px;font-size:12px}.header-actions{gap:0}.header-actions>a{display:none}.motion-toggle{font-size:10px}.chapter{padding:48px 6vw}.chapter-intro{grid-template-columns:1fr;gap:20px}.chapter-title,.enhanced .chapter-title{font-size:clamp(30px,6vw,45px)}.chapter-copy{max-width:590px;font-size:14px;line-height:1.8;padding:0}.chapter-copy p{margin-bottom:8px}.eyebrow{margin-bottom:22px;font-size:10px}.chapter-meta{gap:8px 18px;font-size:10px;margin-top:14px}.scope{margin-bottom:8px}.enhanced .chapter{padding-top:4svh;min-height:115svh}.enhanced .eyebrow{margin-bottom:18px}.enhanced .chapter-intro{gap:18px}.app-plane{width:91vw;top:66%}.app-plane figcaption{font-size:9px;margin-top:11px}.stage-label{bottom:20px;left:6vw;right:6vw;font-size:9px}.stage-label span:first-child{max-width:50%}.career{padding:65px 6vw}.career-heading{align-items:flex-start;margin-bottom:35px}.career-heading p{font-size:11px}.career-summary,.response-record{grid-template-columns:1fr;gap:22px}.career-summary p{font-size:14px}.response-record .metric{font-size:64px}.response-record .metric-label{margin:2px 0 0}.contact{padding-top:50px}.contact-links{font-size:13px}.reticle{inset:44% 4% 13%}}
+@media(max-width:390px){.site-header nav{gap:12px;font-size:11px}.identity{font-size:15px}.chapter-title,.enhanced .chapter-title{font-size:30px}.chapter-copy{font-size:12px;line-height:1.8}.enhanced .chapter-intro{gap:13px}.enhanced .eyebrow{margin-bottom:14px}.chapter-meta{font-size:9px;gap:8px 13px}.stage-label{font-size:8px}.career-heading{display:block}.career-heading p{margin-top:20px}.app-plane{top:70%}.app-plane figcaption span:last-child{display:none}}
+/* Compact-height and reduced-motion layouts keep every chapter and original image in normal flow. */
+@media(max-height:620px),(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.stage{display:none!important}.chapter{min-height:0!important}.static-lens{transform:none}.app-plane{will-change:auto}}
+@media print{.site-header,.stage,.static-lens,.static-note,.motion-toggle{display:none!important}.chapter{min-height:0!important;break-inside:avoid}.source-screen,.work-details{position:static!important;width:auto!important;height:auto!important;clip-path:none!important;white-space:normal!important;margin:24px 0!important}.chapter-head{background:none!important}.career,.contact{padding-top:35px;padding-bottom:35px}a{color:inherit}.source-screen img{max-height:450px;object-fit:contain}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<header class="site-header">
+  <a class="identity" href="#main"><strong>장주원</strong><span>웹 개발자</span></a>
+  <nav aria-label="주요 메뉴"><a href="#ax">AX PoC</a><a href="#aiolm">AioLM</a><a href="#career">실무 경험</a></nav>
+  <div class="header-actions"><button class="motion-toggle" id="motion-toggle" type="button" aria-pressed="false" hidden>모션 끄기</button><a href="mailto:mac52485@gmail.com">연락하기 ↗</a></div>
+</header>
+<main id="main">
+  <div class="story" id="story">
+    <div class="stage" aria-hidden="true">
+      <canvas id="aperture"></canvas>
+      <div class="reticle" id="reticle"></div>
+      <div class="app-visual" id="app-visual">
+        <div class="app-plane benchmark" id="benchmark-plane"><figure><img src="../assets/projects/aiolm/benchmark.png" alt="" width="3866" height="2090"><figcaption><span>AioLM / 벤치마크</span><span>실제 앱 화면 · 2026.09</span></figcaption></figure></div>
+        <div class="app-plane settings" id="settings-plane"><figure><img src="../assets/projects/aiolm/model-settings.png" alt="" width="3866" height="2090"><figcaption><span>AioLM / 모델 설정</span><span>실제 앱 화면 · 2026.09</span></figcaption></figure></div>
+      </div>
+      <div class="stage-label"><span id="visual-label">자연어 SQL · 주제를 표현한 공간 그래픽</span><span id="visual-count">01 / 05</span></div>
+      <div class="scene-track"><span id="scene-progress"></span></div>
+    </div>
+
+    <section class="chapter" id="ax" data-scene="0" aria-labelledby="ax-title">
+      <div class="chapter-head">
+        <p class="eyebrow"><span class="number">01</span><span class="rule" aria-hidden="true"></span>고객사 AX PoC · 개발 참여</p>
+        <div class="chapter-intro">
+          <h1 class="chapter-title" id="ax-title">비개발자의<br><em>데이터 조회를 돕는 PoC.</em></h1>
+          <div class="chapter-copy"><p>자연어를 SQL로 변환해 비개발자가 고객사 내부 데이터를 조회할 수 있도록 돕는 서비스의 PoC 개발에 참여했습니다.</p><p>고객사 환경에서 로컬 LLM과 업무 데이터를 연결한 경험입니다.</p></div>
+        </div>
+        <div class="chapter-meta"><span>자연어 → SQL</span><span>고객사 내부 데이터 조회</span><a href="#local">로컬 환경의 구성 ↓</a></div>
+      </div>
+      <div class="static-lens" aria-hidden="true"></div><p class="static-note">조회의 입구를 표현한 aperture 그래픽.<br>고객사 서비스 화면이나 실행 결과가 아닙니다.</p>
+    </section>
+
+    <section class="chapter" id="local" data-scene="1" aria-labelledby="local-title">
+      <div class="chapter-head">
+        <p class="eyebrow"><span class="number">02</span><span class="rule" aria-hidden="true"></span>AX PoC / 로컬 서빙</p>
+        <div class="chapter-intro">
+          <h2 class="chapter-title" id="local-title">오픈웨이트 모델을<br><em>고객사 환경 안에서.</em></h2>
+          <div class="chapter-copy"><p>고객사 데이터의 외부 유출을 방지하기 위해, 오픈웨이트 모델을 로컬에서 서빙하는 방식으로 구성된 PoC입니다.</p><p>개인적으로 학습해 온 로컬 LLM 분야의 정보를 팀원들과 공유했습니다.</p></div>
+        </div>
+        <div class="chapter-meta"><span>오픈웨이트 LLM</span><span>로컬 서빙</span><span>학습 정보 팀 공유</span></div>
+      </div>
+      <div class="work-details"><p><strong>구성의 목적</strong>고객사 데이터가 외부로 유출되지 않도록 로컬에서 모델을 서빙하는 방식입니다.</p><p><strong>참여 범위</strong>고객사 AX 서비스의 PoC 개발 참여 경험입니다.</p></div>
+    </section>
+
+    <section class="chapter" id="rag" data-scene="2" aria-labelledby="rag-title">
+      <div class="chapter-head">
+        <p class="eyebrow"><span class="number">03</span><span class="rule" aria-hidden="true"></span>AX PoC / 업무 데이터와 RAG</p>
+        <div class="chapter-intro">
+          <h2 class="chapter-title" id="rag-title">Jira의 업무 데이터를<br><em>RAG의 맥락으로.</em></h2>
+          <div class="chapter-copy"><p>Jira에서 PostgreSQL로 옮긴 데이터를 벡터화해 RAG를 구성했습니다.</p><p>자연어 SQL 조회와 함께, 로컬 LLM을 고객사 업무 데이터에 연결하는 PoC 개발에 참여했습니다.</p></div>
+        </div>
+        <div class="chapter-meta"><span>Jira → PostgreSQL</span><span>벡터화 → RAG</span><a href="#aiolm">개인 프로젝트 AioLM ↓</a></div>
+      </div>
+      <div class="work-details"><p><strong>데이터의 이동</strong>Jira에서 PostgreSQL로 옮긴 업무 데이터를 활용했습니다.</p><p><strong>RAG 구성</strong>옮겨진 데이터를 벡터화해 검색의 맥락으로 연결했습니다.</p></div>
+    </section>
+
+    <section class="chapter" id="aiolm" data-scene="3" aria-labelledby="aiolm-title">
+      <div class="chapter-head">
+        <p class="eyebrow"><span class="number">04</span><span class="rule" aria-hidden="true"></span>개인 프로젝트 · 기획 / 데스크톱 앱 / 웹 개발</p>
+        <div class="chapter-intro">
+          <h2 class="chapter-title" id="aiolm-title">AioLM<br><em>로컬 LLM 벤치마크.</em></h2>
+          <div class="chapter-copy"><p>로컬 LLM의 실측 데이터를 공유해 기기 구매와 실행 환경 선택을 돕는 데스크톱 앱·웹 서비스입니다.</p><p>Windows 앱과 벤치마크 웹사이트를 공개했으며, 현재도 개선하고 있습니다.</p></div>
+        </div>
+        <div class="chapter-meta"><a href="https://aiolm.vercel.app">웹사이트 ↗</a><a href="https://github.com/aiolm/AioLM">앱 소스 ↗</a><a href="../assets/projects/aiolm/benchmark.png">벤치마크 화면 크게 보기 ↗</a></div>
+      </div>
+      <figure class="source-screen"><img src="../assets/projects/aiolm/benchmark.png" alt="AioLM 데스크톱 앱의 벤치마크 화면. 모델과 실행 조건을 설정해 로컬 LLM 성능을 측정합니다." width="3866" height="2090" loading="lazy"><figcaption>벤치마크 · 실제 앱 화면 · 2026.09</figcaption></figure>
+    </section>
+
+    <section class="chapter" id="settings" data-scene="4" aria-labelledby="settings-title">
+      <div class="chapter-head">
+        <p class="eyebrow"><span class="number">05</span><span class="rule" aria-hidden="true"></span>AioLM / 실행 환경과 측정 조건</p>
+        <div class="chapter-intro">
+          <h2 class="chapter-title" id="settings-title">실행 조건을 조정하고,<br><em>같은 조건에서 비교.</em></h2>
+          <div class="chapter-copy"><p>모델·런타임을 관리하고 실행 설정을 조정합니다. 벤치마크는 입력 길이와 동시 요청 수별 실측값을 실행 환경과 함께 기록합니다.</p><p>웹에서는 모델·기기·측정 조건별로 공개 결과를 탐색하고 비교할 수 있습니다.</p></div>
+        </div>
+        <div class="chapter-meta"><span>Tauri · Rust · React · Next.js</span><a href="https://github.com/aiolm/AioLm-Web">웹 소스 ↗</a><a href="../assets/projects/aiolm/model-settings.png">모델 설정 화면 크게 보기 ↗</a></div>
+      </div>
+      <figure class="source-screen"><img src="../assets/projects/aiolm/model-settings.png" alt="AioLM의 모델 설정 화면. GPU 레이어와 배치 크기 등 로컬 모델의 실행 설정을 조정합니다." width="3866" height="2090" loading="lazy"><figcaption>모델 설정 · 실제 앱 화면 · 2026.09</figcaption></figure>
+    </section>
+  </div>
+
+  <section class="career" id="career" aria-labelledby="career-title">
+    <div class="section-inner">
+      <p class="section-kicker">실무 경험 / 2025.04 — 재직 중</p>
+      <div class="career-heading"><h2 id="career-title">커리어넷</h2><p>Next.js 풀스택 개발자<br><span>고객사 요구에 맞춘 B2B 구축형 개발</span></p></div>
+      <div class="career-summary"><h3>SafetyOne</h3><p>산업 현장의 안전보건 관리 업무를 디지털화하는 솔루션입니다. 이를 기반으로 고객사 요구에 맞춘 B2B 구축형 정보시스템 개발에 주로 참여했습니다.</p></div>
+      <div class="response-record"><div><p class="metric"><small>약</small> 20<small>% 개선</small></p><p class="metric-label">도메인 전체 평균 서버 응답 시간<br>2025.10 · HTTP/2 전환 및 nginx 설정 최적화</p></div><div><h3>전송 방식과 서버 응답 흐름 개선</h3><p class="record-copy">nginx 설정을 점검하고 HTTP/1.1에서 HTTP/2로 전환했습니다. 정적 리소스 전송과 서버 응답 흐름을 개선해 페이지 로딩 성능을 최적화했습니다.</p><a href="https://velog.io/@juwon98/HTTP1.1-to-HTTP2">작업 내용 읽기 ↗</a></div></div>
+    </div>
+  </section>
+  <footer class="contact" id="contact"><div class="section-inner"><div><h2>장주원</h2><p>사용자 경험과 접근성을 고민하는 웹 개발자.</p></div><div class="contact-links"><a href="mailto:mac52485@gmail.com">mac52485@gmail.com ↗</a><a href="https://github.com/joowon-jang">GitHub ↗</a><a href="https://velog.io/@juwon98/posts">기술 블로그 ↗</a></div><div class="colophon"><a href="directions.html">← 시안 모아보기</a><span>© 2026 장주원 · Aperture</span><a href="#main">맨 위로 ↑</a></div></div></footer>
+</main>
+<script>
+(() => {
+  'use strict';
+  const root = document.documentElement;
+  const story = document.getElementById('story');
+  const canvas = document.getElementById('aperture');
+  let ctx;
+  try { ctx = canvas.getContext('2d'); } catch (_) { return; }
+  if (!ctx || !window.requestAnimationFrame || !window.CSS || !CSS.supports('clip-path','circle(50% at 50% 50%)')) return;
+  const chapters = Array.from(story.querySelectorAll('[data-scene]'));
+  const stage = story.querySelector('.stage');
+  const app = document.getElementById('app-visual');
+  const benchmark = document.getElementById('benchmark-plane');
+  const settings = document.getElementById('settings-plane');
+  const reticle = document.getElementById('reticle');
+  const progressBar = document.getElementById('scene-progress');
+  const label = document.getElementById('visual-label');
+  const count = document.getElementById('visual-count');
+  const toggle = document.getElementById('motion-toggle');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const compact = matchMedia('(max-height: 620px)');
+  const labels = ['자연어 SQL · 주제를 표현한 공간 그래픽','로컬 서빙 · 주제를 표현한 공간 그래픽','업무 데이터와 RAG · 주제를 표현한 공간 그래픽','AioLM 벤치마크 · 실제 앱 화면','AioLM 모델 설정 · 실제 앱 화면'];
+  let enabled = false;
+  let manualStatic = false;
+  let pending = 0;
+  let width = 0;
+  let height = 0;
+  let positions = [];
+  let currentLabel = -1;
+  const TAU = Math.PI * 2;
+  const sides = 112;
+  const circle = Array.from({length:sides + 1},(_,i) => [Math.cos(i / sides * TAU),Math.sin(i / sides * TAU)]);
+  const points = Array.from({length:42},(_,i) => {
+    const a = i * 2.399963;
+    const r = Math.sqrt((i + .5) / 42);
+    return [Math.cos(a)*r,Math.sin(a)*r,Math.sin(i*1.73)*.42];
+  });
+  const clamp = (n,a=0,b=1) => Math.max(a,Math.min(b,n));
+  const lerp = (a,b,t) => a+(b-a)*t;
+  const smooth = (a,b,t) => { const p=clamp((t-a)/(b-a)); return p*p*(3-2*p); };
+  let cx=0,cy=0,radius=1,rx=0,ry=0,rz=0;
+
+  // All geometry is derived from document scroll, not elapsed time: reverse scroll is identical.
+  function project(x,y,z) {
+    const cz=Math.cos(rz),sz=Math.sin(rz),cxr=Math.cos(rx),sx=Math.sin(rx),cyr=Math.cos(ry),sy=Math.sin(ry);
+    const ax=x*cz-y*sz,ay=x*sz+y*cz;
+    const by=ay*cxr-z*sx,bz=ay*sx+z*cxr;
+    const bx=ax*cyr+bz*sy,depth=-ax*sy+bz*cyr;
+    const perspective=4.8/(4.8+depth);
+    return [cx+bx*radius*perspective,cy+by*radius*perspective,depth];
+  }
+  function pathRing(outer,inner,z) {
+    ctx.beginPath();
+    for(let i=0;i<=sides;i++){
+      const p=project(circle[i][0]*outer,circle[i][1]*outer,z);
+      if(i===0) ctx.moveTo(p[0],p[1]); else ctx.lineTo(p[0],p[1]);
+    }
+    ctx.closePath();
+    for(let i=sides;i>=0;i--){
+      const p=project(circle[i][0]*inner,circle[i][1]*inner,z);
+      if(i===sides) ctx.moveTo(p[0],p[1]); else ctx.lineTo(p[0],p[1]);
+    }
+    ctx.closePath();
+  }
+  function ringEdge(r,z,color,line=1) {
+    ctx.beginPath();
+    for(let i=0;i<=sides;i++){
+      const p=project(circle[i][0]*r,circle[i][1]*r,z);
+      if(i===0)ctx.moveTo(p[0],p[1]);else ctx.lineTo(p[0],p[1]);
+    }
+    ctx.closePath();ctx.strokeStyle=color;ctx.lineWidth=line;ctx.stroke();
+  }
+  function segment(a,b,color,line=1) {
+    const p=project(a[0],a[1],a[2]),q=project(b[0],b[1],b[2]);
+    ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(q[0],q[1]);ctx.lineWidth=line;ctx.strokeStyle=color;ctx.stroke();
+  }
+  function drawLens(t) {
+    ctx.clearRect(0,0,width,height);
+    const local=smooth(.2,1.1,t),vector=smooth(1.05,2.05,t),reveal=smooth(2.1,3.05,t);
+    const base=Math.min(width*(width<760?.30:.225),height*.29,265);
+    radius=base*lerp(1,3.5,reveal);
+    cx=width*.5;
+    cy=height*(width<390?.715:width<760?.675:.635);
+    rx=lerp(.54,.12,local)+vector*.11-reveal*.20;
+    ry=lerp(-.48,.43,local)-vector*.54;
+    rz=-.13+t*.20;
+    const opening=lerp(.32,.54,local)+vector*.17+reveal*.19;
+    const fade=1-smooth(2.5,3.15,t);
+    ctx.save();ctx.globalAlpha=fade;
+    const shadow=ctx.createRadialGradient(cx,cy+base*.78,0,cx,cy+base*.78,base*1.25);
+    shadow.addColorStop(0,'rgba(39,75,96,.15)');shadow.addColorStop(1,'rgba(39,75,96,0)');
+    ctx.fillStyle=shadow;ctx.beginPath();ctx.ellipse(cx,cy+base*.78,base*1.38,base*.26,0,0,TAU);ctx.fill();
+    // A shared local envelope gains depth, then opens into a vector field.
+    for(let layer=6;layer>=0;layer--){
+      const z=(layer-3)*.065;
+      const outer=1-Math.abs(layer-3)*.012;
+      pathRing(outer,opening+layer*.005,z);
+      const metal=ctx.createLinearGradient(cx-radius,cy-radius,cx+radius,cy+radius);
+      metal.addColorStop(0,layer===0?'#fbfdfe':'#d3dfe6');metal.addColorStop(.4,layer===0?'#e5edf2':'#bacbd6');metal.addColorStop(.7,layer===0?'#d3dfe6':'#90a8b7');metal.addColorStop(1,layer===0?'#f6f9fb':'#c5d4dd');
+      ctx.fillStyle=metal;ctx.fill('evenodd');
+      ringEdge(outer,z,layer===0?'rgba(255,255,255,.98)':'rgba(80,110,130,.22)',layer===0?1.5:.65);
+    }
+    ringEdge(opening,-.205,'#007d96',1.6);
+    ringEdge(.93,-.205,'rgba(111,138,155,.45)',.7);
+    ringEdge(1.03,.22,'rgba(61,105,132,.16)',.8);
+    // Aperture blades rotate and retract with scroll; no independent animation loop.
+    for(let i=0;i<9;i++){
+      const a=i/9*TAU+t*.24;
+      const inner=opening+.025;
+      const b=project(Math.cos(a)*inner,Math.sin(a)*inner,-.21);
+      const c=project(Math.cos(a+.35)*.91,Math.sin(a+.35)*.91,-.21);
+      const d=project(Math.cos(a+.64)*.91,Math.sin(a+.64)*.91,-.21);
+      ctx.beginPath();ctx.moveTo(b[0],b[1]);ctx.lineTo(c[0],c[1]);ctx.lineTo(d[0],d[1]);ctx.closePath();
+      ctx.fillStyle=i%2?'rgba(91,127,148,.07)':'rgba(255,255,255,.28)';ctx.fill();
+      ctx.strokeStyle='rgba(70,106,129,.17)';ctx.lineWidth=.65;ctx.stroke();
+    }
+    // Calibration marks belong to the lens rather than a fabricated application UI.
+    for(let i=0;i<56;i++){
+      const a=i/56*TAU;
+      const long=i%7===0;
+      segment([Math.cos(a)*.945,Math.sin(a)*.945,-.215],[Math.cos(a)*(long?.983:.966),Math.sin(a)*(long?.983:.966),-.215],long?'#5c788b':'#9bb0bd',long?1.1:.6);
+    }
+    // The same points change from a contained local cluster into spatial search neighborhoods.
+    const fieldAlpha=lerp(.27,1,local)*(1-reveal);
+    ctx.globalAlpha=fade*fieldAlpha;
+    const fieldScale=lerp(.21,.60,vector);
+    for(let i=0;i<points.length;i++){
+      const v=points[i],z=v[2]*lerp(.2,1.6,vector);
+      const p=project(v[0]*fieldScale,v[1]*fieldScale,z);
+      if(vector>.02&&i>0){
+        const prev=points[i-1];
+        segment([v[0]*fieldScale,v[1]*fieldScale,z],[prev[0]*fieldScale,prev[1]*fieldScale,prev[2]*lerp(.2,1.6,vector)],`rgba(0,125,150,${.12*vector})`,.7);
+      }
+      ctx.fillStyle=i%6===0?'#007d96':'#7b9cad';
+      ctx.beginPath();ctx.arc(p[0],p[1],i%6===0?2.4:1.25,0,TAU);ctx.fill();
+      if(i%6===0&&vector>.1){ctx.strokeStyle=`rgba(0,125,150,${vector*.24})`;ctx.beginPath();ctx.arc(p[0],p[1],7+vector*7,0,TAU);ctx.lineWidth=.7;ctx.stroke();}
+    }
+    ctx.restore();
+    if(t<2.7){
+      ctx.save();ctx.globalAlpha=(1-reveal)*.65;ctx.fillStyle='#587381';ctx.font='10px ui-monospace, monospace';ctx.textAlign='center';
+      ctx.fillText(t<.65?'NATURAL LANGUAGE / SQL':t<1.65?'LOCAL / OPEN-WEIGHT LLM':'JIRA / POSTGRESQL / RAG',width*.5,Math.min(height-65,cy+base*1.17));ctx.restore();
+    }
+  }
+  function paint() {
+    pending=0;
+    if(!enabled)return;
+    const y=window.scrollY;
+    let chapter=0;
+    while(chapter<positions.length-1&&y>=positions[chapter+1])chapter++;
+    const span=chapter<positions.length-1?positions[chapter+1]-positions[chapter]:height;
+    const t=clamp(chapter+(y-positions[chapter])/Math.max(1,span),0,4.85);
+    drawLens(t);
+    const reveal=smooth(2.12,3,t),swap=smooth(3.14,4,t);
+    app.style.opacity=reveal;
+    benchmark.style.opacity=1-smooth(3.50,4.03,t);
+    benchmark.style.clipPath=`circle(${lerp(0,78,reveal)}% at 50% 50%)`;
+    benchmark.style.transform=`translate(-50%,-50%) scale(${lerp(.69,1,reveal)-swap*.045}) rotateX(${lerp(16,0,reveal)+swap*4}deg) rotateY(${lerp(-15,0,reveal)-swap*9}deg)`;
+    settings.style.opacity=smooth(3.12,3.4,t);
+    settings.style.clipPath=`circle(${lerp(0,120,swap)}% at ${lerp(85,50,swap)}% 54%)`;
+    settings.style.transform=`translate(-50%,-50%) scale(${lerp(.94,1,swap)}) rotateY(${lerp(7,0,swap)}deg)`;
+    reticle.style.opacity=lerp(0,.7,reveal)*(1-swap);
+    progressBar.style.transform=`scaleX(${clamp(t/4)})`;
+    const active=Math.min(4,Math.floor(t+.25));
+    if(active!==currentLabel){currentLabel=active;label.textContent=labels[active];count.textContent=`0${active+1} / 05`;}
+  }
+  function requestPaint(){if(enabled&&!pending)pending=requestAnimationFrame(paint);}
+  function measure(){
+    if(!enabled)return;
+    const bounds=stage.getBoundingClientRect();
+    width=bounds.width;height=bounds.height;
+    const dpr=Math.min(window.devicePixelRatio||1,2);
+    canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    const header=parseFloat(getComputedStyle(root).getPropertyValue('--header'))||72;
+    positions=chapters.map(el=>el.getBoundingClientRect().top+window.scrollY-header);
+    requestPaint();
+  }
+  function configure(){
+    const next=!manualStatic&&!reduced.matches&&!compact.matches;
+    const anchor=chapters.find(el=>el.getBoundingClientRect().bottom>parseFloat(getComputedStyle(root).getPropertyValue('--header')))||chapters[4];
+    const anchorTop=anchor.getBoundingClientRect().top;
+    if(enabled!==next){enabled=next;root.classList.toggle('enhanced',enabled);const delta=anchor.getBoundingClientRect().top-anchorTop;if(Math.abs(delta)>1)window.scrollBy(0,delta);}
+    toggle.hidden=reduced.matches||compact.matches;
+    toggle.setAttribute('aria-pressed',String(manualStatic));
+    toggle.textContent=manualStatic?'모션 켜기':'모션 끄기';
+    if(enabled)measure();else if(pending){cancelAnimationFrame(pending);pending=0;}
+  }
+  toggle.addEventListener('click',()=>{manualStatic=!manualStatic;configure();});
+  window.addEventListener('scroll',requestPaint,{passive:true});
+  // Resizing may switch to the fully static compact-height layout.
+  window.addEventListener('resize',configure,{passive:true});
+  if(reduced.addEventListener){reduced.addEventListener('change',configure);compact.addEventListener('change',configure);}
+  else{reduced.addListener(configure);compact.addListener(configure);}
+  try{configure();if(document.fonts)document.fonts.ready.then(measure);}
+  catch(_){enabled=false;root.classList.remove('enhanced');toggle.hidden=true;}
+})();
+</script>
+</body>
+</html>

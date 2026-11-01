@@ -1,0 +1,5 @@
+body[data-variant="wave"]{color-scheme:light;--paper:#ffffff;--surface:#f6f7fb;--ink:#0c0f17;--body:#2b3242;--muted:#667086;--line:#e3e6ee;--accent:#2f43ff;--accent-strong:#1d2bc4;--accent-soft:#eef0ff;--night:#0a0d18;--on-night:#eef1ff;--radius:10px}
+body[data-variant="wave"] .intro-role{color:var(--accent-strong)}
+body[data-variant="wave"] .featured{background:var(--surface)}
+body[data-variant="wave"] .contribution summary:hover{background:var(--accent-soft)}
+body[data-variant="wave"] .project-media img{border:1px solid var(--line);border-radius:6px}

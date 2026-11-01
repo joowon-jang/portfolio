@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="웹 개발자 장주원. 고객사 AX PoC, SafetyOne 구축형 정보시스템, 로컬 LLM 벤치마크 앱 AioLM.">
+  <title>장주원 — 웹 개발과 AI 활용</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="flow.css?v=2">
+</head>
+<body>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="site-header">
+  <a class="identity" href="#main"><strong>장주원</strong><span>웹 개발자</span></a>
+  <nav aria-label="주요 메뉴"><a href="#ax">AX 경험</a><a href="#aiolm">AioLM</a><a href="#career">경력</a></nav>
+  <a class="header-contact" href="mailto:mac52485@gmail.com">연락하기 <span aria-hidden="true">↗</span></a>
+</header>
+<main id="main">
+  <h1 class="sr-only">장주원의 개발 포트폴리오</h1>
+  <section id="ax" class="ax-story" aria-label="고객사 AX PoC">
+    <div class="ax-viewport">
+      <div class="field-wrap" aria-hidden="true"><canvas id="flow-field"></canvas></div>
+      <div class="ax-content">
+        <p class="case-label"><span class="case-mark" aria-hidden="true"></span>고객사 AX PoC <span class="case-note">개발 참여</span></p>
+        <div class="ax-frames">
+          <article class="ax-frame" data-frame="0">
+            <p class="frame-number">01 — 자연어 SQL</p>
+            <h2>자연어로<br><em>업무 데이터 조회.</em></h2>
+            <p class="frame-copy">비개발자도 고객사 내부 데이터를 조회할 수 있도록, 자연어를 SQL로 변환하는 서비스의 PoC 개발에 참여했습니다.</p>
+          </article>
+          <article class="ax-frame" data-frame="1">
+            <p class="frame-number">02 — 로컬 LLM</p>
+            <h2>고객사 데이터는<br><em>로컬에.</em></h2>
+            <p class="frame-copy">데이터의 외부 유출을 방지하기 위해 오픈웨이트 모델을 로컬에서 서빙하는 방식으로 구성된 PoC입니다.</p>
+          </article>
+          <article class="ax-frame" data-frame="2">
+            <p class="frame-number">03 — 데이터와 RAG</p>
+            <h2>업무 데이터를<br><em>검색의 맥락으로.</em></h2>
+            <p class="frame-copy">Jira에서 PostgreSQL로 옮긴 데이터를 벡터화해 RAG를 구성했습니다. 개인적으로 학습해 온 로컬 LLM 정보도 팀원들과 공유했습니다.</p>
+          </article>
+        </div>
+        <div class="ax-controls" aria-label="AX 경험 살펴보기">
+          <button type="button" data-go="0" aria-pressed="true"><span>01</span> 자연어 SQL</button>
+          <button type="button" data-go="1" aria-pressed="false"><span>02</span> 로컬 모델</button>
+          <button type="button" data-go="2" aria-pressed="false"><span>03</span> RAG</button>
+        </div>
+      </div>
+      <div class="scene-footer"><span class="scroll-hint">스크롤하며 살펴보기 <span aria-hidden="true">↓</span></span><span class="visual-note">작업 주제를 표현한 그래픽입니다.</span><span class="scene-count" aria-hidden="true"><b id="scene-number">01</b> / 03</span></div>
+      <div class="scene-progress" aria-hidden="true"><span></span></div>
+    </div>
+  </section>
+
+  <section class="ax-summary section-shell" aria-labelledby="ax-summary-title">
+    <div class="summary-lead"><span class="small-heading">고객사 AX PoC</span><h2 id="ax-summary-title">접근 방식과<br>함께한 일</h2></div>
+    <div class="summary-body"><p>고객사 데이터를 외부로 보내지 않는 환경에서 자연어 SQL 변환과 RAG를 활용했습니다.</p><p>평소 학습해 온 로컬 LLM 분야의 정보를 팀원들에게 공유하며 PoC 개발에 참여했습니다.</p><div class="summary-tech"><span>오픈웨이트 모델</span><span>PostgreSQL</span><span>RAG</span></div></div>
+  </section>
+
+  <section id="aiolm" class="product-story" aria-labelledby="aiolm-title">
+    <div class="product-viewport">
+      <header class="product-heading section-shell"><div><span class="small-heading">개인 프로젝트 · 앱과 웹</span><h2 id="aiolm-title">AioLM</h2></div><div class="product-intro"><p>로컬 LLM 성능을 직접 측정하고,<br>그 결과를 공유하고 비교하는 서비스.</p><div class="product-links"><a href="https://aiolm.vercel.app">웹사이트 ↗</a><a href="https://github.com/aiolm/AioLM">앱 저장소 ↗</a></div></div></header>
+      <div class="screens-stage">
+        <figure class="app-screen screen-benchmark"><img src="../assets/projects/aiolm/benchmark.png" alt="AioLM 벤치마크 앱에서 모델과 실행 조건을 설정하는 화면" width="3866" height="2090" loading="eager"><figcaption>벤치마크 · 실제 앱 화면</figcaption></figure>
+        <figure class="app-screen screen-settings"><img src="../assets/projects/aiolm/model-settings.png" alt="AioLM에서 GPU 레이어와 배치 크기를 조정하는 모델 설정 화면" width="3866" height="2090" loading="eager"><figcaption>모델 설정 · 실제 앱 화면</figcaption></figure>
+      </div>
+      <p class="product-footer section-shell">Tauri · Rust · React · Next.js <span>Windows 앱과 벤치마크 웹사이트 공개, 지속 개선 중</span></p>
+    </div>
+  </section>
+
+  <section id="career" class="career section-shell" aria-labelledby="career-title">
+    <header class="career-heading"><div><span class="small-heading">실무 경험</span><h2 id="career-title">커리어넷</h2></div><p>Next.js 풀스택 개발자<br><span>2025.04 — 재직 중</span></p></header>
+    <div class="career-intro"><h3>SafetyOne</h3><p>산업 현장의 안전보건 관리 업무를 디지털화하는 솔루션입니다. 이를 기반으로 고객사 요구에 맞춘 B2B 구축형 정보시스템 개발에 주로 참여했습니다.</p></div>
+    <div class="career-records">
+      <details><summary><time datetime="2026-10">2026.10</time><span><strong>사용자 권한 관리 시스템</strong><small>서비스 적용 후 오류 미발생</small></span><i aria-hidden="true">+</i></summary><p>AI 오케스트레이션으로 구현 계획과 구조도를 정리하고 팀 리더와 보안·성능을 논의했습니다. 모든 API의 권한을 확인하는 요청 검증 계층을 구현해 불필요한 DB 조회와 잦은 트랜잭션에 따른 커넥션 풀 낭비를 줄이고자 했습니다. 구현 결과를 교차 검증한 뒤 서비스에 적용했습니다.</p></details>
+      <details><summary><time datetime="2026-07">2026.07</time><span><strong>AI 도구와 개발 환경 개선</strong><small>팀 생산성 및 코드·변경 이력 가독성 개선</small></span><i aria-hidden="true">+</i></summary><p>개발·커밋 컨벤션을 정립하고 Rules와 Agent Skills 도입을 주도했으며 MCP 등 AI 도구를 활용했습니다. 오류 가능성과 AI 토큰 낭비를 줄이는 구조를 마련했습니다.</p></details>
+      <details><summary><time datetime="2026-04">2026.04</time><span><strong>네이티브 앱 WebView 인증·인가 개선</strong><small>토큰 노출 축소 · 서버 인증 일원화</small></span><i aria-hidden="true">+</i></summary><p>Kotlin·Swift 앱의 JWT를 Next.js 서버에서 검증해 HttpOnly Cookie 세션으로 전환했습니다. Redis 중복 로그인 방지 로직도 서버사이드 세션 검증 흐름으로 이관하고 인증 실패 응답을 정리했습니다.</p></details>
+      <details><summary><time datetime="2025-11">2025.11</time><span><strong>Rust·WebAssembly Excel 라이브러리</strong><small>핵심 기능 구현 · 영업 시연과 고객사 유치 기여</small></span><i aria-hidden="true">+</i></summary><p>ExcelJS, XLSX 등 기존 라이브러리로 해결하기 어려운 편집 요구사항을 분석했습니다. Rust 편집 로직을 WebAssembly로 빌드하고 JavaScript 헬퍼와 TypeScript 타입을 제공했습니다.</p></details>
+      <details><summary><time datetime="2025-10">2025.10</time><span><strong>HTTP/2 전환 · NGINX 최적화</strong><small>도메인 전체 평균 서버 응답 시간 약 20% 개선</small></span><i aria-hidden="true">+</i></summary><p>HTTP/1.1에서 HTTP/2로 전환하고 정적 리소스 전송과 서버 응답 흐름을 개선했습니다. <a href="https://velog.io/@juwon98/HTTP1.1-to-HTTP2">작업 내용 읽기 ↗</a></p></details>
+    </div>
+  </section>
+
+  <footer class="contact section-shell" id="contact"><div><h2>장주원</h2><p>사용자 경험과 접근성을 고민하는 웹 개발자.</p></div><div class="contact-links"><a href="mailto:mac52485@gmail.com">mac52485@gmail.com ↗</a><a href="https://github.com/joowon-jang">GitHub ↗</a><a href="https://velog.io/@juwon98/posts">기술 블로그 ↗</a></div><div class="colophon"><span>© 2026 장주원</span><a href="#main">맨 위로 ↑</a></div></footer>
+</main>
+<script src="flow-field.js?v=1"></script>
+<script src="flow.js?v=1"></script>
+</body>
+</html>
