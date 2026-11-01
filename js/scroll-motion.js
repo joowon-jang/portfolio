@@ -36,7 +36,10 @@
       layer.append(group);
       return { from, to, start, end, base, trace, arrow, dot, length: 0 };
     });
+    let lastProgress;
+    let lastStill;
     const measure = () => {
+      lastProgress = undefined;
       const origin = board.getBoundingClientRect();
       if (!origin.width || !origin.height) return;
       svg.setAttribute('viewBox', `0 0 ${origin.width} ${origin.height}`);
@@ -71,6 +74,9 @@
       element.classList.add('is-enhanced');
     };
     const draw = (progress, still) => {
+      if (progress === lastProgress && still === lastStill) return;
+      lastProgress = progress;
+      lastStill = still;
       let currentRoute = null;
       for (const route of routes) {
         const value = clamp((progress - route.start) / (route.end - route.start));
@@ -105,11 +111,12 @@
   window.setupMainMotion = root => {
     document.documentElement.classList.add('has-js');
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const printMedia = window.matchMedia('print');
     const scenes = Array.from(root.querySelectorAll('[data-ax-flow]'), diagram);
-    const reels = Array.from(root.querySelectorAll('[data-screen-reel]'));
+    const reels = Array.from(root.querySelectorAll('[data-screen-reel]'), element => ({ element, progress: undefined, still: undefined }));
     let frame = 0;
     let disposed = false;
-    let printing = false;
+    let printing = printMedia.matches;
     let dirty = true;
     const render = () => {
       frame = 0;
@@ -126,7 +133,8 @@
         scene.draw(progress, still);
       }
       dirty = false;
-      for (const reel of reels) {
+      for (const scene of reels) {
+        const reel = scene.element;
         const rect = reel.closest('.portfolio-project').getBoundingClientRect();
         if (!rect.height || (!printing && (rect.bottom < 0 || rect.top > viewport))) continue;
         const mediaRect = reel.parentElement.getBoundingClientRect();
@@ -134,6 +142,9 @@
         // Use the image's natural position, so sticky positioning cannot stall progress.
         const imageTop = rect.top + reelRect.top - mediaRect.top;
         const transition = smooth(clamp((viewport * .65 - imageTop) / (viewport * .5)));
+        if (transition === scene.progress && still === scene.still) continue;
+        scene.progress = transition;
+        scene.still = still;
         const [first, second] = reel.children;
         reel.classList.toggle('is-switching', !still && transition > 0 && transition < 1);
         reel.style.setProperty('--screen-progress', String(transition));
@@ -154,11 +165,13 @@
     const resize = () => { dirty = true; schedule(); };
     const beforePrint = () => { cancelAnimationFrame(frame); printing = true; dirty = true; render(); };
     const afterPrint = () => { printing = false; resize(); };
+    const syncPrintMedia = () => { if (printMedia.matches) beforePrint(); else afterPrint(); };
     const observer = new ResizeObserver(resize);
     observer.observe(root);
     scenes.forEach(scene => observer.observe(scene.board));
     window.addEventListener('beforeprint', beforePrint);
     window.addEventListener('afterprint', afterPrint);
+    printMedia.addEventListener('change', syncPrintMedia);
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', resize);
     root.addEventListener('toggle', resize, true);
@@ -171,6 +184,7 @@
       observer.disconnect();
       window.removeEventListener('beforeprint', beforePrint);
       window.removeEventListener('afterprint', afterPrint);
+      printMedia.removeEventListener('change', syncPrintMedia);
       window.removeEventListener('scroll', schedule);
       window.removeEventListener('resize', resize);
       root.removeEventListener('toggle', resize, true);

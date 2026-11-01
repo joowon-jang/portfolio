@@ -1,11 +1,10 @@
 // 포트폴리오 콘텐츠 데이터 (ko / en / ja)
 
-// 이미지 교체: 아래 IMAGES에 슬롯 id별 경로를 넣으면 플레이스홀더 대신 이미지가 표시됩니다.
-// 예) 'photo': 'assets/profile.jpg', 'thumb-p1': 'assets/face-review-thumb.png'
+// 실제 프로필·프로젝트 미디어 경로입니다. 홈 이미지는 IMAGE_DIMENSIONS도 함께 갱신합니다.
 const IMAGES = {
-  'thumb-p4': 'assets/projects/aiolm/logo.png',
-  'shot-p4-1': 'assets/projects/aiolm/benchmark.png',
-  'shot-p4-2': 'assets/projects/aiolm/model-settings.png',
+  'shot-p4-1': 'assets/projects/aiolm/models.png',
+  'shot-p4-2': 'assets/projects/aiolm/chat.png',
+  'shot-p4-3': 'assets/projects/aiolm/website.png',
   photo: 'assets/profile.jpg',
   'thumb-p1': 'assets/projects/facereview/logo.svg',
   'shot-p1-1': 'assets/projects/facereview/watch.png',
@@ -19,9 +18,9 @@ const IMAGES = {
 };
 
 const IMAGE_DIMENSIONS = {
-  'thumb-p4': [1254, 1254],
-  'shot-p4-1': [3866, 2090],
-  'shot-p4-2': [3866, 2090],
+  'shot-p4-1': [2560, 1782],
+  'shot-p4-2': [2560, 1782],
+  'shot-p4-3': [1440, 1000],
   photo: [660, 880],
   'thumb-p1': [224, 140],
   'shot-p1-1': [1400, 1081],
@@ -29,7 +28,9 @@ const IMAGE_DIMENSIONS = {
   'thumb-p2': [700, 393],
   'shot-p2-1': [1920, 1080],
   'shot-p2-2': [1920, 1080],
-  'thumb-p3': [700, 336]
+  'thumb-p3': [700, 336],
+  'shot-p3-1': [3200, 1538],
+  'shot-p3-2': [3200, 1538]
 };
 
 const VIDEO_POSTERS = {
@@ -39,21 +40,21 @@ const VIDEO_POSTERS = {
 
 const LINKS = {
   p4: [
-    { icon: '🌐', key: 'live', url: 'https://aiolm.vercel.app' },
-    { icon: '💻', key: 'desktop', url: 'https://github.com/aiolm/AioLM' },
-    { icon: '🐙', key: 'web', url: 'https://github.com/aiolm/AioLm-Web' }
+    { key: 'live', url: 'https://aiolm.vercel.app' },
+    { key: 'desktop', url: 'https://github.com/aiolm/AioLM' },
+    { key: 'web', url: 'https://github.com/aiolm/AioLm-Web' }
   ],
   p1: [
-    { icon: '🌐', key: 'live', url: 'https://facereview.net' },
-    { icon: '🐙', key: 'repo', url: 'https://github.com/joowon-jang/facereview-front' },
-    { icon: '🗄', key: 'backend', url: 'https://github.com/joowon-jang/facereview-refactor-back' }
+    { key: 'live', url: 'https://facereview.net' },
+    { key: 'repo', url: 'https://github.com/joowon-jang/facereview-front' },
+    { key: 'backend', url: 'https://github.com/joowon-jang/facereview-refactor-back' }
   ],
   p2: [
-    { icon: '🐙', key: 'repo', url: 'https://github.com/FRONT-END-BOOTCAMP-PLUS-3/tododong' },
-    { icon: '🗄', key: 'backend', url: 'https://github.com/FRONT-END-BOOTCAMP-PLUS-3/tododong-background' }
+    { key: 'repo', url: 'https://github.com/FRONT-END-BOOTCAMP-PLUS-3/tododong' },
+    { key: 'backend', url: 'https://github.com/FRONT-END-BOOTCAMP-PLUS-3/tododong-background' }
   ],
   p3: [
-    { icon: '🐙', key: 'code', url: 'https://github.com/FRONTENDSCHOOL10/Haemadi' }
+    { key: 'code', url: 'https://github.com/FRONTENDSCHOOL10/Haemadi' }
   ]
 };
 
@@ -72,105 +73,148 @@ const BLOG_POSTS = [
 // 데스크톱 앱과 공개 벤치마크 웹을 하나의 개인 프로젝트로 소개합니다.
 const AIOLM = {
   ko: {
-    id: 'p4', name: 'AioLM', badge: '🔬', period: '2026.08 ~ 진행 중', team: '개인 프로젝트',
-    desc: '로컬 LLM 실측 데이터를 공유해 기기 구매와 실행 환경 선택을 돕는 데스크톱 앱·웹 서비스',
+    id: 'p4', name: 'AioLM', period: '2026.08 ~ 진행 중', team: '개인 프로젝트',
+    desc: '여러 로컬 추론 엔진을 연결한 AI 데스크톱 작업 공간과 실측 벤치마크 공유·비교 웹 서비스',
     role: ['기획·데스크톱 앱·웹사이트 개발'], verified: true,
-    screenshotLayout: 'wide', screenshotsMeta: '실제 앱 화면 · 2026.09',
-    list: { contribution: ['로컬 LLM 실행·벤치마크 앱 개발', '결과 공유·비교 웹사이트 개발'], implementation: ['모델·런타임 관리', '추론 성능 측정·공개 결과 비교'] },
+    screenshotLayout: 'wide', screenshotsMeta: '공개 가이드의 네이티브 macOS 앱 화면 · v0.3.4 소스 기준 / 현재 공개 제품 웹',
+    list: { contribution: ['멀티엔진 로컬 AI 데스크톱 앱 개발', '제품 안내·익명 벤치마크 웹 개발'], implementation: ['공통 엔진 어댑터·문서 검색·MCP 연동', '토큰·캐시 검증과 측정 지점별 비교'] },
     motivation: { title: '개발 배경과 목적', points: [
       'AI에 대한 관심으로 여러 기기를 자비로 구입하고, 다양한 환경에서 LLM의 추론과 파인튜닝을 배워왔습니다.',
       '근무처의 다른 팀과 기술 커뮤니티에서 성능 정보가 부족해 기기 구매나 설정에 어려움을 겪는 사람들을 보았습니다.',
       '실측 결과를 공유해 구매와 설정 판단을 돕고자 AioLM을 개발·공개했으며, 현재도 개선하고 있습니다.'
     ] },
     productSummary: [
-      '데스크톱 앱: llama.cpp 기반 모델 실행·채팅·튜닝·벤치마크',
-      '웹사이트: 공개된 벤치마크 결과를 모델·기기·측정 조건별로 탐색·비교'
+      '데스크톱 앱: Windows·macOS·Linux에서 모델 탐색·실행, 프로젝트 채팅·문서 검색, 로컬 API와 성능 측정을 연결하는 작업 공간',
+      '웹사이트: 4개 언어의 제품·설치·사용 가이드와 공개 벤치마크의 탐색·비교·익명 소유자 관리'
     ],
-    flow: ['모델·런타임 선택', '입력 길이·동시 요청 수 설정', '로컬 벤치마크 측정', '사용자가 결과 공개 여부 선택', '웹에서 조건별 탐색·비교'],
+    flow: [
+      { name: '로컬 AI 작업', steps: ['모델 검색·다운로드', '호환 엔진·런타임·프로필 선택', '모델 실행', { branch: ['프로젝트·문서·도구를 연결한 채팅', '외부 클라이언트용 로컬 API'] }] },
+      { name: '측정에서 공개 비교까지', steps: ['엔진별 격리 인스턴스에서 측정', '토큰 수·캐시·응답 완결성 확인', '사용자가 공개할 데이터 검토', '입력 길이·동시성 기준점으로 웹 탐색·비교'] }
+    ],
     features: [
-      { name: '다양한 로컬 실행 환경', desc: 'GGUF 모델과 CPU·Vulkan·ROCm·CUDA·SYCL·OpenVINO 런타임을 관리하고 실행 설정을 조정' },
-      { name: '조건을 기록하는 벤치마크', desc: '입력 길이·동시 요청 수별 TTFT·생성 속도·프로세스 RAM 등 실측값과 실행 환경을 함께 기록' },
-      { name: '공개 결과 탐색과 비교', desc: '모델·하드웨어·실행 환경으로 필터링하고 최대 3개 결과를 비교하며, 측정 방식이나 부하가 다르면 비교 유의사항 표시' },
-      { name: '계정 없이 결과 관리', desc: '복구 코드·복구 파일 또는 앱에서 웹으로 이어지는 일회성 연결을 이용해 공개 결과의 설명을 수정하거나 삭제' }
+      { name: '멀티엔진 모델 작업 공간', desc: 'llama.cpp·vLLM·MLX와 호환 외부 엔진을 연결하고 모델·실행 환경·프로필·로드 상태를 관리. 엔진별 OS·모델·입력 유형 지원 범위는 구분' },
+      { name: '모델 검색과 안전한 다운로드', desc: 'Hugging Face 모델 검색과 GGUF·완전한 safetensors 스냅샷 다운로드를 제공하고, 중단된 전송 재개와 앱 소유 파일의 안전한 삭제 지원' },
+      { name: '프로젝트·문서·도구를 연결한 채팅', desc: '프로젝트 설정과 문서를 재사용하고 임베딩 또는 키워드로 문서를 검색. 스트리밍 답변에 출처를 연결하고 MCP 도구와 선택한 Skills 활용' },
+      { name: '로컬 API와 headless CLI', desc: '외부 클라이언트를 위한 OpenAI·Anthropic 호환 로컬 API와 GUI 없이 모델·런타임·서버를 관리하는 CLI 제공' },
+      { name: '조건을 남기는 성능 측정', desc: '선택 엔진의 격리된 인스턴스에서 TTFT·생성 속도·처리량·프로세스 메모리를 측정하고, 이력과 Excel·CSV·Markdown 내보내기 지원' },
+      { name: '제품 웹과 익명 벤치마크 관리', desc: '4개 언어의 제품·사용 안내, URL 기반 필터와 기준점 선택, 최대 3개 결과 비교, 복구 코드·파일·일회성 앱 연결을 통한 결과 관리 제공' }
     ],
     roles: [
-      { title: '데스크톱 앱 · AioLM', points: ['Tauri·Rust·React 기반 모델·런타임 관리와 로컬 추론 UI 개발', '전용 llama-server를 이용한 벤치마크·결과 이력·CSV 내보내기 구현'] },
-      { title: '웹사이트 · aiolm-web', points: ['Next.js·PostgreSQL 기반 벤치마크 검색·상세·비교 구현', '공통 데이터 스키마와 복구 코드 기반 결과 관리 구현'] }
+      { title: '데스크톱 앱 · 공통 엔진 구조', points: ['Tauri·Rust·React 기반 모델 작업 공간과 Windows·macOS·Linux 배포 구성', '엔진 어댑터와 옵션 스키마를 연결해 실행·프로필·모델 호환성 검증을 일관되게 처리'] },
+      { title: '로컬 대화 · 문서·도구 연동', points: ['프로젝트의 모델 설정·문서·도구를 대화에 연결하고 임베딩·키워드 검색과 출처 표시 구현', 'MCP 호출의 승인·취소·프로세스 정리와 AGENTS.md·Skills 지침 로딩을 대화 흐름에 연결'] },
+      { title: '측정 · 안전한 공개', points: ['채팅과 분리된 엔진 인스턴스에서 토큰 수·캐시 재사용·응답 완결성을 검증하는 벤치마크 구현', '공개 필드에서 로컬 경로·자격 증명을 제외하고, OS 자격 증명 저장소와 공통 게시 계약으로 앱·웹 연동'] },
+      { title: '제품 웹 · 탐색과 소유자 관리', points: ['Next.js·PostgreSQL 기반 탐색기와 4개 언어 제품·가이드의 공통 디자인·타이포그래피 구성', '측정 기준점과 중앙값·범위·표본 수를 표시하고 방식·워크로드·가중치 파일 차이를 안내', '복구 코드·파일·일회성 연결과 revision 검사로 계정 없는 결과 관리 및 동시 수정 충돌 처리'] }
     ],
     troubles: [
-      { problem: '측정 조건을 고려한 결과 비교', solution: '입력 길이와 동시 요청 수가 같은 지점의 값을 비교합니다. 모델·기기·런타임 정보를 함께 표시하고, 측정 방식이나 부하가 다르면 안내합니다.' },
-      { problem: '벤치마크 설정 분리와 측정값 검증', solution: '채팅 설정과 분리된 전용 서버에서 캐시 재사용 없이 측정합니다. 실제 토큰 수를 검증하고 실패한 측정은 평균에서 제외합니다.' },
-      { problem: '앱과 웹의 데이터 규칙 통일', solution: '검증 규칙과 OpenAPI 스키마를 benchmark-contracts 패키지로 공유합니다.' }
+      { problem: '같은 UI에서 서로 다른 엔진의 실행 조건 보존', solution: '공통 엔진 어댑터를 사용하되 OS·모델·입력 유형과 런타임별 옵션 스키마를 별도로 확인합니다. 지원하지 않는 설정을 다른 엔진의 값으로 대체하지 않고 실행 전에 차단합니다.' },
+      { problem: '잘못된 측정값과 다른 조건의 결과를 그대로 비교하는 문제', solution: '실제 토큰 계산·캐시 상태·응답 완결성을 확인하고 실패한 결과의 신규 공개를 막습니다. 웹에서는 입력 길이·동시성 기준점으로 값을 읽고 측정 지점별 중앙값·범위를 제공하며, 미측정 값과 비교 조건 차이를 명시합니다.' },
+      { problem: '공개 결과와 소유자 비밀·로컬 정보를 분리', solution: '공개 payload를 명시적으로 구성해 로컬 경로와 자격 증명을 제외합니다. 소유자 비밀은 OS 자격 증명 저장소에 두고 복구 코드·파일·일회성 관리 연결을 제공하며, 설명 수정에는 revision 검사로 충돌을 감지합니다.' },
+      { problem: '앱·웹 사이 게시 규칙과 검증의 불일치', solution: '버전이 고정된 benchmark-contracts 패키지의 JSON Schema·OpenAPI·검증 및 복구 인코딩을 공유합니다. 엔진·모델 형식·실행 조건을 구분하고, 외부 엔진 등록을 공개 벤치마크 지원으로 오인하지 않도록 경계를 유지합니다.' }
     ],
-    stack: ['React', 'Tauri 2 · Rust', 'Next.js', 'TypeScript', 'llama.cpp', 'PostgreSQL', 'Vite', 'Vercel'],
+    stack: ['React', 'Tauri 2 · Rust', 'Next.js', 'TypeScript', 'Python', 'PostgreSQL', 'llama.cpp · vLLM · MLX', 'Vite'],
     stackGroups: [
-      { name: '데스크톱 앱', items: ['React', 'TypeScript', 'Tauri 2 · Rust', 'Vite', 'llama.cpp'] },
+      { name: '데스크톱 앱', items: ['React', 'TypeScript', 'Tauri 2 · Rust', 'Vite', 'Tailwind CSS'] },
+      { name: '추론 엔진 · 도구 연동', items: ['llama.cpp', 'vLLM · vllm-metal', 'MLX · mlx-vlm', 'Python', 'MCP'] },
       { name: '웹 · 데이터 공개', items: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Cloudflare Turnstile', 'Vercel'] },
-      { name: '앱·웹 연동', items: ['OpenAPI', 'Zod', '공통 benchmark-contracts 패키지'] }
+      { name: '앱·웹 계약', items: ['JSON Schema', 'OpenAPI', 'benchmark-contracts 0.8.0'] }
     ],
-    outcome: ['Windows 데스크톱 앱과 벤치마크 웹사이트 공개', '두 저장소의 소스 코드 공개·유지보수']
+    outcome: ['Windows·macOS·Linux 설치 패키지 공개', '4개 언어의 제품·가이드·벤치마크 웹사이트 운영', '앱·웹 저장소 소스 코드 공개·지속 개선']
   },
   en: {
-    id: 'p4', name: 'AioLM', badge: '🔬', period: '2026.08 – Present', team: 'Solo project',
-    desc: 'A desktop app and website sharing measured local LLM performance to inform hardware and setup decisions',
+    id: 'p4', name: 'AioLM', period: '2026.08 – Present', team: 'Solo project',
+    desc: 'A local AI desktop workspace connecting inference engines, with a website for sharing and comparing measured benchmarks',
     role: ['Product planning · desktop app · website'], verified: true,
-    screenshotLayout: 'wide', screenshotsMeta: 'Actual app screens · 2026.09',
-    list: { contribution: ['Built the local LLM app and benchmarks', 'Built the results sharing and comparison website'], implementation: ['Model and runtime management', 'Inference measurements · public comparisons'] },
+    screenshotLayout: 'wide', screenshotsMeta: 'Native macOS app screens from public guides · v0.3.4 source / current public product website',
+    list: { contribution: ['Built a multi-engine local AI desktop app', 'Built the product site and anonymous benchmark explorer'], implementation: ['Engine adapters · document retrieval · MCP', 'Token/cache validation · operating-point comparisons'] },
     motivation: { title: 'Why I built it', points: [
       'My interest in AI led me to purchase several devices myself and study LLM inference and fine-tuning across different environments.',
       'I saw people in other teams at work and in technical communities struggling to choose hardware and settings because performance information was scarce.',
       'I built and released AioLM to share measured results for hardware and setup decisions, and continue to improve it.'
     ] },
-    productSummary: ['Desktop app: llama.cpp model execution, chat, tuning, and benchmarks', 'Website: explore and compare public results by model, hardware, and measurement conditions'],
-    flow: ['Choose model and runtime', 'Set input length and concurrency', 'Measure locally', 'Choose to publish results', 'Explore and compare on the web'],
+    productSummary: [
+      'Desktop app: a Windows, macOS and Linux workspace for model discovery, execution, project chat, document retrieval, local APIs and performance measurements',
+      'Website: product, installation and usage guides in four languages, with public benchmark discovery, comparison and anonymous owner management'
+    ],
+    flow: [
+      { name: 'Local AI workflow', steps: ['Find and download models', 'Choose a compatible engine, runtime and profile', 'Load the model', { branch: ['Chat with projects, documents and tools', 'Local API for external clients'] }] },
+      { name: 'Measurements to public comparison', steps: ['Measure in an isolated engine instance', 'Check tokens, cache and response completeness', 'Review data before choosing to publish', 'Explore and compare at an input-length/concurrency basis point'] }
+    ],
     features: [
-      { name: 'Local runtime management', desc: 'Manage GGUF models and CPU, Vulkan, ROCm, CUDA, SYCL, and OpenVINO runtimes with adjustable execution settings' },
-      { name: 'Measurements with context', desc: 'Record TTFT, generation speed, process RAM, and execution context for each input length and concurrency' },
-      { name: 'Public exploration and comparison', desc: 'Filter by model, hardware, and environment; compare up to three results with notices for differing methods or workloads' },
-      { name: 'Account-free result management', desc: 'Edit descriptions or delete published results using recovery codes, recovery files, or a single-use app-to-web handoff' }
+      { name: 'Multi-engine model workspace', desc: 'Connect llama.cpp, vLLM, MLX and compatible external engines while managing models, runtimes, profiles and loaded sessions; OS, model and input support remain engine-specific' },
+      { name: 'Discovery and safe downloads', desc: 'Search Hugging Face repositories and download GGUF files or complete safetensors snapshots, with resumable transfers and safe deletion of app-owned files' },
+      { name: 'Project chat, documents and tools', desc: 'Reuse project settings and documents, retrieve by embeddings or keywords, show sources in streaming answers, and use MCP tools and selected Skills' },
+      { name: 'Local API and headless CLI', desc: 'Provide OpenAI- and Anthropic-compatible local APIs for external clients and a CLI for model, runtime and server management without the GUI' },
+      { name: 'Measurements with explicit conditions', desc: 'Measure TTFT, decode speed, throughput and process memory in an isolated instance of the selected engine, with history and Excel, CSV and Markdown exports' },
+      { name: 'Product site and anonymous ownership', desc: 'Offer four-language product guides, URL-based filters and basis points, comparison of up to three results, and management through recovery codes, files or single-use app handoffs' }
     ],
     roles: [
-      { title: 'Desktop app · AioLM', points: ['Built model and runtime management and local inference UI with Tauri, Rust, and React', 'Implemented dedicated-server benchmarks, result history, and CSV export'] },
-      { title: 'Website · aiolm-web', points: ['Built benchmark search, detail, and comparison with Next.js and PostgreSQL', 'Implemented shared schemas and recovery-code-based result management'] }
+      { title: 'Desktop app · common engine architecture', points: ['Built the Tauri, Rust and React model workspace and Windows, macOS and Linux distribution', 'Connected engine adapters and option schemas for consistent execution, profile and model-compatibility validation'] },
+      { title: 'Local conversations · documents and tools', points: ['Connected project model settings, documents and tools to chat, with embedding/keyword retrieval and source references', 'Integrated MCP approval, cancellation and process cleanup alongside AGENTS.md and Skills instruction loading'] },
+      { title: 'Measurements · safe publication', points: ['Built benchmarks using instances isolated from chat, validating token accounting, cache reuse and response completeness', 'Excluded local paths and credentials from public fields and connected app/web publication through OS credential storage and shared contracts'] },
+      { title: 'Product website · discovery and ownership', points: ['Built the Next.js/PostgreSQL explorer and shared design and typography for four-language product pages and guides', 'Displayed operating points, medians, ranges and sample counts with method, workload and model-file difference notices', 'Handled account-free ownership and editing conflicts using recovery codes/files, single-use handoffs and revision checks'] }
     ],
     troubles: [
-      { problem: 'Comparison with measurement context', solution: 'Compare values at the same input length and concurrency. Include model, hardware, and runtime details, with notices for different methods or workloads.' },
-      { problem: 'Isolated benchmarks and validated measurements', solution: 'Use a dedicated server separate from chat settings with cache reuse disabled. Validate actual token counts and exclude failed trials from averages.' },
-      { problem: 'Consistent app and website data rules', solution: 'Share validation rules and OpenAPI schemas through the benchmark-contracts package.' }
+      { problem: 'Preserving different engine requirements behind one interface', solution: 'Use common engine adapters while separately checking OS, model, input capabilities and runtime option schemas. Reject unsupported settings before execution instead of substituting values from another engine.' },
+      { problem: 'Invalid measurements and misleading comparisons across conditions', solution: 'Validate token accounting, cache state and response completeness, and prevent new publication of failed results. Read results at an input-length/concurrency basis point, show per-point medians and ranges, and explicitly identify unmeasured values and comparability differences.' },
+      { problem: 'Separating public results from owner secrets and local information', solution: 'Construct public payloads explicitly without local paths or credentials. Keep owner secrets in OS credential storage, support recovery codes/files and single-use management handoffs, and detect description-edit conflicts with revision checks.' },
+      { problem: 'Diverging publication and validation rules between app and web', solution: 'Share version-pinned benchmark-contracts JSON Schema, OpenAPI, validation and recovery encoding. Distinguish engine, model-format and execution data, and keep external-engine registration separate from supported public benchmark publication.' }
     ],
-    stack: ['React', 'Tauri 2 · Rust', 'Next.js', 'TypeScript', 'llama.cpp', 'PostgreSQL', 'Vite', 'Vercel'],
-    outcome: ['Released the Windows desktop app and benchmark website', 'Published and maintain source code in both repositories']
+    stack: ['React', 'Tauri 2 · Rust', 'Next.js', 'TypeScript', 'Python', 'PostgreSQL', 'llama.cpp · vLLM · MLX', 'Vite'],
+    stackGroups: [
+      { name: 'Desktop app', items: ['React', 'TypeScript', 'Tauri 2 · Rust', 'Vite', 'Tailwind CSS'] },
+      { name: 'Inference engines · tool integration', items: ['llama.cpp', 'vLLM · vllm-metal', 'MLX · mlx-vlm', 'Python', 'MCP'] },
+      { name: 'Web · public data', items: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Cloudflare Turnstile', 'Vercel'] },
+      { name: 'App–web contracts', items: ['JSON Schema', 'OpenAPI', 'benchmark-contracts 0.8.0'] }
+    ],
+    outcome: ['Published Windows, macOS and Linux installers', 'Operate product guides and benchmark pages in four languages', 'Published and continue improving both source repositories']
   },
   ja: {
-    id: 'p4', name: 'AioLM', badge: '🔬', period: '2026.08 ～ 継続開発中', team: '個人開発',
-    desc: 'ローカルLLMの実測データを共有し、機器購入と実行環境の選択を支えるデスクトップアプリ・Webサービス',
+    id: 'p4', name: 'AioLM', period: '2026.08 ～ 継続開発中', team: '個人開発',
+    desc: '複数の推論エンジンをつなぐローカルAIデスクトップ環境と、実測ベンチマークの共有・比較サイト',
     role: ['企画・デスクトップアプリ・Web開発'], verified: true,
-    screenshotLayout: 'wide', screenshotsMeta: '実際のアプリ画面 · 2026.09',
-    list: { contribution: ['ローカルLLM実行・測定アプリの開発', '結果共有・比較サイトの開発'], implementation: ['モデル・ランタイム管理', '推論性能の測定・公開結果の比較'] },
+    screenshotLayout: 'wide', screenshotsMeta: '公開ガイドのネイティブmacOSアプリ画面 · v0.3.4ソース基準 / 現在の公開製品サイト',
+    list: { contribution: ['マルチエンジンのローカルAIアプリを開発', '製品サイト・匿名ベンチマーク検索を開発'], implementation: ['共通エンジンアダプター・文書検索・MCP連携', 'トークン・キャッシュ検証と測定点別の比較'] },
     motivation: { title: '開発の背景と目的', points: [
       'AIへの関心から複数の機器を自費で購入し、さまざまな環境でLLMの推論とファインチューニングを学んできました。',
       '勤務先の他チームや技術コミュニティには、性能情報の不足から機器購入や設定に悩む人がいました。',
       '実測結果を共有し、購入・設定の判断に役立てられるようAioLMを開発・公開し、現在も改善しています。'
     ] },
-    productSummary: ['デスクトップアプリ：llama.cppでのモデル実行・チャット・チューニング・ベンチマーク', 'Webサイト：公開結果をモデル・機器・測定条件別に検索・比較'],
-    flow: ['モデル・ランタイム選択', '入力長・同時リクエスト数設定', 'ローカルで測定', '利用者が結果公開を選択', 'Webで検索・比較'],
+    productSummary: [
+      'デスクトップアプリ：Windows・macOS・Linuxでモデル検索・実行、プロジェクトチャット、文書検索、ローカルAPI、性能測定をつなぐ作業環境',
+      'Webサイト：4言語の製品・インストール・利用ガイドと、公開ベンチマークの検索・比較・アカウント不要の所有者管理'
+    ],
+    flow: [
+      { name: 'ローカルAIの利用', steps: ['モデルを検索・ダウンロード', '対応エンジン・ランタイム・プロファイルを選択', 'モデルを実行', { branch: ['プロジェクト・文書・ツールを使ったチャット', '外部クライアント向けローカルAPI'] }] },
+      { name: '測定から公開比較まで', steps: ['分離したエンジンインスタンスで測定', 'トークン・キャッシュ・応答の完結性を確認', '公開するデータを利用者が確認', '入力長・同時実行数の基準点で検索・比較'] }
+    ],
     features: [
-      { name: 'ローカル実行環境の管理', desc: 'GGUFモデルとCPU・Vulkan・ROCm・CUDA・SYCL・OpenVINOランタイムを管理し、実行設定を調整' },
-      { name: '条件を残すベンチマーク', desc: '入力長・同時リクエスト数ごとのTTFT・生成速度・プロセスRAMなどを実行環境とともに記録' },
-      { name: '公開結果の検索と比較', desc: 'モデル・機器・環境で絞り込み、最大3件を比較。測定方法や負荷が異なる場合は注意事項を表示' },
-      { name: 'アカウント不要の結果管理', desc: '復旧コード・復旧ファイル、またはアプリからWebへの一度限りの連携で説明の編集・削除が可能' }
+      { name: 'マルチエンジンのモデル作業環境', desc: 'llama.cpp・vLLM・MLXと互換外部エンジンを接続し、モデル・実行環境・プロファイル・起動状態を管理。対応OS・モデル・入力形式はエンジンごとに区別' },
+      { name: 'モデル検索と安全なダウンロード', desc: 'Hugging Face検索、GGUFファイルと完全なsafetensorsスナップショットの取得、中断した転送の再開、アプリ所有ファイルの安全な削除に対応' },
+      { name: 'プロジェクト・文書・ツールを使うチャット', desc: 'プロジェクト設定と文書を再利用し、埋め込みまたはキーワードで検索。ストリーミング回答に出典を示し、MCPツールと選択したSkillsを活用' },
+      { name: 'ローカルAPIとheadless CLI', desc: '外部クライアント向けのOpenAI・Anthropic互換ローカルAPIと、GUIなしでモデル・ランタイム・サーバーを管理するCLIを提供' },
+      { name: '条件を記録する性能測定', desc: '選択したエンジンの分離インスタンスでTTFT・生成速度・スループット・プロセスメモリを測定し、履歴とExcel・CSV・Markdown出力に対応' },
+      { name: '製品サイトと匿名の結果管理', desc: '4言語の製品・利用案内、URLベースのフィルターと基準点、最大3件の比較、復旧コード・ファイル・一度限りのアプリ連携による管理を提供' }
     ],
     roles: [
-      { title: 'デスクトップアプリ · AioLM', points: ['Tauri・Rust・Reactによるモデル・ランタイム管理と推論UIを開発', '専用サーバーでのベンチマーク・履歴・CSV出力を実装'] },
-      { title: 'Webサイト · aiolm-web', points: ['Next.js・PostgreSQLで結果の検索・詳細・比較を実装', '共通スキーマと復旧コードによる結果管理を実装'] }
+      { title: 'デスクトップアプリ・共通エンジン構造', points: ['Tauri・Rust・Reactのモデル作業環境とWindows・macOS・Linux向け配布を構築', 'エンジンアダプターとオプションスキーマを接続し、実行・プロファイル・モデル互換性を一貫して検証'] },
+      { title: 'ローカル対話・文書とツールの連携', points: ['プロジェクトのモデル設定・文書・ツールを対話につなぎ、埋め込み・キーワード検索と出典表示を実装', 'MCPの承認・キャンセル・プロセス終了処理とAGENTS.md・Skillsの指示読み込みを対話に統合'] },
+      { title: '測定・安全な公開', points: ['チャットから分離したインスタンスでトークン計算・キャッシュ再利用・応答の完結性を検証', '公開情報からローカルパス・認証情報を除外し、OS資格情報ストアと共通契約でアプリ・Webを連携'] },
+      { title: '製品Web・検索と所有者管理', points: ['Next.js・PostgreSQLの検索画面と4言語の製品・ガイドに共通デザイン・タイポグラフィーを構築', '基準点・中央値・範囲・標本数を表示し、測定方式・ワークロード・重みファイルの差を案内', '復旧コード・ファイル・一度限りの連携とrevision検査で、アカウント不要の管理と同時編集の競合を処理'] }
     ],
     troubles: [
-      { problem: '測定条件を考慮した比較', solution: '入力長と同時リクエスト数が同じ測定点で比較します。モデル・機器・ランタイム情報を表示し、測定方法や負荷が異なる場合は案内します。' },
-      { problem: '測定設定の分離と検証', solution: 'チャット設定と分離した専用サーバーで、キャッシュを再利用せず測定します。実トークン数を検証し、失敗した測定は平均から除外します。' },
-      { problem: 'アプリとWebのデータ規則の統一', solution: '検証規則とOpenAPIスキーマをbenchmark-contractsパッケージで共有します。' }
+      { problem: '共通UIでもエンジン固有の実行条件を保持', solution: '共通アダプターを使いながらOS・モデル・入力形式・ランタイム別オプションを個別に確認します。非対応設定を別エンジンの値で補わず、実行前に拒否します。' },
+      { problem: '不正な測定値と異なる条件の結果の混同', solution: 'トークン計算・キャッシュ状態・応答の完結性を確認し、失敗した結果の新規公開を防ぎます。Webでは入力長・同時実行数の基準点で値を読み、測定点別の中央値・範囲と未測定・比較条件の差を明示します。' },
+      { problem: '公開結果と所有者の秘密・ローカル情報の分離', solution: '公開payloadを明示的に構成してローカルパス・認証情報を除外します。所有者の秘密はOS資格情報ストアに保存し、復旧コード・ファイル・一度限りの管理連携を提供。説明編集の競合はrevisionで検出します。' },
+      { problem: 'アプリとWebの公開・検証ルールのずれ', solution: 'バージョンを固定したbenchmark-contractsのJSON Schema・OpenAPI・検証・復旧エンコーディングを共有します。エンジン・モデル形式・実行条件を区別し、外部エンジン登録と公開ベンチマーク対応を混同しない境界を保ちます。' }
     ],
-    stack: ['React', 'Tauri 2 · Rust', 'Next.js', 'TypeScript', 'llama.cpp', 'PostgreSQL', 'Vite', 'Vercel'],
-    outcome: ['Windowsアプリとベンチマークサイトを公開', '両リポジトリのソースコードを公開・保守']
+    stack: ['React', 'Tauri 2 · Rust', 'Next.js', 'TypeScript', 'Python', 'PostgreSQL', 'llama.cpp · vLLM · MLX', 'Vite'],
+    stackGroups: [
+      { name: 'デスクトップアプリ', items: ['React', 'TypeScript', 'Tauri 2 · Rust', 'Vite', 'Tailwind CSS'] },
+      { name: '推論エンジン・ツール連携', items: ['llama.cpp', 'vLLM · vllm-metal', 'MLX · mlx-vlm', 'Python', 'MCP'] },
+      { name: 'Web・データ公開', items: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Cloudflare Turnstile', 'Vercel'] },
+      { name: 'アプリ・Web契約', items: ['JSON Schema', 'OpenAPI', 'benchmark-contracts 0.8.0'] }
+    ],
+    outcome: ['Windows・macOS・Linux向けインストーラーを公開', '4言語の製品・ガイド・ベンチマークサイトを運用', 'アプリ・Web両方のソースを公開し継続改善']
   }
 };
 
@@ -182,7 +226,6 @@ const I18N = {
     heroLevel: '주니어 웹 개발자',
     heroIntro: '사용자 경험과 접근성을 개선할 방법을 고민합니다. 사용하는 기술의 동작 원리를 깊이 공부하고, AI를 적극 활용해 개발 프로세스를 개선합니다.',
     playerCaption: '장주원 · 웹 개발자',
-    statLabels: ['UX·접근성', '동작 원리 탐구', 'AI 활용'],
     inventoryTitle: '■ 보유 기술',
     collab: '협업 도구: Git · GitHub · Notion · Figma',
     careerTitle: '■ 경력',
@@ -268,7 +311,7 @@ const I18N = {
     dTodo: '※ 스크린샷은 실제 서비스 화면 자료로 교체 예정입니다.',
     projects: [
       AIOLM.ko,
-      { id: 'p1', name: '페이스리뷰', badge: '🏆', desc: '웹캠 표정을 다섯 감정으로 분석해 시청 반응과 영상 추천으로 연결한 서비스', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: '최초 개발 4인 · 리팩터링 2인', verified: true, testAccount: 'test4@facereview.net / qwer1234',
+      { id: 'p1', name: '페이스리뷰', desc: '웹캠 표정을 다섯 감정으로 분석해 시청 반응과 영상 추천으로 연결한 서비스', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: '최초 개발 4인 · 리팩터링 2인', verified: true, testAccount: 'test4@facereview.net / qwer1234',
         rolePhases: [
           { phase: '최초 개발', period: '2023.10 ~ 2023.12', role: ['프론트엔드 개발', '5종 감정 분류 모델 학습'], team: '프론트엔드 2명 · 백엔드 1명 · AI·백엔드 1명' },
           { phase: '1차 리팩터링', period: '2026.01 ~ 2026.04', role: ['프론트엔드 전담', '리팩터링 기획·기반 전환'], team: '프론트엔드 1명 · 백엔드 1명' },
@@ -333,7 +376,7 @@ const I18N = {
           '2026 리팩터링 프론트엔드를 facereview.net(Vercel)에 배포 · 백엔드는 온프레미스 Docker 운영',
           '배포 인프라를 AWS → 온프레미스(Docker·nginx·GitHub Actions) → Vercel로 직접 이전'
         ] },
-      { id: 'p2', name: '토도동', badge: '🏀', desc: 'NBA 경기의 실시간 문자 중계와 경기별 채팅을 함께 제공하는 플랫폼', period: '2025.02 ~ 2025.05', team: '팀 프로젝트 4인 · 전원 풀스택', verified: true,
+      { id: 'p2', name: '토도동', desc: 'NBA 경기의 실시간 문자 중계와 경기별 채팅을 함께 제공하는 플랫폼', period: '2025.02 ~ 2025.05', team: '팀 프로젝트 4인 · 전원 풀스택', verified: true,
         role: ['기술 선정 · SSR/CSR 구조 설계', '인증·채팅 서버·DB 동기화 구현'],
         list: { contribution: ['기술 선정 · SSR/CSR 구조 설계', '코드 리뷰로 접근성·SEO·렌더링 개선'], implementation: ['Socket.IO 채팅 서버 호스팅', 'NBA API 동기화 cron(Express.js)'] },
         productSummary: [
@@ -383,7 +426,7 @@ const I18N = {
           '경기 일정·실시간 중계·채팅·인증을 갖춘 서비스를 기획부터 배포까지 완료',
           'Socket.IO 채팅 서버와 NBA 데이터 동기화 cron을 별도 저장소로 분리해 직접 호스팅·운영'
         ] },
-      { id: 'p3', name: '해마디', badge: '📔', desc: '하루의 감정을 기록하고 그 흐름을 시각화해 돌아보는 일기 서비스', period: '2024.08 ~ 2024.11', team: '팀 프로젝트 3인 · 개발 2인 + 디자인·개발 보조 1인', testAccount: 'joowon11 / joowon11!', verified: true,
+      { id: 'p3', name: '해마디', desc: '하루의 감정을 기록하고 그 흐름을 시각화해 돌아보는 일기 서비스', period: '2024.08 ~ 2024.11', team: '팀 프로젝트 3인 · 개발 2인 + 디자인·개발 보조 1인', testAccount: 'joowon11 / joowon11!', verified: true,
         role: ['DB·컴포넌트 구조 설계', '코드 리뷰 · 개발 일정 관리'],
         list: { contribution: ['PocketBase DB·컴포넌트 구조 설계', '코드 리뷰로 접근성·성능 개선'], implementation: ['Lighthouse 성능 대폭 개선', 'SVGIcon sprite 컴포넌트'] },
         productSummary: [
@@ -434,7 +477,6 @@ const I18N = {
     heroLevel: 'Junior Web Developer',
     heroIntro: 'I care deeply about user experience and accessibility, dig into how the tech I use actually works, and actively use AI to improve my development process.',
     playerCaption: 'Jang Joowon · Web Developer',
-    statLabels: ['UX · Accessibility', 'Deep Understanding', 'AI Leverage'],
     inventoryTitle: '■ SKILLS',
     collab: 'Collaboration: Git · GitHub · Notion · Figma',
     careerTitle: '■ CAREER',
@@ -520,7 +562,7 @@ const I18N = {
     dTodo: '※ Screenshots will be replaced with actual product screens.',
     projects: [
       AIOLM.en,
-      { id: 'p1', name: 'Face Review', badge: '🏆', desc: 'A service that turns five emotions inferred from webcam expressions into viewing reactions and video recommendations', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: 'Original team of 4 · Refactoring team of 2', verified: true, testAccount: 'test4@facereview.net / qwer1234',
+      { id: 'p1', name: 'Face Review', desc: 'A service that turns five emotions inferred from webcam expressions into viewing reactions and video recommendations', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: 'Original team of 4 · Refactoring team of 2', verified: true, testAccount: 'test4@facereview.net / qwer1234',
         rolePhases: [
           { phase: 'Original build', period: '2023.10 – 2023.12', role: ['Frontend development', 'Five-emotion classifier training'], team: 'Frontend 2 · Backend 1 · AI & Backend 1' },
           { phase: '1st refactoring', period: '2026.01 – 2026.04', role: ['Sole frontend owner', 'Planning · foundation migration'], team: 'Frontend 1 · Backend 1' },
@@ -585,7 +627,7 @@ const I18N = {
           '2026 refactored frontend live at facereview.net on Vercel · backend on an on-premises Docker server',
           'Migrated deployment hands-on: AWS → on-premises (Docker, nginx, GitHub Actions) → Vercel'
         ] },
-      { id: 'p2', name: 'Tododong', badge: '🏀', desc: 'A platform combining live NBA text play-by-play with per-game chat', period: '2025.02 ~ 2025.05', team: 'Team of 4 · all full-stack', verified: true,
+      { id: 'p2', name: 'Tododong', desc: 'A platform combining live NBA text play-by-play with per-game chat', period: '2025.02 ~ 2025.05', team: 'Team of 4 · all full-stack', verified: true,
         role: ['Tech choices · SSR/CSR structure design', 'Auth, chat server & DB sync implementation'],
         list: { contribution: ['Tech choices · SSR/CSR structure design', 'A11y, SEO & rendering via code review'], implementation: ['Hosted the Socket.IO chat server', 'NBA API sync cron (Express.js)'] },
         productSummary: [
@@ -635,7 +677,7 @@ const I18N = {
           'Took a service with schedules, live play-by-play, chat, and auth from planning to deployment',
           'Hosted and ran the Socket.IO chat server and the NBA data sync cron in a separate repo'
         ] },
-      { id: 'p3', name: 'Haemadi', badge: '📔', desc: 'A journal for recording daily emotions and reflecting on their visualized flow', period: '2024.08 ~ 2024.11', team: 'Team of 3 · 2 devs + 1 design/dev support', testAccount: 'joowon11 / joowon11!', verified: true,
+      { id: 'p3', name: 'Haemadi', desc: 'A journal for recording daily emotions and reflecting on their visualized flow', period: '2024.08 ~ 2024.11', team: 'Team of 3 · 2 devs + 1 design/dev support', testAccount: 'joowon11 / joowon11!', verified: true,
         role: ['DB & component structure design', 'Code review · schedule management'],
         list: { contribution: ['PocketBase DB & component structure', 'A11y & performance via code review'], implementation: ['Major Lighthouse performance gains', 'SVGIcon sprite component'] },
         productSummary: [
@@ -686,7 +728,6 @@ const I18N = {
     heroLevel: 'ジュニアWeb開発者',
     heroIntro: 'ユーザー体験とアクセシビリティの改善を常に考えています。使う技術の動作原理を深く学び、AIを積極的に活用して開発プロセスを改善します。',
     playerCaption: 'チャン・ジュウォン · Web開発者',
-    statLabels: ['UX・アクセシビリティ', '動作原理の探求', 'AI活用'],
     inventoryTitle: '■ 保有スキル',
     collab: '協業ツール: Git · GitHub · Notion · Figma',
     careerTitle: '■ キャリア',
@@ -772,7 +813,7 @@ const I18N = {
     dTodo: '※ スクリーンショットは実際のサービス画面に差し替え予定です。',
     projects: [
       AIOLM.ja,
-      { id: 'p1', name: 'フェイスレビュー', badge: '🏆', desc: 'Webカメラの表情を5感情に分類し、視聴反応と動画推薦につなげるサービス', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: '初期開発4人 · リファクタリング2人', verified: true, testAccount: 'test4@facereview.net / qwer1234',
+      { id: 'p1', name: 'フェイスレビュー', desc: 'Webカメラの表情を5感情に分類し、視聴反応と動画推薦につなげるサービス', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: '初期開発4人 · リファクタリング2人', verified: true, testAccount: 'test4@facereview.net / qwer1234',
         rolePhases: [
           { phase: '初期開発', period: '2023.10 ~ 2023.12', role: ['フロントエンド開発', '5感情分類モデル学習'], team: 'フロントエンド2人 · バックエンド1人 · AI・バックエンド1人' },
           { phase: '1次リファクタリング', period: '2026.01 ~ 2026.04', role: ['フロントエンド専任', 'リファクタリング企画・基盤移行'], team: 'フロントエンド1人 · バックエンド1人' },
@@ -837,7 +878,7 @@ const I18N = {
           '2026年リファクタリングのフロントエンドをfacereview.net（Vercel）で公開 · バックエンドはオンプレミスDockerで運用',
           'デプロイインフラをAWS → オンプレミス（Docker・nginx・GitHub Actions）→ Vercelへ自ら移行'
         ] },
-      { id: 'p2', name: 'トドドン', badge: '🏀', desc: 'NBAのリアルタイム文字中継と試合別チャットを一緒に提供するプラットフォーム', period: '2025.02 ~ 2025.05', team: 'チーム4人 · 全員フルスタック', verified: true,
+      { id: 'p2', name: 'トドドン', desc: 'NBAのリアルタイム文字中継と試合別チャットを一緒に提供するプラットフォーム', period: '2025.02 ~ 2025.05', team: 'チーム4人 · 全員フルスタック', verified: true,
         role: ['技術選定 · SSR/CSR構成設計', '認証・チャットサーバー・DB同期の実装'],
         list: { contribution: ['技術選定 · SSR/CSR構成設計', 'コードレビューでアクセシビリティ・SEO改善'], implementation: ['Socket.IOチャットサーバーのホスティング', 'NBA API同期cron(Express.js)'] },
         productSummary: [
@@ -887,7 +928,7 @@ const I18N = {
           '試合日程・リアルタイム中継・チャット・認証を備えたサービスを企画からデプロイまで完了',
           'Socket.IOチャットサーバーとNBAデータ同期cronを別リポジトリに分離し自らホスティング・運用'
         ] },
-      { id: 'p3', name: 'ヘマディ', badge: '📔', desc: '一日の感情を記録し、その流れを可視化して振り返る日記サービス', period: '2024.08 ~ 2024.11', team: 'チーム3人 · 開発2人 + デザイン・開発補助1人', testAccount: 'joowon11 / joowon11!', verified: true,
+      { id: 'p3', name: 'ヘマディ', desc: '一日の感情を記録し、その流れを可視化して振り返る日記サービス', period: '2024.08 ~ 2024.11', team: 'チーム3人 · 開発2人 + デザイン・開発補助1人', testAccount: 'joowon11 / joowon11!', verified: true,
         role: ['DB・コンポーネント構造設計', 'コードレビュー · 開発スケジュール管理'],
         list: { contribution: ['PocketBase DB・コンポーネント構造設計', 'コードレビューでアクセシビリティ・性能改善'], implementation: ['Lighthouseパフォーマンスの大幅改善', 'SVGIconスプライトコンポーネント'] },
         productSummary: [
@@ -942,30 +983,28 @@ const UI_COPY = {
   ko: {
     skip: '본문으로 건너뛰기', menu: '메뉴', navLabel: '주요 메뉴', langLabel: '언어 선택',
     aiUsage: 'AI 활용',
-    careerChapter: 'CHAPTER · 회사', careerMission: 'MISSION · 프로젝트', careerLog: 'LOG · 기여 기록',
-    careerExpand: '펼치기', careerCollapse: '접기', careerStack: '기술 스택', careerOutcome: '성과', careerRelated: '주요 업무',
-    missionFile: 'MISSION FILE', projectContribution: '핵심 기여', projectImplementation: '대표 구현', projectLoadout: '핵심 기술', openLog: 'LOG 열기',
+    pageTitle: '장주원 — 웹 개발자 포트폴리오',
+    careerExpand: '펼치기', careerCollapse: '접기', careerOutcome: '성과',
+    projectContribution: '핵심 기여', projectImplementation: '대표 구현',
     projectGuide: '최근 작업일 순 · 핵심 기여와 대표 구현 기준', flowTitle: '서비스 작동 흐름', flowOr: '또는',
     visitBlog: 'Velog에서 전체 글 보기',
-    blogLogLabel: 'DEV LOG', blogOpen: '읽기',
-    hudTitle: '미션 브리핑', hudLabels: ['문제', '기여', '성과'],
+    hudLabels: ['문제', '기여', '성과'],
     statusTitle: '기본 정보', statusLabels: { period: '기간', team: '팀 구성', links: '링크', testAccount: '테스트 계정' },
     roleLabel: '역할',
     imageLabels: {
-      photo: '장주원 프로필을 표현한 픽셀 아바타',
-      p4: 'AioLM 공식 로고',
+      p4: '현재 AioLM 데스크톱 앱과 제품 웹의 실제 화면',
       p1: '페이스리뷰 공식 로고',
       p2: 'NBA 경기 일정과 팀별 점수가 표시된 토도동 서비스 화면',
       p3: '답장 방식 선택 화면을 모바일과 데스크톱으로 보여주는 해마디 서비스 화면'
     },
     shotLabels: {
-      p4: ['벤치마크 — 모델·실행 환경을 확인하고 입력 길이와 동시 요청 수를 설정하는 화면', '모델 설정 — GPU 레이어·배치 크기를 조정하고 예상 메모리 사용량을 확인하는 화면'],
+      p4: ['모델 작업 공간 — 현재 공개 가이드에 사용된 네이티브 macOS 앱의 모델 목록과 실행 관리', '채팅 — 현재 공개 가이드에 사용된 네이티브 macOS 앱의 프로젝트·대화 화면', '제품 웹 — 다양한 추론 엔진 안내와 Windows·macOS·Linux 설치를 제공하는 현재 공개 사이트'],
       p1: ['영상 위 감정 타임라인 그래프와 커스텀 재생 컨트롤이 표시된 페이스리뷰 시청 화면', '감정 분포 도넛 차트와 최근 시청 영상별 그래프가 표시된 페이스리뷰 마이페이지'],
       p2: ['날짜별 NBA 경기 일정과 팀별 점수를 조회하는 토도동 화면', '실시간 문자 중계와 경기별 채팅을 함께 제공하는 토도동 경기 화면'],
       p3: ['AI 또는 익명 사용자 중 일기 답장 방식을 선택하는 해마디 화면', '월간 감정 분포와 일기 통계를 확인하는 해마디 나의 섬 화면']
     },
     hud: {
-      p4: ['기기 구매·설정에 참고할 LLM 실측 정보 부족', ['로컬 LLM 실행·벤치마크 앱 개발', '결과 공유·비교 웹사이트 개발'], ['데스크톱 앱·웹사이트 공개', '소스 코드 공개·유지보수']],
+      p4: ['로컬 추론 엔진별 설정·작업 흐름의 분산과 실측 비교 정보 부족', ['멀티엔진 작업 공간·문서 채팅·API·측정 통합', '제품·가이드·익명 벤치마크 웹 개발'], ['Windows·macOS·Linux 패키지 공개', '4개 언어 제품·가이드·결과 탐색']],
       p1: ['클릭·시청 기록만으로는 영상 구간별 감정 반응을 알기 어려움', ['2023: 프론트엔드 개발·감정 분석 모델 직접 학습', '2026: 프론트엔드 리팩터링 전담'], ['창의설계경진대회 대상', 'facereview.net 배포']],
       p2: ['NBA 경기를 보며 팬들과 실시간으로 소통할 공간이 없는 문제', ['기술 선정·SSR/CSR 구조 설계', '인증·채팅 서버·DB 동기화 구현'], ['실시간 중계·경기별 채팅 배포', 'NBA 데이터 자동 동기화 구축']],
       p3: ['감정 기록이 쌓여도 흐름을 돌아보기 어려운 문제', ['PocketBase DB·컴포넌트 구조 설계', '코드 리뷰·성능 개선'], ['Lighthouse 모바일 50~60 → 80~90점대', 'AI 답장 일기 서비스 배포']]
@@ -975,30 +1014,28 @@ const UI_COPY = {
   en: {
     skip: 'Skip to main content', menu: 'Menu', navLabel: 'Primary', langLabel: 'Language',
     aiUsage: 'AI Leverage',
-    careerChapter: 'CHAPTER · COMPANY', careerMission: 'MISSION · PROJECT', careerLog: 'LOG · CONTRIBUTIONS',
-    careerExpand: 'Show details', careerCollapse: 'Hide details', careerStack: 'Tech stack', careerOutcome: 'Outcome', careerRelated: 'HIGHLIGHTED WORK',
-    missionFile: 'MISSION FILE', projectContribution: 'CORE CONTRIBUTION', projectImplementation: 'KEY IMPLEMENTATION', projectLoadout: 'CORE STACK', openLog: 'OPEN LOG',
+    pageTitle: 'Jang Joowon — Web Developer Portfolio',
+    careerExpand: 'Show details', careerCollapse: 'Hide details', careerOutcome: 'Outcome',
+    projectContribution: 'CORE CONTRIBUTION', projectImplementation: 'KEY IMPLEMENTATION',
     projectGuide: 'Latest work first · compared by contribution and implementation', flowTitle: 'SERVICE FLOW', flowOr: 'OR',
     visitBlog: 'See all posts on Velog',
-    blogLogLabel: 'DEV LOG', blogOpen: 'Read',
-    hudTitle: 'MISSION BRIEF', hudLabels: ['Problem', 'Contribution', 'Outcome'],
+    hudLabels: ['Problem', 'Contribution', 'Outcome'],
     statusTitle: 'PROJECT INFO', statusLabels: { period: 'PERIOD', team: 'TEAM', links: 'LINKS', testAccount: 'TEST ACCOUNT' },
     roleLabel: 'ROLE',
     imageLabels: {
-      photo: 'Pixel avatar representing Jang Joowon',
-      p4: 'Official AioLM logo',
+      p4: 'Current AioLM desktop app and product website screens',
       p1: 'Official Face Review logo',
       p2: 'Tododong screen showing the NBA schedule and team scores',
       p3: 'Haemadi reply-method screen shown on mobile and desktop'
     },
     shotLabels: {
-      p4: ['Benchmark — model, execution environment, input length, and concurrency settings', 'Model settings — GPU layers, batch sizes, and estimated memory usage'],
+      p4: ['Model workspace — model inventory and execution management in the native macOS app used by the current public guides', 'Chat — project and conversation screen from the native macOS app used by the current public guides', 'Product website — current public engine overview and Windows, macOS and Linux installation page'],
       p1: ['Face Review watch screen with an emotion timeline over the video and custom playback controls', 'Face Review profile screen with an emotion-distribution donut and graphs for recently watched videos'],
       p2: ['Tododong schedule screen for browsing NBA games and scores by date', 'Tododong game screen combining live text play-by-play with per-game chat'],
       p3: ['Haemadi screen for choosing an AI or anonymous-user reply to a journal entry', 'Haemadi My Island screen showing monthly emotion distribution and journal statistics']
     },
     hud: {
-      p4: ['Limited measured LLM data for hardware and setup decisions', ['Built the local LLM app and benchmarks', 'Built the results sharing and comparison website'], ['Released the desktop app and website', 'Published and maintain both repositories']],
+      p4: ['Fragmented local-engine workflows and limited measured comparison data', ['Unified engines, document chat, APIs and measurements', 'Built product guides and an anonymous benchmark explorer'], ['Published Windows, macOS and Linux packages', 'Four-language product guides and benchmark discovery']],
       p1: ['Click and watch history alone cannot show emotional reactions by video segment', ['2023: frontend development · trained the emotion classifier', '2026: sole frontend owner of the refactoring'], ['Creative Design grand prize', 'facereview.net deployed']],
       p2: ['No place to follow an NBA game live while talking with fellow fans', ['Tech choices · SSR/CSR structure design', 'Auth, chat server & DB sync'], ['Shipped live play-by-play & per-game chat', 'Automated NBA data sync']],
       p3: ['Hard to look back on emotional flow as diary entries pile up', ['PocketBase DB & component structure', 'Code review · performance work'], ['Lighthouse mobile 50s–60s → 80s–90s', 'Shipped the AI-reply diary service']]
@@ -1008,30 +1045,28 @@ const UI_COPY = {
   ja: {
     skip: '本文へスキップ', menu: 'メニュー', navLabel: 'メインメニュー', langLabel: '言語選択',
     aiUsage: 'AI活用',
-    careerChapter: 'CHAPTER · 会社', careerMission: 'MISSION · プロジェクト', careerLog: 'LOG · 貢献記録',
-    careerExpand: '詳細を開く', careerCollapse: '閉じる', careerStack: '技術スタック', careerOutcome: '成果', careerRelated: '主な業務',
-    missionFile: 'MISSION FILE', projectContribution: '主要な貢献', projectImplementation: '代表実装', projectLoadout: '主要技術', openLog: 'LOGを開く',
+    pageTitle: 'チャン・ジュウォン — Web開発者ポートフォリオ',
+    careerExpand: '詳細を開く', careerCollapse: '閉じる', careerOutcome: '成果',
+    projectContribution: '主要な貢献', projectImplementation: '代表実装',
     projectGuide: '最近の作業順 · 貢献と代表実装で比較', flowTitle: 'サービスの動作フロー', flowOr: 'または',
     visitBlog: 'Velogで全ての記事を見る',
-    blogLogLabel: 'DEV LOG', blogOpen: '読む',
-    hudTitle: 'ミッションブリーフィング', hudLabels: ['課題', '貢献', '成果'],
+    hudLabels: ['課題', '貢献', '成果'],
     statusTitle: '基本情報', statusLabels: { period: '期間', team: 'チーム構成', links: 'リンク', testAccount: 'テストアカウント' },
     roleLabel: '担当',
     imageLabels: {
-      photo: 'チャン・ジュウォンを表すピクセルアバター',
-      p4: 'AioLM公式ロゴ',
+      p4: '現在のAioLMデスクトップアプリと製品Webの実際の画面',
       p1: 'フェイスレビューの公式ロゴ',
       p2: 'NBAの日程とチーム別スコアを表示するトドドンのサービス画面',
       p3: '返信方法の選択画面をモバイルとデスクトップで示すヘマディのサービス画面'
     },
     shotLabels: {
-      p4: ['ベンチマーク — モデル・実行環境・入力長・同時リクエスト数の設定', 'モデル設定 — GPUレイヤー・バッチサイズと推定メモリ使用量'],
+      p4: ['モデル作業環境 — 現在の公開ガイドで使われるネイティブmacOSアプリのモデル一覧と実行管理', 'チャット — 現在の公開ガイドで使われるネイティブmacOSアプリのプロジェクト・対話画面', '製品Web — 推論エンジンの紹介とWindows・macOS・Linuxの導入案内を提供する現在の公開サイト'],
       p1: ['動画上の感情タイムラインとカスタム再生コントロールを表示するフェイスレビューの視聴画面', '感情分布ドーナツと最近見た動画別グラフを表示するフェイスレビューのマイページ'],
       p2: ['日付別にNBAの試合日程とスコアを確認するトドドンの画面', 'リアルタイム文字中継と試合別チャットを同時に提供するトドドンの試合画面'],
       p3: ['AIまたは匿名ユーザーからの日記返信方法を選ぶヘマディの画面', '月間の感情分布と日記統計を確認するヘマディの「私の島」画面']
     },
     hud: {
-      p4: ['機器購入・設定に参考となるLLM実測情報の不足', ['ローカルLLM実行・測定アプリを開発', '結果共有・比較サイトを開発'], ['デスクトップアプリ・Webサイトを公開', 'ソースコードを公開・保守']],
+      p4: ['ローカルエンジンの設定・作業の分散と実測比較情報の不足', ['エンジン・文書チャット・API・測定を統合', '製品・ガイド・匿名ベンチマークWebを開発'], ['Windows・macOS・Linuxパッケージを公開', '4言語の製品・ガイド・結果検索']],
       p1: ['クリック・視聴履歴だけでは動画区間ごとの感情反応が分からない', ['2023: フロントエンド開発・感情分析モデルを直接学習', '2026: フロントエンドリファクタリング専任'], ['創意設計コンテスト大賞', 'facereview.net公開']],
       p2: ['NBAの試合を見ながらファン同士でリアルタイムに交流できる場がない課題', ['技術選定 · SSR/CSR構成設計', '認証・チャットサーバー・DB同期を実装'], ['リアルタイム中継・試合別チャットを公開', 'NBAデータの自動同期を構築']],
       p3: ['感情の記録が溜まっても流れを振り返りにくい課題', ['PocketBase DB・コンポーネント構造設計', 'コードレビュー・性能改善'], ['Lighthouseモバイル50〜60→80〜90点台', 'AI返信付き日記サービスを公開']]

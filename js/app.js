@@ -37,14 +37,14 @@
     return `<li class="contribution"><details><summary><span class="contribution-date">${item.date ? `<time datetime="${escape(item.date.replace('.', '-'))}">${escape(item.date)}</time>` : ''}</span><span class="contribution-heading"><span class="contribution-title">${escape(item.title)}</span>${item.summary ? `<span class="contribution-summary">${escape(item.summary)}</span>` : ''}${item.outcome ? `<span class="contribution-outcome"><span>${escape(copy.careerOutcome)}</span>${escape(item.outcome)}</span>` : ''}</span>${disclosure}</summary>${body}</details></li>`;
   }
 
-  function shell(language, content) {
+  function shell(language, content, topHash) {
     const tr = I18N[language];
     const copy = UI_COPY[language];
     const nav = [0, 5, 1, 2, 4, 3].map(index => `<a href="${escape(routeURL(sectionIds[index]))}">${escape(tr.nav[index])}</a>`).join('');
-    const languageButtons = Object.entries(languages).map(([key, name]) => `<button type="button" data-language="${key}" lang="${key}" aria-label="${name}" aria-pressed="${key === language}">${key.toUpperCase()}</button>`).join('');
+    const languageButtons = Object.entries(languages).map(([key, name]) => `<button type="button" data-language="${key}" lang="${key}" aria-label="${escape(key.toUpperCase() + ', ' + name)}" aria-pressed="${key === language}">${key.toUpperCase()}</button>`).join('');
     return `<a class="skip-link" href="#main-content">${escape(copy.skip)}</a>
       <header class="preview-header"><div class="header-inner"><a class="identity" href="${escape(routeURL('sec-about'))}">${escape(tr.heroName)}<span>Portfolio</span></a><button class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="false">${escape(copy.menu)}<span aria-hidden="true">+</span></button><div class="navigation" id="primary-navigation"><nav class="primary-nav" aria-label="${escape(copy.navLabel)}">${nav}</nav><div class="languages" role="group" aria-label="${escape(copy.langLabel)}">${languageButtons}</div></div></div></header>
-      <main class="preview-main" id="main-content" tabindex="-1"><div class="home">${content}<footer class="preview-footer">${escape(tr.footer)}</footer></div></main><a class="back-to-top" href="${escape(routeURL('sec-about'))}" aria-label="${escape(tr.scrollTop)}">↑</a>`;
+      <main class="preview-main" id="main-content" tabindex="-1"><div class="home">${content}<footer class="preview-footer">${escape(tr.footer)}</footer></div></main><a class="back-to-top" href="${escape(routeURL(topHash))}" aria-label="${escape(tr.scrollTop)}">↑</a>`;
   }
 
   function homeMarkup(language) {
@@ -54,7 +54,7 @@
     const careers = tr.careers.map(career => `<article class="company"><header class="company-head"><div><h3>${escape(career.company)}</h3><p class="company-role">${escape(career.role)}</p></div><p class="company-period">${escape(career.period)}</p></header><ul class="company-work" role="list">${(career.contributions || []).map(item => contribution(item, copy, language)).join('')}</ul>${career.projects.map(project => `<section class="career-project"><header class="career-project-head"><h4>${escape(label(project.name))}</h4><p>${escape(project.desc)}</p>${stack(project.stack)}</header><ul class="contribution-list" role="list">${project.contributions.map(item => contribution(item, copy, language)).join('')}</ul></section>`).join('')}</article>`).join('');
     const projects = tr.projects.map(project => {
       const media = project.id === 'p4'
-        ? `<div class="screen-reel" data-screen-reel>${picture('shot-p4-1', project.shots?.[0]?.caption || 'AioLM · Benchmark', 'screen-first')}${picture('shot-p4-2', project.shots?.[1]?.caption || 'AioLM · Model settings', 'screen-second')}</div>`
+        ? `<div class="screen-reel" data-screen-reel>${picture('shot-p4-1', copy.shotLabels.p4[0], 'screen-first')}${picture('shot-p4-2', copy.shotLabels.p4[1], 'screen-second')}</div>`
         : picture(`thumb-${project.id}`, copy.imageLabels[project.id]);
       const href = escape(routeURL(project.id));
       return `<li class="portfolio-project" data-project="${escape(project.id)}"><div class="project-media">${media}</div><div class="project-copy"><p class="project-period">${escape(project.period)}</p><h3 class="project-name"><a href="${href}">${escape(project.name)}<span aria-hidden="true">↗</span></a></h3><p class="project-description">${escape(project.desc)}</p><dl class="project-facts"><div><dt>${escape(copy.projectContribution)}</dt><dd>${list(project.list.contribution)}</dd></div><div><dt>${escape(copy.projectImplementation)}</dt><dd>${list(project.list.implementation)}</dd></div></dl><p class="project-team">${escape(project.team)}</p>${stack(project.stack.slice(0, 3))}<a class="project-open" href="${href}">${escape(tr.sideQuestLabel)} <span aria-hidden="true">↗</span></a></div></li>`;
@@ -72,7 +72,7 @@
         <section class="main-section" id="sec-career" aria-labelledby="career-title"><header class="section-head"><h2 class="section-title" id="career-title">${escape(label(tr.careerTitle))}</h2></header>${careers}</section>
         <section class="main-section" id="sec-certs" aria-labelledby="cert-title"><header class="section-head"><h2 class="section-title" id="cert-title">${escape(label(tr.achieveTitle))}</h2></header><ul class="cert-list" role="list">${certs}</ul></section>
         <section class="main-section" id="sec-blog" aria-labelledby="blog-title"><header class="section-head"><h2 class="section-title" id="blog-title">${escape(label(tr.blogTitle))}</h2><a href="${escape(CONTACT.blog.url)}" target="_blank" rel="noopener noreferrer">${escape(copy.visitBlog)} <span aria-hidden="true">↗</span></a></header><ul class="blog-list" role="list">${blogs}</ul></section>
-        <section class="main-section" id="sec-projects" aria-labelledby="projects-title"><header class="section-head"><h2 class="section-title" id="projects-title">${escape(label(tr.sideQuestTitle))}</h2><p>${escape(copy.projectGuide)}</p></header><ul class="project-list" role="list">${projects}</ul></section>`);
+        <section class="main-section" id="sec-projects" aria-labelledby="projects-title"><header class="section-head"><h2 class="section-title" id="projects-title">${escape(label(tr.sideQuestTitle))}</h2><p>${escape(copy.projectGuide)}</p></header><ul class="project-list" role="list">${projects}</ul></section>`, 'sec-about');
   }
 
   window.Portfolio = { homeMarkup };
@@ -93,14 +93,46 @@
   let printState;
   let locationURL;
   let navigationFrame = 0;
+  const positions = new Map();
+  let entrySequence = 0;
+  const newEntry = () => ({ id: `${Date.now()}-${entrySequence++}` });
+  const storedEntry = history.state?.portfolioNavigation;
+  let entry = storedEntry || newEntry();
+  let initialScrollY = storedEntry?.scrollY;
+  try {
+    const saved = sessionStorage.getItem(`jw-scroll:${entry.id}`);
+    if (saved !== null) {
+      const position = Number(saved);
+      if (Number.isFinite(position)) initialScrollY = position;
+      sessionStorage.removeItem(`jw-scroll:${entry.id}`);
+    }
+  } catch (error) { /* Session snapshots are optional in restricted browsing contexts. */ }
+  history.replaceState({ ...history.state, portfolioNavigation: entry }, '');
+  // Restore only after the destination DOM exists; native restoration can clamp to the old page.
+  history.scrollRestoration = 'manual';
+
+  function savePosition() {
+    entry = { id: entry.id, scrollY: window.scrollY };
+    positions.set(entry.id, entry.scrollY);
+    history.replaceState({ ...history.state, portfolioNavigation: entry }, '');
+  }
+
+  function ensureJapaneseFont() {
+    if (language !== 'ja' || document.getElementById('portfolio-font-ja')) return;
+    const link = document.createElement('link');
+    link.id = 'portfolio-font-ja';
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap';
+    document.head.append(link);
+  }
 
   function projectForHash(hash) {
     return I18N[language].projects.find(project => project.id === hash);
   }
 
-  function closeMenu() {
-    root.querySelector('.menu-toggle')?.setAttribute('aria-expanded', 'false');
-    root.querySelector('.navigation')?.classList.remove('is-open');
+  function setMenuOpen(open) {
+    root.querySelector('.menu-toggle').setAttribute('aria-expanded', String(open));
+    root.querySelector('.navigation').classList.toggle('is-open', open);
   }
 
   function stopContent() {
@@ -114,18 +146,21 @@
   function attachHome() {
     cleanupMotion = window.setupMainMotion?.(root);
     if (!('IntersectionObserver' in window)) return;
+    const sections = Array.from(root.querySelectorAll(sectionIds.map(id => `#${id}`).join(',')));
+    const visibleSections = new Set();
     activeObserver = new IntersectionObserver(entries => {
-      const entry = entries.filter(item => item.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
-      if (!entry) return;
+      entries.forEach(item => {
+        if (item.isIntersecting) visibleSections.add(item.target);
+        else visibleSections.delete(item.target);
+      });
+      const active = sections.find(section => visibleSections.has(section));
+      if (!active) return;
       root.querySelectorAll('.primary-nav a').forEach(link => {
-        if (link.hash === `#${entry.target.id}`) link.setAttribute('aria-current', 'location');
+        if (link.hash === `#${active.id}`) link.setAttribute('aria-current', 'location');
         else link.removeAttribute('aria-current');
       });
     }, { rootMargin: '-15% 0px -65% 0px' });
-    sectionIds.forEach(id => {
-      const section = root.querySelector(`#${id}`);
-      if (section) activeObserver.observe(section);
-    });
+    sections.forEach(section => activeObserver.observe(section));
   }
 
   function preparePrint() {
@@ -139,12 +174,13 @@
 
   function render(project) {
     stopContent();
+    ensureJapaneseFont();
     root.innerHTML = project
-      ? shell(language, window.PortfolioDetails.markup({ projectId: project.id, language, assetBaseURL }))
+      ? shell(language, window.PortfolioDetails.markup({ projectId: project.id, language, assetBaseURL }), 'main-content')
       : homeMarkup(language);
     root.dataset.renderedLang = language;
     document.documentElement.lang = language;
-    const title = `${I18N[language].heroName} Portfolio`;
+    const title = UI_COPY[language].pageTitle;
     document.title = project ? `${project.name} · ${title}` : `${document.body.dataset.designName ? `${document.body.dataset.designName} · ` : ''}${title}`;
     renderedRoute = project?.id || 'home';
     renderedLanguage = language;
@@ -161,7 +197,7 @@
     target.focus({ preventScroll: true });
   }
 
-  function syncRoute({ initial = false, focus = false, smooth = false } = {}) {
+  function syncRoute({ initial = false, focus = false, smooth = false, restoreY } = {}) {
     cancelAnimationFrame(navigationFrame);
     locationURL = location.href;
     const hash = location.hash.slice(1);
@@ -169,9 +205,14 @@
     const route = project?.id || 'home';
     const changed = route !== renderedRoute || language !== renderedLanguage;
     if (changed) render(project);
-    closeMenu();
-    if (!changed && !hash) return;
+    setMenuOpen(false);
+    if (!changed && !hash && restoreY === undefined) return;
     navigationFrame = requestAnimationFrame(() => {
+      if (restoreY !== undefined) {
+        if (focus) focusTarget(root.querySelector('#main-content'));
+        window.scrollTo({ top: restoreY, behavior: 'instant' });
+        return;
+      }
       if (project) {
         if (focus) focusTarget(root.querySelector('#main-content'));
         if (changed || initial) window.scrollTo({ top: 0, behavior: 'instant' });
@@ -192,10 +233,14 @@
     if (!Object.hasOwn(languages, nextLanguage) || nextLanguage === language) return;
     cancelAnimationFrame(navigationFrame);
     const oldY = window.scrollY;
+    const menuOpen = root.querySelector('.menu-toggle').getAttribute('aria-expanded') === 'true';
     language = nextLanguage;
     try { localStorage.setItem('jw-lang', language); } catch (error) { /* Language selection still works without storage. */ }
     render(projectForHash(location.hash.slice(1)));
-    root.querySelector(`[data-language="${language}"]`).focus({ preventScroll: true });
+    if (menuOpen && getComputedStyle(root.querySelector('.menu-toggle')).display !== 'none') setMenuOpen(true);
+    const selectedLanguage = root.querySelector(`[data-language="${language}"]`);
+    const focus = selectedLanguage.getClientRects().length ? selectedLanguage : root.querySelector('.menu-toggle');
+    focus.focus({ preventScroll: true });
     window.scrollTo({ top: oldY, behavior: 'instant' });
   }
 
@@ -208,8 +253,7 @@
     const menu = root.querySelector('.menu-toggle');
     if (event.target.closest('.menu-toggle')) {
       const open = menu.getAttribute('aria-expanded') !== 'true';
-      menu.setAttribute('aria-expanded', String(open));
-      root.querySelector('.navigation').classList.toggle('is-open', open);
+      setMenuOpen(open);
       return;
     }
     const anchor = event.target.closest('a[href]');
@@ -222,13 +266,17 @@
     if (!projectForHash(hash) && !/^sec-/.test(hash) && hash !== 'main-content') return;
     event.preventDefault();
     if (hash === 'main-content') {
-      closeMenu();
+      setMenuOpen(false);
       const main = root.querySelector('#main-content');
       focusTarget(main);
       main.scrollIntoView({ block: 'start', behavior: 'instant' });
       return;
     }
-    if (location.hash !== url.hash) history.pushState(null, '', url.hash);
+    if (location.hash !== url.hash) {
+      savePosition();
+      entry = newEntry();
+      history.pushState({ portfolioNavigation: entry }, '', url.hash);
+    }
     syncRoute({ focus: true, smooth: true });
   });
 
@@ -236,20 +284,37 @@
     if (event.key !== 'Escape') return;
     const menu = root.querySelector('.menu-toggle');
     if (menu?.getAttribute('aria-expanded') !== 'true') return;
-    closeMenu();
+    setMenuOpen(false);
     menu.focus();
   });
-  const onLocationChange = () => {
-    if (locationURL !== location.href) syncRoute({ focus: true });
+  const onLocationChange = event => {
+    const destination = history.state?.portfolioNavigation;
+    if (locationURL === location.href && destination?.id === entry.id) return;
+    positions.set(entry.id, window.scrollY);
+    if (event.type === 'popstate' && destination && destination.id !== entry.id) {
+      entry = destination;
+      syncRoute({ focus: true, restoreY: positions.get(entry.id) ?? entry.scrollY });
+    } else {
+      entry = newEntry();
+      history.replaceState({ ...history.state, portfolioNavigation: entry }, '');
+      syncRoute({ focus: true });
+    }
   };
   window.addEventListener('hashchange', onLocationChange);
   window.addEventListener('popstate', onLocationChange);
-  window.addEventListener('resize', () => { if (window.innerWidth > 940) closeMenu(); });
+  window.addEventListener('pagehide', () => {
+    savePosition();
+    // Reload can snapshot history.state before pagehide; carry the live reading position separately.
+    try { sessionStorage.setItem(`jw-scroll:${entry.id}`, String(entry.scrollY)); } catch (error) { /* History still works without storage. */ }
+  });
+  window.addEventListener('resize', () => {
+    if (getComputedStyle(root.querySelector('.menu-toggle')).display === 'none') setMenuOpen(false);
+  });
   window.addEventListener('beforeprint', preparePrint);
   window.addEventListener('afterprint', () => {
     printState?.forEach((open, details) => { details.open = open; });
     printState = undefined;
   });
   // Static Korean shells remain complete and readable when JavaScript is disabled.
-  syncRoute({ initial: true });
+  syncRoute({ initial: true, restoreY: initialScrollY });
 })();
