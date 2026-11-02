@@ -544,12 +544,6 @@
   line-height: 1.6;
 }
 
-.project-detail .detail-source-notice {
-  margin-top: 24px;
-  color: var(--muted);
-  font-size: 13px;
-}
-
 .project-detail pre,
 .project-detail code {
   max-width: 100%;

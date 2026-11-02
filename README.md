@@ -42,9 +42,11 @@ python3 -m http.server 8080
 
 AioLM 기간은 확인 가능한 개발 기록을 기준으로 `2026.08 ~ 진행 중`입니다. 앱 초기 기록은 2026년 8월, 웹 초기 기록은 9월이며 기존의 지속 개선 상태를 유지했습니다.
 
-AioLM 소개는 [앱 v0.3.4 소스](https://github.com/aiolm/AioLM/tree/8be5d95fa66ce5d35e0d7226a00d3d626683e6d9)와 [웹 main 소스](https://github.com/aiolm/AioLm-Web/tree/07f8279a0ee1c76cf21e066fe88f91c18732f2ae)를 확인해 갱신했습니다. 멀티엔진 작업 공간·문서 채팅·로컬 API/CLI·측정 검증·공개 비교를 구분하고, 엔진별 지원 범위와 자체 보고된 벤치마크의 비교 한계를 과장하지 않습니다. 현재 공유 검증은 `benchmark-contracts 0.8.0`의 JSON Schema·OpenAPI 기준이며 Zod 기반으로 소개하지 않습니다.
+AioLM 소개는 [앱 v0.3.5 소스](https://github.com/aiolm/AioLM/tree/6cc99ca4efbd77a589816c96b94757bb89d844b0)와 [웹 main 소스](https://github.com/aiolm/AioLm-Web/tree/343098d9f735b23036d4882cb0d73aad8bc29d4e)를 확인해 갱신했습니다. 추론 엔진 자체를 개발했다고 소개하지 않으며, 공통 API 벤치마크는 클라이언트에서 관측한 응답 시간·출력 바이트 기준으로 설명합니다.
 
-AioLM 대표 앱 이미지는 웹 저장소 `public/screenshots/current/`의 공개 네이티브 macOS 캡처를 사용합니다. `models.png`는 `home/ko/light.png`, `chat.png`는 `guides/ko/chat.png`와 manifest SHA-256이 일치합니다. `website.png`는 현재 공개 `/ko` 제품 페이지의 실제 브라우저 캡처입니다. 촬영 날짜를 추정하지 않으며, 이 이미지가 모든 OS·엔진 조합의 실행 검증을 의미하지 않습니다. 메인의 두 화면 전환은 유지하되 프레임은 첫 이미지의 실제 비율로 크기를 잡습니다. 이전 두 이미지는 보존 시안에서 사용하므로 삭제하지 않습니다.
+공개 AioLM 소개는 모델 실행·문서 기반 채팅·공통 API 측정·웹 결과 비교 네 가지 핵심 기능에 집중합니다. 검증된 결과·검증 상태 표시·문제 요약·문제 해결·중복 기여 섹션은 제공하지 않으며, CLI·MCP·Skills·소유자 관리 등 부수 기능은 노출하지 않습니다. 대신 개발 배경, 기획부터 앱·웹까지 직접 맡은 범위, 사용 흐름을 구체적으로 설명합니다. 채용용 문구에도 성과 수치·사용자 효과·독립 검증 주장을 만들지 않습니다.
+
+AioLM 앱 이미지는 웹 저장소 `public/screenshots/current/`에서 변경되지 않은 공식 네이티브 macOS 캡처입니다. `models.png`는 `home/ko/light.png`, `chat.png`는 `guides/ko/chat.png`와 manifest SHA-256이 일치하며, v0.3.4 소스 캡처라는 출처를 유지합니다. `serving-explorer.png`는 현재 공개 `/ko/benchmarks`의 실제 브라우저 화면입니다. 메인에서 모델 작업 공간 → 새 공통 API 탐색기를 스크롤로 전환하고, 상세에는 채팅 화면도 제공합니다. 촬영 날짜나 앱 캡처 버전을 추정하지 않습니다. 프레임은 첫 이미지의 실제 비율을 따르며, 이전 벤치마크·모델 설정 이미지는 보존 시안에서 사용하므로 삭제하지 않습니다.
 
 ## 탐색과 언어
 
