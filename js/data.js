@@ -2,9 +2,8 @@
 
 // 실제 프로필·프로젝트 미디어 경로입니다. 홈 이미지는 IMAGE_DIMENSIONS도 함께 갱신합니다.
 const IMAGES = {
-  'shot-p4-1': 'assets/projects/aiolm/models.png',
-  'shot-p4-2': 'assets/projects/aiolm/serving-explorer.png',
-  'shot-p4-3': 'assets/projects/aiolm/chat.png',
+  'shot-p4-1': 'assets/projects/aiolm/web-overview.png',
+  'shot-p4-2': 'assets/projects/aiolm/web-benchmark.png',
   photo: 'assets/profile.jpg',
   'thumb-p1': 'assets/projects/facereview/logo.svg',
   'shot-p1-1': 'assets/projects/facereview/watch.png',
@@ -18,9 +17,8 @@ const IMAGES = {
 };
 
 const IMAGE_DIMENSIONS = {
-  'shot-p4-1': [2560, 1782],
+  'shot-p4-1': [1440, 1000],
   'shot-p4-2': [1440, 1000],
-  'shot-p4-3': [2560, 1782],
   photo: [660, 880],
   'thumb-p1': [224, 140],
   'shot-p1-1': [1400, 1081],
@@ -74,10 +72,10 @@ const BLOG_POSTS = [
 const AIOLM = {
   ko: {
     id: 'p4', name: 'AioLM', period: '2026.08 ~ 진행 중', team: '개인 프로젝트',
-    desc: '로컬 LLM의 실행·문서 기반 대화부터 응답 성능 측정·비교까지 이어지는 데스크톱 앱·웹 서비스입니다. 개인 프로젝트로 기획·설계를 맡고, React·Tauri·Rust 기반 데스크톱 앱과 Next.js·PostgreSQL 기반 웹을 직접 개발했습니다.',
+    desc: '로컬 LLM의 실행·문서 기반 대화부터 응답 성능 측정·비교까지 이어지는 데스크톱 앱·웹 서비스입니다. 개인 프로젝트로 React·Tauri·Rust 앱과 Next.js·PostgreSQL 웹을 직접 설계·개발했습니다. 웹은 모델·엔진·하드웨어 검색에서 시작해 필요한 상세 조건만 펼치고 결과를 비교하는 흐름으로 구성했습니다.',
     role: ['기획·데스크톱 앱·웹 풀스택 개발'],
-    screenshotLayout: 'wide', screenshotsMeta: '설명: v0.3.5 · 앱 이미지: 공식 가이드(v0.3.4 소스) · 웹: 현재 API 탐색기',
-    list: { contribution: ['멀티엔진 모델 실행·문서 채팅 앱 개발', 'API 벤치마크·결과 비교 웹 개발'], implementation: ['모델 실행·문서 기반 채팅', '응답 측정·측정 조건별 결과 비교'] },
+    screenshotLayout: 'wide', screenshotsMeta: '현재 공개 웹 실제 화면 · 제품 소개 / 벤치마크 결과',
+    list: { contribution: ['멀티엔진 모델 실행·문서 채팅 앱 개발', '검색 중심 벤치마크 웹 개발'], implementation: ['모델 실행·문서 기반 채팅', '키워드 검색·상세 조건·결과 비교'] },
     motivation: { title: '개발 배경과 목적', points: [
       'AI에 대한 관심으로 여러 기기를 자비로 구입하고, 다양한 환경에서 LLM의 추론과 파인튜닝을 배워왔습니다.',
       '근무처의 다른 팀과 기술 커뮤니티에서 성능 정보가 부족해 기기 구매나 설정에 어려움을 겪는 사람들을 보았습니다.',
@@ -85,14 +83,14 @@ const AIOLM = {
     ] },
     productSummary: [
       '모델 실행과 문서 기반 대화: 여러 추론 엔진의 모델을 앱에서 선택·실행하고, 프로젝트 문서를 검색해 출처를 참고하며 대화할 수 있습니다. 모델을 실행하는 환경과 문서를 활용하는 작업 흐름을 하나의 데스크톱 화면으로 연결했습니다.',
-      '응답 성능 측정과 웹 비교: 연결된 스트리밍 모델에 공통 API 워크로드를 보내 응답 시간·출력 바이트를 기록합니다. 공개 결과를 웹에서 측정 조건별로 찾아 나란히 비교하며, 실행 환경을 선택하는 데 참고할 수 있도록 구성했습니다.',
-      '개발 범위: 앱의 모델·대화 화면과 Rust 기반 엔진 연동, 웹의 검색·비교 화면과 PostgreSQL 데이터 처리까지 직접 개발했습니다. 프론트엔드 화면뿐 아니라 로컬 실행 계층과 웹 서버를 함께 다루며 앱·웹이 이어지는 제품을 구성했습니다.'
+      '검색에서 시작하는 웹 비교: 먼저 모델·엔진·하드웨어 키워드로 공개 결과를 찾고, 필요한 경우에만 상세 조건을 펼쳐 범위를 좁힙니다. 결과 목록에서는 핵심 응답 지표와 측정 조건을 살펴보고 최대 3개를 나란히 비교할 수 있습니다.',
+      '개발 범위: 앱의 모델·대화 화면과 Rust 기반 엔진 연동, 웹의 검색·비교 화면과 PostgreSQL 데이터 처리를 직접 개발했습니다. 검색·상세 조건·결과 목록·비교를 하나의 흐름으로 연결하고, 작은 화면에서도 조건과 결과를 오가며 사용할 수 있도록 구성했습니다.'
     ],
     features: [
       { name: '멀티엔진 모델 실행', desc: '지원 환경에 맞춰 llama.cpp·vLLM·MLX와 호환 엔진의 모델을 선택·실행합니다. 엔진마다 도구를 오가는 대신 한 앱에서 모델과 실행 상태를 확인할 수 있습니다.' },
       { name: '문서 기반 채팅', desc: '프로젝트 문서에서 관련 내용을 검색하고 로컬 모델과 대화합니다. 답변에 연결된 출처를 통해 어떤 자료를 참고했는지 함께 확인할 수 있습니다.' },
       { name: '공통 API 벤치마크', desc: '연결된 스트리밍 모델에 공통 워크로드를 보내 응답 시간과 출력 바이트를 측정합니다. 실행 환경별 응답 특성을 기록하고 웹에서 비교하는 출발점입니다.' },
-      { name: '웹 결과 탐색·비교', desc: '공개 결과를 모델·실행 환경·측정 조건으로 찾고 최대 3개를 나란히 비교합니다. 각 결과의 조건과 응답 지표를 한 화면에서 살펴볼 수 있습니다.' }
+      { name: '검색 중심 웹 탐색·비교', desc: '모델·엔진·하드웨어 검색으로 시작하고, 상세 조건은 필요할 때만 펼칩니다. 결과의 핵심 응답 지표와 측정 조건을 확인하며 최대 3개를 나란히 비교할 수 있습니다.' }
     ],
     stack: ['React', 'Tauri 2 · Rust', 'Next.js', 'TypeScript', 'Python', 'PostgreSQL', 'llama.cpp · vLLM · MLX', 'Vite'],
     stackGroups: [
@@ -103,10 +101,10 @@ const AIOLM = {
   },
   en: {
     id: 'p4', name: 'AioLM', period: '2026.08 – Present', team: 'Solo project',
-    desc: 'A personal project connecting local LLM execution and document-based chat with response measurements and web comparisons. I planned and built both the React/Tauri/Rust desktop app and the Next.js/PostgreSQL web service.',
+    desc: 'A personal project connecting local LLM execution and document-based chat with response measurements and web comparisons. I designed and built the React/Tauri/Rust app and Next.js/PostgreSQL website. The web explorer starts with model, engine or hardware search and reveals detailed conditions only when needed.',
     role: ['Product planning · desktop and full-stack web development'],
-    screenshotLayout: 'wide', screenshotsMeta: 'Description: v0.3.5 · app images: official guides (v0.3.4 source) · web: current API explorer',
-    list: { contribution: ['Built multi-engine execution and document chat', 'Built API benchmarks and web comparisons'], implementation: ['Model execution · document chat', 'Response measurements · condition-based comparisons'] },
+    screenshotLayout: 'wide', screenshotsMeta: 'Current public website captures · product overview / benchmark results',
+    list: { contribution: ['Built multi-engine execution and document chat', 'Built a search-first benchmark website'], implementation: ['Model execution · document chat', 'Keyword search · detailed conditions · comparisons'] },
     motivation: { title: 'Why I built it', points: [
       'My interest in AI led me to purchase several devices myself and study LLM inference and fine-tuning across different environments.',
       'I saw people in other teams at work and in technical communities struggling to choose hardware and settings because performance information was scarce.',
@@ -114,14 +112,14 @@ const AIOLM = {
     ] },
     productSummary: [
       'Model execution and document-based conversations: choose and run models from multiple inference engines, retrieve project documents and consult sources while chatting. The desktop workspace connects model execution with everyday document-based work.',
-      'Response measurements and web comparisons: send a common API workload to connected streaming models and record response timing and output bytes. Public results can be searched by measurement conditions and compared side by side to inform setup decisions.',
-      'My scope: I built the model and chat interfaces, Rust engine integration, web discovery and comparison screens, and PostgreSQL data handling. The project spans frontend interfaces, the local execution layer and the web server as one connected product.'
+      'Search-first web comparisons: begin with model, engine or hardware keywords, then open detailed conditions only when needed. Result summaries expose key response metrics and test conditions, with side-by-side comparison of up to three results.',
+      'My scope: I built the model/chat interfaces, Rust engine integration, web discovery/comparison screens and PostgreSQL data handling. Search, detailed conditions, results and comparison form one flow, including navigation between conditions and results on smaller screens.'
     ],
     features: [
       { name: 'Multi-engine model execution', desc: 'Select and run models through llama.cpp, vLLM, MLX and compatible engines on supported environments. One app shows model and execution state without switching between separate engine tools.' },
       { name: 'Document-based chat', desc: 'Retrieve relevant project documents and converse with local models. Source references let users see which materials accompany an answer.' },
       { name: 'Common API benchmarks', desc: 'Send a common workload to connected streaming models and measure response timing and output bytes, creating records for comparing response characteristics across setups.' },
-      { name: 'Web discovery and comparison', desc: 'Find public results by model, execution environment and measurement conditions, then compare up to three with their conditions and response metrics in one view.' }
+      { name: 'Search-first web discovery and comparison', desc: 'Begin with model, engine or hardware search and reveal detailed conditions on demand. Review key response metrics and measured conditions, then compare up to three results side by side.' }
     ],
     stack: ['React', 'Tauri 2 · Rust', 'Next.js', 'TypeScript', 'Python', 'PostgreSQL', 'llama.cpp · vLLM · MLX', 'Vite'],
     stackGroups: [
@@ -132,10 +130,10 @@ const AIOLM = {
   },
   ja: {
     id: 'p4', name: 'AioLM', period: '2026.08 ～ 継続開発中', team: '個人開発',
-    desc: 'ローカルLLMの実行・文書ベースの対話から応答性能の測定・比較までをつなぐデスクトップアプリとWebサービスです。個人開発として企画からReact・Tauri・RustアプリとNext.js・PostgreSQL Webの設計・実装まで担当しました。',
+    desc: 'ローカルLLMの実行・文書ベースの対話から応答性能の測定・比較までをつなぐ個人開発のアプリ・Webサービスです。React・Tauri・RustアプリとNext.js・PostgreSQL Webを設計・実装しました。Webはモデル・エンジン・ハードウェアの検索から始め、必要な詳細条件だけを開いて比較する流れです。',
     role: ['企画・デスクトップアプリ・Webフルスタック開発'],
-    screenshotLayout: 'wide', screenshotsMeta: '説明：v0.3.5 · アプリ画像：公式ガイド（v0.3.4ソース） · Web：現在のAPI検索画面',
-    list: { contribution: ['複数エンジン実行・文書チャットを開発', 'APIベンチマーク・Web比較を開発'], implementation: ['モデル実行・文書ベースの対話', '応答測定・条件別の結果比較'] },
+    screenshotLayout: 'wide', screenshotsMeta: '現在の公開Webの実画面 · 製品紹介 / ベンチマーク結果',
+    list: { contribution: ['複数エンジン実行・文書チャットを開発', '検索中心のベンチマークWebを開発'], implementation: ['モデル実行・文書ベースの対話', 'キーワード検索・詳細条件・結果比較'] },
     motivation: { title: '開発の背景と目的', points: [
       'AIへの関心から複数の機器を自費で購入し、さまざまな環境でLLMの推論とファインチューニングを学んできました。',
       '勤務先の他チームや技術コミュニティには、性能情報の不足から機器購入や設定に悩む人がいました。',
@@ -143,14 +141,14 @@ const AIOLM = {
     ] },
     productSummary: [
       'モデル実行と文書ベースの対話：複数エンジンのモデルを選択・実行し、プロジェクト文書を検索して出典を参照しながら対話できます。実行環境と文書を使う作業を一つのデスクトップ画面につなぎました。',
-      '応答性能の測定とWeb比較：接続したストリーミングモデルに共通APIワークロードを送り、応答時間・出力バイトを記録します。公開結果を測定条件別に検索・比較し、実行環境を選ぶ際に参照できるようにしました。',
-      '担当範囲：モデル・対話画面、Rustによるエンジン連携、Webの検索・比較画面、PostgreSQLのデータ処理まで開発しました。フロントエンドだけでなくローカル実行層とWebサーバーを扱い、アプリとWebがつながる製品を構成しました。'
+      '検索から始めるWeb比較：モデル・エンジン・ハードウェアのキーワードで公開結果を探し、必要な場合だけ詳細条件を開きます。結果一覧で主要な応答指標と測定条件を確認し、最大3件を並べて比較できます。',
+      '担当範囲：モデル・対話画面、Rustによるエンジン連携、Web検索・比較画面、PostgreSQLのデータ処理を開発しました。検索・詳細条件・結果一覧・比較を一つの流れにつなぎ、小さい画面でも条件と結果を行き来できるように構成しました。'
     ],
     features: [
       { name: '複数エンジンのモデル実行', desc: '対応環境に合わせてllama.cpp・vLLM・MLXや互換エンジンのモデルを選択・実行します。別々のツールを行き来せず、一つのアプリでモデルと起動状態を確認できます。' },
       { name: '文書ベースの対話', desc: 'プロジェクト文書から関連内容を検索してローカルモデルと対話します。回答に付いた出典から、参照した資料も確認できます。' },
       { name: '共通APIベンチマーク', desc: '接続したストリーミングモデルに共通ワークロードを送り、応答時間と出力バイトを測定します。環境ごとの応答特性を記録し、Web比較につなげます。' },
-      { name: 'Web検索・比較', desc: 'モデル・実行環境・測定条件で公開結果を検索し、最大3件を並べて比較します。各結果の条件と応答指標を一画面で確認できます。' }
+      { name: '検索中心のWeb探索・比較', desc: 'モデル・エンジン・ハードウェアの検索から始め、必要なときに詳細条件を開きます。主要な応答指標と測定条件を確認し、最大3件を並べて比較できます。' }
     ],
     stack: ['React', 'Tauri 2 · Rust', 'Next.js', 'TypeScript', 'Python', 'PostgreSQL', 'llama.cpp · vLLM · MLX', 'Vite'],
     stackGroups: [
@@ -932,13 +930,13 @@ const UI_COPY = {
     statusTitle: '기본 정보', statusLabels: { period: '기간', team: '팀 구성', links: '링크', testAccount: '테스트 계정' },
     roleLabel: '역할',
     imageLabels: {
-      p4: '현재 AioLM 데스크톱 앱과 제품 웹의 실제 화면',
+      p4: '현재 AioLM 제품 소개와 검색 중심 벤치마크 웹 화면',
       p1: '페이스리뷰 공식 로고',
       p2: 'NBA 경기 일정과 팀별 점수가 표시된 토도동 서비스 화면',
       p3: '답장 방식 선택 화면을 모바일과 데스크톱으로 보여주는 해마디 서비스 화면'
     },
     shotLabels: {
-      p4: ['모델 작업 공간 — 공식 가이드의 네이티브 macOS 앱 화면(v0.3.4 소스)', '공통 API 벤치마크 — 현재 공개 탐색기의 바이트 기준 측정·비교 화면', '프로젝트 채팅 — 공식 가이드의 네이티브 macOS 앱 화면(v0.3.4 소스)'],
+      p4: ['제품 소개 — 현재 공개 웹의 AioLM 소개와 설치 안내', '벤치마크 결과 — 상세 조건을 접은 기본 검색·결과 화면'],
       p1: ['영상 위 감정 타임라인 그래프와 커스텀 재생 컨트롤이 표시된 페이스리뷰 시청 화면', '감정 분포 도넛 차트와 최근 시청 영상별 그래프가 표시된 페이스리뷰 마이페이지'],
       p2: ['날짜별 NBA 경기 일정과 팀별 점수를 조회하는 토도동 화면', '실시간 문자 중계와 경기별 채팅을 함께 제공하는 토도동 경기 화면'],
       p3: ['AI 또는 익명 사용자 중 일기 답장 방식을 선택하는 해마디 화면', '월간 감정 분포와 일기 통계를 확인하는 해마디 나의 섬 화면']
@@ -962,13 +960,13 @@ const UI_COPY = {
     statusTitle: 'PROJECT INFO', statusLabels: { period: 'PERIOD', team: 'TEAM', links: 'LINKS', testAccount: 'TEST ACCOUNT' },
     roleLabel: 'ROLE',
     imageLabels: {
-      p4: 'Current AioLM desktop app and product website screens',
+      p4: 'Current AioLM product website and search-first benchmark interface',
       p1: 'Official Face Review logo',
       p2: 'Tododong screen showing the NBA schedule and team scores',
       p3: 'Haemadi reply-method screen shown on mobile and desktop'
     },
     shotLabels: {
-      p4: ['Model workspace — native macOS app capture from the official guides (v0.3.4 source)', 'Common API benchmarks — current public explorer with byte-based measurement and comparison', 'Project chat — native macOS app capture from the official guides (v0.3.4 source)'],
+      p4: ['Product overview — current public AioLM introduction and installation page', 'Benchmark results — the default search and results view with detailed conditions collapsed'],
       p1: ['Face Review watch screen with an emotion timeline over the video and custom playback controls', 'Face Review profile screen with an emotion-distribution donut and graphs for recently watched videos'],
       p2: ['Tododong schedule screen for browsing NBA games and scores by date', 'Tododong game screen combining live text play-by-play with per-game chat'],
       p3: ['Haemadi screen for choosing an AI or anonymous-user reply to a journal entry', 'Haemadi My Island screen showing monthly emotion distribution and journal statistics']
@@ -992,13 +990,13 @@ const UI_COPY = {
     statusTitle: '基本情報', statusLabels: { period: '期間', team: 'チーム構成', links: 'リンク', testAccount: 'テストアカウント' },
     roleLabel: '担当',
     imageLabels: {
-      p4: '現在のAioLMデスクトップアプリと製品Webの実際の画面',
+      p4: '現在のAioLM製品紹介と検索中心のベンチマークWeb画面',
       p1: 'フェイスレビューの公式ロゴ',
       p2: 'NBAの日程とチーム別スコアを表示するトドドンのサービス画面',
       p3: '返信方法の選択画面をモバイルとデスクトップで示すヘマディのサービス画面'
     },
     shotLabels: {
-      p4: ['モデル作業環境 — 公式ガイドのネイティブmacOSアプリ画面（v0.3.4ソース）', '共通APIベンチマーク — バイト基準の測定・比較を扱う現在の公開検索画面', 'プロジェクトチャット — 公式ガイドのネイティブmacOSアプリ画面（v0.3.4ソース）'],
+      p4: ['製品紹介 — 現在の公開WebのAioLM紹介とインストール案内', 'ベンチマーク結果 — 詳細条件を閉じた標準の検索・結果画面'],
       p1: ['動画上の感情タイムラインとカスタム再生コントロールを表示するフェイスレビューの視聴画面', '感情分布ドーナツと最近見た動画別グラフを表示するフェイスレビューのマイページ'],
       p2: ['日付別にNBAの試合日程とスコアを確認するトドドンの画面', 'リアルタイム文字中継と試合別チャットを同時に提供するトドドンの試合画面'],
       p3: ['AIまたは匿名ユーザーからの日記返信方法を選ぶヘマディの画面', '月間の感情分布と日記統計を確認するヘマディの「私の島」画面']
