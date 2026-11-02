@@ -5,7 +5,7 @@ const IMAGES = {
   'shot-p4-1': 'assets/projects/aiolm/web-overview.png',
   'shot-p4-2': 'assets/projects/aiolm/web-benchmark.png',
   photo: 'assets/profile.jpg',
-  'thumb-p1': 'assets/projects/facereview/logo.svg',
+  'thumb-p1': 'assets/projects/facereview/watch.png',
   'shot-p1-1': 'assets/projects/facereview/watch.png',
   'shot-p1-2': 'assets/projects/facereview/my.png',
   'thumb-p2': 'assets/projects/tododong/schedule-poster.png',
@@ -20,7 +20,7 @@ const IMAGE_DIMENSIONS = {
   'shot-p4-1': [1440, 1000],
   'shot-p4-2': [1440, 1000],
   photo: [660, 880],
-  'thumb-p1': [224, 140],
+  'thumb-p1': [1400, 1081],
   'shot-p1-1': [1400, 1081],
   'shot-p1-2': [1400, 1332],
   'thumb-p2': [700, 393],
@@ -71,11 +71,11 @@ const BLOG_POSTS = [
 // 데스크톱 앱과 공개 벤치마크 웹을 하나의 개인 프로젝트로 소개합니다.
 const AIOLM = {
   ko: {
-    id: 'p4', name: 'AioLM', period: '2026.08 ~ 진행 중', team: '개인 프로젝트',
+    id: 'p4', name: 'AioLM', period: '2026.08 ~ 진행 중', team: '개인 프로젝트 · 1명',
     desc: '로컬 LLM의 실행·문서 기반 대화부터 응답 성능 측정·비교까지 이어지는 데스크톱 앱·웹 서비스입니다. 개인 프로젝트로 React·Tauri·Rust 앱과 Next.js·PostgreSQL 웹을 직접 설계·개발했습니다. 웹은 모델·엔진·하드웨어 검색에서 시작해 필요한 상세 조건만 펼치고 결과를 비교하는 흐름으로 구성했습니다.',
     role: ['기획·데스크톱 앱·웹 풀스택 개발'],
     screenshotLayout: 'wide', screenshotsMeta: '현재 공개 웹 실제 화면 · 제품 소개 / 벤치마크 결과',
-    list: { contribution: ['멀티엔진 모델 실행·문서 채팅 앱 개발', '검색 중심 벤치마크 웹 개발'], implementation: ['모델 실행·문서 기반 채팅', '키워드 검색·상세 조건·결과 비교'] },
+    list: { contributionLabel: '개발 범위', contribution: ['멀티엔진 모델 실행·문서 채팅 앱 개발', '검색 중심 벤치마크 웹 개발'], implementation: ['모델 실행·문서 기반 채팅', '키워드 검색·상세 조건·결과 비교'] },
     motivation: { title: '개발 배경과 목적', points: [
       'AI에 대한 관심으로 여러 기기를 자비로 구입하고, 다양한 환경에서 LLM의 추론과 파인튜닝을 배워왔습니다.',
       '근무처의 다른 팀과 기술 커뮤니티에서 성능 정보가 부족해 기기 구매나 설정에 어려움을 겪는 사람들을 보았습니다.',
@@ -100,11 +100,11 @@ const AIOLM = {
     ],
   },
   en: {
-    id: 'p4', name: 'AioLM', period: '2026.08 – Present', team: 'Solo project',
+    id: 'p4', name: 'AioLM', period: '2026.08 – Present', team: 'Solo project · 1 person',
     desc: 'A personal project connecting local LLM execution and document-based chat with response measurements and web comparisons. I designed and built the React/Tauri/Rust app and Next.js/PostgreSQL website. The web explorer starts with model, engine or hardware search and reveals detailed conditions only when needed.',
     role: ['Product planning · desktop and full-stack web development'],
     screenshotLayout: 'wide', screenshotsMeta: 'Current public website captures · product overview / benchmark results',
-    list: { contribution: ['Built multi-engine execution and document chat', 'Built a search-first benchmark website'], implementation: ['Model execution · document chat', 'Keyword search · detailed conditions · comparisons'] },
+    list: { contributionLabel: 'Development scope', contribution: ['Built multi-engine execution and document chat', 'Built a search-first benchmark website'], implementation: ['Model execution · document chat', 'Keyword search · detailed conditions · comparisons'] },
     motivation: { title: 'Why I built it', points: [
       'My interest in AI led me to purchase several devices myself and study LLM inference and fine-tuning across different environments.',
       'I saw people in other teams at work and in technical communities struggling to choose hardware and settings because performance information was scarce.',
@@ -129,11 +129,11 @@ const AIOLM = {
     ],
   },
   ja: {
-    id: 'p4', name: 'AioLM', period: '2026.08 ～ 継続開発中', team: '個人開発',
+    id: 'p4', name: 'AioLM', period: '2026.08 ～ 継続開発中', team: '個人開発 · 1人',
     desc: 'ローカルLLMの実行・文書ベースの対話から応答性能の測定・比較までをつなぐ個人開発のアプリ・Webサービスです。React・Tauri・RustアプリとNext.js・PostgreSQL Webを設計・実装しました。Webはモデル・エンジン・ハードウェアの検索から始め、必要な詳細条件だけを開いて比較する流れです。',
     role: ['企画・デスクトップアプリ・Webフルスタック開発'],
     screenshotLayout: 'wide', screenshotsMeta: '現在の公開Webの実画面 · 製品紹介 / ベンチマーク結果',
-    list: { contribution: ['複数エンジン実行・文書チャットを開発', '検索中心のベンチマークWebを開発'], implementation: ['モデル実行・文書ベースの対話', 'キーワード検索・詳細条件・結果比較'] },
+    list: { contributionLabel: '開発範囲', contribution: ['複数エンジン実行・文書チャットを開発', '検索中心のベンチマークWebを開発'], implementation: ['モデル実行・文書ベースの対話', 'キーワード検索・詳細条件・結果比較'] },
     motivation: { title: '開発の背景と目的', points: [
       'AIへの関心から複数の機器を自費で購入し、さまざまな環境でLLMの推論とファインチューニングを学んできました。',
       '勤務先の他チームや技術コミュニティには、性能情報の不足から機器購入や設定に悩む人がいました。',
@@ -251,7 +251,7 @@ const I18N = {
     dOutcome: '검증된 결과',
     projects: [
       AIOLM.ko,
-      { id: 'p1', name: '페이스리뷰', desc: '웹캠 표정을 다섯 감정으로 분석해 시청 반응과 영상 추천으로 연결한 서비스', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: '최초 개발 4인 · 리팩터링 2인', verified: true, testAccount: 'test4@facereview.net / qwer1234',
+      { id: 'p1', name: '페이스리뷰', desc: '웹캠 표정을 다섯 감정으로 분석해 시청 반응과 영상 추천으로 연결한 서비스', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: '팀 프로젝트 · 최초 개발 4명 · 리팩터링 2명', verified: true, testAccount: 'test4@facereview.net / qwer1234',
         rolePhases: [
           { phase: '최초 개발', period: '2023.10 ~ 2023.12', role: ['프론트엔드 개발', '5종 감정 분류 모델 학습'], team: '프론트엔드 2명 · 백엔드 1명 · AI·백엔드 1명' },
           { phase: '1차 리팩터링', period: '2026.01 ~ 2026.04', role: ['프론트엔드 전담', '리팩터링 기획·기반 전환'], team: '프론트엔드 1명 · 백엔드 1명' },
@@ -316,7 +316,7 @@ const I18N = {
           '2026 리팩터링 프론트엔드를 facereview.net(Vercel)에 배포 · 백엔드는 온프레미스 Docker 운영',
           '배포 인프라를 AWS → 온프레미스(Docker·nginx·GitHub Actions) → Vercel로 직접 이전'
         ] },
-      { id: 'p2', name: '토도동', desc: 'NBA 경기의 실시간 문자 중계와 경기별 채팅을 함께 제공하는 플랫폼', period: '2025.02 ~ 2025.05', team: '팀 프로젝트 4인 · 전원 풀스택', verified: true,
+      { id: 'p2', name: '토도동', desc: 'NBA 경기의 실시간 문자 중계와 경기별 채팅을 함께 제공하는 플랫폼', period: '2025.02 ~ 2025.05', team: '팀 프로젝트 · 4명 · 전원 풀스택', verified: true,
         role: ['기술 선정 · SSR/CSR 구조 설계', '인증·채팅 서버·DB 동기화 구현'],
         list: { contribution: ['기술 선정 · SSR/CSR 구조 설계', '코드 리뷰로 접근성·SEO·렌더링 개선'], implementation: ['Socket.IO 채팅 서버 호스팅', 'NBA API 동기화 cron(Express.js)'] },
         productSummary: [
@@ -366,7 +366,7 @@ const I18N = {
           '경기 일정·실시간 중계·채팅·인증을 갖춘 서비스를 기획부터 배포까지 완료',
           'Socket.IO 채팅 서버와 NBA 데이터 동기화 cron을 별도 저장소로 분리해 직접 호스팅·운영'
         ] },
-      { id: 'p3', name: '해마디', desc: '하루의 감정을 기록하고 그 흐름을 시각화해 돌아보는 일기 서비스', period: '2024.08 ~ 2024.11', team: '팀 프로젝트 3인 · 개발 2인 + 디자인·개발 보조 1인', testAccount: 'joowon11 / joowon11!', verified: true,
+      { id: 'p3', name: '해마디', desc: '하루의 감정을 기록하고 그 흐름을 시각화해 돌아보는 일기 서비스', period: '2024.08 ~ 2024.11', team: '팀 프로젝트 · 3명 · 개발 2명 + 디자인·개발 보조 1명', testAccount: 'joowon11 / joowon11!', verified: true,
         role: ['DB·컴포넌트 구조 설계', '코드 리뷰 · 개발 일정 관리'],
         list: { contribution: ['PocketBase DB·컴포넌트 구조 설계', '코드 리뷰로 접근성·성능 개선'], implementation: ['Lighthouse 성능 대폭 개선', 'SVGIcon sprite 컴포넌트'] },
         productSummary: [
@@ -501,7 +501,7 @@ const I18N = {
     dOutcome: 'VERIFIED RESULTS',
     projects: [
       AIOLM.en,
-      { id: 'p1', name: 'Face Review', desc: 'A service that turns five emotions inferred from webcam expressions into viewing reactions and video recommendations', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: 'Original team of 4 · Refactoring team of 2', verified: true, testAccount: 'test4@facereview.net / qwer1234',
+      { id: 'p1', name: 'Face Review', desc: 'A service that turns five emotions inferred from webcam expressions into viewing reactions and video recommendations', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: 'Team project · original build: 4 people · refactoring: 2 people', verified: true, testAccount: 'test4@facereview.net / qwer1234',
         rolePhases: [
           { phase: 'Original build', period: '2023.10 – 2023.12', role: ['Frontend development', 'Five-emotion classifier training'], team: 'Frontend 2 · Backend 1 · AI & Backend 1' },
           { phase: '1st refactoring', period: '2026.01 – 2026.04', role: ['Sole frontend owner', 'Planning · foundation migration'], team: 'Frontend 1 · Backend 1' },
@@ -566,7 +566,7 @@ const I18N = {
           '2026 refactored frontend live at facereview.net on Vercel · backend on an on-premises Docker server',
           'Migrated deployment hands-on: AWS → on-premises (Docker, nginx, GitHub Actions) → Vercel'
         ] },
-      { id: 'p2', name: 'Tododong', desc: 'A platform combining live NBA text play-by-play with per-game chat', period: '2025.02 ~ 2025.05', team: 'Team of 4 · all full-stack', verified: true,
+      { id: 'p2', name: 'Tododong', desc: 'A platform combining live NBA text play-by-play with per-game chat', period: '2025.02 ~ 2025.05', team: 'Team project · 4 people · all full-stack', verified: true,
         role: ['Tech choices · SSR/CSR structure design', 'Auth, chat server & DB sync implementation'],
         list: { contribution: ['Tech choices · SSR/CSR structure design', 'A11y, SEO & rendering via code review'], implementation: ['Hosted the Socket.IO chat server', 'NBA API sync cron (Express.js)'] },
         productSummary: [
@@ -616,7 +616,7 @@ const I18N = {
           'Took a service with schedules, live play-by-play, chat, and auth from planning to deployment',
           'Hosted and ran the Socket.IO chat server and the NBA data sync cron in a separate repo'
         ] },
-      { id: 'p3', name: 'Haemadi', desc: 'A journal for recording daily emotions and reflecting on their visualized flow', period: '2024.08 ~ 2024.11', team: 'Team of 3 · 2 devs + 1 design/dev support', testAccount: 'joowon11 / joowon11!', verified: true,
+      { id: 'p3', name: 'Haemadi', desc: 'A journal for recording daily emotions and reflecting on their visualized flow', period: '2024.08 ~ 2024.11', team: 'Team project · 3 people · 2 developers + 1 design/development support', testAccount: 'joowon11 / joowon11!', verified: true,
         role: ['DB & component structure design', 'Code review · schedule management'],
         list: { contribution: ['PocketBase DB & component structure', 'A11y & performance via code review'], implementation: ['Major Lighthouse performance gains', 'SVGIcon sprite component'] },
         productSummary: [
@@ -751,7 +751,7 @@ const I18N = {
     dOutcome: '確認済みの成果',
     projects: [
       AIOLM.ja,
-      { id: 'p1', name: 'フェイスレビュー', desc: 'Webカメラの表情を5感情に分類し、視聴反応と動画推薦につなげるサービス', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: '初期開発4人 · リファクタリング2人', verified: true, testAccount: 'test4@facereview.net / qwer1234',
+      { id: 'p1', name: 'フェイスレビュー', desc: 'Webカメラの表情を5感情に分類し、視聴反応と動画推薦につなげるサービス', period: '2023.10 ~ 2023.12 · 2026.01 ~ 2026.04 · 2026.07', team: 'チーム開発 · 初期開発4人 · リファクタリング2人', verified: true, testAccount: 'test4@facereview.net / qwer1234',
         rolePhases: [
           { phase: '初期開発', period: '2023.10 ~ 2023.12', role: ['フロントエンド開発', '5感情分類モデル学習'], team: 'フロントエンド2人 · バックエンド1人 · AI・バックエンド1人' },
           { phase: '1次リファクタリング', period: '2026.01 ~ 2026.04', role: ['フロントエンド専任', 'リファクタリング企画・基盤移行'], team: 'フロントエンド1人 · バックエンド1人' },
@@ -816,7 +816,7 @@ const I18N = {
           '2026年リファクタリングのフロントエンドをfacereview.net（Vercel）で公開 · バックエンドはオンプレミスDockerで運用',
           'デプロイインフラをAWS → オンプレミス（Docker・nginx・GitHub Actions）→ Vercelへ自ら移行'
         ] },
-      { id: 'p2', name: 'トドドン', desc: 'NBAのリアルタイム文字中継と試合別チャットを一緒に提供するプラットフォーム', period: '2025.02 ~ 2025.05', team: 'チーム4人 · 全員フルスタック', verified: true,
+      { id: 'p2', name: 'トドドン', desc: 'NBAのリアルタイム文字中継と試合別チャットを一緒に提供するプラットフォーム', period: '2025.02 ~ 2025.05', team: 'チーム開発 · 4人 · 全員フルスタック', verified: true,
         role: ['技術選定 · SSR/CSR構成設計', '認証・チャットサーバー・DB同期の実装'],
         list: { contribution: ['技術選定 · SSR/CSR構成設計', 'コードレビューでアクセシビリティ・SEO改善'], implementation: ['Socket.IOチャットサーバーのホスティング', 'NBA API同期cron(Express.js)'] },
         productSummary: [
@@ -866,7 +866,7 @@ const I18N = {
           '試合日程・リアルタイム中継・チャット・認証を備えたサービスを企画からデプロイまで完了',
           'Socket.IOチャットサーバーとNBAデータ同期cronを別リポジトリに分離し自らホスティング・運用'
         ] },
-      { id: 'p3', name: 'ヘマディ', desc: '一日の感情を記録し、その流れを可視化して振り返る日記サービス', period: '2024.08 ~ 2024.11', team: 'チーム3人 · 開発2人 + デザイン・開発補助1人', testAccount: 'joowon11 / joowon11!', verified: true,
+      { id: 'p3', name: 'ヘマディ', desc: '一日の感情を記録し、その流れを可視化して振り返る日記サービス', period: '2024.08 ~ 2024.11', team: 'チーム開発 · 3人 · 開発2人 + デザイン・開発補助1人', testAccount: 'joowon11 / joowon11!', verified: true,
         role: ['DB・コンポーネント構造設計', 'コードレビュー · 開発スケジュール管理'],
         list: { contribution: ['PocketBase DB・コンポーネント構造設計', 'コードレビューでアクセシビリティ・性能改善'], implementation: ['Lighthouseパフォーマンスの大幅改善', 'SVGIconスプライトコンポーネント'] },
         productSummary: [
@@ -924,14 +924,14 @@ const UI_COPY = {
     pageTitle: '장주원 — 웹 개발자 포트폴리오',
     careerExpand: '펼치기', careerCollapse: '접기', careerOutcome: '성과',
     projectContribution: '핵심 기여', projectImplementation: '대표 구현',
-    projectGuide: '최근 작업일 순 · 핵심 기여와 대표 구현 기준', flowTitle: '서비스 작동 흐름', flowOr: '또는',
+    projectGuide: '최근 작업일 순 · 개발 범위와 대표 구현', flowTitle: '서비스 작동 흐름', flowOr: '또는',
     visitBlog: 'Velog에서 전체 글 보기',
     hudLabels: ['문제', '기여', '성과'],
-    statusTitle: '기본 정보', statusLabels: { period: '기간', team: '팀 구성', links: '링크', testAccount: '테스트 계정' },
+    statusTitle: '기본 정보', statusLabels: { period: '기간', team: '참여 구성', links: '링크', testAccount: '테스트 계정' },
     roleLabel: '역할',
     imageLabels: {
       p4: '현재 AioLM 제품 소개와 검색 중심 벤치마크 웹 화면',
-      p1: '페이스리뷰 공식 로고',
+      p1: '감정 타임라인과 재생 컨트롤이 표시된 페이스리뷰 실제 시청 화면',
       p2: 'NBA 경기 일정과 팀별 점수가 표시된 토도동 서비스 화면',
       p3: '답장 방식 선택 화면을 모바일과 데스크톱으로 보여주는 해마디 서비스 화면'
     },
@@ -954,14 +954,14 @@ const UI_COPY = {
     pageTitle: 'Jang Joowon — Web Developer Portfolio',
     careerExpand: 'Show details', careerCollapse: 'Hide details', careerOutcome: 'Outcome',
     projectContribution: 'CORE CONTRIBUTION', projectImplementation: 'KEY IMPLEMENTATION',
-    projectGuide: 'Latest work first · compared by contribution and implementation', flowTitle: 'SERVICE FLOW', flowOr: 'OR',
+    projectGuide: 'Latest work first · development scope and key implementations', flowTitle: 'SERVICE FLOW', flowOr: 'OR',
     visitBlog: 'See all posts on Velog',
     hudLabels: ['Problem', 'Contribution', 'Outcome'],
-    statusTitle: 'PROJECT INFO', statusLabels: { period: 'PERIOD', team: 'TEAM', links: 'LINKS', testAccount: 'TEST ACCOUNT' },
+    statusTitle: 'PROJECT INFO', statusLabels: { period: 'PERIOD', team: 'PARTICIPATION', links: 'LINKS', testAccount: 'TEST ACCOUNT' },
     roleLabel: 'ROLE',
     imageLabels: {
       p4: 'Current AioLM product website and search-first benchmark interface',
-      p1: 'Official Face Review logo',
+      p1: 'Actual Face Review watch screen with the emotion timeline and playback controls',
       p2: 'Tododong screen showing the NBA schedule and team scores',
       p3: 'Haemadi reply-method screen shown on mobile and desktop'
     },
@@ -984,14 +984,14 @@ const UI_COPY = {
     pageTitle: 'チャン・ジュウォン — Web開発者ポートフォリオ',
     careerExpand: '詳細を開く', careerCollapse: '閉じる', careerOutcome: '成果',
     projectContribution: '主要な貢献', projectImplementation: '代表実装',
-    projectGuide: '最近の作業順 · 貢献と代表実装で比較', flowTitle: 'サービスの動作フロー', flowOr: 'または',
+    projectGuide: '最近の作業順 · 開発範囲と代表実装', flowTitle: 'サービスの動作フロー', flowOr: 'または',
     visitBlog: 'Velogで全ての記事を見る',
     hudLabels: ['課題', '貢献', '成果'],
-    statusTitle: '基本情報', statusLabels: { period: '期間', team: 'チーム構成', links: 'リンク', testAccount: 'テストアカウント' },
+    statusTitle: '基本情報', statusLabels: { period: '期間', team: '参加構成', links: 'リンク', testAccount: 'テストアカウント' },
     roleLabel: '担当',
     imageLabels: {
       p4: '現在のAioLM製品紹介と検索中心のベンチマークWeb画面',
-      p1: 'フェイスレビューの公式ロゴ',
+      p1: '感情タイムラインと再生コントロールを表示するフェイスレビューの実際の視聴画面',
       p2: 'NBAの日程とチーム別スコアを表示するトドドンのサービス画面',
       p3: '返信方法の選択画面をモバイルとデスクトップで示すヘマディのサービス画面'
     },
