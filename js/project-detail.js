@@ -62,8 +62,10 @@
       ${links ? `<div class="detail-info-row"><h3>${escapeHTML(copy.statusLabels.links)}</h3><div class="detail-links">${links}</div></div>` : ''}
       ${project.testAccount ? `<div class="detail-info-row"><h3>${escapeHTML(copy.statusLabels.testAccount)}</h3><code class="detail-test-account">${escapeHTML(project.testAccount)}</code></div>` : ''}`;
     const brief = copy.hud[project.id];
-    const hud = brief?.length ? `<dl class="detail-brief">${brief.map((value, itemIndex) => `
+    const hud = !project.atAGlance?.length && brief?.length ? `<dl class="detail-brief">${brief.map((value, itemIndex) => `
       <div><dt>${escapeHTML(copy.hudLabels[itemIndex])}</dt><dd>${Array.isArray(value) ? list(value) : `<p>${escapeHTML(value)}</p>`}</dd></div>`).join('')}</dl>` : '';
+    const atAGlance = project.atAGlance?.length ? `<dl class="detail-brief">${project.atAGlance.map((item) => `
+      <div><dt>${escapeHTML(item.label)}</dt><dd>${Array.isArray(item.body) ? list(item.body) : `<p>${escapeHTML(item.body)}</p>`}</dd></div>`).join('')}</dl>` : '';
 
     const flowData = project.flow || [];
     const flowTracks = flowData.length && !Object.hasOwn(flowData[0], 'steps') ? [{ steps: flowData }] : flowData;
@@ -89,11 +91,26 @@
         : `<a class="detail-shot-link" href="${assetURL(source)}" target="_blank" rel="noopener noreferrer"><img class="detail-screenshot" src="${assetURL(source)}" alt="${escapeHTML(caption)}"${size} decoding="async"></a>`;
       return `<figure class="detail-shot">${media}<figcaption><span>${escapeHTML(caption)}</span><a href="${assetURL(source)}" target="_blank" rel="noopener noreferrer">${escapeHTML(text.original)} <span aria-hidden="true">↗</span></a></figcaption></figure>`;
     }).join('');
+    const screenshotsSection = project.hideScreenshots || project.hideScreenshot || !screenshots ? '' : section('screenshots', tr.dShots, `<div class="detail-shots${project.screenshotLayout === 'wide' ? ' detail-shots-wide' : ''}">${screenshots}</div>`, 'detail-screenshots-section', project.screenshotsMeta || copy.screenshotsReady);
     const features = `<ul class="detail-features" role="list">${project.features.map((feature) => `<li><h3>${escapeHTML(feature.name)}</h3><p>${escapeHTML(feature.desc)}</p></li>`).join('')}</ul>`;
-    const roles = project.roles?.length ? `<ol class="detail-roles">${project.roles.map((role) => typeof role === 'string'
+    const roles = project.roles?.length ? `<ol class="detail-roles${project.rolesLayout === 'grid' ? ' detail-roles-grid' : ''}">${project.roles.map((role) => typeof role === 'string'
       ? `<li><p>${escapeHTML(role)}</p></li>`
       : `<li><h3>${escapeHTML(role.title)}</h3>${role.points ? list(role.points) : `<p>${escapeHTML(role.desc)}</p>`}</li>`).join('')}</ol>` : '';
-    const troubles = project.troubles?.length ? `<ul class="detail-troubles" role="list">${project.troubles.map((item, itemIndex) => `<li><h3><span class="detail-item-number" aria-hidden="true">${String(itemIndex + 1).padStart(2, '0')}</span>${escapeHTML(item.problem)}</h3><dl><div><dt>${escapeHTML(text.solution)}</dt><dd><p>${escapeHTML(item.solution)}</p></dd></div></dl></li>`).join('')}</ul>` : '';
+    const troubles = project.troubles?.length
+      ? (project.troublesCollapsible
+        ? `<div class="detail-trouble-accordion">${project.troubles.map((item, itemIndex) => `
+          <details class="detail-trouble-item">
+            <summary>
+              <span class="detail-trouble-marker" aria-hidden="true"></span>
+              <span class="detail-trouble-summary-copy">
+                <span class="detail-trouble-title"><span class="detail-item-number" aria-hidden="true">${String(itemIndex + 1).padStart(2, '0')}</span>${escapeHTML(item.problem)}</span>
+                ${item.summary ? `<span class="detail-trouble-oneliner">${escapeHTML(item.summary)}</span>` : ''}
+              </span>
+            </summary>
+            <div class="detail-trouble-body"><p>${escapeHTML(item.solution)}</p></div>
+          </details>`).join('')}</div>`
+        : `<ul class="detail-troubles" role="list">${project.troubles.map((item, itemIndex) => `<li><h3><span class="detail-item-number" aria-hidden="true">${String(itemIndex + 1).padStart(2, '0')}</span>${escapeHTML(item.problem)}</h3><dl><div><dt>${escapeHTML(text.solution)}</dt><dd><p>${escapeHTML(item.solution)}</p></dd></div></dl></li>`).join('')}</ul>`)
+      : '';
     const stack = project.stackGroups?.length
       ? project.stackGroups.map((group) => `<section class="detail-stack-group"><h3>${escapeHTML(group.name)}</h3>${list(group.items, 'detail-stack')}</section>`).join('')
       : list(project.stack, 'detail-stack');
@@ -105,15 +122,18 @@
         <p class="detail-eyebrow">${escapeHTML(tr.sideQuestLabel)} <span>${String(index + 1).padStart(2, '0')} / ${String(projects.length).padStart(2, '0')}</span></p>
         <h1 id="${headingId('title')}">${escapeHTML(project.name)}</h1>
         <p class="detail-description">${escapeHTML(project.desc)}</p>
-        <dl class="detail-meta"><div><dt>${escapeHTML(copy.statusLabels.period)}</dt><dd>${escapeHTML(project.period)}</dd></div><div><dt>${escapeHTML(copy.statusLabels.team)}</dt><dd>${escapeHTML(project.team)}</dd></div></dl>
+        <dl class="detail-meta"><div><dt>${escapeHTML(copy.statusLabels.period)}</dt><dd>${escapeHTML(project.period)}</dd></div><div><dt>${escapeHTML(copy.statusLabels.team)}</dt><dd>${escapeHTML(project.team)}</dd></div>${project.compactInfo && project.role ? `<div><dt>${escapeHTML(copy.roleLabel)}</dt><dd>${escapeHTML(Array.isArray(project.role) ? project.role.join(' · ') : project.role)}</dd></div>` : ''}</dl>
+        ${project.compactInfo && links ? `<div class="detail-hero-links">${links}</div>` : ''}
       </header>
+      ${atAGlance ? section('brief', project.atAGlanceTitle || text.brief, atAGlance, 'detail-brief-section') : ''}
       ${hud ? section('brief', text.brief, hud, 'detail-brief-section') : ''}
-      ${section('info', copy.statusTitle, information)}
-      ${project.motivation ? section('motivation', project.motivation.title, list(project.motivation.points)) : ''}
-      ${project.outcome?.length ? section('outcome', project.outcomeTitle || tr.dOutcome, `${project.verified ? `<p class="detail-outcome-status">${escapeHTML(copy.outcomeStatus)}</p>` : ''}${list(project.outcome)}`, 'detail-outcome') : ''}
-      ${section('overview', tr.dOverview, overview)}
-      ${project.hideScreenshots || project.hideScreenshot || !screenshots ? '' : section('screenshots', tr.dShots, `<div class="detail-shots${project.screenshotLayout === 'wide' ? ' detail-shots-wide' : ''}">${screenshots}</div>`, 'detail-screenshots-section', project.screenshotsMeta || copy.screenshotsReady)}
-      ${section('features', tr.dFeatures, features)}
+      ${project.compactInfo ? '' : section('info', copy.statusTitle, information)}
+      ${!atAGlance && project.motivation ? section('motivation', project.motivation.title, list(project.motivation.points)) : ''}
+      ${!atAGlance && project.outcome?.length ? section('outcome', project.outcomeTitle || tr.dOutcome, `${project.verified ? `<p class="detail-outcome-status">${escapeHTML(copy.outcomeStatus)}</p>` : ''}${list(project.outcome)}`, 'detail-outcome') : ''}
+      ${project.screenshotsFirst ? screenshotsSection : ''}
+      ${section('overview', project.overviewTitle || tr.dOverview, overview)}
+      ${project.screenshotsFirst ? '' : screenshotsSection}
+      ${section('features', project.featuresTitle || tr.dFeatures, features)}
       ${roles ? section('roles', project.rolesTitle || tr.dRole, roles) : ''}
       ${troubles ? section('troubles', project.troublesTitle || tr.dTrouble, troubles) : ''}
       ${section('stack', tr.dStack, `<div class="detail-stack-groups">${stack}</div>`)}

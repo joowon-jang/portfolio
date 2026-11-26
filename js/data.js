@@ -3,11 +3,11 @@
 // 실제 프로필·프로젝트 미디어 경로입니다. 홈 이미지는 IMAGE_DIMENSIONS도 함께 갱신합니다.
 const IMAGES = {
   'shot-p4-1': 'assets/projects/aiolm/web-overview.png',
-  'shot-p4-2': 'assets/projects/aiolm/app-model-settings.png',
-  'shot-p4-3': 'assets/projects/aiolm/app-discover.png',
-  'shot-p4-4': 'assets/projects/aiolm/app-external-engine.png',
-  'shot-p4-5': 'assets/projects/aiolm/app-chat.png',
-  'shot-p4-6': 'assets/projects/aiolm/web-benchmark.png',
+  'shot-p4-2': 'assets/projects/aiolm/app-benchmark.png',
+  'shot-p4-3': 'assets/projects/aiolm/web-benchmark.png',
+  'shot-p4-4': 'assets/projects/aiolm/app-model-settings.png',
+  'shot-p4-5': 'assets/projects/aiolm/app-discover.png',
+  'shot-p4-6': 'assets/projects/aiolm/app-chat.png',
   photo: 'assets/profile.jpg',
   'thumb-p1': 'assets/projects/facereview/watch.png',
   'shot-p1-1': 'assets/projects/facereview/watch.png',
@@ -22,11 +22,11 @@ const IMAGES = {
 
 const IMAGE_DIMENSIONS = {
   'shot-p4-1': [1440, 1000],
-  'shot-p4-2': [2560, 1782],
-  'shot-p4-3': [2560, 1782],
+  'shot-p4-2': [2560, 1383],
+  'shot-p4-3': [1440, 1000],
   'shot-p4-4': [2560, 1782],
   'shot-p4-5': [2560, 1782],
-  'shot-p4-6': [1440, 1000],
+  'shot-p4-6': [2560, 1782],
   photo: [660, 880],
   'thumb-p1': [1400, 1081],
   'shot-p1-1': [1400, 1081],
@@ -80,270 +80,324 @@ const BLOG_POSTS = [
 const AIOLM = {
   ko: {
     id: 'p4', name: 'AioLM', period: '2026.08 ~ 진행 중', team: '개인 프로젝트 · 1명',
-    desc: 'llama.cpp·vLLM·MLX와 로컬 OpenAI 호환 외부 엔진을 하나의 작업 공간에서 실행·대화·벤치마크하고, Cold Prompt 8지표 실측 결과를 4개 언어 웹에서 검색·비교하는 로컬 LLM 데스크톱 앱·웹 서비스(v0.5.2)입니다.',
-    role: ['기획 · 디자인 시스템 · 데스크톱 앱(Tauri 2·Rust·React) · 웹 풀스택(Next.js·PostgreSQL) · 배포'],
-    screenshotsMeta: 'v0.5.2 기준 · 공개 웹 실제 캡처 2종 + 공식 네이티브 Windows 앱 캡처 4종',
+    desc: 'ChatGPT 같은 AI를 외부 서버가 아닌 내 컴퓨터에서 직접 실행해 대화하고, 기기별 응답 속도를 측정해 웹에서 비교할 수 있는 데스크톱 앱·웹 서비스(v0.5.2)입니다.',
+    role: ['기획 · 디자인 · 데스크톱 앱(React·Tauri·Rust) · 웹 풀스택(Next.js·PostgreSQL) · 배포'],
+    compactInfo: true,
+    screenshotsFirst: true,
+    rolesLayout: 'grid',
+    troublesCollapsible: true,
+    screenshotsMeta: 'v0.5.2 기준 · 공개 웹사이트 2장 + 실제 Windows 앱 화면 4장 (벤치마크 포함)',
     list: {
       contributionLabel: '개발 범위',
       contribution: [
-        '멀티엔진 데스크톱 앱(React 19·Tauri 2·Rust) 및 로컬 API 서버',
-        '4개 언어 제품·가이드 웹 및 검색 중심 벤치마크 탐색기(Next.js 15·PostgreSQL)',
-        '앱–웹 공용 계약(@aiolm/benchmark-contracts) 및 Win·macOS·Linux 릴리스 자동화'
+        '내 PC에서 AI를 설치·실행·대화·속도 측정하는 데스크톱 앱',
+        '4개 언어 안내 및 기기별 AI 속도 비교 웹 서비스'
       ],
       implementation: [
-        '엔진 중립 어댑터 · 3단계 외부 엔진 연결 · 실행 전 VRAM·RAM 예상',
-        'Cold Prompt 8지표 서빙 벤치마크(openai-chat-serving@5) · 웹 프로필 재현',
-        '스트리밍 채팅(PP·TG·TTFT) · 문서 검색 · MCP·AGENTS.md·스킬'
+        '여러 AI 실행 프로그램 통합 · 실행 전 메모리 미리 계산',
+        '공정한 조건의 AI 속도 테스트(벤치마크) · 웹에서 최대 3건 비교',
+        '내 문서 기반 AI 대화 · 외부 앱에서 불러 쓰는 로컬 서버'
       ]
     },
-    motivation: { title: '개발 배경과 목적', points: [
-      'AI에 대한 관심으로 여러 기기를 자비로 구입하고, 다양한 환경에서 LLM의 추론과 파인튜닝을 배워왔습니다.',
-      '근무처의 다른 팀과 기술 커뮤니티에서 성능 정보가 부족해 기기 구매나 설정에 어려움을 겪는 사람들을 보았습니다.',
-      '실측 결과를 공유해 구매와 설정 판단을 돕고자 AioLM을 개발·공개했으며, 현재도 개선하고 있습니다.'
-    ] },
-    outcomeTitle: '배포 및 운영 현황',
-    outcome: [
-      '데스크톱 v0.5.2 크로스플랫폼 릴리스 및 SHA-256 체크섬 제공 — Windows x64(EXE/MSI), macOS 13.3+(Apple Silicon/Intel DMG), Linux x86_64(Ubuntu 24.04+ DEB/AppImage)',
-      '4개 언어(한국어·영어·일본어·중국어) 제품·설치·엔진 가이드 및 계정 없는 공개 벤치마크 탐색기(aiolm.vercel.app) 운영',
-      '앱–웹 단일 계약(@aiolm/benchmark-contracts 0.15.0, OpenAPI·JSON Schema) 기반 Vitest · Rust cargo test · PostgreSQL 통합 테스트 구축'
-    ],
-    productSummary: [
-      '데스크톱 앱 (AioLM v0.5.2): 추론 엔진 자체를 구현하지 않고 llama.cpp·vLLM(vllm-metal)·MLX와 로컬 OpenAI 호환 외부 엔진을 하나의 작업 공간으로 연결하는 엔진 중립 GUI 어댑터입니다. Hugging Face 모델 탐색·다운로드부터 실행 전 메모리 예상, 스트리밍 채팅·문서 검색·MCP 도구, 독립 로컬 API 서버까지 제공합니다.',
-      'Cold Prompt 벤치마크와 공개 비교 웹: 연결된 모든 엔진에 동일한 스트리밍 채팅 워크로드(openai-chat-serving@5, 최대 128토큰)로 TTFT·Prefill·Decode·TPOT 등 8개 지표를 측정합니다. 계정 없이 브라우저 인증(Turnstile)으로 공유한 결과를 aiolm.vercel.app에서 모델·엔진·하드웨어·측정 조건별로 검색하고 동일 동작점 기준 최대 3건을 비교합니다.',
-      '앱–웹 계약과 설정 재현: 앱과 웹이 공용 패키지(@aiolm/benchmark-contracts)의 OpenAPI·JSON Schema를 공유해 측정 데이터와 검증 규칙을 일치시켰으며, 공개 벤치마크 결과의 실행 설정을 데스크톱 앱의 프로필로 바로 가져와 재현할 수 있습니다.'
-    ],
-    flow: [
-      { name: '로컬 모델 탐색 · 실행 · 활용', steps: [
-        'Hugging Face 전 형식 검색 · 분할 샤드/Safetensors 선택 다운로드',
-        '런타임 → 프로필 → 옵션 설정 및 실행 전 VRAM·RAM 예상 확인',
-        '내장(llama.cpp·vLLM·MLX) 또는 3단계 자동 연결 외부 엔진 실행',
-        { branch: ['채팅 · 프로젝트 문서 검색 · MCP · 스킬 활용', '단일 루프백 로컬 API 서버(OpenAI · Anthropic) 연동'] }
-      ] },
-      { name: 'Cold Prompt 벤치마크 · 공개 비교', steps: [
-        '실행 nonce·요청별 고유 접두부로 최대 128토큰 스트리밍 측정',
-        'TTFT·Prefill·Decode·TPOT 등 8개 지표 기록 · CSV/Excel 내보내기',
-        'Turnstile 인증 후 계정 없이 게시 · 복구 파일/앱 핸드오프로 소유자 관리',
-        '웹에서 동일 동작점 기준 최대 3건 비교 · 앱 프로필로 실행 설정 가져오기'
+    atAGlanceTitle: '한눈에 보기',
+    atAGlance: [
+      { label: '어떤 프로젝트인가요?', body: '내 컴퓨터에서 AI를 직접 실행하고 속도를 측정하는 데스크톱 앱과, 기기·설정별 실측 속도를 검색·비교하는 웹사이트를 하나로 연결한 개인 프로젝트입니다.' },
+      { label: '왜 만들었나요?', body: '여러 컴퓨터와 그래픽카드로 AI를 직접 공부하던 중, 내 PC에서 AI가 얼마나 빠를지·어떤 설정이 맞을지 정보가 부족해 고민하는 동료와 커뮤니티 사람들을 돕기 위해 만들었습니다.' },
+      { label: '지금 배포된 결과물', body: [
+        'Windows·macOS·Linux용 설치 앱 v0.5.2 공개 배포 (위변조 검증값 제공)',
+        '4개 언어 안내 및 회원가입 없는 성능 비교 웹(aiolm.vercel.app) 운영'
       ] }
     ],
-    features: [
-      { name: '엔진 중립 모델 실행·리소스 예상', desc: 'llama.cpp, vLLM(vllm-metal), MLX 기본 지원과 로컬 OpenAI v1 외부 엔진 3단계 자동 연결(찾기 → 후보 검사 → 모델 사전 고정 없이 연결)을 제공합니다. 런타임 선택 → 프로필 선택 → 옵션 조정 흐름에서 GGUF 텐서 헤더 기반 VRAM·실행 보조 RAM·RAM/SSD 오프로드를 실행 전 계산합니다.' },
-      { name: 'Hugging Face 탐색·통합 다운로드', desc: '모든 저장소 형식의 인기 급상승순 검색과 OS 저장 HF 토큰(제한 저장소)을 지원합니다. GGUF 분할 샤드와 HF/MLX Safetensors 가중치별 묶음 다운로드, 상단 다운로드 팝오버의 동시 전송 격리·일시중지/이어받기·SHA-256 검증, 파일 단위 증분 업데이트를 제공합니다.' },
-      { name: '스트리밍 채팅·문서 검색·도구 연동', desc: '턴별 TTFT·PP·TG·캐시 토큰 지표 표시, 응답/로딩 중 후속 메시지 대기열·전환, 자동 펼침 추론 블록을 지원합니다. 프로젝트 단위 임베딩/키워드 문서 검색과 멀티모달 첨부(이미지·오디오 전사·비디오 프레임 샘플링), 개인 AGENTS.md·스킬·MCP 도구(네이티브 OS 승인)를 연결합니다.' },
-      { name: '독립 로컬 API 서버', desc: '모델 로드와 독립적으로 동작하는 단일 루프백(127.0.0.1) 리스너에서 OpenAI 호환(/v1/models, chat/completions, completions, embeddings, responses, audio/*)과 Anthropic Messages(/v1/messages)를 동시 제공합니다. 재발급 가능한 영속 API 키, Host 검증(421), 64개 동시 연결 제한을 적용했습니다.' },
-      { name: 'Cold Prompt 8지표 벤치마크', desc: 'openai-chat-serving@5 단일 방식으로 워밍업 없이 실행 nonce와 요청별 고유 접두부를 붙여 입력 재사용을 차단합니다. 입력 1K–1M UTF-8 바이트 × 동시성 1/2/4/8 조합에서 TTFT·Prefill·Decode·TPOT·토큰/바이트 처리량·E2E·소유 프로세스 최대 RAM 8개 지표를 기록하고 CSV/Excel/Markdown 내보내기를 지원합니다.' },
-      { name: '4개 언어 웹·검색 중심 비교·설정 재현', desc: '한국어·영어·일본어·중국어 제품·설치 가이드와 검색 우선 벤치마크 탐색기를 제공합니다. 모델·엔진·하드웨어·측정 4개 그룹 상세 필터와 동일 (입력 바이트, 동시성, 출력 상한) 동작점 기준 최대 3건 비교, SHA-256 기반 Hugging Face 메타데이터 조회, 공개 결과의 앱 프로필 가져오기를 지원합니다.' }
+    overviewTitle: '어떻게 동작하나요?',
+    productSummary: [
+      '데스크톱 앱 (v0.5.2): AI 실행 엔진 자체를 새로 만든 것이 아니라, 이미 널리 쓰이는 여러 AI 실행 프로그램(llama.cpp·vLLM·MLX 등)을 하나의 화면에서 다룰 수 있게 묶어 주는 통합 앱입니다. 복잡한 명령어 없이 모델을 내려받아 실행하고, 내 문서와 대화하거나 속도를 측정할 수 있습니다.',
+      '성능 비교 웹 (aiolm.vercel.app): 앱에서 공정한 조건으로 측정한 응답 속도를 회원가입 없이 공유하고, 다른 사람의 컴퓨터 사양·설정과 최대 3개까지 나란히 비교할 수 있습니다. 웹에서 본 설정을 내 앱으로 바로 불러와 그대로 써 볼 수도 있습니다.'
     ],
-    rolesTitle: '영역별 설계·구현',
+    flow: [
+      { name: '내 PC에서 AI 실행·대화하기', steps: [
+        '원하는 AI 모델 검색 및 내 기기에 맞는 용량 파일 다운로드',
+        '실행 전 그래픽카드·메모리 예상 사용량 확인 후 설정',
+        '내장 또는 내 PC의 AI 실행 프로그램을 버튼으로 실행',
+        { branch: ['내 문서·이미지를 첨부해 AI와 대화', '다른 앱·코딩 도구에서 불러 쓰는 로컬 서버 연결'] }
+      ] },
+      { name: 'AI 속도 측정(벤치마크)부터 웹 비교까지', steps: [
+        '매번 새 질문으로 공정하게 응답 속도·메모리 측정',
+        '첫 반응 시간·답변 생성 속도 등 8가지 지표 기록 · 엑셀 저장',
+        '회원가입 없이 봇 방지 확인 후 웹에 공유·관리',
+        '같은 조건의 다른 기기와 최대 3건 비교 · 설정 바로 가져오기'
+      ] }
+    ],
+    featuresTitle: '핵심 기능',
+    features: [
+      { name: '여러 AI 실행 프로그램 통합 관리', desc: 'AI 모델마다 다른 실행 프로그램(llama.cpp·vLLM·MLX 등)을 따로 설치해 명령어로 다루는 번거로움을 없앴습니다. 내 PC에 이미 설치된 외부 AI 프로그램도 3단계로 자동 찾아 연결합니다.' },
+      { name: '실행 전 메모리(VRAM·RAM) 미리 계산', desc: 'AI는 파일 크기보다 더 많은 메모리를 써서 실행 도중 꺼지기 쉽습니다. 모델을 켜기 전에 그래픽카드와 일반 메모리 사용량을 미리 계산해 내 기기에서 돌아갈지 바로 확인합니다.' },
+      { name: 'AI 모델 검색과 안전한 다운로드', desc: '공개 모델 저장소(Hugging Face)에서 인기 AI를 검색해 내 컴퓨터 사양에 맞는 용량 버전을 내려받습니다. 대용량 파일의 일시중지·이어받기, 무결성 검증(SHA-256), 바뀐 파일만 받는 업데이트를 지원합니다.' },
+      { name: '내 문서 기반 AI 대화 · 로컬 API 서버', desc: '외부 유출 걱정 없이 내 폴더의 문서나 이미지·음성을 첨부해 대화하며 응답 속도를 바로 확인합니다. 별도 로컬 서버를 켜면 다른 앱이나 코딩 도구에서도 ChatGPT처럼 호출할 수 있습니다.' },
+      { name: '공정한 조건의 AI 속도 테스트(벤치마크)', desc: '이전 질문의 기억(캐시) 때문에 속도가 부풀려지지 않도록 매번 새 질문으로 테스트합니다. 첫 반응 시간, 질문 이해 속도, 답변 생성 속도, 메모리 사용량 등 8가지 지표를 기록하고 엑셀·CSV로 저장합니다.' },
+      { name: '4개 언어 안내 웹과 기기별 비교·설정 재현', desc: '한국어·영어·일본어·중국어 가이드를 제공하고, 웹에서 모델·그래픽카드·측정 조건별로 결과를 검색합니다. 같은 조건의 결과 3건을 나란히 비교하고, 마음에 드는 실행 설정은 내 앱으로 바로 불러옵니다.' }
+    ],
+    rolesTitle: '직접 구현한 영역',
     roles: [
-      { title: '데스크톱 프론트엔드 · 디자인 시스템', points: [
-        'React 19·TypeScript·Tailwind CSS 4로 채팅·프로젝트·라이브러리·찾아보기·추론 엔진 관리·벤치마크·API/MCP 서버·설정 작업 공간 구현',
-        'Orchid Periwinkle 라이트/다크 디자인 시스템, 상단 다운로드·모델 로딩 팝오버, 최대화 반응형 레이아웃 및 4개 언어 i18n 구축'
+      { title: '데스크톱 앱 화면 · 디자인 (React 19 · TypeScript)', points: [
+        '채팅·모델 찾기·설정·성능 테스트·로컬 서버까지 전체 화면과 라이트/다크 테마 설계',
+        '상단 다운로드·로딩 상태 팝오버, 반응형 레이아웃 및 4개 언어 지원 구현'
       ] },
-      { title: '네이티브 백엔드 · 엔진 어댑터 · 로컬 API (Tauri 2 · Rust)', points: [
-        'llama.cpp·vLLM·MLX 프로세스 수명 주기 관리, 실행 파일 헤더·--help 파싱 기반 외부 엔진 3단계 자동 연결 및 네이티브 OS 승인 게이트 구현',
-        'GGUF 텐서 헤더 기반 실행 전 메모리 추정기, OpenAI·Anthropic 통합 루프백 API 게이트웨이 및 헤드리스 CLI(aiolm-cli) 개발'
+      { title: '시스템 제어 · 로컬 서버 (Tauri 2 · Rust)', points: [
+        'AI 실행 프로그램 시작·중지, 외부 프로그램 자동 탐색 및 실행 전 OS 확인 팝업 구현',
+        '모델 파일 사전 분석 기반 메모리 계산기, OpenAI·Anthropic 호환 로컬 API 서버 및 CLI 개발'
       ] },
-      { title: '웹사이트 · 벤치마크 탐색기 · 데이터 계층 (Next.js 15 · PostgreSQL)', points: [
-        'Next.js App Router 기반 4개 언어 정적 제품·가이드 페이지와 검색 우선 벤치마크 탐색기(FILTER_DEFINITIONS, 커서 페이지네이션, 3건 비교, SHA-256 HF 조회) 구현',
-        'PostgreSQL 스키마·마이그레이션(016)·pg_cron 보존 정책 및 Cloudflare Turnstile·HMAC 기반 계정 없는 소유자 관리(/manage) 구축'
+      { title: '성능 비교 웹 · DB (Next.js 15 · PostgreSQL)', points: [
+        '4개 언어 안내 페이지와 키워드 검색·4개 그룹 상세 필터·최대 3건 비교 UI 구현',
+        'PostgreSQL 스키마·자동 정리 스케줄, 회원가입 없는 봇 차단(Turnstile) 및 게시물 관리 세션 구현'
       ] },
-      { title: '공용 계약 · 크로스플랫폼 배포 · 품질 검증', points: [
-        '앱·웹 단일 계약 패키지(@aiolm/benchmark-contracts 0.15.0, OpenAPI·JSON Schema)로 스키마·검증·복구 인코딩 규칙 통합',
-        'GitHub Actions로 Windows(EXE/MSI)·macOS(Apple Silicon/Intel DMG)·Linux(DEB/AppImage) 빌드와 SHA-256 체크섬 배포, Vitest·cargo test·PostgreSQL 통합 테스트 체계 구축'
+      { title: '공용 규격 · 크로스플랫폼 배포 · 테스트', points: [
+        '앱과 웹이 같은 데이터 형식·검증 규칙을 쓰도록 공용 규격 패키지(OpenAPI·JSON Schema) 통합',
+        'GitHub Actions로 Windows·macOS·Linux 설치 파일 자동 배포 및 Vitest·Rust·DB 통합 테스트 구축'
       ] }
     ],
     troublesTitle: '핵심 설계 판단과 문제 해결',
     troubles: [
-      { problem: '엔진마다 상이한 CLI 플래그·프로토콜과 외부 엔진 실행에 따른 보안·상태 경합 문제', solution: '실행 파일 바이너리 헤더를 검사해 실행 가능 후보만 선별하고 --help 출력에서 옵션 스키마를 동적 생성했습니다. 도움말·MCP·문서 접근 전 네이티브 OS 승인 게이트와 체크섬 검증을 두어 첫 실행 시 실제 채팅·스트리밍 응답을 확인한 뒤 연결하며, 다운로드·로딩·벤치마크 백그라운드 작업을 격리해 UI 블로킹을 방지했습니다.' },
-      { problem: '모델 파일 크기만으로 실행 전 메모리 부족(OOM)과 GPU·RAM·SSD 오프로드를 판단하기 어려운 문제', solution: 'Rust에서 GGUF 텐서 헤더를 직접 파싱해 Full-Attention·MoE·Sliding-Window·하이브리드(Qwen3.5/Qwen4) 레이어별 KV 캐시·어텐션 마스크·순환 상태를 계산했습니다. VRAM·실행 보조 RAM·RAM 오프로드·SSD 오프로드를 정확도 등급과 함께 실행 전 실시간 표시하고, 통합 메모리 GPU의 물리 풀 중복 합산을 방지했습니다.' },
-      { problem: '캐시 재사용·조건 불일치·토큰 미보고로 인한 벤치마크 왜곡과 앱–웹 스키마 불일치 문제', solution: '@aiolm/benchmark-contracts 패키지를 단일 원본으로 두고 openai-chat-serving@5 Cold Prompt 방식(실행 nonce + 요청별 고유 접두부, 워밍업 없음, 최대 128토큰)으로 일원화했습니다. 토큰 사용량은 첫 배치에서 선택 협상하고 미보고 지표는 추정·0 처리 대신 null로 유지하며, 웹에서는 동일한 (입력 바이트, 동시성, 출력 상한) 동작점 기준으로만 정렬·비교하도록 강제했습니다.' },
-      { problem: '계정 체계 없이 벤치마크를 공개하면서도 스팸 차단과 작성자 수정·삭제 권한을 보장해야 하는 문제', solution: '업로드 세션에 Cloudflare Turnstile 검증과 HMAC 서명 토큰을 적용해 봇 제출을 차단하고, 게시 후에는 OS 자격 증명 저장소·복구 파일·일회성 앱 핸드오프(/manage)로 결과별 30분 관리 세션을 발급하도록 설계했습니다. 복사한 복구 코드는 60초 뒤 클립보드에서 자동 삭제됩니다.' }
+      {
+        problem: 'AI 실행 프로그램마다 옵션과 사용법이 제각각이고, 외부 프로그램 실행 시 보안 위험이 생기는 문제',
+        summary: '실행 파일 구조 판별 + 도움말(--help) 자동 파싱 + 실행 전 OS 확인 팝업으로 해결',
+        solution: '특정 프로그램 이름에 의존하지 않고 실행 파일 구조를 직접 판별해 실행 가능한 항목만 추린 뒤, 프로그램의 도움말(--help)을 읽어 설정 화면을 자동으로 구성했습니다. 외부 프로그램·도구·문서에 접근하기 전에는 운영체제 확인 팝업과 파일 변경 검증을 거치고, 다운로드·모델 로딩·성능 측정 작업을 분리해 화면이 멈추지 않도록 설계했습니다.'
+      },
+      {
+        problem: 'AI 모델은 파일 크기만 보고 실행하면 메모리 부족으로 도중에 강제 종료되기 쉬운 문제',
+        summary: 'Rust로 모델 파일 구조(GGUF)를 사전 분석해 그래픽카드·일반 메모리·디스크 초과분을 미리 계산',
+        solution: 'AI는 모델 파일 자체 외에도 대화 길이와 연산 작업 공간만큼 메모리를 추가로 사용합니다. Rust로 모델 파일 내부 구조(GGUF 헤더)를 미리 읽어 그래픽카드 메모리(VRAM), 시스템 메모리(RAM), 부족할 때 디스크로 넘어가는 용량을 실행 전에 계산해 보여 주고, Apple Silicon처럼 그래픽카드와 일반 메모리를 함께 쓰는 기기에서는 용량이 이중으로 합산되지 않도록 처리했습니다.'
+      },
+      {
+        problem: '테스트 방식이나 컴퓨터 조건이 다르면 AI 속도 수치가 왜곡되고 앱–웹 기준이 어긋나는 문제',
+        summary: '앱–웹 공용 규격 패키지 + 매번 새 질문으로 측정하는 단일 기준 + 동일 조건끼리만 비교',
+        solution: '앱과 웹이 하나의 공용 규격 패키지(OpenAPI·JSON Schema)를 공유하도록 묶고, 성능 측정 시 이전 입력을 재사용하지 않도록 매번 고유한 새 질문으로 최대 128토큰 응답을 측정하는 단일 기준을 적용했습니다. 일부 프로그램이 제공하지 않는 수치는 임의로 추정하거나 0으로 채우지 않고 빈 값(null)으로 남겼으며, 웹에서도 같은 질문 길이·동시 요청 조건끼리만 정렬·비교하도록 제한했습니다.'
+      },
+      {
+        problem: '회원가입 없이 결과를 공유할 수 있게 하면서도 스팸을 막고 본인만 수정·삭제할 수 있어야 하는 문제',
+        summary: '봇 차단 인증(Turnstile) + 복구 파일·앱 연동 기반 30분 관리 세션 + 복구 코드 60초 자동 삭제',
+        solution: '결과를 올릴 때 자동화 봇 차단 인증(Cloudflare Turnstile)과 서명된 임시 토큰(HMAC)을 적용했습니다. 게시가 끝나면 운영체제 보안 저장소·복구 파일·앱 연동 링크로 30분짜리 관리 세션을 열어 작성자 본인만 설명을 수정하거나 삭제할 수 있게 했고, 복사한 복구 코드는 60초 뒤 클립보드에서 자동 삭제되도록 안전장치를 두었습니다.'
+      }
     ],
     stack: ['React 19', 'Tauri 2 · Rust', 'Next.js 15', 'TypeScript', 'PostgreSQL', 'Python', 'llama.cpp · vLLM · MLX', 'OpenAPI · JSON Schema'],
     stackGroups: [
       { name: '데스크톱 앱', items: ['React 19', 'TypeScript', 'Tauri 2 · Rust', 'Vite 7', 'Tailwind CSS 4', 'Vitest'] },
-      { name: '추론 엔진 · 프로토콜', items: ['llama.cpp', 'vLLM · vllm-metal', 'MLX · mlx-vlm', 'Python', 'OpenAI · Anthropic API', 'MCP'] },
+      { name: '연동 AI 엔진 · 프로토콜', items: ['llama.cpp', 'vLLM · vllm-metal', 'MLX · mlx-vlm', 'Python', 'OpenAI · Anthropic API', 'MCP'] },
       { name: '웹사이트 · 데이터', items: ['Next.js 15', 'React 19', 'TypeScript', 'PostgreSQL', 'Cloudflare Turnstile', 'Vercel'] },
       { name: '공용 계약 · 배포', items: ['@aiolm/benchmark-contracts', 'OpenAPI · JSON Schema', 'GitHub Actions', 'SHA-256 Checksums'] }
     ],
   },
   en: {
     id: 'p4', name: 'AioLM', period: '2026.08 – Present', team: 'Solo project · 1 person',
-    desc: 'An engine-neutral local LLM desktop GUI adapter (v0.5.2) and 4-language benchmark web service connecting llama.cpp, vLLM, MLX, and local OpenAI-compatible external engines across model execution, document chat, local API serving, and 8-metric Cold Prompt comparisons.',
-    role: ['Product planning · design system · desktop app (Tauri 2 · Rust · React) · full-stack web (Next.js · PostgreSQL) · release'],
-    screenshotsMeta: 'Based on v0.5.2 · 2 live public website captures + 4 official native Windows app captures',
+    desc: 'A desktop app and website (v0.5.2) that lets anyone run ChatGPT-style AI directly on their own computer, chat with local documents, measure response speed, and compare results across real setups online.',
+    role: ['Product planning · design · desktop app (React·Tauri·Rust) · full-stack web (Next.js·PostgreSQL) · release'],
+    compactInfo: true,
+    screenshotsFirst: true,
+    rolesLayout: 'grid',
+    troublesCollapsible: true,
+    screenshotsMeta: 'Based on v0.5.2 · 2 public website captures + 4 native Windows app captures (including Benchmark)',
     list: {
       contributionLabel: 'Development scope',
       contribution: [
-        'Built the multi-engine desktop app (React 19 · Tauri 2 · Rust) & local API server',
-        'Built the 4-language product/guide site & search-first benchmark explorer (Next.js 15 · PostgreSQL)',
-        'Maintained shared app–web contracts (@aiolm/benchmark-contracts) & Win/macOS/Linux release pipelines'
+        'Built the desktop app to download, run, chat with, and benchmark AI locally',
+        'Built the 4-language product guide site and public AI speed comparison explorer'
       ],
       implementation: [
-        'Engine-neutral adapter · 3-step external engine connect · pre-load VRAM/RAM estimates',
-        'Cold Prompt 8-metric serving benchmark (openai-chat-serving@5) & profile import',
-        'Streaming chat (PP · TG · TTFT) · document retrieval · MCP · AGENTS.md · skills'
+        'Unified multiple AI runners · pre-load GPU/RAM memory estimator',
+        'Fair-condition AI speed test (benchmark) · side-by-side comparison of up to 3 setups',
+        'Private document-backed AI chat · local API server for other apps'
       ]
     },
-    motivation: { title: 'Why I built it', points: [
-      'My interest in AI led me to purchase several devices myself and study LLM inference and fine-tuning across different environments.',
-      'I saw people in other teams at work and in technical communities struggling to choose hardware and settings because performance information was scarce.',
-      'I built and released AioLM to share measured results for hardware and setup decisions, and continue to improve it.'
-    ] },
-    outcomeTitle: 'Release & operation',
-    outcome: [
-      'Cross-platform v0.5.2 desktop releases with SHA-256 checksums: Windows x64 (EXE/MSI), macOS 13.3+ (Apple Silicon & Intel DMG), Linux x86_64 (Ubuntu 24.04+ DEB/AppImage)',
-      '4-language (ko/en/ja/zh) product/install/engine guides and anonymous public benchmark explorer running at aiolm.vercel.app',
-      'Unified app–web wire contract (@aiolm/benchmark-contracts 0.15.0, OpenAPI & JSON Schema) backed by Vitest, Rust cargo test, and PostgreSQL integration suites'
-    ],
-    productSummary: [
-      'Desktop app (AioLM v0.5.2): An engine-neutral GUI adapter (not an inference engine itself) uniting llama.cpp, vLLM (vllm-metal), MLX, and external local OpenAI-compatible engines in one workspace—covering Hugging Face model discovery, pre-load memory estimation, streaming chat with document search and MCP tools, and an independent local API server.',
-      'Cold Prompt benchmark & public web explorer: Measures eight client-observed and engine-reported metrics (including TTFT, Prefill, Decode, and TPOT) across connected engines using one capped streaming workload (openai-chat-serving@5, up to 128 output tokens). Anonymous Turnstile-verified results can be searched on aiolm.vercel.app by model, engine, hardware, and conditions, and compared up to three at a time at the same operating point.',
-      'Shared app–web contracts & profile replay: Both repositories share OpenAPI and JSON Schema rules via @aiolm/benchmark-contracts, allowing users to import a public benchmark’s recorded launch settings directly into a desktop profile for local reproduction.'
-    ],
-    flow: [
-      { name: 'Local discovery, execution & workspace', steps: [
-        'Search all Hugging Face formats · download GGUF shards or Safetensors bundles',
-        'Choose runtime → profile → options and inspect pre-load VRAM/RAM estimates',
-        'Launch built-in (llama.cpp · vLLM · MLX) or 3-step auto-connected external engines',
-        { branch: ['Chat · project document retrieval · MCP & skills', 'Loopback local API server (OpenAI & Anthropic)'] }
-      ] },
-      { name: 'Cold Prompt benchmark & public comparison', steps: [
-        'Send 128-token capped streaming workload with run nonce & unique request prefixes',
-        'Record 8 metrics (TTFT · Prefill · Decode · TPOT · E2E · RAM) & export CSV/Excel',
-        'Publish without accounts via Turnstile · manage via recovery file or app handoff',
-        'Compare up to 3 runs at the same operating point · import settings into app profile'
+    atAGlanceTitle: 'At a glance',
+    atAGlance: [
+      { label: 'What is it?', body: 'A solo project pairing a desktop app that runs AI models locally on your own computer and benchmarks their speed with a website to search and compare real measurements across hardware and settings.' },
+      { label: 'Why did I build it?', body: 'While buying several PCs and GPUs to study how AI runs locally, I saw teammates and community members struggling to guess how fast AI would run on their setup—so I built AioLM to share real measured benchmarks.' },
+      { label: 'Shipped & running', body: [
+        'Public v0.5.2 desktop installers for Windows, macOS, and Linux with SHA-256 verification',
+        '4-language guides and account-free public benchmark explorer live at aiolm.vercel.app'
       ] }
     ],
-    features: [
-      { name: 'Engine-neutral execution & memory estimation', desc: 'Supports built-in llama.cpp, vLLM (vllm-metal), MLX, and 3-step automatic connection of local OpenAI v1 external engines (Find → Check → Connect without pre-binding a model). Parses GGUF tensor headers in Rust to preview VRAM, runtime RAM, and RAM/SSD offload across Choose runtime → Choose profile → Adjust options.' },
-      { name: 'Hugging Face discovery & unified downloads', desc: 'Searches all repository formats sorted by Trending (with OS-stored HF tokens for gated repos). Downloads split GGUF shards and per-weight HF/MLX Safetensors bundles, manages concurrent transfers with pause/resume/SHA-256 verification in the header Downloads popover, and supports file-level incremental model updates.' },
-      { name: 'Streaming chat, RAG & tool integration', desc: 'Displays per-turn TTFT, PP, TG, and cached-token metrics, supports message queueing/steering while streaming or loading, and auto-expands reasoning blocks. Connects project-scoped embedding/keyword document search, multimodal inputs (images, audio transcription, video frame sampling), personal AGENTS.md, skills, and OS-approved MCP tools.' },
-      { name: 'Independent local API server', desc: 'Serves OpenAI-compatible (/v1/models, chat/completions, completions, embeddings, responses, audio/*) and Anthropic Messages (/v1/messages) routes over a single loopback (127.0.0.1) listener independent of model load state—with a persistent rotatable API key, Host validation (421), and a 64-connection cap.' },
-      { name: 'Cold Prompt 8-metric serving benchmark', desc: 'Uses the single openai-chat-serving@5 method with no workload warmup, a fresh run nonce, and per-request prefixes to block input reuse. Measures 1K–1M UTF-8 input bytes × concurrency 1/2/4/8 across eight metrics (TTFT, Prefill, Decode, TPOT, token/byte throughput, E2E, owned-process peak RAM) with CSV/Excel/Markdown export.' },
-      { name: '4-language web explorer & profile replay', desc: 'Provides Korean, English, Japanese, and Chinese guides alongside a search-first benchmark explorer. Supports 4-group detailed filters (Model, Inference engine, Hardware, Measurement), side-by-side comparison of up to 3 runs at matching (input_bytes, concurrency, cap) points, SHA-256 Hugging Face catalog lookup, and one-click app profile import.' }
+    overviewTitle: 'How does it work?',
+    productSummary: [
+      'Desktop app (v0.5.2): Instead of building a brand-new AI runner from scratch, AioLM wraps existing popular AI runners (llama.cpp, vLLM, MLX, and other local tools) in one clean app. Users can download an AI model, check memory needs, chat with local documents, or run a speed test without fighting terminal commands.',
+      'Speed comparison website (aiolm.vercel.app): Results measured under fair rules in the desktop app can be published without an account, filtered by model, runner, graphics card, or test size, and compared up to three at once—or imported straight back into the app to reproduce the exact setup.'
     ],
-    rolesTitle: 'Architecture & implementation',
+    flow: [
+      { name: 'Run & use AI on your own computer', steps: [
+        'Search public AI models and download a file size that fits your PC',
+        'Check estimated GPU and system memory before starting',
+        'Launch built-in or already-installed local AI runners with one click',
+        { branch: ['Chat privately with attached documents & images', 'Expose a local server for other apps and coding tools'] }
+      ] },
+      { name: 'Measure speed & compare online', steps: [
+        'Test response speed with fresh prompts so results aren’t inflated by cache',
+        'Record 8 speed & memory metrics and export to Excel or CSV',
+        'Share without an account after bot check · manage via recovery file or app',
+        'Compare up to 3 results under matching rules · import setup into your app'
+      ] }
+    ],
+    featuresTitle: 'Core features',
+    features: [
+      { name: 'One interface for multiple AI runners', desc: 'Eliminates juggling separate installers and terminal flags across AI runners (llama.cpp, vLLM, MLX, etc.). It can also auto-detect compatible AI tools already installed on your PC in 3 guided steps.' },
+      { name: 'Pre-load GPU & memory check', desc: 'AI models use extra memory for conversation length and workspace buffers beyond file size. AioLM calculates expected GPU memory (VRAM) and RAM before launch so users see whether a model fits.' },
+      { name: 'Safe model search & downloads', desc: 'Searches Hugging Face for popular models and lets users pick the exact size/precision file for their machine—complete with pause/resume, SHA-256 integrity checks, and incremental file updates.' },
+      { name: 'Private document chat & local server', desc: 'Chat locally without sending files to external servers while watching live response-speed metrics, attach project folders, images, or audio, or turn on the local API server to plug into other tools.' },
+      { name: 'Fair AI speed test (Benchmark)', desc: 'Sends a fresh prompt every time (no warmup or cached shortcuts) across chosen prompt lengths and parallel requests, recording 8 metrics from first-token wait time to memory usage with Excel/CSV export.' },
+      { name: '4-language site & setup replay', desc: 'Offers guides in Korean, English, Japanese, and Chinese alongside a search-first benchmark explorer. Filter by model, runner, or GPU, compare up to 3 matching runs, and import any setup into your desktop app.' }
+    ],
+    rolesTitle: 'What I built',
     roles: [
-      { title: 'Desktop frontend & design system', points: [
-        'Built workspaces (Chat, Projects, Library, Discover, Inference engines, Benchmark, API/MCP servers, Settings) in React 19, TypeScript, and Tailwind CSS 4',
-        'Implemented the Orchid Periwinkle light/dark design system, header Downloads and Model loading popovers, responsive maximized layouts, and 4-locale i18n'
+      { title: 'Desktop UI & design system (React 19 · TypeScript)', points: [
+        'Designed and built Chat, Model Discover, Settings, Benchmark, Local Server, and light/dark themes',
+        'Built unified header download/loading popovers, responsive maximized layouts, and 4-language i18n'
       ] },
-      { title: 'Native backend, engine adapters & local API (Tauri 2 · Rust)', points: [
-        'Engineered engine process lifecycles, binary-header and --help parsing for 3-step external engine connection, and native OS approval gates for help, MCP, and documents',
-        'Implemented the GGUF pre-load resource estimator, unified OpenAI/Anthropic loopback gateway, and headless CLI (aiolm-cli)'
+      { title: 'Native control & local API (Tauri 2 · Rust)', points: [
+        'Managed AI runner lifecycles, auto-detected local tools, and enforced OS approval prompts before running external programs',
+        'Built the GGUF pre-load memory estimator, OpenAI/Anthropic-compatible local server, and headless CLI'
       ] },
-      { title: 'Website, benchmark explorer & data layer (Next.js 15 · PostgreSQL)', points: [
-        'Built 4-language static product/guide pages and the search-first benchmark explorer (FILTER_DEFINITIONS, cursor pagination, 3-run comparison, SHA-256 HF lookup)',
-        'Designed the PostgreSQL schema, migrations through 016, pg_cron retention jobs, and account-free owner management (/manage) with Turnstile and HMAC sessions'
+      { title: 'Benchmark explorer & database (Next.js 15 · PostgreSQL)', points: [
+        'Built 4-language static product/guide pages plus keyword search, 4-group filters, and 3-run comparisons',
+        'Designed PostgreSQL schema, auto-cleanup schedules, Turnstile bot protection, and account-free result editing'
       ] },
-      { title: 'Shared contracts, cross-platform releases & testing', points: [
-        'Unified app and website schemas, validation, and recovery-code encoding via @aiolm/benchmark-contracts 0.15.0 (OpenAPI & JSON Schema)',
-        'Set up GitHub Actions cross-platform packaging (Windows EXE/MSI, macOS Apple Silicon/Intel DMG, Linux DEB/AppImage with SHA-256 checksums) plus Vitest, cargo test, and PostgreSQL integration tests'
+      { title: 'Shared contracts, CI/CD & tests', points: [
+        'Kept app and web data validation aligned through one shared OpenAPI & JSON Schema package',
+        'Automated Windows, macOS, and Linux builds with SHA-256 checksums plus Vitest, Rust, and DB integration suites'
       ] }
     ],
     troublesTitle: 'Key engineering decisions',
     troubles: [
-      { problem: 'Diverse engine CLI flags, protocols, and OS security/locking risks when connecting arbitrary external engines', solution: 'Inspected executable binary headers to list only launchable binaries and dynamically generated option schemas from --help output. Enforced native OS approval gates and checksum checks before executing help, MCP, or document access, verified real chat/streaming before registering, and isolated download, load, and benchmark background jobs.' },
-      { problem: 'File size alone cannot predict pre-load OOM or RAM/SSD offload across heterogeneous GPU and unified-memory hosts', solution: 'Parsed GGUF tensor headers in Rust to model KV caches, attention masks, and recurrent state across Full-Attention, MoE, Sliding-Window, and hybrid (Qwen3.5/Qwen4) architectures—reporting VRAM, runtime RAM, RAM offload, and SSD offload with accuracy grades without double-counting shared-memory pools.' },
-      { problem: 'Benchmark distortion from prompt cache reuse, mismatched workloads, and missing usage counters across engines', solution: 'Standardized both app and web on @aiolm/benchmark-contracts and openai-chat-serving@5 Cold Prompt runs (fresh run nonce + unique per-request prefix, no warmup, max 128 output tokens). Negotiated stream usage on the first batch while keeping unreported token metrics null rather than guessing, and restricted web comparisons to exact (input_bytes, concurrency, cap) operating points.' },
-      { problem: 'Preventing spam and allowing authors to edit or delete published benchmarks without requiring user accounts', solution: 'Protected upload sessions with Cloudflare Turnstile and HMAC-signed permits, and issued result-scoped 30-minute management sessions (/manage) via OS credential storage, recovery files, or a single-use app handoff (auto-clearing copied recovery codes from the clipboard after 60 seconds).' }
+      {
+        problem: 'Every AI runner has different flags and options, and running unknown local tools poses security risks',
+        summary: 'Binary-header filtering + dynamic --help option parsing + native OS approval prompts before execution',
+        solution: 'Instead of hardcoding specific runner names, the app inspects binary headers to find real executables and reads each tool’s --help output to generate settings forms automatically. External tools, plugins, and document folders require explicit OS approval and checksum verification before execution, while background downloads, launches, and benchmarks run isolated so the UI never freezes.'
+      },
+      {
+        problem: 'Users often crash out of memory because an AI model needs far more memory than its download size',
+        summary: 'Pre-parsed GGUF model headers in Rust to preview GPU, RAM, and disk spill before launching',
+        solution: 'Beyond the model weights themselves, running AI requires extra memory for conversation length and intermediate computation. Parsing GGUF headers in Rust before launch lets AioLM preview GPU memory (VRAM), system RAM, and disk spill accurately—while avoiding double-counting unified memory pools on chips like Apple Silicon.'
+      },
+      {
+        problem: 'Inconsistent test conditions distort AI speed scores, and app/web data formats can easily drift apart',
+        summary: 'One shared OpenAPI/Schema package + fresh-prompt single test rule + exact-condition web comparison',
+        solution: 'Locked app and website validation to one shared contract package (@aiolm/benchmark-contracts) and standardized tests on fresh, non-reusable prompts capped at 128 output tokens with no warmup. Missing engine usage numbers stay null instead of being guessed, and the website only ranks or compares runs measured under identical prompt-size and concurrency rules.'
+      },
+      {
+        problem: 'Allowing anyone to publish benchmarks without sign-ups while blocking spam and keeping owner editing secure',
+        summary: 'Turnstile bot check + recovery file / app handoff for 30-min edit sessions + 60s clipboard auto-clear',
+        solution: 'Protected uploads with Cloudflare Turnstile and HMAC-signed permits. After publishing, authors can edit descriptions or delete runs during a 30-minute session unlocked via OS credential storage, a saved recovery file, or a single-use desktop handoff—with copied recovery codes automatically cleared from the clipboard after 60 seconds.'
+      }
     ],
     stack: ['React 19', 'Tauri 2 · Rust', 'Next.js 15', 'TypeScript', 'PostgreSQL', 'Python', 'llama.cpp · vLLM · MLX', 'OpenAPI · JSON Schema'],
     stackGroups: [
       { name: 'Desktop app', items: ['React 19', 'TypeScript', 'Tauri 2 · Rust', 'Vite 7', 'Tailwind CSS 4', 'Vitest'] },
-      { name: 'Inference engines & protocols', items: ['llama.cpp', 'vLLM · vllm-metal', 'MLX · mlx-vlm', 'Python', 'OpenAI · Anthropic API', 'MCP'] },
+      { name: 'Supported AI engines & protocols', items: ['llama.cpp', 'vLLM · vllm-metal', 'MLX · mlx-vlm', 'Python', 'OpenAI · Anthropic API', 'MCP'] },
       { name: 'Website & data', items: ['Next.js 15', 'React 19', 'TypeScript', 'PostgreSQL', 'Cloudflare Turnstile', 'Vercel'] },
       { name: 'Contracts & delivery', items: ['@aiolm/benchmark-contracts', 'OpenAPI · JSON Schema', 'GitHub Actions', 'SHA-256 Checksums'] }
     ],
   },
   ja: {
     id: 'p4', name: 'AioLM', period: '2026.08 ～ 継続開発中', team: '個人開発 · 1人',
-    desc: 'llama.cpp・vLLM・MLXおよびローカルOpenAI互換の外部エンジンを一つの作業空間で実行・対話・計測し、Cold Prompt 8指標の実測結果を4言語Webで検索・比較できるローカルLLMデスクトップアプリ・Webサービス（v0.5.2）です。',
-    role: ['企画・デザインシステム・デスクトップアプリ（Tauri 2・Rust・React）・Webフルスタック（Next.js・PostgreSQL）・公開運用'],
-    screenshotsMeta: 'v0.5.2基準 · 公開Web実画面2点 + 公式ネイティブWindowsアプリ画面4点',
+    desc: 'ChatGPTのようなAIを外部サーバーではなく自分のパソコン上で直接動かして対話し、PCごとの応答速度を測ってWeb上で比較できるデスクトップアプリ・Webサービス（v0.5.2）です。',
+    role: ['企画・デザイン・デスクトップアプリ（React・Tauri・Rust）・Webフルスタック（Next.js・PostgreSQL）・公開運用'],
+    compactInfo: true,
+    screenshotsFirst: true,
+    rolesLayout: 'grid',
+    troublesCollapsible: true,
+    screenshotsMeta: 'v0.5.2基準 · 公開Webサイト2枚 + 実動Windowsアプリ画面4枚（ベンチマーク含む）',
     list: {
       contributionLabel: '開発範囲',
       contribution: [
-        'マルチエンジン対応デスクトップアプリ（React 19・Tauri 2・Rust）とローカルAPIサーバー',
-        '4言語の製品・ガイドWebと検索中心のベンチマーク探索画面（Next.js 15・PostgreSQL）',
-        'アプリ–Web共通契約（@aiolm/benchmark-contracts）とWin/macOS/Linuxリリース自動化'
+        '自分のPCでAIを取得・実行・対話・速度計測するデスクトップアプリ',
+        '4言語の利用ガイドとPC・設定別のAI速度比較Webサービス'
       ],
       implementation: [
-        'エンジン中立アダプター · 3段階の外部エンジン接続 · 起動前VRAM/RAM見積もり',
-        'Cold Prompt 8指標ベンチマーク（openai-chat-serving@5）とWeb設定インポート',
-        'ストリーミング対話（PP・TG・TTFT） · 文書検索 · MCP・AGENTS.md・スキル'
+        '複数のAI実行ソフトを統合管理 · 起動前の使用メモリー事前計算',
+        '公平な条件でのAI速度テスト（ベンチマーク） · Webで最大3件比較',
+        '手元の文書を使ったAI対話 · 他アプリから呼び出せるローカルサーバー'
       ]
     },
-    motivation: { title: '開発の背景と目的', points: [
-      'AIへの関心から複数の機器を自費で購入し、さまざまな環境でLLMの推論とファインチューニングを学んできました。',
-      '勤務先の他チームや技術コミュニティには、性能情報の不足から機器購入や設定に悩む人がいました。',
-      '実測結果を共有し、購入・設定の判断に役立てられるようAioLMを開発・公開し、現在も改善しています。'
-    ] },
-    outcomeTitle: 'リリース・運用状況',
-    outcome: [
-      'デスクトップv0.5.2のクロスプラットフォーム配布とSHA-256チェックサム提供 — Windows x64（EXE/MSI）、macOS 13.3+（Apple Silicon/Intel DMG）、Linux x86_64（Ubuntu 24.04+ DEB/AppImage）',
-      '4言語（韓国語・英語・日本語・中国語）の製品・導入・エンジンガイドおよびアカウント不要の公開ベンチマーク探索サイト（aiolm.vercel.app）を運用',
-      'アプリ–Web共通契約（@aiolm/benchmark-contracts 0.15.0、OpenAPI・JSON Schema）とVitest・Rust cargo test・PostgreSQL統合テストを整備'
-    ],
-    productSummary: [
-      'デスクトップアプリ（AioLM v0.5.2）：推論エンジン自体を実装するのではなく、llama.cpp・vLLM（vllm-metal）・MLXとローカルOpenAI互換の外部エンジンを一つの画面にまとめるエンジン中立のGUIアダプターです。Hugging Faceの探索・取得、起動前メモリー見積もり、文書検索やMCPツールを備えたチャット、独立ローカルAPIサーバーを提供します。',
-      'Cold Promptベンチマークと公開比較Web：接続した全エンジンに同一のストリーミングチャット負荷（openai-chat-serving@5、最大128トークン）を送り、TTFT・Prefill・Decode・TPOTなど8指標を計測します。アカウント不要のTurnstile認証で共有された結果をaiolm.vercel.appでモデル・エンジン・ハードウェア・条件別に検索し、同一動作点で最大3件を比較できます。',
-      'アプリ–Web契約と設定再現：@aiolm/benchmark-contractsを通じてOpenAPI・JSON Schemaを共有してデータ検証を統一し、公開ベンチマークの実行設定をデスクトップアプリのプロファイルへ直接取り込んで再現できるようにしました。'
-    ],
-    flow: [
-      { name: 'ローカルモデルの探索・実行・活用', steps: [
-        'Hugging Face全形式検索 · 分割GGUF/Safetensorsバンドルを選択取得',
-        'ランタイム → プロファイル → オプション設定と起動前VRAM/RAM見積もり',
-        '組み込み（llama.cpp・vLLM・MLX）または3段階自動接続の外部エンジンを起動',
-        { branch: ['対話 · プロジェクト文書検索 · MCP・スキル活用', '単一ループバックのローカルAPI（OpenAI・Anthropic）連携'] }
-      ] },
-      { name: 'Cold Promptベンチマーク・公開比較', steps: [
-        '実行nonce・リクエスト固有プレフィックス付きで最大128トークン計測',
-        'TTFT・Prefill・Decode・TPOTなど8指標を記録 · CSV/Excel出力',
-        'Turnstile認証でアカウント不要公開 · 復旧ファイル/アプリ連携で管理',
-        'Webで同一動作点基準の最大3件比較 · アプリへ実行設定を取り込み'
+    atAGlanceTitle: 'ひと目でわかる概要',
+    atAGlance: [
+      { label: 'どんなプロジェクト？', body: '自分のPCでAIを直接動かして速度を測るデスクトップアプリと、PC構成ごとの実測速度を検索・比較できるWebサイトをつないだ個人開発プロジェクトです。' },
+      { label: 'なぜ作ったのか？', body: '複数のPCやGPUを自費で試しながらローカルAIを学ぶ中で、「自分のPCでどれくらい速く動くのか」「どの設定が良いのか」が分からず困っている周囲やコミュニティの人を助けるために作りました。' },
+      { label: '現在の公開状況', body: [
+        'Windows・macOS・Linux向けアプリ v0.5.2 配布中（改ざん検証ハッシュ付き）',
+        '4言語ガイドと登録不要の速度比較サイト（aiolm.vercel.app）を運用中'
       ] }
     ],
-    features: [
-      { name: 'エンジン中立のモデル実行・メモリー見積もり', desc: 'llama.cpp・vLLM（vllm-metal）・MLXの標準対応に加え、ローカルOpenAI v1外部エンジンの3段階自動接続（検索 → 候補確認 → モデル事前固定なしで接続）に対応。「ランタイム → プロファイル → オプション調整」の中でGGUFテンソルヘッダーからVRAM・補助RAM・RAM/SSDオフロードを起動前に算出します。' },
-      { name: 'Hugging Face探索・統合ダウンロード', desc: '全リポジトリ形式のTrending順検索とOS資格情報保存のHFトークン（限定リポジトリ）に対応。分割GGUFシャードやHF/MLX Safetensorsの重み別バンドル取得、ヘッダーのダウンロードポップオーバーでの並列制御（一時停止・再開・SHA-256検証）、ファイル単位の差分更新を提供します。' },
-      { name: 'ストリーミング対話・文書検索・ツール連携', desc: 'ターン別のTTFT・PP・TG・キャッシュトークン表示、生成中・読込中の後続メッセージキュー/切替、推論ブロック自動展開を備えます。プロジェクト単位の埋め込み/キーワード文書検索、マルチモーダル添付（画像・音声文字起こし・動画フレーム抽出）、個人AGENTS.md・スキル・OS承認付きMCPツールを連携します。' },
-      { name: '独立したローカルAPIサーバー', desc: 'モデル読込状態と独立して動作する単一ループバック（127.0.0.1）リスナーでOpenAI互換（/v1/models、chat/completions、completions、embeddings、responses、audio/*）とAnthropic Messages（/v1/messages）を提供。再発行可能な永続APIキー、Host検証（421）、64並列接続上限を適用しています。' },
-      { name: 'Cold Prompt 8指標ベンチマーク', desc: 'openai-chat-serving@5単一方式でウォームアップを省き、実行nonceとリクエスト別プレフィックスで入力再利用を防ぎます。1K–1M UTF-8バイト × 同時実行1/2/4/8の組み合わせでTTFT・Prefill・Decode・TPOT・トークン/バイトスループット・E2E・所有プロセス最大RAMの8指標を記録し、CSV/Excel/Markdownへ出力します。' },
-      { name: '4言語Web・検索中心比較・設定再現', desc: '日本語・韓国語・英語・中国語のガイドと検索優先のベンチマーク探索画面を提供。モデル・エンジン・ハードウェア・測定の4群詳細フィルター、同一（入力バイト・同時実行数・出力上限）動作点での最大3件比較、SHA-256照合によるHugging Face情報取得、公開結果からのアプリプロファイル読込に対応します。' }
+    overviewTitle: 'どのように動くのか？',
+    productSummary: [
+      'デスクトップアプリ（v0.5.2）：AI実行エンジン自体をゼロから作ったのではなく、広く使われている複数のAI実行プログラム（llama.cpp・vLLM・MLXなど）をひとつの画面で扱えるよう統合したアプリです。難しいコマンド操作なしでAIモデルを取得して実行し、手元の文書と対話したり速度を測ったりできます。',
+      '速度比較サイト（aiolm.vercel.app）：アプリで公平なルールのもと計測した応答速度を、会員登録なしでWebに共有できます。モデル名やGPUなどの条件で検索して最大3件を並べて比較でき、気に入った実行設定を自分のアプリへ直接取り込むことも可能です。'
     ],
-    rolesTitle: '領域別の設計・実装',
+    flow: [
+      { name: '自分のPCでAIを実行・活用する', steps: [
+        '公開AIモデルを検索し、PC容量に合うファイルを取得',
+        '起動前にGPU・メモリー予測消費量を確認して設定',
+        '内蔵またはPC内のAI実行プログラムをボタンで起動',
+        { branch: ['手元の文書や画像を添えてAIと対話', '他アプリや開発ツールから使うローカルサーバー接続'] }
+      ] },
+      { name: 'AIの速度計測（ベンチマーク）とWeb比較', steps: [
+        '毎回新しい質問で公平に応答速度・メモリーを計測',
+        '初動時間や生成速度など8指標を記録しExcelへ保存',
+        '登録不要のBot対策認証後に公開・復旧ファイル等で管理',
+        '同条件の他環境と最大3件比較・設定をアプリへ取込'
+      ] }
+    ],
+    featuresTitle: '主な機能',
+    features: [
+      { name: '複数のAI実行ソフトをひとつに統合', desc: 'モデルごとに異なる実行ソフト（llama.cpp・vLLM・MLXなど）を別々に操作したりコマンドを打ち込んだりする手間をなくしました。PCに入っている外部AIソフトも3ステップで自動接続します。' },
+      { name: '起動前のメモリー（VRAM・RAM）事前計算', desc: 'AIはファイル容量以上にメモリーを消費するため、知識がないと途中で強制終了しがちです。起動前にGPUとメインメモリーの予測使用量を計算し、自分のPCで動くか事前に確認できます。' },
+      { name: 'AIモデルの検索と安全な取得', desc: '代表的な公開モデル置き場（Hugging Face）から人気モデルを検索し、PC性能に合う容量版を取得できます。大容量でも一時停止・再開やSHA-256検証、更新分の差分取得に対応しています。' },
+      { name: '手元文書でのAI対話とローカルAPI', desc: '外部へデータを送らずにフォルダ内の資料や画像・音声を参照しながら対話でき、応答速度も即座に表示します。ローカルサーバーをオンにすれば他の開発ツール等からも呼び出せます。' },
+      { name: '公平なAI速度テスト（ベンチマーク）', desc: '過去の記憶（キャッシュ）で速度が水増しされないよう毎回新しい質問で計測します。文字が出始める時間、読解速度、生成速度、メモリー消費など8つの指標を記録しExcelやCSVに出力できます。' },
+      { name: '4言語ガイドWebと構成比較・設定再現', desc: '日本語・韓国語・英語・中国語のガイドと検索中心のベンチマーク比較画面を提供。同じ計測条件同士で最大3件を並べて比較でき、他人の設定をそのまま自分のアプリに取り込めます。' }
+    ],
+    rolesTitle: '担当した設計・実装',
     roles: [
-      { title: 'デスクトップフロントエンド・デザインシステム', points: [
-        'React 19・TypeScript・Tailwind CSS 4でチャット・プロジェクト・ライブラリ・探索・推論エンジン管理・ベンチマーク・API/MCPサーバー・設定画面を構築',
-        'Orchid Periwinkleライト/ダークデザインシステム、ヘッダーのダウンロード/読込ポップオーバー、最大化レスポンシブ配置、4言語i18nを実装'
+      { title: 'デスクトップUI・デザイン（React 19・TypeScript）', points: [
+        'チャット・モデル検索・設定・速度計測・ローカルサーバーまで全画面とライト/ダークテーマを設計',
+        'ヘッダーのダウンロード/読込状態ポップオーバー、レスポンシブ配置、4言語対応を実装'
       ] },
-      { title: 'ネイティブバックエンド・エンジンアダプター・ローカルAPI（Tauri 2・Rust）', points: [
-        '各エンジンのプロセスライフサイクル制御、実行ファイルヘッダーと--help解析による外部エンジン3段階自動接続、OSネイティブ承認ゲートを実装',
-        'GGUFヘッダー解析による起動前メモリー見積もり、OpenAI・Anthropic統合ループバックゲートウェイ、ヘッドレスCLI（aiolm-cli）を開発'
+      { title: 'システム制御・ローカルサーバー（Tauri 2・Rust）', points: [
+        'AI実行プロセスの制御、PC内ツールの自動検出、外部実行前のOS確認ダイアログを実装',
+        'モデルファイル事前解析によるメモリー計算機、OpenAI/Anthropic互換ローカルAPI、CLIを開発'
       ] },
-      { title: 'Webサイト・ベンチマーク探索画面・データ層（Next.js 15・PostgreSQL）', points: [
-        'Next.js App Routerによる4言語静的ページ・ガイドと検索優先のベンチマーク探索（FILTER_DEFINITIONS、カーソルページネーション、3件比較、SHA-256 HF照合）を構築',
-        'PostgreSQLスキーマ・マイグレーション（016まで）・pg_cron保持ポリシーとTurnstile/HMACベースのアカウント不要所有者管理（/manage）を実装'
+      { title: '比較Webサイト・DB（Next.js 15・PostgreSQL）', points: [
+        '4言語ガイドページと検索・4群詳細フィルター・最大3件比較UIを実装',
+        'PostgreSQLスキーマ・自動整理ジョブ・Turnstile Bot対策・登録不要の投稿管理セッションを構築'
       ] },
-      { title: '共通契約・クロスプラットフォーム配布・品質検証', points: [
-        'アプリ・Web共通パッケージ（@aiolm/benchmark-contracts 0.15.0、OpenAPI・JSON Schema）でスキーマと復旧コード規則を一元化',
-        'GitHub ActionsでWindows（EXE/MSI）・macOS（Apple Silicon/Intel DMG）・Linux（DEB/AppImage）とSHA-256チェックサムを自動配布し、Vitest・cargo test・PostgreSQL統合テストを構築'
+      { title: '共通契約・クロスプラットフォーム配布・テスト', points: [
+        'アプリとWebで同じデータ検証ルールを使う共通契約パッケージ（OpenAPI・JSON Schema）を整備',
+        'GitHub ActionsでWindows・macOS・Linux版を自動配布し、Vitest・Rust・DB統合テストを構築'
       ] }
     ],
     troublesTitle: '主な設計判断と課題解決',
     troubles: [
-      { problem: 'エンジンごとに異なるCLIフラグ・プロトコルと外部エンジン実行時のセキュリティ・競合問題', solution: '実行ファイルのバイナリヘッダーから起動可能な候補のみを選別し、--help出力からオプションスキーマを動的に生成しました。ヘルプ・MCP・文書アクセス前にOSネイティブ承認ゲートとチェックサム検証を挟み、初回起動時の実対話/ストリーミング確認後に接続、バックグラウンド処理も分離してUIの競合を防止しました。' },
-      { problem: 'モデルファイルサイズだけでは起動前のOOMやGPU・RAM・SSDオフロード量を判断しにくい問題', solution: 'RustでGGUFテンソルヘッダーを解析し、Full-Attention・MoE・Sliding-Window・ハイブリッド（Qwen3.5/Qwen4）各層のKVキャッシュ・アテンションマスク・循環状態を算出しました。VRAM・補助RAM・RAMオフロード・SSDオフロードを精度等級付きで事前表示し、ユニファイドメモリの二重加算も防ぎました。' },
-      { problem: 'キャッシュ再利用・測定条件の不整合・トークン未報告によるベンチマーク歪みとアプリ–Web間の不整合', solution: '@aiolm/benchmark-contractsを単一ソースとし、openai-chat-serving@5のCold Prompt方式（実行nonce＋リクエスト固有プレフィックス、ウォームアップなし、上限128トークン）へ統一しました。トークン統計は初回バッチで任意交渉し未報告値は推測や0埋めせずnullを保持、Webでは同一（入力バイト・同時実行数・上限）動作点のみで比較する設計にしました。' },
-      { problem: 'アカウント登録なしで結果を公開しつつ、スパム防止と投稿者による修正・削除権限を両立させる課題', solution: 'アップロードセッションにCloudflare Turnstile検証とHMAC署名トークンを導入し、公開後はOS資格情報ストア・復旧ファイル・アプリからのワンタイム連携（/manage）で30分間の管理セッションを発行するようにしました。コピーした復旧コードは60秒後にクリップボードから自動消去されます。' }
+      {
+        problem: 'AI実行ソフトごとに設定方法が異なり、外部ソフトをそのまま動かすとセキュリティ上の懸念がある課題',
+        summary: '実行ファイル形式の直接判別 + ヘルプ(--help)自動解析 + 実行前OS確認ダイアログで解決',
+        solution: '特定のソフト名に頼らず実行ファイルの構造を判別して起動可能な候補だけを抽出し、各ソフトの--help出力を読み取って設定画面を自動生成しました。外部プログラムや文書フォルダへのアクセス前にはOS確認ダイアログとファイル改ざんチェックを挟み、ダウンロードや計測処理も分離してUIが固まらないようにしました。'
+      },
+      {
+        problem: 'AIモデルはファイルサイズだけを見て起動するとメモリー不足で落ちやすい課題',
+        summary: 'Rustでモデル内部構造（GGUF）を事前解析し、GPU・RAM・ディスク退避量を予測表示',
+        solution: 'AIを動かす際はモデル本体の容量に加え、会話の長さや計算作業用のメモリーが必要になります。Rustでモデルファイルのヘッダー構造を事前解析し、GPUメモリー（VRAM）・メインメモリー（RAM）・不足時にディスクへ逃がす量を起動前に表示し、Apple Silicon等の共有メモリー機種で二重計上されないよう調整しました。'
+      },
+      {
+        problem: '計測ルールやPC条件が揃っていないと速度比較が不正確になり、アプリとWebの仕様もズレやすい課題',
+        summary: 'アプリ–Web共通契約パッケージ + 毎回新しい質問での単一計測基準 + 同条件限定の比較',
+        solution: 'アプリとWebが同じ共通契約（OpenAPI・JSON Schema）を参照する構成にし、計測時は事前ウォームアップなしで毎回固有の新しい質問を送り最大128トークンで測る単一基準へ統一しました。実行ソフトが返さない数値は推測や0埋めせず空値のまま保持し、Web上でも同じ入力長・同時実行条件同士でのみ比較するようにしました。'
+      },
+      {
+        problem: 'アカウント登録なしで誰でも計測結果を共有しつつ、スパム防止と本人による編集・削除を両立する課題',
+        summary: 'Turnstile Bot認証 + 復旧ファイル/アプリ連携による30分管理セッション + 60秒自動消去',
+        solution: '送信時にCloudflare Turnstile認証とHMAC署名付きの一時トークンで自動スパムを遮断し、公開後はOSの資格情報ストア・復旧ファイル・アプリからのワンタイム連携を通じて30分間の管理セッションを発行するようにしました。コピーした復旧コードは60秒後にクリップボードから自動削除されます。'
+      }
     ],
     stack: ['React 19', 'Tauri 2 · Rust', 'Next.js 15', 'TypeScript', 'PostgreSQL', 'Python', 'llama.cpp · vLLM · MLX', 'OpenAPI · JSON Schema'],
     stackGroups: [
       { name: 'デスクトップアプリ', items: ['React 19', 'TypeScript', 'Tauri 2 · Rust', 'Vite 7', 'Tailwind CSS 4', 'Vitest'] },
-      { name: '推論エンジン・プロトコル', items: ['llama.cpp', 'vLLM · vllm-metal', 'MLX · mlx-vlm', 'Python', 'OpenAI · Anthropic API', 'MCP'] },
+      { name: '連携AIエンジン・プロトコル', items: ['llama.cpp', 'vLLM · vllm-metal', 'MLX · mlx-vlm', 'Python', 'OpenAI · Anthropic API', 'MCP'] },
       { name: 'Webサイト・データ', items: ['Next.js 15', 'React 19', 'TypeScript', 'PostgreSQL', 'Cloudflare Turnstile', 'Vercel'] },
       { name: '共通契約・配布', items: ['@aiolm/benchmark-contracts', 'OpenAPI · JSON Schema', 'GitHub Actions', 'SHA-256 Checksums'] }
     ],
@@ -1121,30 +1175,25 @@ const UI_COPY = {
     statusTitle: '기본 정보', statusLabels: { period: '기간', team: '참여 구성', links: '링크', testAccount: '테스트 계정' },
     roleLabel: '역할',
     imageLabels: {
-      p4: 'AioLM v0.5.2 제품 소개·설치 웹과 모델 선택·실행 설정 데스크톱 앱 화면',
+      p4: 'AioLM v0.5.2 제품 소개·설치 웹과 AI 속도 측정(벤치마크) 데스크톱 앱 화면',
       p1: '감정 타임라인과 재생 컨트롤이 표시된 페이스리뷰 실제 시청 화면',
       p2: 'NBA 경기 일정과 팀별 점수가 표시된 토도동 서비스 화면',
       p3: '답장 방식 선택 화면을 모바일과 데스크톱으로 보여주는 해마디 서비스 화면'
     },
     shotLabels: {
       p4: [
-        '제품 소개 및 설치 웹(aiolm.vercel.app/ko, v0.5.2) — 플랫폼별 설치 안내와 네이티브 앱 미리보기',
-        '모델 선택·설정(v0.5.2 네이티브 앱) — 런타임·프로필·옵션 조정과 실행 전 VRAM·RAM 예상 사용량',
-        'Hugging Face 모델 탐색(v0.5.2 네이티브 앱) — 전 형식 저장소 검색과 양자화·파일별 선택 다운로드',
-        '외부 추론 엔진 연결(v0.5.2 네이티브 앱) — 로컬 OpenAI 호환 엔진 3단계 자동 탐색·검사·연결',
-        '로컬 스트리밍 채팅(v0.5.2 네이티브 앱) — 실시간 TTFT·PP·TG·캐시 토큰 지표와 파일·MCP·스킬 연동',
-        '공개 벤치마크 탐색기(aiolm.vercel.app/ko/benchmarks, v0.5.2) — 모델·추론 엔진·하드웨어·측정 4개 그룹 상세 필터'
+        '제품 소개 및 설치 웹(aiolm.vercel.app/ko, v0.5.2) — 운영체제별 설치 안내와 데스크톱 앱 미리보기',
+        'AI 속도 측정 화면(벤치마크, v0.5.2 앱) — 질문 길이·동시 요청 수를 고르고 매번 새 질문으로 8가지 성능 지표를 측정',
+        '공개 성능 비교 웹(aiolm.vercel.app/ko/benchmarks, v0.5.2) — 모델·실행 프로그램·그래픽카드·측정 조건별로 결과를 좁혀 찾는 상세 필터',
+        'AI 모델 설정 화면(v0.5.2 앱) — 실행 프로그램·옵션을 고르며 그래픽카드(VRAM)·메모리(RAM) 예상 사용량을 미리 확인',
+        'AI 모델 찾기 화면(v0.5.2 앱) — 공개 저장소(Hugging Face)에서 모델을 검색하고 내 기기에 맞는 용량 파일을 선택해 다운로드',
+        'AI 채팅 화면(v0.5.2 앱) — 내 컴퓨터에서 바로 대화를 나누며 실시간 답변 속도와 파일 첨부·외부 도구를 함께 활용'
       ],
       p1: ['영상 위 감정 타임라인 그래프와 커스텀 재생 컨트롤이 표시된 페이스리뷰 시청 화면', '감정 분포 도넛 차트와 최근 시청 영상별 그래프가 표시된 페이스리뷰 마이페이지'],
       p2: ['날짜별 NBA 경기 일정과 팀별 점수를 조회하는 토도동 화면', '실시간 문자 중계와 경기별 채팅을 함께 제공하는 토도동 경기 화면'],
       p3: ['AI 또는 익명 사용자 중 일기 답장 방식을 선택하는 해마디 화면', '월간 감정 분포와 일기 통계를 확인하는 해마디 나의 섬 화면']
     },
     hud: {
-      p4: [
-        '로컬 LLM 엔진마다 도구·설정이 분산되어 있고, 실제 기기·설정 조합별 성능 기준 데이터가 부족한 문제',
-        ['Tauri 2·Rust·React 멀티엔진 데스크톱 앱 설계·개발', 'Next.js·PostgreSQL 4개 언어 웹·벤치마크 탐색기 개발'],
-        ['Win·macOS·Linux v0.5.2 크로스플랫폼 릴리스', '4개 언어 제품 웹·공개 벤치마크(aiolm.vercel.app) 운영']
-      ],
       p1: ['클릭·시청 기록만으로는 영상 구간별 감정 반응을 알기 어려움', ['2023: 프론트엔드 개발·감정 분석 모델 직접 학습', '2026: 프론트엔드 리팩터링 전담'], ['창의설계경진대회 대상', 'facereview.net 배포']],
       p2: ['NBA 경기를 보며 팬들과 실시간으로 소통할 공간이 없는 문제', ['기술 선정·SSR/CSR 구조 설계', '인증·채팅 서버·DB 동기화 구현'], ['실시간 중계·경기별 채팅 배포', 'NBA 데이터 자동 동기화 구축']],
       p3: ['감정 기록이 쌓여도 흐름을 돌아보기 어려운 문제', ['PocketBase DB·컴포넌트 구조 설계', '코드 리뷰·성능 개선'], ['Lighthouse 모바일 50~60 → 80~90점대', 'AI 답장 일기 서비스 배포']]
@@ -1163,30 +1212,25 @@ const UI_COPY = {
     statusTitle: 'PROJECT INFO', statusLabels: { period: 'PERIOD', team: 'PARTICIPATION', links: 'LINKS', testAccount: 'TEST ACCOUNT' },
     roleLabel: 'ROLE',
     imageLabels: {
-      p4: 'AioLM v0.5.2 product website and native desktop model-settings workspace',
+      p4: 'AioLM v0.5.2 product website and desktop AI speed benchmark screen',
       p1: 'Actual Face Review watch screen with the emotion timeline and playback controls',
       p2: 'Tododong screen showing the NBA schedule and team scores',
       p3: 'Haemadi reply-method screen shown on mobile and desktop'
     },
     shotLabels: {
       p4: [
-        'Product & install web (aiolm.vercel.app/ko, v0.5.2) — platform install tabs and native app preview',
-        'Model selection & settings (v0.5.2 native app) — runtime, profile, options, and pre-load VRAM/RAM estimates',
-        'Hugging Face discovery (v0.5.2 native app) — all-format repository search and per-weight/file downloads',
-        'External engine connection (v0.5.2 native app) — 3-step auto discovery, check, and connect for local OpenAI engines',
-        'Local streaming chat (v0.5.2 native app) — per-turn TTFT, PP, TG, cached tokens, attachments, MCP, and skills',
-        'Public benchmark explorer (aiolm.vercel.app/ko/benchmarks, v0.5.2) — 4-group filters across model, engine, hardware, and measurement'
+        'Product & install site (aiolm.vercel.app/ko, v0.5.2) — OS install tabs and desktop app preview',
+        'AI speed test screen (Benchmark, v0.5.2 app) — choose prompt sizes and parallel requests to measure 8 metrics with fresh prompts',
+        'Public benchmark explorer (aiolm.vercel.app/ko/benchmarks, v0.5.2) — narrow down results by model, AI runner, GPU, and test rules',
+        'Model settings screen (v0.5.2 app) — adjust options while checking estimated GPU memory (VRAM) and RAM before launch',
+        'Model discovery screen (v0.5.2 app) — search Hugging Face models and download the right file size for your hardware',
+        'Local AI chat screen (v0.5.2 app) — chat privately on your PC with live speed stats, attached files, and external tools'
       ],
       p1: ['Face Review watch screen with an emotion timeline over the video and custom playback controls', 'Face Review profile screen with an emotion-distribution donut and graphs for recently watched videos'],
       p2: ['Tododong schedule screen for browsing NBA games and scores by date', 'Tododong game screen combining live text play-by-play with per-game chat'],
       p3: ['Haemadi screen for choosing an AI or anonymous-user reply to a journal entry', 'Haemadi My Island screen showing monthly emotion distribution and journal statistics']
     },
     hud: {
-      p4: [
-        'Local LLM tools and engine settings are fragmented, with scarce measured performance data across real setups',
-        ['Designed & built the Tauri 2·Rust·React multi-engine desktop app', 'Built the 4-language Next.js·PostgreSQL benchmark web explorer'],
-        ['Cross-platform v0.5.2 desktop releases (Win/macOS/Linux)', '4-language product site & public benchmarks (aiolm.vercel.app)']
-      ],
       p1: ['Click and watch history alone cannot show emotional reactions by video segment', ['2023: frontend development · trained the emotion classifier', '2026: sole frontend owner of the refactoring'], ['Creative Design grand prize', 'facereview.net deployed']],
       p2: ['No place to follow an NBA game live while talking with fellow fans', ['Tech choices · SSR/CSR structure design', 'Auth, chat server & DB sync'], ['Shipped live play-by-play & per-game chat', 'Automated NBA data sync']],
       p3: ['Hard to look back on emotional flow as diary entries pile up', ['PocketBase DB & component structure', 'Code review · performance work'], ['Lighthouse mobile 50s–60s → 80s–90s', 'Shipped the AI-reply diary service']]
@@ -1205,30 +1249,25 @@ const UI_COPY = {
     statusTitle: '基本情報', statusLabels: { period: '期間', team: '参加構成', links: 'リンク', testAccount: 'テストアカウント' },
     roleLabel: '担当',
     imageLabels: {
-      p4: 'AioLM v0.5.2の製品紹介Webとモデル選択・実行設定デスクトップアプリ画面',
+      p4: 'AioLM v0.5.2の製品紹介WebとAI速度計測（ベンチマーク）アプリ画面',
       p1: '感情タイムラインと再生コントロールを表示するフェイスレビューの実際の視聴画面',
       p2: 'NBAの日程とチーム別スコアを表示するトドドンのサービス画面',
       p3: '返信方法の選択画面をモバイルとデスクトップで示すヘマディのサービス画面'
     },
     shotLabels: {
       p4: [
-        '製品紹介・導入Web（aiolm.vercel.app/ko、v0.5.2）— OS別導入案内とネイティブアプリプレビュー',
-        'モデル選択・設定（v0.5.2ネイティブアプリ）— ランタイム・プロファイル・オプション調整と起動前VRAM/RAM見積もり',
-        'Hugging Face探索（v0.5.2ネイティブアプリ）— 全形式検索と量子化・ファイル別ダウンロード',
-        '外部推論エンジン接続（v0.5.2ネイティブアプリ）— ローカルOpenAI互換エンジンの3段階自動探索・確認・接続',
-        'ローカルストリーミング対話（v0.5.2ネイティブアプリ）— TTFT・PP・TG・キャッシュ指標とファイル・MCP・スキル連携',
-        '公開ベンチマーク探索（aiolm.vercel.app/ko/benchmarks、v0.5.2）— モデル・エンジン・ハードウェア・測定の4群詳細フィルター'
+        '製品紹介・導入Web（aiolm.vercel.app/ko、v0.5.2）— OS別導入案内とアプリプレビュー',
+        'AI速度計測画面（ベンチマーク、v0.5.2アプリ）— 質問長や同時実行数を選び、毎回新しい質問で8指標を計測',
+        '公開ベンチマーク探索Web（aiolm.vercel.app/ko/benchmarks、v0.5.2）— モデル・実行ソフト・GPU・計測条件で結果を絞り込む詳細フィルター',
+        'AIモデル設定画面（v0.5.2アプリ）— オプションを選びながら起動前のGPU・RAM予測消費量を確認',
+        'AIモデル検索画面（v0.5.2アプリ）— Hugging Faceからモデルを探しPC性能に合う容量を選択してダウンロード',
+        'ローカルAIチャット画面（v0.5.2アプリ）— PC内で安全に対話しつつ応答速度やファイル添付・外部ツールを活用'
       ],
       p1: ['動画上の感情タイムラインとカスタム再生コントロールを表示するフェイスレビューの視聴画面', '感情分布ドーナツと最近見た動画別グラフを表示するフェイスレビューのマイページ'],
       p2: ['日付別にNBAの試合日程とスコアを確認するトドドンの画面', 'リアルタイム文字中継と試合別チャットを同時に提供するトドドンの試合画面'],
       p3: ['AIまたは匿名ユーザーからの日記返信方法を選ぶヘマディの画面', '月間の感情分布と日記統計を確認するヘマディの「私の島」画面']
     },
     hud: {
-      p4: [
-        'ローカルLLMエンジンごとにツールや設定が分散し、実機・設定ごとの実測性能情報が不足している課題',
-        ['Tauri 2・Rust・Reactマルチエンジンデスクトップアプリを設計・開発', 'Next.js・PostgreSQL 4言語Web・ベンチマーク探索画面を開発'],
-        ['Win・macOS・Linux向けv0.5.2リリース', '4言語製品Web・公開ベンチマーク（aiolm.vercel.app）を運用']
-      ],
       p1: ['クリック・視聴履歴だけでは動画区間ごとの感情反応が分からない', ['2023: フロントエンド開発・感情分析モデルを直接学習', '2026: フロントエンドリファクタリング専任'], ['創意設計コンテスト大賞', 'facereview.net公開']],
       p2: ['NBAの試合を見ながらファン同士でリアルタイムに交流できる場がない課題', ['技術選定 · SSR/CSR構成設計', '認証・チャットサーバー・DB同期を実装'], ['リアルタイム中継・試合別チャットを公開', 'NBAデータの自動同期を構築']],
       p3: ['感情の記録が溜まっても流れを振り返りにくい課題', ['PocketBase DB・コンポーネント構造設計', 'コードレビュー・性能改善'], ['Lighthouseモバイル50〜60→80〜90点台', 'AI返信付き日記サービスを公開']]

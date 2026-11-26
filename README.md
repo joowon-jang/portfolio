@@ -46,11 +46,11 @@ python3 -m http.server 8080
 
 AioLM 기간은 확인 가능한 개발 기록을 기준으로 `2026.08 ~ 진행 중`입니다. 앱 초기 기록은 2026년 8월, 웹 초기 기록은 9월이며 기존의 지속 개선 상태를 유지했습니다.
 
-AioLM 소개는 [앱 v0.5.2 소스](https://github.com/aiolm/AioLM/tree/1ff9788)와 [웹 v1.2.0 소스](https://github.com/aiolm/AioLm-Web/tree/d983c7a)를 확인해 갱신했습니다. 데스크톱 앱은 추론 엔진 자체를 구현하지 않은 엔진 중립 GUI 어댑터이며, Cold Prompt 벤치마크(`openai-chat-serving@5`)·실행 전 메모리 추정·로컬 API 서버·4개 언어 웹 탐색기·앱–웹 공용 계약(`@aiolm/benchmark-contracts 0.15.0`)을 구조화해 소개합니다. 근거 없는 수치·사용자 효과·독립 검증 주장은 덧붙이지 않습니다.
+AioLM 소개는 [앱 v0.5.2 소스](https://github.com/aiolm/AioLM/tree/1ff9788)와 [웹 v1.2.0 소스](https://github.com/aiolm/AioLm-Web/tree/d983c7a)를 확인해 갱신했으며, 로컬 LLM 사전 지식이 없는 독자도 이해할 수 있는 쉬운 표현으로 작성했습니다. 데스크톱 앱은 추론 엔진 자체를 구현하지 않고 기존 실행 프로그램을 연결하는 통합 GUI이며, 근거 없는 수치·사용자 효과·독립 검증 주장은 덧붙이지 않습니다.
 
-공개 AioLM 상세 페이지는 요약(HUD), 기본 정보, 개발 배경, 배포·운영 현황, 서비스 구조와 2트랙 동작 흐름, 실제 화면 6종, 6대 핵심 기능, 4개 영역별 설계·구현, 4건의 핵심 설계 판단과 문제 해결, 4개 기술 스택 그룹으로 구성합니다.
+공개 AioLM 상세 페이지는 히어로(빠른 링크 포함), 한눈에 보기 3단 카드(무엇인지·왜 만들었는지·배포 현황), 실제 화면 6종(벤치마크 화면 우선 배치), 동작 구조와 2트랙 흐름, 6대 핵심 기능, 2×2 구현 영역, 접이식(`details`) 설계 판단·문제 해결, 4개 기술 스택 그룹 순서로 구조화합니다.
 
-AioLM 대표·상세 이미지는 `v0.5.2` 기준 6장의 실제 PNG입니다. `web-overview.png`(`/ko`)와 `web-benchmark.png`(`/ko/benchmarks`, 4개 그룹 상세 조건 펼침)는 공개 웹(`aiolm.vercel.app`)을 1440×1000 라이트 모드로 촬영했으며, `app-model-settings.png`, `app-discover.png`, `app-external-engine.png`, `app-chat.png`는 웹 저장소 `public/screenshots/current/guides/ko/`의 공식 네이티브 Windows v0.5.2 캡처(2560×1782)와 SHA-256이 일치합니다. 홈 메인은 `web-overview.png` → `app-model-settings.png`로 전환하고, 상세는 2열 그리드로 6장을 모두 표시합니다. 예전 `benchmark.png`, `model-settings.png`, `logo.png`는 보존 시안에서 사용하므로 유지합니다.
+AioLM 대표·상세 이미지는 `v0.5.2` 기준 6장의 실제 PNG입니다. `web-overview.png`(`/ko`)와 `web-benchmark.png`(`/ko/benchmarks`, 4개 그룹 상세 조건 펼침)는 공개 웹(`aiolm.vercel.app`)을 1440×1000 라이트 모드로 촬영했고, `app-benchmark.png`(2560×1383)는 실제 실행 중인 v0.5.2 Windows 데스크톱 앱의 벤치마크 화면을 직접 촬영했습니다. `app-model-settings.png`, `app-discover.png`, `app-chat.png`는 웹 저장소 `public/screenshots/current/guides/ko/`의 공식 네이티브 Windows v0.5.2 캡처(2560×1782)와 SHA-256이 일치합니다. 홈 메인은 `web-overview.png` → `app-benchmark.png`로 전환하고, 상세는 2열 그리드로 6장을 모두 표시합니다. 예전 `benchmark.png`, `model-settings.png`, `logo.png`는 보존 시안에서 사용하므로 유지합니다.
 
 ## 탐색과 언어
 
