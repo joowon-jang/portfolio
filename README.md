@@ -46,11 +46,11 @@ python3 -m http.server 8080
 
 AioLM 기간은 확인 가능한 개발 기록을 기준으로 `2026.08 ~ 진행 중`입니다. 앱 초기 기록은 2026년 8월, 웹 초기 기록은 9월이며 기존의 지속 개선 상태를 유지했습니다.
 
-AioLM 소개는 [앱 v0.3.5 소스](https://github.com/aiolm/AioLM/tree/6cc99ca4efbd77a589816c96b94757bb89d844b0)와 [검색 중심 UI로 바뀐 웹 소스](https://github.com/aiolm/AioLm-Web/tree/a032162096fc8a458565bd2dcdcddc0a81010c77)를 확인해 갱신했습니다. 웹의 기본 검색, 필요할 때 여는 상세 조건, 핵심 지표 중심 결과 목록과 비교 흐름을 반영합니다. 추론 엔진 자체를 개발했다고 소개하지 않으며, 공통 API 벤치마크는 클라이언트에서 관측한 응답 시간·출력 바이트 기준으로 설명합니다.
+AioLM 소개는 [앱 v0.5.2 소스](https://github.com/aiolm/AioLM/tree/1ff9788)와 [웹 v1.2.0 소스](https://github.com/aiolm/AioLm-Web/tree/d983c7a)를 확인해 갱신했습니다. 데스크톱 앱은 추론 엔진 자체를 구현하지 않은 엔진 중립 GUI 어댑터이며, Cold Prompt 벤치마크(`openai-chat-serving@5`)·실행 전 메모리 추정·로컬 API 서버·4개 언어 웹 탐색기·앱–웹 공용 계약(`@aiolm/benchmark-contracts 0.15.0`)을 구조화해 소개합니다. 근거 없는 수치·사용자 효과·독립 검증 주장은 덧붙이지 않습니다.
 
-공개 AioLM 소개는 모델 실행·문서 기반 채팅·공통 API 측정·웹 결과 비교 네 가지 핵심 기능에 집중합니다. 검증된 결과·검증 상태 표시·문제 요약·문제 해결·중복 기여 섹션은 제공하지 않으며, CLI·MCP·Skills·소유자 관리 등 부수 기능은 노출하지 않습니다. 대신 개발 배경, 기획부터 앱·웹까지 직접 맡은 범위, 사용 흐름을 구체적으로 설명합니다. 채용용 문구에도 성과 수치·사용자 효과·독립 검증 주장을 만들지 않습니다.
+공개 AioLM 상세 페이지는 요약(HUD), 기본 정보, 개발 배경, 배포·운영 현황, 서비스 구조와 2트랙 동작 흐름, 실제 화면 6종, 6대 핵심 기능, 4개 영역별 설계·구현, 4건의 핵심 설계 판단과 문제 해결, 4개 기술 스택 그룹으로 구성합니다.
 
-AioLM 대표·상세 이미지는 공개 웹을 실제 브라우저에서 촬영한 1440×1000 PNG입니다. `web-overview.png`는 `/ko` 제품 소개, `web-benchmark.png`는 `/ko/benchmarks`의 상세 조건을 접은 검색·결과 화면입니다. 벤치마크 이미지는 Apple M2에서 실제 Qwen2.5 모델을 AioLM으로 측정하고 정식 공유한 [결과 1건](https://aiolm.vercel.app/ko/benchmarks/bhgaasq6q8r3)이 표시된 화면이며, 기본 6개 측정 조건을 완료했습니다. 예시 결과나 성과 데이터를 합성하지 않습니다. 메인은 제품 소개 → 벤치마크 결과로 전환하고, 상세에는 두 화면만 표시합니다. 상세 조건을 펼친 이미지와 중복 캡처는 사용하지 않습니다. 첫 이미지의 실제 비율을 사용하며, 예전 벤치마크·모델 설정 이미지는 보존 시안에서 사용하므로 유지합니다.
+AioLM 대표·상세 이미지는 `v0.5.2` 기준 6장의 실제 PNG입니다. `web-overview.png`(`/ko`)와 `web-benchmark.png`(`/ko/benchmarks`, 4개 그룹 상세 조건 펼침)는 공개 웹(`aiolm.vercel.app`)을 1440×1000 라이트 모드로 촬영했으며, `app-model-settings.png`, `app-discover.png`, `app-external-engine.png`, `app-chat.png`는 웹 저장소 `public/screenshots/current/guides/ko/`의 공식 네이티브 Windows v0.5.2 캡처(2560×1782)와 SHA-256이 일치합니다. 홈 메인은 `web-overview.png` → `app-model-settings.png`로 전환하고, 상세는 2열 그리드로 6장을 모두 표시합니다. 예전 `benchmark.png`, `model-settings.png`, `logo.png`는 보존 시안에서 사용하므로 유지합니다.
 
 ## 탐색과 언어
 

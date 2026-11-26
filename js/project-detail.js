@@ -110,12 +110,12 @@
       ${hud ? section('brief', text.brief, hud, 'detail-brief-section') : ''}
       ${section('info', copy.statusTitle, information)}
       ${project.motivation ? section('motivation', project.motivation.title, list(project.motivation.points)) : ''}
-      ${project.outcome?.length ? section('outcome', tr.dOutcome, `${project.verified ? `<p class="detail-outcome-status">${escapeHTML(copy.outcomeStatus)}</p>` : ''}${list(project.outcome)}`, 'detail-outcome') : ''}
+      ${project.outcome?.length ? section('outcome', project.outcomeTitle || tr.dOutcome, `${project.verified ? `<p class="detail-outcome-status">${escapeHTML(copy.outcomeStatus)}</p>` : ''}${list(project.outcome)}`, 'detail-outcome') : ''}
       ${section('overview', tr.dOverview, overview)}
       ${project.hideScreenshots || project.hideScreenshot || !screenshots ? '' : section('screenshots', tr.dShots, `<div class="detail-shots${project.screenshotLayout === 'wide' ? ' detail-shots-wide' : ''}">${screenshots}</div>`, 'detail-screenshots-section', project.screenshotsMeta || copy.screenshotsReady)}
       ${section('features', tr.dFeatures, features)}
-      ${roles ? section('roles', tr.dRole, roles) : ''}
-      ${troubles ? section('troubles', tr.dTrouble, troubles) : ''}
+      ${roles ? section('roles', project.rolesTitle || tr.dRole, roles) : ''}
+      ${troubles ? section('troubles', project.troublesTitle || tr.dTrouble, troubles) : ''}
       ${section('stack', tr.dStack, `<div class="detail-stack-groups">${stack}</div>`)}
     </article>
     <nav class="detail-pager" aria-label="${escapeHTML(text.projects)}">
