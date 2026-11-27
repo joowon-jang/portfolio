@@ -50,7 +50,7 @@ AioLM 소개는 [앱 v0.5.2 소스](https://github.com/aiolm/AioLM/tree/1ff9788)
 
 공개 AioLM 상세 페이지는 히어로(빠른 링크 포함), 한눈에 보기 3단 카드(무엇인지·왜 만들었는지·배포 현황), 실제 화면 6종(벤치마크 화면 우선 배치), 동작 구조와 2트랙 흐름, 6대 핵심 기능, 2×2 구현 영역, 접이식(`details`) 설계 판단·문제 해결, 4개 기술 스택 그룹 순서로 구조화합니다.
 
-AioLM 대표·상세 이미지는 `v0.5.2` 기준 6장의 실제 PNG입니다. `web-overview.png`(`/ko`)와 `web-benchmark.png`(`/ko/benchmarks`, 4개 그룹 상세 조건 펼침)는 공개 웹(`aiolm.vercel.app`)을 1440×1000 라이트 모드로 촬영했고, `app-benchmark.png`(2560×1383)는 실제 실행 중인 v0.5.2 Windows 데스크톱 앱의 벤치마크 화면을 직접 촬영했습니다. `app-model-settings.png`, `app-discover.png`, `app-chat.png`는 웹 저장소 `public/screenshots/current/guides/ko/`의 공식 네이티브 Windows v0.5.2 캡처(2560×1782)와 SHA-256이 일치합니다. 홈 메인은 `web-overview.png` → `app-benchmark.png`로 전환하고, 상세는 2열 그리드로 6장을 모두 표시합니다. 예전 `benchmark.png`, `model-settings.png`, `logo.png`는 보존 시안에서 사용하므로 유지합니다.
+AioLM 대표·상세 이미지는 `v0.5.2` 기준 라이트·다크 각 6장(총 12장)의 실제 PNG입니다. `web-overview{,-dark}.png`(`/ko`)와 `web-benchmark{,-dark}.png`(`/ko/benchmarks`)는 공개 웹(`aiolm.vercel.app`)에 실제 등록된 `Inkling-2-Mini-UD-Q4_K_XL`(`bkjwtfku3zbk`) 결과를 `1440×1000`으로 촬영했고, `app-benchmark{,-dark}.png`, `app-model-settings{,-dark}.png`, `app-discover{,-dark}.png`, `app-chat{,-dark}.png`는 실제 실행 중인 v0.5.2 Windows 데스크톱 앱을 `2560×1383`으로 직접 촬영했습니다. 포트폴리오 테마(라이트/다크, OS 기본값 및 헤더 토글)에 따라 대응하는 이미지가 자동 전환되며(인쇄 시에는 라이트 고정), 홈 메인은 `web-overview{,-dark}.png` → `app-benchmark{,-dark}.png`로 전환하고 상세는 2열 그리드로 6종을 모두 표시합니다. 예전 `benchmark.png`, `model-settings.png`, `logo.png`는 보존 시안에서 사용하므로 유지합니다.
 
 ## 탐색과 언어
 

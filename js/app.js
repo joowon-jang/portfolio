@@ -14,6 +14,10 @@
   const routeURL = hash => `${indexURL.href}#${hash}`;
   const picture = (slot, alt, className = '') => {
     const [width, height] = IMAGE_DIMENSIONS[slot];
+    const darkSrc = typeof IMAGES_DARK === 'object' ? IMAGES_DARK[slot] : null;
+    if (darkSrc) {
+      return `<span class="screen-slot ${className}"><img class="theme-light" src="${escape(new URL(IMAGES[slot], assetBaseURL).href)}" alt="${escape(alt)}" width="${width}" height="${height}" loading="eager" decoding="async"><img class="theme-dark" src="${escape(new URL(darkSrc, assetBaseURL).href)}" alt="${escape(alt)}" width="${width}" height="${height}" loading="eager" decoding="async"></span>`;
+    }
     return `<img class="${className}" src="${escape(new URL(IMAGES[slot], assetBaseURL).href)}" alt="${escape(alt)}" width="${width}" height="${height}" loading="eager" decoding="async">`;
   };
   const flowCopy = {
@@ -42,8 +46,9 @@
     const copy = UI_COPY[language];
     const nav = [0, 5, 1, 2, 4, 3].map(index => `<a href="${escape(routeURL(sectionIds[index]))}">${escape(tr.nav[index])}</a>`).join('');
     const languageButtons = Object.entries(languages).map(([key, name]) => `<button type="button" data-language="${key}" lang="${key}" aria-label="${escape(key.toUpperCase() + ', ' + name)}" aria-pressed="${key === language}">${key.toUpperCase()}</button>`).join('');
+    const themeToggle = `<button type="button" class="theme-toggle" data-theme-toggle><span class="theme-light"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><span class="sr-only">${escape(copy.themeToDark)}</span></span><span class="theme-dark"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><span class="sr-only">${escape(copy.themeToLight)}</span></span></button>`;
     return `<a class="skip-link" href="#main-content">${escape(copy.skip)}</a>
-      <header class="preview-header"><div class="header-inner"><a class="identity" href="${escape(routeURL('sec-about'))}">${escape(tr.heroName)}<span>Portfolio</span></a><button class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="false">${escape(copy.menu)}<span aria-hidden="true">+</span></button><div class="navigation" id="primary-navigation"><nav class="primary-nav" aria-label="${escape(copy.navLabel)}">${nav}</nav><div class="languages" role="group" aria-label="${escape(copy.langLabel)}">${languageButtons}</div></div></div></header>
+      <header class="preview-header"><div class="header-inner"><a class="identity" href="${escape(routeURL('sec-about'))}">${escape(tr.heroName)}<span>Portfolio</span></a><button class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="false">${escape(copy.menu)}<span aria-hidden="true">+</span></button><div class="navigation" id="primary-navigation"><nav class="primary-nav" aria-label="${escape(copy.navLabel)}">${nav}</nav><div class="header-controls"><div class="languages" role="group" aria-label="${escape(copy.langLabel)}">${languageButtons}</div>${themeToggle}</div></div></div></header>
       <main class="preview-main" id="main-content" tabindex="-1"><div class="home">${content}<footer class="preview-footer">${escape(tr.footer)}</footer></div></main><a class="back-to-top" href="${escape(routeURL(topHash))}" aria-label="${escape(tr.scrollTop)}">↑</a>`;
   }
 
@@ -165,6 +170,7 @@
 
   function preparePrint() {
     if (!printState) printState = new Map();
+    root.querySelectorAll('img[loading="lazy"]').forEach(img => { img.loading = 'eager'; });
     root.querySelectorAll('details').forEach(details => {
       if (!printState.has(details)) printState.set(details, details.open);
       details.open = true;
@@ -244,7 +250,35 @@
     window.scrollTo({ top: oldY, behavior: 'instant' });
   }
 
+  const themeMeta = document.querySelector('meta[name="color-scheme"]');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+  function applyTheme(value) {
+    if (!themeMeta) return;
+    themeMeta.content = value === 'light' || value === 'dark' ? value : 'light dark';
+  }
+  function renderedTheme() {
+    const content = themeMeta?.content;
+    if (content === 'light' || content === 'dark') return content;
+    return systemDark.matches ? 'dark' : 'light';
+  }
+  function toggleTheme() {
+    const target = renderedTheme() === 'dark' ? 'light' : 'dark';
+    const system = systemDark.matches ? 'dark' : 'light';
+    try {
+      if (target === system) localStorage.removeItem('jw-theme');
+      else localStorage.setItem('jw-theme', target);
+    } catch (error) { /* Storage is optional in restricted browsing contexts. */ }
+    applyTheme(target === system ? null : target);
+  }
+  window.addEventListener('storage', event => {
+    if (event.key === 'jw-theme') applyTheme(event.newValue);
+  });
+
   root.addEventListener('click', event => {
+    if (event.target.closest('[data-theme-toggle]')) {
+      toggleTheme();
+      return;
+    }
     const languageButton = event.target.closest('[data-language]');
     if (languageButton) {
       setLanguage(languageButton.dataset.language);

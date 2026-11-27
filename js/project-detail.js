@@ -80,16 +80,23 @@
     const shotKeys = Object.keys(IMAGES).filter((key) => key.startsWith(shotPrefix) && IMAGES[key]).sort((a, b) => Number(a.slice(shotPrefix.length)) - Number(b.slice(shotPrefix.length)));
     const screenshots = shotKeys.map((key) => {
       const source = IMAGES[key];
+      const darkSource = typeof IMAGES_DARK === 'object' ? IMAGES_DARK[key] : null;
       const shotIndex = Number(key.slice(shotPrefix.length)) - 1;
       const caption = shotLabels[shotIndex] || copy.imageLabels[project.id];
       const dimensions = IMAGE_DIMENSIONS[key];
       const size = dimensions ? ` width="${escapeHTML(dimensions[0])}" height="${escapeHTML(dimensions[1])}"` : '';
       const isVideo = /\.(?:mov|mp4|webm)(?:[?#]|$)/i.test(source);
       const poster = VIDEO_POSTERS[key];
+      const loading = shotIndex > 1 && !darkSource ? ' loading="lazy"' : '';
       const media = isVideo
         ? `<video class="detail-video" controls playsinline preload="metadata" aria-label="${escapeHTML(caption)}"${poster ? ` poster="${assetURL(poster)}"` : ''}${size}><source src="${assetURL(source)}"><a href="${assetURL(source)}">${escapeHTML(text.original)}</a></video>${poster ? `<img class="detail-print-poster" src="${assetURL(poster)}" alt="${escapeHTML(caption)}">` : ''}`
-        : `<a class="detail-shot-link" href="${assetURL(source)}" target="_blank" rel="noopener noreferrer"><img class="detail-screenshot" src="${assetURL(source)}" alt="${escapeHTML(caption)}"${size} decoding="async"></a>`;
-      return `<figure class="detail-shot">${media}<figcaption><span>${escapeHTML(caption)}</span><a href="${assetURL(source)}" target="_blank" rel="noopener noreferrer">${escapeHTML(text.original)} <span aria-hidden="true">↗</span></a></figcaption></figure>`;
+        : darkSource
+          ? `<a class="detail-shot-link theme-light" href="${assetURL(source)}" target="_blank" rel="noopener noreferrer"><img class="detail-screenshot" src="${assetURL(source)}" alt="${escapeHTML(caption)}"${size}${loading} decoding="async"></a><a class="detail-shot-link theme-dark" href="${assetURL(darkSource)}" target="_blank" rel="noopener noreferrer"><img class="detail-screenshot" src="${assetURL(darkSource)}" alt="${escapeHTML(caption)}"${size}${loading} decoding="async"></a>`
+          : `<a class="detail-shot-link" href="${assetURL(source)}" target="_blank" rel="noopener noreferrer"><img class="detail-screenshot" src="${assetURL(source)}" alt="${escapeHTML(caption)}"${size}${loading} decoding="async"></a>`;
+      const originalLink = !isVideo && darkSource
+        ? `<a class="theme-light" href="${assetURL(source)}" target="_blank" rel="noopener noreferrer">${escapeHTML(text.original)} <span aria-hidden="true">↗</span></a><a class="theme-dark" href="${assetURL(darkSource)}" target="_blank" rel="noopener noreferrer">${escapeHTML(text.original)} <span aria-hidden="true">↗</span></a>`
+        : `<a href="${assetURL(source)}" target="_blank" rel="noopener noreferrer">${escapeHTML(text.original)} <span aria-hidden="true">↗</span></a>`;
+      return `<figure class="detail-shot">${media}<figcaption><span>${escapeHTML(caption)}</span>${originalLink}</figcaption></figure>`;
     }).join('');
     const screenshotsSection = project.hideScreenshots || project.hideScreenshot || !screenshots ? '' : section('screenshots', tr.dShots, `<div class="detail-shots${project.screenshotLayout === 'wide' ? ' detail-shots-wide' : ''}">${screenshots}</div>`, 'detail-screenshots-section', project.screenshotsMeta || copy.screenshotsReady);
     const features = `<ul class="detail-features" role="list">${project.features.map((feature) => `<li><h3>${escapeHTML(feature.name)}</h3><p>${escapeHTML(feature.desc)}</p></li>`).join('')}</ul>`;

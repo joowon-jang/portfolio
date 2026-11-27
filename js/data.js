@@ -20,13 +20,22 @@ const IMAGES = {
   'shot-p3-2': 'assets/projects/haemadi/monthly-stats.mov'
 };
 
+const IMAGES_DARK = {
+  'shot-p4-1': 'assets/projects/aiolm/web-overview-dark.png',
+  'shot-p4-2': 'assets/projects/aiolm/app-benchmark-dark.png',
+  'shot-p4-3': 'assets/projects/aiolm/web-benchmark-dark.png',
+  'shot-p4-4': 'assets/projects/aiolm/app-model-settings-dark.png',
+  'shot-p4-5': 'assets/projects/aiolm/app-discover-dark.png',
+  'shot-p4-6': 'assets/projects/aiolm/app-chat-dark.png'
+};
+
 const IMAGE_DIMENSIONS = {
   'shot-p4-1': [1440, 1000],
   'shot-p4-2': [2560, 1383],
   'shot-p4-3': [1440, 1000],
-  'shot-p4-4': [2560, 1782],
-  'shot-p4-5': [2560, 1782],
-  'shot-p4-6': [2560, 1782],
+  'shot-p4-4': [2560, 1383],
+  'shot-p4-5': [2560, 1383],
+  'shot-p4-6': [2560, 1383],
   photo: [660, 880],
   'thumb-p1': [1400, 1081],
   'shot-p1-1': [1400, 1081],
@@ -86,7 +95,7 @@ const AIOLM = {
     screenshotsFirst: true,
     rolesLayout: 'grid',
     troublesCollapsible: true,
-    screenshotsMeta: 'v0.5.2 기준 · 공개 웹사이트 2장 + 실제 Windows 앱 화면 4장 (벤치마크 포함)',
+    screenshotsMeta: 'v0.5.2 기준 · 공개 웹사이트 2종 + 실제 Windows 앱 화면 4종 · 라이트/다크 테마 연동',
     list: {
       contributionLabel: '개발 범위',
       contribution: [
@@ -194,7 +203,7 @@ const AIOLM = {
     screenshotsFirst: true,
     rolesLayout: 'grid',
     troublesCollapsible: true,
-    screenshotsMeta: 'Based on v0.5.2 · 2 public website captures + 4 native Windows app captures (including Benchmark)',
+    screenshotsMeta: 'v0.5.2 · 2 live website screens + 4 real Windows app screens · matches Light & Dark theme',
     list: {
       contributionLabel: 'Development scope',
       contribution: [
@@ -302,7 +311,7 @@ const AIOLM = {
     screenshotsFirst: true,
     rolesLayout: 'grid',
     troublesCollapsible: true,
-    screenshotsMeta: 'v0.5.2基準 · 公開Webサイト2枚 + 実動Windowsアプリ画面4枚（ベンチマーク含む）',
+    screenshotsMeta: 'v0.5.2基準 · 公開Web 2種 + Windows実アプリ画面 4種 · ライト/ダークテーマ連動',
     list: {
       contributionLabel: '開発範囲',
       contribution: [
@@ -1165,6 +1174,7 @@ const SKILLS = {
 const UI_COPY = {
   ko: {
     skip: '본문으로 건너뛰기', menu: '메뉴', navLabel: '주요 메뉴', langLabel: '언어 선택',
+    themeToDark: '다크 모드로 전환', themeToLight: '라이트 모드로 전환',
     aiUsage: 'AI 활용',
     pageTitle: '장주원 — 웹 개발자 포트폴리오',
     careerExpand: '펼치기', careerCollapse: '접기', careerOutcome: '성과',
@@ -1183,11 +1193,11 @@ const UI_COPY = {
     shotLabels: {
       p4: [
         '제품 소개 및 설치 웹(aiolm.vercel.app/ko, v0.5.2) — 운영체제별 설치 안내와 데스크톱 앱 미리보기',
-        'AI 속도 측정 화면(벤치마크, v0.5.2 앱) — 질문 길이·동시 요청 수를 고르고 매번 새 질문으로 8가지 성능 지표를 측정',
-        '공개 성능 비교 웹(aiolm.vercel.app/ko/benchmarks, v0.5.2) — 모델·실행 프로그램·그래픽카드·측정 조건별로 결과를 좁혀 찾는 상세 필터',
+        'AI 속도 측정 화면(벤치마크, v0.5.2 앱) — Inkling-2-Mini(4K·16K, 동시 요청 1~4×) 6회 실측 완료 8가지 지표 표',
+        '공개 성능 비교 웹(aiolm.vercel.app/ko/benchmarks, v0.5.2) — 앱에서 공유된 실제 측정 결과와 모델·엔진·GPU 일치 근거, 조건 비교',
         'AI 모델 설정 화면(v0.5.2 앱) — 실행 프로그램·옵션을 고르며 그래픽카드(VRAM)·메모리(RAM) 예상 사용량을 미리 확인',
-        'AI 모델 찾기 화면(v0.5.2 앱) — 공개 저장소(Hugging Face)에서 모델을 검색하고 내 기기에 맞는 용량 파일을 선택해 다운로드',
-        'AI 채팅 화면(v0.5.2 앱) — 내 컴퓨터에서 바로 대화를 나누며 실시간 답변 속도와 파일 첨부·외부 도구를 함께 활용'
+        'AI 모델 찾기 화면(v0.5.2 앱) — 공개 저장소(Hugging Face)에서 모델 파일과 용량별 버전을 확인해 선택 다운로드',
+        '로컬 AI 채팅 화면(v0.5.2 앱) — 내 컴퓨터에서 직접 대화하며 첫 반응 시간(TTFT)·생성 속도(tok/s)를 실시간 확인'
       ],
       p1: ['영상 위 감정 타임라인 그래프와 커스텀 재생 컨트롤이 표시된 페이스리뷰 시청 화면', '감정 분포 도넛 차트와 최근 시청 영상별 그래프가 표시된 페이스리뷰 마이페이지'],
       p2: ['날짜별 NBA 경기 일정과 팀별 점수를 조회하는 토도동 화면', '실시간 문자 중계와 경기별 채팅을 함께 제공하는 토도동 경기 화면'],
@@ -1202,6 +1212,7 @@ const UI_COPY = {
   },
   en: {
     skip: 'Skip to main content', menu: 'Menu', navLabel: 'Primary', langLabel: 'Language',
+    themeToDark: 'Switch to dark theme', themeToLight: 'Switch to light theme',
     aiUsage: 'AI Leverage',
     pageTitle: 'Jang Joowon — Web Developer Portfolio',
     careerExpand: 'Show details', careerCollapse: 'Hide details', careerOutcome: 'Outcome',
@@ -1220,11 +1231,11 @@ const UI_COPY = {
     shotLabels: {
       p4: [
         'Product & install site (aiolm.vercel.app/ko, v0.5.2) — OS install tabs and desktop app preview',
-        'AI speed test screen (Benchmark, v0.5.2 app) — choose prompt sizes and parallel requests to measure 8 metrics with fresh prompts',
-        'Public benchmark explorer (aiolm.vercel.app/ko/benchmarks, v0.5.2) — narrow down results by model, AI runner, GPU, and test rules',
+        'AI speed test screen (Benchmark, v0.5.2 app) — completed 6-trial 8-metric table for Inkling-2-Mini across 4K/16K prompts and 1–4× concurrency',
+        'Public benchmark explorer (aiolm.vercel.app/ko/benchmarks, v0.5.2) — live published measurement with verified file match, hardware specs, and comparison view',
         'Model settings screen (v0.5.2 app) — adjust options while checking estimated GPU memory (VRAM) and RAM before launch',
-        'Model discovery screen (v0.5.2 app) — search Hugging Face models and download the right file size for your hardware',
-        'Local AI chat screen (v0.5.2 app) — chat privately on your PC with live speed stats, attached files, and external tools'
+        'Model discovery screen (v0.5.2 app) — browse Hugging Face repos and inspect file sizes and quantizations to download for your hardware',
+        'Local AI chat screen (v0.5.2 app) — chat privately on your PC while viewing live TTFT, tokens/sec, and tool attachments'
       ],
       p1: ['Face Review watch screen with an emotion timeline over the video and custom playback controls', 'Face Review profile screen with an emotion-distribution donut and graphs for recently watched videos'],
       p2: ['Tododong schedule screen for browsing NBA games and scores by date', 'Tododong game screen combining live text play-by-play with per-game chat'],
@@ -1239,6 +1250,7 @@ const UI_COPY = {
   },
   ja: {
     skip: '本文へスキップ', menu: 'メニュー', navLabel: 'メインメニュー', langLabel: '言語選択',
+    themeToDark: 'ダークテーマに切り替え', themeToLight: 'ライトテーマに切り替え',
     aiUsage: 'AI活用',
     pageTitle: 'チャン・ジュウォン — Web開発者ポートフォリオ',
     careerExpand: '詳細を開く', careerCollapse: '閉じる', careerOutcome: '成果',
@@ -1257,11 +1269,11 @@ const UI_COPY = {
     shotLabels: {
       p4: [
         '製品紹介・導入Web（aiolm.vercel.app/ko、v0.5.2）— OS別導入案内とアプリプレビュー',
-        'AI速度計測画面（ベンチマーク、v0.5.2アプリ）— 質問長や同時実行数を選び、毎回新しい質問で8指標を計測',
-        '公開ベンチマーク探索Web（aiolm.vercel.app/ko/benchmarks、v0.5.2）— モデル・実行ソフト・GPU・計測条件で結果を絞り込む詳細フィルター',
+        'AI速度計測画面（ベンチマーク、v0.5.2アプリ）— Inkling-2-Mini（4K・16K、同時1〜4×）6回完了の実測8指標テーブル',
+        '公開ベンチマーク探索Web（aiolm.vercel.app/ko/benchmarks、v0.5.2）— 投稿された実測結果とファイル一致根拠・ハードウェア条件比較',
         'AIモデル設定画面（v0.5.2アプリ）— オプションを選びながら起動前のGPU・RAM予測消費量を確認',
-        'AIモデル検索画面（v0.5.2アプリ）— Hugging Faceからモデルを探しPC性能に合う容量を選択してダウンロード',
-        'ローカルAIチャット画面（v0.5.2アプリ）— PC内で安全に対話しつつ応答速度やファイル添付・外部ツールを活用'
+        'AIモデル検索画面（v0.5.2アプリ）— Hugging Faceのリポジトリと容量別GGUFファイル一覧を確認して取得',
+        'ローカルAIチャット画面（v0.5.2アプリ）— PC内で直接対話しながらTTFTや生成速度(tok/s)をリアルタイム確認'
       ],
       p1: ['動画上の感情タイムラインとカスタム再生コントロールを表示するフェイスレビューの視聴画面', '感情分布ドーナツと最近見た動画別グラフを表示するフェイスレビューのマイページ'],
       p2: ['日付別にNBAの試合日程とスコアを確認するトドドンの画面', 'リアルタイム文字中継と試合別チャットを同時に提供するトドドンの試合画面'],

@@ -4,11 +4,12 @@ import vm from 'node:vm';
 
 const root = new URL('../', import.meta.url);
 const assets = ['js/data.js', 'js/app.js', 'js/project-detail.js', 'js/scroll-motion.js', 'css/style.css', 'css/project-detail.css'];
+const themeAssets = ['css/theme-wave.css', 'css/theme-pulse.css', 'css/theme-focus.css'];
 const pages = ['index.html', ...[
   'claude-wave.html', 'opencode-wave.html', 'focus.html', 'font-line.html',
   'font-noto.html', 'font-gothic.html', 'font-neo.html', 'font-free.html', 'font-maru.html'
 ].map(name => `mockups/${name}`)];
-const assetReference = /((?:src|href)="(?:\.\.\/)?(js\/(?:data|app|project-detail|scroll-motion)\.js|css\/(?:style|project-detail)\.css))(?:\?[^"\s]*)?"/g;
+const assetReference = /((?:src|href)="(?:\.\.\/)?(js\/(?:data|app|project-detail|scroll-motion)\.js|css\/(?:style|project-detail|theme-(?:wave|pulse|focus))\.css))(?:\?[^"\s]*)?"/g;
 
 async function main() {
   const args = process.argv.slice(2);
@@ -16,7 +17,8 @@ async function main() {
     throw new Error('Usage: node scripts/sync-home.mjs [--check]');
   }
   const check = args[0] === '--check';
-  const sources = new Map(await Promise.all(assets.map(async file => [file, await readFile(new URL(file, root), 'utf8')])));
+  const allHashedAssets = [...assets, ...themeAssets];
+  const sources = new Map(await Promise.all(allHashedAssets.map(async file => [file, await readFile(new URL(file, root), 'utf8')])));
   const hash = createHash('sha256');
   for (const [file, source] of sources) hash.update(file).update('\0').update(source).update('\0');
   const version = hash.digest('hex').slice(0, 12);
